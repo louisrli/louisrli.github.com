@@ -1,0 +1,250 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>A Rational Approximation of Pi Using the Pigeonhole Principle - Louis Li</title>
+	<meta name="author" content="Louis Li">
+
+	
+	<meta name="description" content="A Rational Approximation of Pi Using the Pigeonhole Principle Below is a short Python script that finds a fractional approximation of \(\pi\) using &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://louisrli.github.io/blog/2013/01/31/approximating-pi-pigeonhole-principle/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("louisrli@gmail.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<hgroup>
+  <h1><a href="/">Louis Li</a></h1>
+  
+</hgroup>
+
+<p class="subtitle"></p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/2013/01/12/sideprojects-2012/">Sideprojects</a></li>
+  <li><a href="http://github.com/louisrli">Github</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		<a class="google" href="https://plus.google.com/106125247318074050350" rel="author" title="Google+">Google+</a>
+		
+		
+		
+		<a class="github" href="https://github.com/louisrli" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="http://feeds.feedburner.com/louisligithub" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">A Rational Approximation of Pi Using the Pigeonhole Principle</h1>
+	<div class="entry-content" itemprop="articleBody"><p>Below is a short Python script that finds a fractional approximation of \(\pi\) using the first 1001 multiples of \(\pi\) (the case with 11 multiples of \(\pi\) can easily be done by hand). It makes use of the <em>pigeonhole principle</em>. The 11-multiple version of the problem has been used in the module teaching the pigeonhole principle in various classes that I have taken or taught.</p>
+
+<p>The <a href="http://en.wikipedia.org/wiki/Pigeonhole_principle">pigeonhole principle</a> states that:</p>
+
+<blockquote><p>If \(n > m\) and \(n\) pigeons are placed in \(m \) pigeonholes, then one pigeonhole must contain more than one pigeon.</p></blockquote>
+
+<!-- more -->
+
+
+<h2>Problem and Solution</h2>
+
+<blockquote><p>Given the following multiples of \(\pi\), each truncated to four decimal places:</p>
+
+<p>\(0\pi = 0.0000, 1\pi = 3.1415, 2\pi = 6.2831, &hellip; 1001\pi = 3144.7342 \)</p>
+
+<p>Use the pigeonhole principle to find a good rational approximation to \(\pi\).</p></blockquote>
+
+<p>If we are given the multiples \(0 \pi \) through \( 1000 \pi \), we have 1001 multiples of \(0 \pi \). Consider the first three digits to the right of the decimal place of a number (in 123.456, the digits 456).</p>
+
+<p>There are only 1000 possibilities for the first three digits to the right of the decimal place. Given 1001 multiples of \(\pi \), we can conclude from the pigeonhole principle that two such multiples must have the same three digits. This means that the difference to the right of the decimal point them is less than 0.001 in absolute value (for example, \(0.1235 &ndash; 0.1230 = 0.005\)).</p>
+
+<p>Let \(m \pi, n \pi, m > n \) be two multiples sharing the three numbers to the right of the decimal place. Then:</p>
+
+<p>$$ m\pi &ndash; n\pi = (m &ndash; n) \pi \implies \pi = \frac{m \pi &ndash; n \pi}{m &ndash; n} $$</p>
+
+<p>Because \( m\pi &ndash; n\pi \) has a difference to the right of the decimal place that is less than 0.001, it approximates some integer. Therefore, we can use \( \frac{m \pi &ndash; n \pi}{m &ndash; n} \) as a rational approximation of \pi.</p>
+
+<h2>Code</h2>
+
+<p>For 11 multiples of \( \pi \), the problem is trivial to do by hand. For 1001 multiples, I&rsquo;ve written a Python script to solve the problem. You can play around with the code <a href="http://codepad.org/HCmovMEd">here</a>.</p>
+
+<div>
+  <pre><code class='python'>&quot;&quot;&quot;
+pi.py
+Calculates an approximation of pi given the multiples 0pi - 1000pi using
+the Pigeonhole Principle. Outputs the first approximation found.
+
+Author: Louis Li
+&quot;&quot;&quot;
+
+import math
+
+
+def main():
+    # Store the decimals we've found in a dictionary with its multiple of pi
+    d = dict()
+
+    for n in xrange(0, 1001):
+        n_pi = n * math.pi
+
+        first_three_dec = int(math.floor((n_pi * 1000) % 1000))
+
+        if not first_three_dec in d:
+            d[first_three_dec] = n
+        else:
+            # Calculate an approximation, having found two numbers
+            # with the same first three decimal places
+            m = d[first_three_dec]
+            m_pi = m * math.pi
+
+            print int(round(n_pi - m_pi))
+            print &quot;----- = &quot;, ((n_pi - m_pi) / (n - m)), \
+                &quot;(m = %d, n = %d)&quot; % (m, n)
+            print (n - m)
+            print &quot;\nActual value, pi: &quot;, math.pi
+            break
+
+if __name__ == '__main__':
+    main()</code></pre>
+</div>
+
+
+<p>This will output the first solution found:</p>
+
+<div>
+  <pre><code class='text'>355
+----- =  3.14159265359 (m = 1, n = 114)
+113
+
+Actual value, pi:  3.14159265359</code></pre>
+</div>
+
+
+
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2013 - Louis Li -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'louisrli';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://louisrli.github.io/blog/2013/01/31/approximating-pi-pigeonhole-principle/';
+        var disqus_url = 'http://louisrli.github.io/blog/2013/01/31/approximating-pi-pigeonhole-principle/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32823730-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: school | Louis Li]]></title>
+  <link href="http://louisrli.github.io/blog/categories/school/atom.xml" rel="self"/>
+  <link href="http://louisrli.github.io/"/>
+  <updated>2013-07-08T18:46:52-04:00</updated>
+  <id>http://louisrli.github.io/</id>
+  <author>
+    <name><![CDATA[Louis Li]]></name>
+    <email><![CDATA[louisrli@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Sophomore Spring: A Brief List of What I Learned]]></title>
+    <link href="http://louisrli.github.io/blog/2013/05/13/what-i-learned-this-semester/"/>
+    <updated>2013-05-13 00:00:00 -0400</updated>
+    <id>http://louisrli.github.io/blog/2013/05/13/what-i-learned-this-semester</id>
+    <content type="html"><![CDATA[<p>Here&rsquo;s a concise list of [some of] the things that I learned this semester. I would say that the things that I learned this semester are a lot more diverse than those from last semester (I&rsquo;d describe last semester as&hellip;math).</p>
+
+<h2>Research</h2>
+
+<p>(I work in an HCI research group).</p>
+
+<p><strong>Demo or die</strong>.</p>
+
+<p><strong>Experimental design in HCI</strong> is very similar to experimental design in psychology. HCI is human-computer interaction; psychology is human interaction.</p>
+
+<!-- more -->
+
+
+<p><strong>What does my advisor do in his day-to-day life?</strong> As an HCI professor, he is a master of experimental design. As an advisor, his day is often filled with meetings, colloquia, and proposals. I wonder when he finds time to hack on something or put together a project (but amazingly, he manages to do it).</p>
+
+<p><strong>What is the life of a grad student like?</strong> They seem to have a lot of time to code things. They attend a lot of talks, possibly looking for inspiration?</p>
+
+<p>Group meeting is very insightful.</p>
+
+<p>I&rsquo;ve known, but now better understand, the concept of <strong>programming as a tool.</strong> The person reading your paper doesn&rsquo;t care about your code, your backend, or your choice of framework.</p>
+
+<h2>Programming Languages</h2>
+
+<p>The class could be titled <em>Programming Languages Theory</em>, since it&rsquo;s an introductory class. I think students who haven&rsquo;t taken it and aren&rsquo;t familiar with the field aren&rsquo;t too sure what topics to expect.</p>
+
+<p>What is programming language (PL) theory? Here&rsquo;s a meme-style joke that I usually think of when someone asks me what it is:</p>
+
+<p>What students outside of computer science think:
+: &ldquo;Oh, so you learn how to program in a lot of different programming languages.&rdquo;</p>
+
+<p>What computer science students unfamiliar with PL think (myself included at the time):
+: &ldquo;You do something formal with programming languages. You prove things about them. Or something like that.&rdquo;</p>
+
+<p>What it really is:
+: &ldquo;Logic and inference rules. Induction. Semantics and types. More inference rules. Models.&rdquo;</p>
+
+<p>There is a lot more to the field, but that&rsquo;s what was packed into the introductory course.</p>
+
+<p>There also seem to be a lot of ways to teach a PL course. From looking at other resources on the internet, a lot of professors choose to make the whole course closely follow some programming language, and all concepts are taught with applications. I think I prefer the approach in my course, where the first half was purely theory and the second half mixed theory with code.</p>
+
+<h2>Computational Linguistics</h2>
+
+<p>Lambda-calculus has applications in grammars and quantifiers!</p>
+
+<p>I actually gained a good understanding of the problems in natural language processing. It was a good class for breadth, and my final project, which tackled <a href="http://en.wikipedia.org/wiki/Word-sense_disambiguation">word sense disambiguation</a>, was pretty interesting.</p>
+
+<p>Prolog is interesting. I&rsquo;m pretty impressed by how easy it is to build a basic parser in Prolog.</p>
+
+<h2>Rover</h2>
+
+<p><strong>Clients don&rsquo;t care about the technical details.</strong> Don&rsquo;t make excuses, get things done, and translate them to the appropriate nontechnical language.</p>
+
+<p><strong>Keep communicating with the client.</strong> Just as you would <a href="http://online.wsj.com/article/SB122511931313072047.html">manage up</a> with your boss, go out of your way to maintain a good relationship with clients.</p>
+
+<h2>Development</h2>
+
+<p>Javascript frameworks seem to be the new thing. Client-side frameworks for single page web applications make a lot of sense though, reducing the unnecessary overhead of maintaining the server. I&rsquo;d definitely like to try <a href="http://meteor.com">Meteor</a>. No jQuery spaghetti.</p>
+
+<p>That being said, a <em>lot</em> more experience with web development this semester through my research project. If I could go back, I would have used a Javascript framework (but that&rsquo;s what the first major project in a language is for!).</p>
+]]></content>
+  </entry>
+  
+</feed>

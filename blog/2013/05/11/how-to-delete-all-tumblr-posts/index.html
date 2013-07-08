@@ -3,11 +3,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>About - Louis Li</title>
+	<title>Up-to-date Guide on How to Delete All Posts on Your Tumblr - Louis Li</title>
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="I&rsquo;m an undergraduate at Harvard University. I&rsquo;m currently pursuing a degree in Computer Science and a minor in Mathematical Sciences. &hellip;">
+	<meta name="description" content="Up-to-date Guide on How to Delete All Posts on Your Tumblr One of my friends asked me how to batch delete all of the posts on a Tumblr. There are &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -17,7 +17,7 @@
 
 	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
 	
-	<link rel="canonical" href="http://louisrli.github.io/">
+	<link rel="canonical" href="http://louisrli.github.io/blog/2013/05/11/how-to-delete-all-tumblr-posts/">
 	<link href="/favicon.png" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -85,18 +85,41 @@
 				
 			
 			<div class="mid-col-container">
-				<div id="content" class="inner"><article class="page">
-    
-    <h1 class="title">About</h1>
-    
-    <div class="entry-content"><p>I&rsquo;m an undergraduate at Harvard University. I&rsquo;m currently pursuing a degree in Computer Science and a minor in Mathematical Sciences. This site has my <a href="sideprojects">sideprojects</a> and occasional <a href="blog">blog posts</a>.</p>
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Up-to-date Guide on How to Delete All Posts on Your Tumblr</h1>
+	<div class="entry-content" itemprop="articleBody"><p>One of my friends asked me how to batch delete all of the posts on a <a href="http://tumblr.com">Tumblr</a>. There are some PHP and Ruby scripts on the internet that claim to achieve this, but they seem to be outdated in regards to the Tumblr API, or they require installing some packages.</p>
 
-<p>I have diverse interests in programming and computer science, among which are (but not limited to) human-computer interaction, application security, and mobile development. Last summer, I was an intern at <a href="http://www.akiban.com/">Akiban</a>, an amazing database startup in Boston. I&rsquo;m currently an undergraduate researcher at the <a href="http://iis.seas.harvard.edu">Intelligent Interactive Systems Group</a> under <a href="http://www.eecs.harvard.edu/~kgajos/">Krzysztof Gajos</a>. I&rsquo;m also the managing developer of the iOS team at <a href="http://rover.hsa.net/">Rover</a>.</p>
+<!-- more -->
 
-<p>I like <a href="https://github.com/louisrli/project-euler">mathematical programming puzzles</a> and <a href="/sideprojects/2013/01/12/sideprojects-2012/#exploits">wargames</a>.</p>
 
-<p>Surprisingly, I do enjoy a few things unrelated to computers: running, bboying (breakdancing), and poker (particularly heads up no limit).</p>
+<h2>Instructions</h2>
+
+<p>This will allow you to delete 100 posts at a time. Unfortunately, if you try more, Tumblr will give you a warning that only 100 posts can be edited at one time.</p>
+
+<ol>
+<li>On the right side of the Tumblr dashboard, click <strong>Posts</strong> underneath the name of your blog.</li>
+<li>This should bring up a link called <strong>Mass Post Editor</strong>. Click on <strong>Mass Post Editor</strong>.</li>
+<li>You&rsquo;ll be presented with your posts as tiles. <strong>Keep scrolling down</strong> until at least 100 posts (eyeball it) appear on the screen.</li>
+<li><p>Paste the code snippet below in the URL bar. There will be no visible changes. <strong>NOTE:</strong> Some browsers will remove the <code>javascript:</code> in front of it. Double check that it&rsquo;s still there, and if not, type <code>javascript:</code> at the beginning of the pasted part. <div>
+<pre><code class='javascript'>javascript:if(!window.protolicious)(function(d,s){s=d.createElement(&lsquo;script&rsquo;);s.src=&lsquo;<a href="https://raw.github.com/kangax/protolicious/master/event.simulate.js">https://raw.github.com/kangax/protolicious/master/event.simulate.js</a>&rsquo;;(d.head||d.documentElement).appendChild(s)})(document);</code></pre>
+</div></p></li>
+<li><p>Paste the code snippet below in the URL bar. It should select the first 100 posts with checkmarks. <div>
+<pre><code class='javascript'>javascript:$$(&lsquo;.overlay&rsquo;).slice(0, 100).each(function(a) { a.simulate(&lsquo;click&rsquo;); });</code></pre>
+</div></p></li>
+<li><p>Click <strong>Delete selected posts</strong>.</p></li>
+<li>Refresh the page if needed, and delete another 100 posts!</li>
+</ol>
+
+
+<p>If for some reason this doesn&rsquo;t work, let me know in the comments. I&rsquo;ll try to keep this up-to-date.</p>
+
+<h2>Technical Details</h2>
+
+<p>Tumblr uses the Javascript library <a href="http://prototypejs.org/">Prototype</a>. Unlike jQuery, this doesn&rsquo;t provide a lot of support for handling and simulating events, so we load some library (I&rsquo;m not familiar with Prototype, although I briefly read the docs out of curiosity) called <a href="https://github.com/kangax/protolicious">Protolicious</a> that adds some support for this.</p>
+
+<p>Prototype is already included on the page, since Tumblr uses it. The code loads the Protolicious library, finds the first 100 posts, and clicks on them.</p>
 </div>
+
 </article>
 
 	<div class="share">
@@ -113,6 +136,11 @@
 
 
 
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
 </div>
 			</div>
 			<footer id="footer" class="inner"><p>
@@ -134,7 +162,10 @@ Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Sha
       var disqus_shortname = 'louisrli';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://louisrli.github.io/blog/2013/05/11/how-to-delete-all-tumblr-posts/';
+        var disqus_url = 'http://louisrli.github.io/blog/2013/05/11/how-to-delete-all-tumblr-posts/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

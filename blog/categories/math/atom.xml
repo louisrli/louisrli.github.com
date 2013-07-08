@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: math | Louis Li]]></title>
+  <link href="http://louisrli.github.io/blog/categories/math/atom.xml" rel="self"/>
+  <link href="http://louisrli.github.io/"/>
+  <updated>2013-07-08T18:46:52-04:00</updated>
+  <id>http://louisrli.github.io/</id>
+  <author>
+    <name><![CDATA[Louis Li]]></name>
+    <email><![CDATA[louisrli@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[A Rational Approximation of Pi Using the Pigeonhole Principle]]></title>
+    <link href="http://louisrli.github.io/blog/2013/01/31/approximating-pi-pigeonhole-principle/"/>
+    <updated>2013-01-31 00:00:00 -0500</updated>
+    <id>http://louisrli.github.io/blog/2013/01/31/approximating-pi-pigeonhole-principle</id>
+    <content type="html"><![CDATA[<p>Below is a short Python script that finds a fractional approximation of \(\pi\) using the first 1001 multiples of \(\pi\) (the case with 11 multiples of \(\pi\) can easily be done by hand). It makes use of the <em>pigeonhole principle</em>. The 11-multiple version of the problem has been used in the module teaching the pigeonhole principle in various classes that I have taken or taught.</p>
+
+<p>The <a href="http://en.wikipedia.org/wiki/Pigeonhole_principle">pigeonhole principle</a> states that:</p>
+
+<blockquote><p>If \(n > m\) and \(n\) pigeons are placed in \(m \) pigeonholes, then one pigeonhole must contain more than one pigeon.</p></blockquote>
+
+<!-- more -->
+
+
+<h2>Problem and Solution</h2>
+
+<blockquote><p>Given the following multiples of \(\pi\), each truncated to four decimal places:</p>
+
+<p>\(0\pi = 0.0000, 1\pi = 3.1415, 2\pi = 6.2831, &hellip; 1001\pi = 3144.7342 \)</p>
+
+<p>Use the pigeonhole principle to find a good rational approximation to \(\pi\).</p></blockquote>
+
+<p>If we are given the multiples \(0 \pi \) through \( 1000 \pi \), we have 1001 multiples of \(0 \pi \). Consider the first three digits to the right of the decimal place of a number (in 123.456, the digits 456).</p>
+
+<p>There are only 1000 possibilities for the first three digits to the right of the decimal place. Given 1001 multiples of \(\pi \), we can conclude from the pigeonhole principle that two such multiples must have the same three digits. This means that the difference to the right of the decimal point them is less than 0.001 in absolute value (for example, \(0.1235 &ndash; 0.1230 = 0.005\)).</p>
+
+<p>Let \(m \pi, n \pi, m > n \) be two multiples sharing the three numbers to the right of the decimal place. Then:</p>
+
+<p>$$ m\pi &ndash; n\pi = (m &ndash; n) \pi \implies \pi = \frac{m \pi &ndash; n \pi}{m &ndash; n} $$</p>
+
+<p>Because \( m\pi &ndash; n\pi \) has a difference to the right of the decimal place that is less than 0.001, it approximates some integer. Therefore, we can use \( \frac{m \pi &ndash; n \pi}{m &ndash; n} \) as a rational approximation of \pi.</p>
+
+<h2>Code</h2>
+
+<p>For 11 multiples of \( \pi \), the problem is trivial to do by hand. For 1001 multiples, I&rsquo;ve written a Python script to solve the problem. You can play around with the code <a href="http://codepad.org/HCmovMEd">here</a>.</p>
+
+<p><div>
+  <pre><code class='python'>&amp;ldquo;&amp;rdquo;&amp;ldquo;
+pi.py
+Calculates an approximation of pi given the multiples 0pi &amp;ndash; 1000pi using
+the Pigeonhole Principle. Outputs the first approximation found.&lt;/p&gt;
+
+&lt;p&gt;Author: Louis Li
+&amp;ldquo;&amp;rdquo;&quot;&lt;/p&gt;
+
+&lt;p&gt;import math&lt;/p&gt;
+
+&lt;p&gt;def main():&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Store the decimals we've found in a dictionary with its multiple of pi
+d = dict()
+
+for n in xrange(0, 1001):
+    n_pi = n * math.pi
+
+    first_three_dec = int(math.floor((n_pi * 1000) % 1000))
+
+    if not first_three_dec in d:
+        d[first_three_dec] = n
+    else:
+        # Calculate an approximation, having found two numbers
+        # with the same first three decimal places
+        m = d[first_three_dec]
+        m_pi = m * math.pi
+
+        print int(round(n_pi - m_pi))
+        print &quot;----- = &quot;, ((n_pi - m_pi) / (n - m)), \
+            &quot;(m = %d, n = %d)&quot; % (m, n)
+        print (n - m)
+        print &quot;\nActual value, pi: &quot;, math.pi
+        break
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;if &lt;strong&gt;name&lt;/strong&gt; == &amp;lsquo;&lt;strong&gt;main&lt;/strong&gt;&amp;rsquo;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;main()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;</code></pre>
+</div>
+</p>
+
+<p>This will output the first solution found:</p>
+
+<p><div>
+  <pre><code class='text'>355
+&amp;mdash;&amp;mdash;&amp;ndash; =  3.14159265359 (m = 1, n = 114)
+113&lt;/p&gt;
+
+&lt;p&gt;Actual value, pi:  3.14159265359</code></pre>
+</div>
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Looking Forward to Discrete Mathematics]]></title>
+    <link href="http://louisrli.github.io/blog/2012/12/22/discrete-math-paper/"/>
+    <updated>2012-12-22 00:00:00 -0500</updated>
+    <id>http://louisrli.github.io/blog/2012/12/22/discrete-math-paper</id>
+    <content type="html"><![CDATA[<p>For one of my math classes this semester (Sets and Topology), we had a short project: a three-to-five page paper on some area in mathematics. I opted for discrete mathematics, which is a topic on the broad side; five pages, of course.</p>
+
+<!-- more -->
+
+
+<p>The target audience was supposed to be other students in the course, and the paper should help students decide whether they would pursue the given area of mathematics.</p>
+
+<p>I found this project surprisingly pleasant. Here&rsquo;s <a href="https://www.dropbox.com/s/o1dalrrvstz0u7g/math101-final-paper.pdf">a link to the paper</a>.</p>
+
+<h2>Course assisting</h2>
+
+<p>I&rsquo;m going to be a course assistant for a one-week winter break course on discrete math. I&rsquo;m very excited to return this year to teach, having been a student of the course last year.It&rsquo;s a fast-paced, active learning course that covers 10 modules (topics), two per day. I&rsquo;ll be preparing and presenting the logic module. I&rsquo;ve recently been converted into a believer for active learning.</p>
+
+<p>Discrete math!</p>
+]]></content>
+  </entry>
+  
+</feed>

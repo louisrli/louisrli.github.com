@@ -3,11 +3,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>About - Louis Li</title>
+	<title>Using Quicksilver Mac and AppleScript to Adjust System Volume - Louis Li</title>
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="I&rsquo;m an undergraduate at Harvard University. I&rsquo;m currently pursuing a degree in Computer Science and a minor in Mathematical Sciences. &hellip;">
+	<meta name="description" content="Using Quicksilver Mac and AppleScript to Adjust System Volume I&rsquo;ve been using Quicksilver for a while, and I&rsquo;d heard of how powerful but &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -17,7 +17,7 @@
 
 	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
 	
-	<link rel="canonical" href="http://louisrli.github.io/">
+	<link rel="canonical" href="http://louisrli.github.io/blog/2013/01/15/applescript-volume/">
 	<link href="/favicon.png" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -85,18 +85,69 @@
 				
 			
 			<div class="mid-col-container">
-				<div id="content" class="inner"><article class="page">
-    
-    <h1 class="title">About</h1>
-    
-    <div class="entry-content"><p>I&rsquo;m an undergraduate at Harvard University. I&rsquo;m currently pursuing a degree in Computer Science and a minor in Mathematical Sciences. This site has my <a href="sideprojects">sideprojects</a> and occasional <a href="blog">blog posts</a>.</p>
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Using Quicksilver Mac and AppleScript to Adjust System Volume</h1>
+	<div class="entry-content" itemprop="articleBody"><p>I&rsquo;ve been using <a href="http://qsapp.com/">Quicksilver</a> for a while, and I&rsquo;d heard of how powerful but never taken advantage of it. I wanted to adjust the system volume through Quicksilver: right now, I have to use <code>fn</code> + <code>f10</code> / <code>f11</code> / <code>f12</code> to adjust volume, since I chose to have <code>f1</code>&ndash;<code>f12</code> map to the normal keys.</p>
 
-<p>I have diverse interests in programming and computer science, among which are (but not limited to) human-computer interaction, application security, and mobile development. Last summer, I was an intern at <a href="http://www.akiban.com/">Akiban</a>, an amazing database startup in Boston. I&rsquo;m currently an undergraduate researcher at the <a href="http://iis.seas.harvard.edu">Intelligent Interactive Systems Group</a> under <a href="http://www.eecs.harvard.edu/~kgajos/">Krzysztof Gajos</a>. I&rsquo;m also the managing developer of the iOS team at <a href="http://rover.hsa.net/">Rover</a>.</p>
+<p>It seems that there&rsquo;s actually no Quicksilver plugin for system volume &mdash; only iTunes volume &mdash; but it&rsquo;s pretty simple to do with AppleScripts. It&rsquo;s not documented everywhere, so I thought I&rsquo;d add it here.</p>
 
-<p>I like <a href="https://github.com/louisrli/project-euler">mathematical programming puzzles</a> and <a href="/sideprojects/2013/01/12/sideprojects-2012/#exploits">wargames</a>.</p>
+<!-- more -->
 
-<p>Surprisingly, I do enjoy a few things unrelated to computers: running, bboying (breakdancing), and poker (particularly heads up no limit).</p>
+
+
+
+<ul class="thumbnails" style="width: 50%; margin: 0px auto;">
+<li class="span4">
+<a href="/images/quicksilver-script.png" class="thumbnail">
+<img alt="Quicksilver script for increasing volume" src="/images/quicksilver-script.png" height="300"/>
+</a>
+</li>
+</ul>
+
+
+<h2>Volume AppleScripts</h2>
+
+<p>The AppleScripts below will adjust the system volume, which is measured on a scale of 0 &ndash; 100. Here&rsquo;s a <a href="https://www.dropbox.com/s/8a3rzqtiyupmny1/volume-applescripts.zip">download link</a> for these three scripts. To use them in Quicksilver, add them to the catalog, and opening them in Quicksilver should run them by default.</p>
+
+<h5>Decrease volume</h5>
+
+<div>
+  <pre><code class='applescript'># Decrease\ Volume.scpt
+set currentVolume to output volume of (get volume settings)
+set volume output volume (currentVolume - 10)</code></pre>
 </div>
+
+
+<h5>Increase volume</h5>
+
+<div>
+  <pre><code class='applescript'># Increase\ Volume.scpt
+set currentVolume to output volume of (get volume settings)
+set volume output volume (currentVolume + 10)</code></pre>
+</div>
+
+
+<h5>Mute volume</h5>
+
+<div>
+  <pre><code class='applescript'># Mute\ Volume.scpt
+set isMuted to output muted of (get volume settings)
+set volume output muted not isMuted</code></pre>
+</div>
+
+
+<h2>Using in command line</h2>
+
+<p>To run an AppleScript file in the command line, run:</p>
+
+<div>
+  <pre><code class='console'>$ osascript /path/to/file</code></pre>
+</div>
+
+
+<p>These files have spaces in them so that it looks cleaner in Quicksilver, but you can alias the commands appropriately.</p>
+</div>
+
 </article>
 
 	<div class="share">
@@ -113,6 +164,11 @@
 
 
 
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
 </div>
 			</div>
 			<footer id="footer" class="inner"><p>
@@ -134,7 +190,10 @@ Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Sha
       var disqus_shortname = 'louisrli';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://louisrli.github.io/blog/2013/01/15/applescript-volume/';
+        var disqus_url = 'http://louisrli.github.io/blog/2013/01/15/applescript-volume/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

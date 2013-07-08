@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: research | Louis Li]]></title>
+  <link href="http://louisrli.github.io/blog/categories/research/atom.xml" rel="self"/>
+  <link href="http://louisrli.github.io/"/>
+  <updated>2013-07-08T18:46:52-04:00</updated>
+  <id>http://louisrli.github.io/</id>
+  <author>
+    <name><![CDATA[Louis Li]]></name>
+    <email><![CDATA[louisrli@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Five Research Tips for First-Time Undergraduate Researchers]]></title>
+    <link href="http://louisrli.github.io/blog/2013/06/28/researchtips/"/>
+    <updated>2013-06-28 00:00:00 -0400</updated>
+    <id>http://louisrli.github.io/blog/2013/06/28/researchtips</id>
+    <content type="html"><![CDATA[<p>Today, I submitted my first extended abstract to the ASSETS 2013 Student Research Competition. This marks my first tangible output in undergraduate research. This isn&rsquo;t quite the end of the story &mdash; I plan to continue gathering results and writing a paper for submission to CHI. It is, however, time for reflection.</p>
+
+<!-- more -->
+
+
+<p>My research endeavors (in human-computer interaction) have been an incredible learning experience. In this post, I want to talk about some of the more <em>practical</em>, elementary lessons that I learned about the research process. These are mostly time-saving lessons. Unfortunately, I missed a lot of these lessons when I did medical research in high school. My sincerest hope is that another undergraduate researcher, working on his or her first research project, will stumble upon this post and save some valuable time.</p>
+
+<p><strong>I have no doubt that grad students and experienced researchers know these already &mdash; these are for first-time lead researchers.</strong> Or, if you&rsquo;re a grad student or Ph.D that disagrees with anything below, feel free to impart your wisdom by correcting or qualifying it (I place a lot of weight on the wisdom of the ancients &mdash; not that you&rsquo;re ancient&hellip;).</p>
+
+<h3>1. Design and analysis: Find answers in the results and methods sections</h3>
+
+<p>Research papers aren&rsquo;t only valuable for their graphs and conclusions. Chances are, there are similarly designed experiments floating around on Google Scholar (what papers are in your literature review?).</p>
+
+<p>Although I initially relied on asking others, I found that consulting past work is an excellent way of finding answers to questions yourself. These include answers to questions like:</p>
+
+<ul>
+<li>What statistical analyses do others usually employ on experiments of similar design?</li>
+<li>How do others exclude outliers?</li>
+<li>How did others run experiments that had similar conditions?</li>
+<li>What metric is usually used to present errors in clicking tasks?</li>
+</ul>
+
+
+<p>And many more. I still discussed my various approaches with other people before moving forward to make sure that I wasn&rsquo;t misinterpreting the papers, but if you&rsquo;re ever feeling <em>clueless</em> about anything, check the literature first.</p>
+
+<h3>2. Data Collection: If your data is simple, just store it as CSV</h3>
+
+<p>Really, just store it as CSV. <strong>Every data analysis application accepts CSV</strong>, and it saves time from parsing to store the raw results as CSV.</p>
+
+<p>I went through a few iterations of data storage. First, I stored things in a MySQL database. Having interned at a database company last summer, the thought of appending my data to a plaintext file was horrifying.</p>
+
+<p>I soon realized, however, that the overhead of storing, retrieving, and quickly inspecting values in a database was more trouble than it was worth. I opted to store my results (time, error, trajectory, detailed mouse logs, questionnaires &mdash; each with associated metadata) as JSON files, which made the logs easy to quickly inspect. Since I used MATLAB (more on that later) and JMP for analysis, I eventually parsed this JSON into numpy/MATLAB matrices, and finally, just CSV files. Oops!</p>
+
+<p>Before you start gathering data, envision yourself processing the data. Keep in mind that you&rsquo;ll most likely want to process your data as tables.</p>
+
+<p>The caveat is that CSV isn&rsquo;t too good at handling more complex data with parent-child relationships (though you could stringify lists into a cell).</p>
+
+<h3>3. Communication: Make it easy for your PI</h3>
+
+<p>Professors have a reputation for being busy, though my PI (research advisor) is receptive to meeting if I need it. One thing that I quickly learned is that meetings go much more smoothly if I make it easy for him. More concretely: <strong>when possible, I should generate ideas and present them to him for feedback, rather than having him do the heavy lifting.</strong></p>
+
+<p>After all, your PI is helping <em>you</em>, so he or she deserves your best effort to make the process less painful. These include things like being ready for meetings. At first, our meetings were pretty disorganized, but I learned that it&rsquo;s a good idea to write up a very specific list of topics beforehand. This ensured that the meetings ran smoothly: demo, receive feedback, iterate through questions and discussion points, talk about next steps.</p>
+
+<h3>4. Data Analysis: Don&rsquo;t use MATLAB for statistical analysis</h3>
+
+<p>For some reason (the reason being that I was only familiar with MATLAB and Excel for analysis), I thought it was a good idea to use MATLAB for doing statistical analysis and making graphs. While MATLAB has a statistics toolbox and graphing functionality, it&rsquo;s not great for playing around with data and generating graphs quickly.</p>
+
+<p>The choice of program is personal preference &mdash; or in my case, inheritance. After spending an embarrassing amount of time grouping my data in MATLAB, I watched my PI replicate my work in five minutes using the Graph Builder in JMP. I ended up using JMP, and I really like it. The Graph Builder is wonderful. The documentation is okay (MATLAB has great documentation).</p>
+
+<p>There are a lot of options &mdash; R, Stata, SPSS. I tried both SPSS and JMP. My initial impressions is that SPSS has a pretty bad user experience, while JMP&rsquo;s workflow seems better thought out (though minor things could be improved).</p>
+
+<p>An auxiliary lesson is that it&rsquo;s worth asking a grad student, postdoc, or PI about their workflow before beginning an endeavor. Unfortunately, the ones in my group work in a different office and weren&rsquo;t immediately accessible, but I&rsquo;ll definitely ask if I find myself in a new situation.</p>
+
+<h3>5. Graphing for papers: Excel is a good option</h3>
+
+<p>There&rsquo;s graphing for the purpose of playing with data, then there&rsquo;s graphing for the purpose of producing a good looking PDF.</p>
+
+<p>For the latter, I found that neither JMP nor MATLAB would let me style my graphs with the flexibility and speed that I wanted. One of the postdocs said that she used R or Excel. Excel was actually a very good option, since I just wanted to change the fonts, size, and bar labels. Lesson: with all the fancy tools, don&rsquo;t forget about Excel.</p>
+
+<p>I suspect Python might have some good graphing libraries, although the only one that I&rsquo;ve used is <code>matplotlib</code>, which was basically MATLAB. It&rsquo;s also possible to create graphs directly in TeX, although I would guess that it&rsquo;s harder to iterate on the styling.</p>
+]]></content>
+  </entry>
+  
+</feed>

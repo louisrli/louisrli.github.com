@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: cs | Louis Li]]></title>
+  <link href="http://louisrli.github.io/blog/categories/cs/atom.xml" rel="self"/>
+  <link href="http://louisrli.github.io/"/>
+  <updated>2013-07-08T18:46:52-04:00</updated>
+  <id>http://louisrli.github.io/</id>
+  <author>
+    <name><![CDATA[Louis Li]]></name>
+    <email><![CDATA[louisrli@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Wrapping up the summer]]></title>
+    <link href="http://louisrli.github.io/blog/2012/07/12/scala-and-summer/"/>
+    <updated>2012-07-12 00:00:00 -0400</updated>
+    <id>http://louisrli.github.io/blog/2012/07/12/scala-and-summer</id>
+    <content type="html"><![CDATA[<p>It&rsquo;s one of those posts that relates to everyone, but it had been on the edge of my mind recently. This post, titled the &ldquo;<a href="http://tilomitra.com/the-crazy-world-of-code">Crazy World of Code</a>&rdquo;, appeared on Hacker News a few days ago. It references a comment on a different HN article.</p>
+
+<!-- more -->
+
+
+<p>This posts nests the comment three levels deep, so I&rsquo;ll include <a href="http://www.zemanta.com/fruitblog/i-bet-you-over-engineered-your-startup/#comment-583120247">the original comment</a>.</p>
+
+<blockquote><p>I agree, I can’t keep up. I just finished learning backbone.js and now I’m found out on that it’s old news, and I should use ember.js, cross that, it has opinions, I should use Meteor, no, AngularJS, no, Tower.js (on node.js), and for html templates I need handlebars, no mustache, wait, DoT.js is better, hang on, why do I need an HTML parser inside the browser? isn’t that what the browser for? so no HTML templates? ok, DOM snippets, fine, Web Components you say? W3C are in the game too? you mean write REGULAR JavaScript like the Google guys? yuck, oh, I just should write it with CofeeScript and it will look ok, not Coffee? Coco? LiveScript?  DART? GWT? ok, let me just go back to Ruby on Rails, oh it doesn’t scale? Grails? Groovy? Roo? too “Springy?” ok, what about node.js? doesn’t scale either?? but I can write client side, server side and mongodb side code in the same language? (but does it have to be JavaScript?) ok, what about PHP, you say it’s not really thread safe? they lie?? ok, let me go back to server coding, it’s still Java right? no? Lisp? oh it’s called Clojure? well, it has a Bridge / protocol buffers / thrift implementation so we can be language agnostic, so we can support our Haskell developers. Or just go with Scala/Lift/Play it’s the BEST framework (Foresquare use it, so it has to be good). of course we won’t do SOAP and will use only JSON RESTful services cause it’s only for banks and Walmart, and god forbid to use a SQL database it will never scale</p></blockquote>
+
+<h2>One project, one language</h2>
+
+<p>This post had me thinking about a related topic. I was talking to one of my coworkers about mailing lists, and he said that he followed the Lua mailing list because he was &ldquo;a big fan of the Lua language.&rdquo;</p>
+
+<p>Again, it&rsquo;s one of those phrases that stick in my head. I&rsquo;ve done about one distinct language per project<sup>1, 2</sup>, but I&rsquo;ve never considered myself a &ldquo;big fan&rdquo; of any as a whole. Each time I start a new project, too, it&rsquo;s hard not to chase the shiny objects. There&rsquo;s a lot out there.</p>
+
+<p>It would be nice to start working toward knowing a language more intimately, like how <a href="http://stackoverflow.com/users/22656/jon-skeet">Jon Skeet</a> knows C#.</p>
+
+<h2>The rest of the summer</h2>
+
+<p>I&rsquo;m giving <a href="http://www.scala-lang.org/">Scala</a> a shot for my &ldquo;standard language.&rdquo;  I&rsquo;ve liked my experiences with both OCaml (functional, statically typed) and Java (object-oriented, compiled, statically typed). It seems like a language that I would really like, though, to clarify, it won&rsquo;t be the right tool for all problems.</p>
+
+<p>I thought deeply about this post because there&rsquo;s two distinct ideas floating in my head, and I&rsquo;m pretty excited to dig into both. I&rsquo;ve read a lot this summer and depended on my internship for &ldquo;doing,&rdquo; but I finally sat down and started thinking about projects that I&rsquo;d like to start.</p>
+
+<p><a href="http://www.amazon.com/Programming-Scala-Comprehensive-Step---Step/dp/0981531644">One last reading</a> for Scala, more exploit-exercises, and these (still under the radar) projects.</p>
+
+<ol>
+<li>Way different from one distinct project per language</li>
+<li><code>catch (Exception e) { Java, Objective-C }</code></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Beginning of Systems]]></title>
+    <link href="http://louisrli.github.io/blog/2012/07/08/systems-prog/"/>
+    <updated>2012-07-08 00:00:00 -0400</updated>
+    <id>http://louisrli.github.io/blog/2012/07/08/systems-prog</id>
+    <content type="html"><![CDATA[<p>That went by fast.</p>
+
+<p>Today, I finished both of my introductions to systems programming: the book <a href="http://www.amazon.com/Hacking-The-Art-Exploitation-Edition/dp/1593271441/">Hacking &ndash; The Art of Exploitation 2e</a> (since June) and the <a href="http://cs61.seas.harvard.edu/wiki/Schedule">lecture slides</a> (since three weeks ago) for the Harvard systems programming course, CS61. I thought I&rsquo;d commemorate.</p>
+
+<!-- more -->
+
+
+<p>I actually hadn&rsquo;t realized it until I sat down to write this post, but I&rsquo;m wrapping up my systems introduction unit (in course-speak). The reading ties together nicely with the doing (<a href="http://exploit-exercises.com/">exploit-exercises</a>). I had picked up <em>The Art of Exploitation</em> because it looked interesting, the lecture slides because they would allow me to take more specific computer science courses next semester, and the exercises because they looked fun. These are all somewhat orthogonal to each other.</p>
+
+<p>I am genuinely surprised that I hadn&rsquo;t seen the connection earlier, but these all covered <em>the same subject matter</em>. While reading the last few lecture slides for CS61, I thought, &ldquo;Wait, I&rsquo;m familiar with this already…but how?&rdquo;</p>
+
+<p>I suspect this is just the beginning of my pursuit for systems knowledge. The topic has always <em>theoretically</em> interested me &mdash; if that makes sense. I&rsquo;ve more or less confirmed this. I&rsquo;m excited for courses next semester! (Fall seems to have more choices.)</p>
+]]></content>
+  </entry>
+  
+</feed>

