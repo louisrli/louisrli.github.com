@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2013-07-16T16:01:13-04:00</updated>
+  <updated>2013-07-16T19:14:50-04:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -166,12 +166,14 @@
 <li>On the right side of the Tumblr dashboard, click <strong>Posts</strong> underneath the name of your blog.</li>
 <li>This should bring up a link called <strong>Mass Post Editor</strong>. Click on <strong>Mass Post Editor</strong>.</li>
 <li>You&rsquo;ll be presented with your posts as tiles. <strong>Keep scrolling down</strong> until at least 100 posts (eyeball it) appear on the screen.</li>
-<li><p>Paste the code snippet below in the URL bar. There will be no visible changes. <strong>NOTE:</strong> Some browsers will remove the <code>javascript:</code> in front of it. Double check that it&rsquo;s still there, and if not, type <code>javascript:</code> at the beginning of the pasted part. <div>
-<pre><code class='javascript'>javascript:if(!window.protolicious)(function(d,s){s=d.createElement(&lsquo;script&rsquo;);s.src=&lsquo;<a href="https://raw.github.com/kangax/protolicious/master/event.simulate.js">https://raw.github.com/kangax/protolicious/master/event.simulate.js</a>&rsquo;;(d.head||d.documentElement).appendChild(s)})(document);</code></pre>
-</div></p></li>
-<li><p>Paste the code snippet below in the URL bar. It should select the first 100 posts with checkmarks. <div>
-<pre><code class='javascript'>javascript:$$(&lsquo;.overlay&rsquo;).slice(0, 100).each(function(a) { a.simulate(&lsquo;click&rsquo;); });</code></pre>
-</div></p></li>
+<li><p>Paste the code snippet below in the URL bar. There will be no visible changes. <strong>NOTE:</strong> Some browsers will remove the <code>javascript:</code> in front of it. Double check that it&rsquo;s still there, and if not, type <code>javascript:</code> at the beginning of the pasted part.</p>
+
+<pre><code>  javascript:if(!window.protolicious)(function(d,s){s=d.createElement('script');s.src='https://raw.github.com/kangax/protolicious/master/event.simulate.js';(d.head||d.documentElement).appendChild(s)})(document); 
+</code></pre></li>
+<li><p>Paste the code snippet below in the URL bar. It should select the first 100 posts with checkmarks.</p>
+
+<pre><code>  javascript:$$('.overlay').slice(0, 100).each(function(a) { a.simulate('click'); }); 
+</code></pre></li>
 <li><p>Click <strong>Delete selected posts</strong>.</p></li>
 <li>Refresh the page if needed, and delete another 100 posts!</li>
 </ol>
@@ -223,58 +225,96 @@
 
 <p>For 11 multiples of \( \pi \), the problem is trivial to do by hand. For 1001 multiples, I&rsquo;ve written a Python script to solve the problem. You can play around with the code <a href="http://codepad.org/HCmovMEd">here</a>.</p>
 
-<div>
-  <pre><code class='python'>&quot;&quot;&quot;
-pi.py
-Calculates an approximation of pi given the multiples 0pi - 1000pi using
-the Pigeonhole Principle. Outputs the first approximation found.
-
-Author: Louis Li
-&quot;&quot;&quot;
-
-import math
-
-
-def main():
-    # Store the decimals we've found in a dictionary with its multiple of pi
-    d = dict()
-
-    for n in xrange(0, 1001):
-        n_pi = n * math.pi
-
-        first_three_dec = int(math.floor((n_pi * 1000) % 1000))
-
-        if not first_three_dec in d:
-            d[first_three_dec] = n
-        else:
-            # Calculate an approximation, having found two numbers
-            # with the same first three decimal places
-            m = d[first_three_dec]
-            m_pi = m * math.pi
-
-            print int(round(n_pi - m_pi))
-            print &quot;----- = &quot;, ((n_pi - m_pi) / (n - m)), \
-                &quot;(m = %d, n = %d)&quot; % (m, n)
-            print (n - m)
-            print &quot;\nActual value, pi: &quot;, math.pi
-            break
-
-if __name__ == '__main__':
-    main()</code></pre>
-</div>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">pi.py</span>
+</span><span class='line'><span class="sd">Calculates an approximation of pi given the multiples 0pi - 1000pi using</span>
+</span><span class='line'><span class="sd">the Pigeonhole Principle. Outputs the first approximation found.</span>
+</span><span class='line'>
+</span><span class='line'><span class="sd">Author: Louis Li</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">math</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span><span class='line'>    <span class="c"># Store the decimals we&#39;ve found in a dictionary with its multiple of pi</span>
+</span><span class='line'>    <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1001</span><span class="p">):</span>
+</span><span class='line'>        <span class="n">n_pi</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">first_three_dec</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">n_pi</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="ow">not</span> <span class="n">first_three_dec</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">d</span><span class="p">[</span><span class="n">first_three_dec</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>            <span class="c"># Calculate an approximation, having found two numbers</span>
+</span><span class='line'>            <span class="c"># with the same first three decimal places</span>
+</span><span class='line'>            <span class="n">m</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">first_three_dec</span><span class="p">]</span>
+</span><span class='line'>            <span class="n">m_pi</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">print</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">n_pi</span> <span class="o">-</span> <span class="n">m_pi</span><span class="p">))</span>
+</span><span class='line'>            <span class="k">print</span> <span class="s">&quot;----- = &quot;</span><span class="p">,</span> <span class="p">((</span><span class="n">n_pi</span> <span class="o">-</span> <span class="n">m_pi</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">)),</span> \
+</span><span class='line'>                <span class="s">&quot;(m = </span><span class="si">%d</span><span class="s">, n = </span><span class="si">%d</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span><span class='line'>            <span class="k">print</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">)</span>
+</span><span class='line'>            <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">Actual value, pi: &quot;</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+</span><span class='line'>            <span class="k">break</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">main</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>This will output the first solution found:</p>
 
-<div>
-  <pre><code class='text'>355
------ =  3.14159265359 (m = 1, n = 114)
-113
-
-Actual value, pi:  3.14159265359</code></pre>
-</div>
-
-
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>355
+</span><span class='line'>----- =  3.14159265359 (m = 1, n = 114)
+</span><span class='line'>113
+</span><span class='line'>
+</span><span class='line'>Actual value, pi:  3.14159265359
+</span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
   </entry>

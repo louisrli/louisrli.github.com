@@ -4,7 +4,7 @@
   <title><![CDATA[Category: math | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/math/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2013-07-16T16:01:13-04:00</updated>
+  <updated>2013-07-16T19:14:50-04:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -49,20 +49,20 @@
 
 <p>For 11 multiples of \( \pi \), the problem is trivial to do by hand. For 1001 multiples, I&rsquo;ve written a Python script to solve the problem. You can play around with the code <a href="http://codepad.org/HCmovMEd">here</a>.</p>
 
-<p><div>
-  <pre><code class='python'>&amp;ldquo;&amp;rdquo;&amp;ldquo;
+<p>``` python
+&ldquo;&rdquo;&ldquo;
 pi.py
-Calculates an approximation of pi given the multiples 0pi &amp;ndash; 1000pi using
-the Pigeonhole Principle. Outputs the first approximation found.&lt;/p&gt;
+Calculates an approximation of pi given the multiples 0pi &ndash; 1000pi using
+the Pigeonhole Principle. Outputs the first approximation found.</p>
 
-&lt;p&gt;Author: Louis Li
-&amp;ldquo;&amp;rdquo;&quot;&lt;/p&gt;
+<p>Author: Louis Li
+&ldquo;&rdquo;"</p>
 
-&lt;p&gt;import math&lt;/p&gt;
+<p>import math</p>
 
-&lt;p&gt;def main():&lt;/p&gt;
+<p>def main():</p>
 
-&lt;pre&gt;&lt;code&gt;# Store the decimals we've found in a dictionary with its multiple of pi
+<pre><code># Store the decimals we've found in a dictionary with its multiple of pi
 d = dict()
 
 for n in xrange(0, 1001):
@@ -79,32 +79,29 @@ for n in xrange(0, 1001):
         m_pi = m * math.pi
 
         print int(round(n_pi - m_pi))
-        print &quot;----- = &quot;, ((n_pi - m_pi) / (n - m)), \
-            &quot;(m = %d, n = %d)&quot; % (m, n)
+        print "----- = ", ((n_pi - m_pi) / (n - m)), \
+            "(m = %d, n = %d)" % (m, n)
         print (n - m)
-        print &quot;\nActual value, pi: &quot;, math.pi
+        print "\nActual value, pi: ", math.pi
         break
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;if &lt;strong&gt;name&lt;/strong&gt; == &amp;lsquo;&lt;strong&gt;main&lt;/strong&gt;&amp;rsquo;:&lt;/p&gt;
+<p>if <strong>name</strong> == &lsquo;<strong>main</strong>&rsquo;:</p>
 
-&lt;pre&gt;&lt;code&gt;main()
-&lt;/code&gt;&lt;/pre&gt;
+<pre><code>main()
+</code></pre>
 
-&lt;p&gt;</code></pre>
-</div>
-</p>
+<p>```</p>
 
 <p>This will output the first solution found:</p>
 
-<p><div>
-  <pre><code class='text'>355
-&amp;mdash;&amp;mdash;&amp;ndash; =  3.14159265359 (m = 1, n = 114)
-113&lt;/p&gt;
+<p>``` text
+355
+&mdash;&mdash;&ndash; =  3.14159265359 (m = 1, n = 114)
+113</p>
 
-&lt;p&gt;Actual value, pi:  3.14159265359</code></pre>
-</div>
-</p>
+<p>Actual value, pi:  3.14159265359
+```</p>
 ]]></content>
   </entry>
   

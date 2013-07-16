@@ -100,12 +100,14 @@
 <li>On the right side of the Tumblr dashboard, click <strong>Posts</strong> underneath the name of your blog.</li>
 <li>This should bring up a link called <strong>Mass Post Editor</strong>. Click on <strong>Mass Post Editor</strong>.</li>
 <li>You&rsquo;ll be presented with your posts as tiles. <strong>Keep scrolling down</strong> until at least 100 posts (eyeball it) appear on the screen.</li>
-<li><p>Paste the code snippet below in the URL bar. There will be no visible changes. <strong>NOTE:</strong> Some browsers will remove the <code>javascript:</code> in front of it. Double check that it&rsquo;s still there, and if not, type <code>javascript:</code> at the beginning of the pasted part. <div>
-<pre><code class='javascript'>javascript:if(!window.protolicious)(function(d,s){s=d.createElement(&lsquo;script&rsquo;);s.src=&lsquo;<a href="https://raw.github.com/kangax/protolicious/master/event.simulate.js">https://raw.github.com/kangax/protolicious/master/event.simulate.js</a>&rsquo;;(d.head||d.documentElement).appendChild(s)})(document);</code></pre>
-</div></p></li>
-<li><p>Paste the code snippet below in the URL bar. It should select the first 100 posts with checkmarks. <div>
-<pre><code class='javascript'>javascript:$$(&lsquo;.overlay&rsquo;).slice(0, 100).each(function(a) { a.simulate(&lsquo;click&rsquo;); });</code></pre>
-</div></p></li>
+<li><p>Paste the code snippet below in the URL bar. There will be no visible changes. <strong>NOTE:</strong> Some browsers will remove the <code>javascript:</code> in front of it. Double check that it&rsquo;s still there, and if not, type <code>javascript:</code> at the beginning of the pasted part.</p>
+
+<pre><code>  javascript:if(!window.protolicious)(function(d,s){s=d.createElement('script');s.src='https://raw.github.com/kangax/protolicious/master/event.simulate.js';(d.head||d.documentElement).appendChild(s)})(document); 
+</code></pre></li>
+<li><p>Paste the code snippet below in the URL bar. It should select the first 100 posts with checkmarks.</p>
+
+<pre><code>  javascript:$$('.overlay').slice(0, 100).each(function(a) { a.simulate('click'); }); 
+</code></pre></li>
 <li><p>Click <strong>Delete selected posts</strong>.</p></li>
 <li>Refresh the page if needed, and delete another 100 posts!</li>
 </ol>
