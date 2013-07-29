@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tutorial | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/tutorial/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2013-07-16T19:15:30-04:00</updated>
+  <updated>2013-07-29T19:41:21-04:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,6 +12,196 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[How To Use Meteor.js Routing with Disqus]]></title>
+    <link href="http://louisrli.github.io/blog/2013/07/29/using-meteor-js-with-disqus/"/>
+    <updated>2013-07-29 00:00:00 -0400</updated>
+    <id>http://louisrli.github.io/blog/2013/07/29/using-meteor-js-with-disqus</id>
+    <content type="html"><![CDATA[<p>On most sites, using Disqus as the commenting system is as simple as copying the <a href="http://disqus.com/admin/universalcode/">Universal Code</a> (also known as <code>embed.js</code>) into a web page. In single-page JavaScript applications, however, much of the rendering is on the client-side. This means that <code>embed.js</code> might lead to stale Disqus threads or function incorrectly as pages are re-rendered.</p>
+
+<p>This article explains how to integrate Disqus with <a href="http://meteor.com">Meteor.js</a> (version 0.6.4.1 at the time of writing). If you want one Disqus thread for each route, copying the Universal Code won&rsquo;t ensure that Disqus loads the correct thread for each page. Instead, the comments will either fail to load or retrieve a stale thread.</p>
+
+<p>When <code>embed.js</code> is loaded multiple times (when pages rerender and run the script multiple times), the following error will appear in the console:</p>
+
+<pre><code>DISQUS assertion failed: Unsafe attempt to redefine existing module &lt;name&gt;
+</code></pre>
+
+<p><em>Note</em>: I&rsquo;m using <a href="https://github.com/tmeasday/meteor-router">Meteor Router</a> to create URL paths in my application, although this method should work with any routing system.</p>
+
+<h2>Disqus Single Sign-on</h2>
+
+<p>As a bonus, I&rsquo;ve added the optional code snippet in <code>Deps.autorun()</code> for using <a href="http://help.disqus.com/customer/portal/articles/236206-integrating-single-sign-on">Disqus Single Sign-on</a> with Meteor. If you want to see the server-side code in JavaScript, take a look at <a href="https://github.com/disqus/DISQUS-API-Recipes/blob/master/sso/javascript/main.js">the examples that I added</a> to the Disqus API Recipes.</p>
+
+<h2>Annotated Code</h2>
+
+<p>The code is written in <a href="http://coffeescript.org/">CoffeeScript</a>. If you want to take a look at the JavaScript version, you can use the <a href="http://coffeescript.org/#try:">CoffeeScript translator</a>. Meteor automatically compiles <code>.coffee</code> files to <code>.js</code>.</p>
+
+<p>With the code below, all you have to do is add the following to your Meteor Handlebars template to include Disqus comments:</p>
+
+<p><code>
+ {{disqus}} 
+</code></p>
+
+<p>Easy, right?</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Meteor Disqus template manager  (disqus.coffee)</span> <a href='/downloads/code/disqus.coffee'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">Template.disqus.rendered = </span><span class="nf">-&gt;</span>
+</span><span class='line'>  <span class="cm">###</span>
+</span><span class='line'><span class="cm">  # We don&#39;t want to load Disqus until the first time the template is</span>
+</span><span class='line'><span class="cm">  # rendered, since it requires the #disqus_thread div</span>
+</span><span class='line'><span class="cm">  # Triggers Deps.autorun (below)</span>
+</span><span class='line'><span class="cm">  ###</span>
+</span><span class='line'>  <span class="nx">Session</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s">&quot;loadDisqus&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="cm">###</span>
+</span><span class='line'><span class="cm">  # Whenever the template is rendered, trigger a Disqus reset.</span>
+</span><span class='line'><span class="cm">  # This will find the correct thread for the current page URL.</span>
+</span><span class='line'><span class="cm">  # See http://help.disqus.com/customer/portal/articles/472107-using-disqus-on-ajax-sites</span>
+</span><span class='line'><span class="cm">  ###</span>
+</span><span class='line'>  <span class="nx">DISQUS</span><span class="o">?</span><span class="p">.</span><span class="nx">reset</span><span class="p">(</span>
+</span><span class='line'>      <span class="nv">reload: </span><span class="kc">true</span>
+</span><span class='line'>      <span class="nv">config: </span><span class="nf">-&gt;</span>
+</span><span class='line'>  <span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="cm">###</span>
+</span><span class='line'><span class="cm">  # OPTIONAL: Only include the part below if you&#39;re using</span>
+</span><span class='line'><span class="cm">  # Disqus single-sign on</span>
+</span><span class='line'><span class="cm">  # Generate the disqusSignon variable appropriately from your server</span>
+</span><span class='line'><span class="cm">  ###</span>
+</span><span class='line'>  <span class="nv">disqusSignon = </span><span class="nx">Session</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&quot;disqusSignon&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">user</span><span class="p">()</span> <span class="o">and</span> <span class="nx">disqusSignon</span>
+</span><span class='line'>    <span class="nv">el2 = </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s">&quot;script&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="nv">el2.type = </span><span class="s">&#39;text/javascript&#39;</span>
+</span><span class='line'>    <span class="nv">el2.innerHTML = </span><span class="s">&quot;var disqus_config = function() {</span>
+</span><span class='line'><span class="s">      this.page.remote_auth_s3 = \&quot;</span><span class="si">#{</span><span class="nx">disqusSignon</span><span class="p">.</span><span class="nx">auth</span><span class="si">}</span><span class="s">\&quot;;</span>
+</span><span class='line'><span class="s">      this.page.api_key = \&quot;</span><span class="si">#{</span><span class="nx">disqusSignon</span><span class="p">.</span><span class="nx">pubKey</span><span class="si">}</span><span class="s">\&quot;;</span>
+</span><span class='line'><span class="s">    }&quot;</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s">&quot;</span><span class="err">#</span><span class="s">my-disqus&quot;</span><span class="p">).</span><span class="nx">prepend</span><span class="p">(</span><span class="nx">el2</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">Deps</span><span class="p">.</span><span class="nx">autorun</span><span class="p">(</span><span class="nf">-&gt;</span>
+</span><span class='line'>  <span class="c1"># Load the Disqus embed.js the first time the `disqus` template is rendered</span>
+</span><span class='line'>  <span class="c1"># but never more than once</span>
+</span><span class='line'>  <span class="k">if</span> <span class="nx">Session</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&quot;loadDisqus&quot;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nb">window</span><span class="p">.</span><span class="nx">DISQUS</span>
+</span><span class='line'>    <span class="c1"># Below is the Disqus Universal Code</span>
+</span><span class='line'>    <span class="c1"># (in Coffeescript, backticks escape Javascript code)</span>
+</span><span class='line'>    <span class="o">`</span>
+</span><span class='line'>    <span class="sr">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */</span>
+</span><span class='line'>    <span class="nx">var</span> <span class="nv">disqus_shortname = </span><span class="s">&#39;YOUR_SHORTNAME&#39;</span><span class="p">;</span> <span class="o">//</span> <span class="nv">required: </span><span class="nx">replace</span> <span class="nx">example</span> <span class="nx">with</span> <span class="nx">your</span> <span class="nx">forum</span> <span class="nx">shortname</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="sr">/* * * DON&#39;T EDIT BELOW THIS LINE * * */</span>
+</span><span class='line'>    <span class="p">(</span><span class="nx">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>     <span class="nx">var</span> <span class="nv">dsq = </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s">&#39;script&#39;</span><span class="p">);</span> <span class="nv">dsq.type = </span><span class="s">&#39;text/javascript&#39;</span><span class="p">;</span> <span class="nv">dsq.async = </span><span class="kc">true</span><span class="p">;</span>
+</span><span class='line'>     <span class="nv">dsq.src = </span><span class="s">&#39;//&#39;</span> <span class="o">+</span> <span class="nx">disqus_shortname</span> <span class="o">+</span> <span class="s">&#39;.disqus.com/embed.js&#39;</span><span class="p">;</span>
+</span><span class='line'>     <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s">&#39;head&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s">&#39;body&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]).</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">dsq</span><span class="p">);</span>
+</span><span class='line'>     <span class="p">})();</span>
+</span><span class='line'>     <span class="o">`</span>
+</span><span class='line'><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Meteor Disqus template (disqus.html)</span> <a href='/downloads/code/disqus.html'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;template</span> <span class="na">name=</span><span class="s">&quot;disqus&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>{{#isolate}}
+</span><span class='line'><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;my-disqus&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="c">&lt;!-- Begin Disqus universal code --&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;disqus_thread&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nt">&lt;noscript&gt;</span>Please enable JavaScript to view the
+</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://disqus.com/?ref_noscript&quot;</span><span class="nt">&gt;</span>comments powered by Disqus.<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/noscript&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://disqus.com&quot;</span> <span class="na">class=</span><span class="s">&quot;dsq-brlink&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    comments powered by <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;logo-disqus&quot;</span><span class="nt">&gt;</span>Disqus<span class="nt">&lt;/span&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>  <span class="c">&lt;!-- End Disqus universal code --&gt;</span>
+</span><span class='line'><span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>{{/isolate}}
+</span><span class='line'><span class="nt">&lt;/template&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>Disqus in Other Single-page JavaScript Frameworks</h2>
+
+<p>If you&rsquo;re using another single-page JavaScript framework like Ember.js, Angular.js, etc., here&rsquo;s a general strategy for using Disqus:</p>
+
+<ol>
+<li>Wait until the first time a Disqus thread needs to be loaded.<br/>
+When <code>div #disqus_thread</code> has been rendered, load <code>embed.js</code> into the page.</li>
+<li>Set a global flag to ensure that <code>embed.js</code> is not loaded again.</li>
+<li>Each time a new Disqus thread is needed, trigger a <code>DISQUS.reset()</code>, including
+the first time <code>embed.js</code> is loaded. Again,
+make sure that <code>div #disqus_thread</code> is rendered in the DOM, or there may be an error
+about appending an element to <code>null</code>.</li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Up-to-date Guide on How to Delete All Posts on Your Tumblr]]></title>
@@ -383,7 +573,7 @@ TX packets:4691 errors:0 dropped:0 overruns:0 carrier:0</code></pre>
 <p>Finally, we can SSH to the virtual machine.</p>
 
 <p><div>
-  <pre><code class='console'>$ ssh &lt;a href=&quot;&amp;#109;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#x74;&amp;#111;&amp;#x3a;&amp;#117;&amp;#x73;&amp;#x65;&amp;#114;&amp;#x40;&amp;#x31;&amp;#57;&amp;#x32;&amp;#46;&amp;#49;&amp;#x36;&amp;#x38;&amp;#x2e;&amp;#53;&amp;#54;&amp;#x2e;&amp;#49;&amp;#48;&amp;#49;&quot;&gt;&amp;#x75;&amp;#x73;&amp;#101;&amp;#114;&amp;#x40;&amp;#49;&amp;#x39;&amp;#50;&amp;#x2e;&amp;#49;&amp;#x36;&amp;#56;&amp;#46;&amp;#53;&amp;#x36;&amp;#46;&amp;#49;&amp;#48;&amp;#49;&lt;/a&gt;</code></pre>
+  <pre><code class='console'>$ ssh &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#x69;&amp;#108;&amp;#x74;&amp;#x6f;&amp;#58;&amp;#x75;&amp;#115;&amp;#x65;&amp;#x72;&amp;#64;&amp;#x31;&amp;#x39;&amp;#50;&amp;#x2e;&amp;#x31;&amp;#x36;&amp;#x38;&amp;#46;&amp;#x35;&amp;#x36;&amp;#x2e;&amp;#x31;&amp;#x30;&amp;#49;&quot;&gt;&amp;#x75;&amp;#x73;&amp;#101;&amp;#114;&amp;#x40;&amp;#49;&amp;#x39;&amp;#50;&amp;#x2e;&amp;#x31;&amp;#x36;&amp;#x38;&amp;#46;&amp;#53;&amp;#54;&amp;#x2e;&amp;#49;&amp;#x30;&amp;#49;&lt;/a&gt;</code></pre>
 </div>
 </p>
 ]]></content>

@@ -3,11 +3,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Using Quicksilver Mac and AppleScript to Adjust System Volume - Louis Li</title>
+	<title>Category: meteor - Louis Li</title>
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="Using Quicksilver Mac and AppleScript to Adjust System Volume Extendible to command line I&rsquo;ve been using Quicksilver for a while, and I&rsquo; &hellip;">
+	<meta name="description" content="Category: meteor">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -17,7 +17,7 @@
 
 	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
 	
-	<link rel="canonical" href="http://louisrli.github.io/blog/2013/01/15/applescript-volume/">
+	<link rel="canonical" href="http://louisrli.github.ioblog/categories/meteor/">
 	<link href="/favicon.png" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -85,91 +85,30 @@
 				
 			
 			<div class="mid-col-container">
-				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-	<h1 class="title" itemprop="name">Using Quicksilver Mac and AppleScript to Adjust System Volume</h1>
-        <h3 class="subtitle" itemprop="subtitle">Extendible to command line </h3>
-	<div class="entry-content" itemprop="articleBody"><p>I&rsquo;ve been using <a href="http://qsapp.com/">Quicksilver</a> for a while, and I&rsquo;d heard of how powerful but never taken advantage of it. I wanted to adjust the system volume through Quicksilver: right now, I have to use <code>fn</code> + <code>f10</code> / <code>f11</code> / <code>f12</code> to adjust volume, since I chose to have <code>f1</code>&ndash;<code>f12</code> map to the normal keys.</p>
-
-<p>It seems that there&rsquo;s actually no Quicksilver plugin for system volume &mdash; only iTunes volume &mdash; but it&rsquo;s pretty simple to do with AppleScripts. It&rsquo;s not documented everywhere, so I thought I&rsquo;d add it here.</p>
-
-<!-- more -->
+				<div id="content" class="inner">
+	
 
 
+	
+	
+	<section class="archives"><h1 class="year">2013</h1>
+
+<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<span class="date"><time datetime="2013-07-29T00:00:00-04:00" itemprop="datePublished">Jul 29</time></span>
+		<br>
+		<span class="tags">
 
 
-<ul class="thumbnails" style="width: 50%; margin: 0px auto;">
-<li class="span4">
-<a href="/images/quicksilver-script.png" class="thumbnail">
-<img alt="Quicksilver script for increasing volume" src="/images/quicksilver-script.png" height="300"/>
-</a>
-</li>
-</ul>
+	<a class='category' href='/blog/categories/meteor/'>meteor</a>, <a class='category' href='/blog/categories/tutorial/'>tutorial</a>
 
 
-<h2>Volume AppleScripts</h2>
-
-<p>The AppleScripts below will adjust the system volume, which is measured on a scale of 0 &ndash; 100. Here&rsquo;s a <a href="https://www.dropbox.com/s/8a3rzqtiyupmny1/volume-applescripts.zip">download link</a> for these three scripts. To use them in Quicksilver, add them to the catalog, and opening them in Quicksilver should run them by default.</p>
-
-<h5>Decrease volume</h5>
-
-<div>
-  <pre><code class='applescript'># Decrease\ Volume.scpt
-set currentVolume to output volume of (get volume settings)
-set volume output volume (currentVolume - 10)</code></pre>
-</div>
-
-
-<h5>Increase volume</h5>
-
-<div>
-  <pre><code class='applescript'># Increase\ Volume.scpt
-set currentVolume to output volume of (get volume settings)
-set volume output volume (currentVolume + 10)</code></pre>
-</div>
-
-
-<h5>Mute volume</h5>
-
-<div>
-  <pre><code class='applescript'># Mute\ Volume.scpt
-set isMuted to output muted of (get volume settings)
-set volume output muted not isMuted</code></pre>
-</div>
-
-
-<h2>Using in command line</h2>
-
-<p>To run an AppleScript file in the command line, run:</p>
-
-<div>
-  <pre><code class='console'>$ osascript /path/to/file</code></pre>
-</div>
-
-
-<p>These files have spaces in them so that it looks cleaner in Quicksilver, but you can alias the commands appropriately.</p>
-</div>
-
+</span>
+	    
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2013/07/29/using-meteor-js-with-disqus/">How To Use Meteor.js Routing with Disqus</a></h1>
 </article>
 
-	<div class="share">
-	<div class="addthis_toolbox addthis_default_style ">
-	
-	
-	<a class="addthis_button_tweet"></a>
-	
-	
-	<a class="addthis_counter addthis_pill_style"></a>
-	</div>
-  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-51e5a5762f46bbe9"></script>
-</div>
-
-
-
-<section id="comment">
-    <h1 class="title">Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-</section>
 </div>
 			</div>
 			<footer id="footer" class="inner"><p>
@@ -191,10 +130,7 @@ Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Sha
       var disqus_shortname = 'llgithub';
       
         
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://louisrli.github.io/blog/2013/01/15/applescript-volume/';
-        var disqus_url = 'http://louisrli.github.io/blog/2013/01/15/applescript-volume/';
-        var disqus_script = 'embed.js';
+        var disqus_script = 'count.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
