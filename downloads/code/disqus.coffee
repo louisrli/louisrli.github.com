@@ -7,30 +7,28 @@ Template.disqus.rendered = ->
   Session.set("loadDisqus", true)
 
   ###
-  # Whenever the template is rendered, trigger a Disqus reset.
-  # This will find the correct thread for the current page URL.
-  # See http://help.disqus.com/customer/portal/articles/472107-using-disqus-on-ajax-sites
-  ###
-  DISQUS?.reset(
-      reload: true
-      config: ->
-  )
-
-  ###
   # OPTIONAL: Only include the part below if you're using
   # Disqus single-sign on
   # Generate the disqusSignon variable appropriately from your server
   ###
   disqusSignon = Session.get("disqusSignon")
   if Meteor.user() and disqusSignon
-    el2 = document.createElement("script")
-    el2.type = 'text/javascript'
-    el2.innerHTML = "var disqus_config = function() {
-      this.page.remote_auth_s3 = \"#{disqusSignon.auth}\";
-      this.page.api_key = \"#{disqusSignon.pubKey}\";
-    }"
-    $("#my-disqus").prepend(el2)
+    window.disqus_config = ->
+      this.page.remote_auth_s3 = "#{disqusSignon.auth}"
+      this.page.api_key = "#{disqusSignon.pubKey}"
+      # ... other Disqus configs 
+      
+    ###
+    # Whenever the template is rendered, trigger a Disqus reset.
+    # This will find the correct thread for the current page URL.
+    # See http://help.disqus.com/customer/portal/articles/472107-using-disqus-on-ajax-sites
+    ###
+    DISQUS?.reset(
+       reload: true
+       config: ->
+    )
 
+ 
 Deps.autorun(->
   # Load the Disqus embed.js the first time the `disqus` template is rendered
   # but never more than once
