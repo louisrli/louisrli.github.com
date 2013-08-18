@@ -2,11 +2,11 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://louisrli.github.io/blog/2012/06/22/nebula0/</loc>
-        <lastmod>2013-07-08T18:38:02-04:00</lastmod>
+        <lastmod>2013-08-18T02:26:18-04:00</lastmod>
     </url>
     <url>
         <loc>http://louisrli.github.io/blog/2012/06/28/nebula1/</loc>
-        <lastmod>2013-07-08T18:38:02-04:00</lastmod>
+        <lastmod>2013-08-18T02:26:50-04:00</lastmod>
     </url>
     <url>
         <loc>http://louisrli.github.io/blog/2012/07/08/systems-prog/</loc>
@@ -80,18 +80,22 @@
     </url>
     <url>
         <loc>http://louisrli.github.io/blog/archives/</loc>
-        <lastmod>2013-08-13T18:09:18-04:00</lastmod>
+        <lastmod>2013-08-18T02:26:50-04:00</lastmod>
     </url>
     <url>
         <loc>http://louisrli.github.io/blog/</loc>
-        <lastmod>2013-08-13T18:09:18-04:00</lastmod>
+        <lastmod>2013-08-18T02:26:50-04:00</lastmod>
     </url>
     <url>
         <loc>http://louisrli.github.io/</loc>
-        <lastmod>2013-08-17T21:34:06-04:00</lastmod>
+        <lastmod>2013-08-18T03:02:42-04:00</lastmod>
     </url>
     <url>
         <loc>http://louisrli.github.io/robots.txt</loc>
         <lastmod>2013-07-02T01:11:40-04:00</lastmod>
+    </url>
+    <url>
+        <loc>http://louisrli.github.io/sideprojects/</loc>
+        <lastmod>2013-08-18T02:41:49-04:00</lastmod>
     </url>
 </urlset>
