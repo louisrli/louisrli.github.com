@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2013-08-18T03:08:36-04:00</updated>
+  <updated>2013-08-22T01:38:32-04:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,6 +12,19 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Hungrier: Harvard Dining Menu, Re-released]]></title>
+    <link href="http://louisrli.github.io/blog/2013/08/22/hungry-revamped/"/>
+    <updated>2013-08-22T00:00:00-04:00</updated>
+    <id>http://louisrli.github.io/blog/2013/08/22/hungry-revamped</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve rewritten and redesigned <a href="http://louisrli.github.io/hungry/">Hungry</a>, a site that filters the noisy Harvard dining menu for relevant entries. If you&rsquo;re reading this during the school year, there probably won&rsquo;t be anything, since student dining isn&rsquo;t open.</p>
+
+<p>This version was written in <a href="http://marionettejs.com">Marionette.js</a>, which has been my client-side framework of choice for the past few months (I&rsquo;ve been using Meteor for things that require a more involved database). It still retains an obnoxious minimalism, but this time with lowercase text instead of uppercase text.</p>
+
+<p><a href="https://github.com/louisrli/hungry">Source code here</a>, contributions welcome.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[How To Use Meteor.js Routing with Disqus]]></title>
