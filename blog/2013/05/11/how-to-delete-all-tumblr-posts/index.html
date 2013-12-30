@@ -109,13 +109,9 @@
 <li>On the right side of the Tumblr dashboard, click <strong>Posts</strong> underneath the name of your blog.</li>
 <li>This should bring up a link called <strong>Mass Post Editor</strong>. Click on <strong>Mass Post Editor</strong>.</li>
 <li>You&rsquo;ll be presented with your posts as tiles. <strong>Keep scrolling down</strong> until at least 100 posts (eyeball it) appear on the screen.</li>
-<li><p>Paste the code snippet below in the URL bar. There will be no visible changes. <strong>NOTE:</strong> Some browsers will remove the <code>javascript:</code> in front of it. Double check that it&rsquo;s still there, and if not, type <code>javascript:</code> at the beginning of the pasted part.</p>
+<li><p>Paste the code snippet below in the URL bar. It should select the first 100 posts with checkmarks. <strong>NOTE:</strong> Some browsers will remove the <code>javascript:</code> in front of it. Double check that it&rsquo;s still there, and if not, type <code>javascript:</code> at the beginning of the pasted part.</p>
 
-<pre><code>  javascript:if(!window.protolicious)(function(d,s){s=d.createElement('script');s.src='https://raw.github.com/kangax/protolicious/master/event.simulate.js';(d.head||d.documentElement).appendChild(s)})(document); 
-</code></pre></li>
-<li><p>Paste the code snippet below in the URL bar. It should select the first 100 posts with checkmarks.</p>
-
-<pre><code>  javascript:$$('.overlay').slice(0, 100).each(function(a) { a.simulate('click'); }); 
+<pre><code>  javascript:$('.overlay').slice(0, 100).click()
 </code></pre></li>
 <li><p>Click <strong>Delete selected posts</strong>.</p></li>
 <li>Refresh the page if needed, and delete another 100 posts!</li>
@@ -124,11 +120,11 @@
 
 <p>If for some reason this doesn&rsquo;t work, let me know in the comments. I&rsquo;ll try to keep this up-to-date.</p>
 
+<p>Last updated: December 29, 2013</p>
+
 <h2>Technical Details</h2>
 
-<p>Tumblr uses the Javascript library <a href="http://prototypejs.org/">Prototype</a>. Unlike jQuery, this doesn&rsquo;t provide a lot of support for handling and simulating events, so we load some library (I&rsquo;m not familiar with Prototype, although I briefly read the docs out of curiosity) called <a href="https://github.com/kangax/protolicious">Protolicious</a> that adds some support for this.</p>
-
-<p>Prototype is already included on the page, since Tumblr uses it. The code loads the Protolicious library, finds the first 100 posts, and clicks on them.</p>
+<p>Tumblr now uses <a href="http://jquery.org">jQuery</a>. An older version of this post loaded the <a href="https://github.com/kangax/protolicious">Protolicious</a> library, but some time between May 2013 and December 2013, Tumblr switched JavaScript libraries.</p>
 </div>
 
 </article>

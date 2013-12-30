@@ -122,7 +122,7 @@ if [[ $# -lt 2 ]]; then
     exit 1
 fi
 
-perl -e &quot;print 'A'x$1&quot;
+perl -e &quot;print &#39;A&#39;x$1&quot;
 shift
 for addr in $@; do
     for i in $(seq 8 -2 2); do echo -ne &quot;\x${addr:$i:2}&quot;; done

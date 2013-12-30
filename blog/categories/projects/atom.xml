@@ -4,7 +4,7 @@
   <title><![CDATA[Category: projects | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/projects/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2013-12-06T19:30:51-05:00</updated>
+  <updated>2013-12-29T19:08:02-08:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Hungrier: Harvard Dining Menu, Re-released]]></title>
     <link href="http://louisrli.github.io/blog/2013/08/22/hungry-revamped/"/>
-    <updated>2013-08-22 00:00:00 -0400</updated>
+    <updated>2013-08-22 00:00:00 -0700</updated>
     <id>http://louisrli.github.io/blog/2013/08/22/hungry-revamped</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve rewritten and redesigned <a href="http://louisrli.github.io/hungry/">Hungry</a>, a site that filters the noisy Harvard dining menu for relevant entries. If you&rsquo;re reading this during the school year, there probably won&rsquo;t be anything, since student dining isn&rsquo;t open.</p>
 
@@ -29,7 +29,7 @@
   <entry>
     <title type="html"><![CDATA[2012 in Sideprojects]]></title>
     <link href="http://louisrli.github.io/blog/2013/01/12/sideprojects-2012/"/>
-    <updated>2013-01-12 00:00:00 -0500</updated>
+    <updated>2013-01-12 00:00:00 -0800</updated>
     <id>http://louisrli.github.io/blog/2013/01/12/sideprojects-2012</id>
     <content type="html"><![CDATA[<p>It always surprises me how long a year is. It&rsquo;s hard for me to believe that some of these projects were a year ago, but I&rsquo;m happy to see my progress. Here&rsquo;s a walk down memory lane for my projects in 2012, not including course projects and research.</p>
 
@@ -158,7 +158,7 @@
   <entry>
     <title type="html"><![CDATA[Protostar Format String Exploits (Solutions 0-4)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/29/protostar-format0/"/>
-    <updated>2012-08-29 00:00:00 -0400</updated>
+    <updated>2012-08-29 00:00:00 -0700</updated>
     <id>http://louisrli.github.io/blog/2012/08/29/protostar-format0</id>
     <content type="html"><![CDATA[<h1>Overview</h1>
 
@@ -399,7 +399,7 @@ $
   <entry>
     <title type="html"><![CDATA[Protostar Stack Exploits (Solutions 6-7)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/28/protostar-stack2/"/>
-    <updated>2012-08-28 00:00:00 -0400</updated>
+    <updated>2012-08-28 00:00:00 -0700</updated>
     <id>http://louisrli.github.io/blog/2012/08/28/protostar-stack2</id>
     <content type="html"><![CDATA[<h1>Overview</h1>
 
@@ -433,7 +433,7 @@ exit 1
 
 &lt;p&gt;fi&lt;/p&gt;
 
-&lt;p&gt;perl -e &amp;ldquo;print &amp;lsquo;A'x$1&amp;rdquo;
+&lt;p&gt;perl -e &amp;ldquo;print &amp;lsquo;A&#39;x$1&amp;rdquo;
 shift
 for addr in $@; do&lt;/p&gt;
 
@@ -678,7 +678,7 @@ root</code></pre>
   <entry>
     <title type="html"><![CDATA[Protostar Stack Exploits (Solutions 4-5)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/24/protostar-stack1/"/>
-    <updated>2012-08-24 00:00:00 -0400</updated>
+    <updated>2012-08-24 00:00:00 -0700</updated>
     <id>http://louisrli.github.io/blog/2012/08/24/protostar-stack1</id>
     <content type="html"><![CDATA[<h1>Overview</h1>
 
@@ -747,7 +747,7 @@ Using the offset calculated above, <code>eip</code> is redirected to the address
 
 
 <p><div>
-  <pre><code class='console'>$ echo -e &amp;ldquo;$(perl -e &quot;print &amp;lsquo;A'x76&amp;rdquo;)\xf4\x83\x04\x08&quot; | ./stack4
+  <pre><code class='console'>$ echo -e &amp;ldquo;$(perl -e &quot;print &amp;lsquo;A&#39;x76&amp;rdquo;)\xf4\x83\x04\x08&quot; | ./stack4
 code flow successfully changed
 Segmentation fault</code></pre>
 </div>

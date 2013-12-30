@@ -153,7 +153,7 @@
 
 <div>
   <pre><code class='javascript'>chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.name == 'screenshot') {
+    if (request.name == &#39;screenshot&#39;) {
         chrome.tabs.captureVisibleTab(null, null, function(dataUrl) {
             sendResponse({ screenshotUrl: dataUrl });
         });
@@ -168,9 +168,9 @@
 <div>
   <pre><code class='javascript'>/* Takes a screenshot and uses it in a callback as a canvas */
 takeScreenshot: function(callback) {
-    chrome.extension.sendMessage({name: 'screenshot'}, function(response) {
+    chrome.extension.sendMessage({name: &#39;screenshot&#39;}, function(response) {
         var data = response.screenshotUrl;
-        var canvas = document.createElement('canvas');
+        var canvas = document.createElement(&#39;canvas&#39;);
         var img = new Image();
         img.onload = function() {
             canvas.width = $(window).width();
@@ -178,8 +178,8 @@ takeScreenshot: function(callback) {
             canvas.getContext(&quot;2d&quot;).drawImage(img, 0, 0, canvas.width, canvas.height);
 
             var $canvas = $(canvas);
-            $canvas.data('scrollLeft', $(document.body).scrollLeft());
-            $canvas.data('scrollTop', $(document.body).scrollTop());
+            $canvas.data(&#39;scrollLeft&#39;, $(document.body).scrollLeft());
+            $canvas.data(&#39;scrollTop&#39;, $(document.body).scrollTop());
 
             // Perform callback after image loads
             callback($canvas);
@@ -195,13 +195,13 @@ takeScreenshot: function(callback) {
 <div>
   <pre><code class='javascript'>/* Returns a canvas containing a screenshot of $element */
 renderPreview: function($element, $screenshotCanvas) {
-    var previewCanvas = document.createElement('canvas');
+    var previewCanvas = document.createElement(&#39;canvas&#39;);
     previewCanvas.width = $element.width();
     previewCanvas.height = $element.height();
 
     // Calculate the correct position of the element on the canvas
-    var prevTop = $element.offset().top - $screenshotCanvas.data('scrollTop');
-    var prevLeft = $element.offset().left - $screenshotCanvas.data('scrollLeft');
+    var prevTop = $element.offset().top - $screenshotCanvas.data(&#39;scrollTop&#39;);
+    var prevLeft = $element.offset().left - $screenshotCanvas.data(&#39;scrollLeft&#39;);
 
     var ctx = previewCanvas.getContext(&quot;2d&quot;);
     ctx.drawImage($screenshotCanvas[0], prevLeft, prevTop,
@@ -210,7 +210,7 @@ renderPreview: function($element, $screenshotCanvas) {
                                         $element.width(), $element.height());
 
     return $(previewCanvas)
-                .css({ border:'1px solid black' });
+                .css({ border:&#39;1px solid black&#39; });
 }</code></pre>
 </div>
 
