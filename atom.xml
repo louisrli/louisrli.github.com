@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2013-12-29T19:08:02-08:00</updated>
+  <updated>2013-12-29T19:09:26-08:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -380,7 +380,7 @@ about appending an element to <code>null</code>.</li>
 <li>On the right side of the Tumblr dashboard, click <strong>Posts</strong> underneath the name of your blog.</li>
 <li>This should bring up a link called <strong>Mass Post Editor</strong>. Click on <strong>Mass Post Editor</strong>.</li>
 <li>You&rsquo;ll be presented with your posts as tiles. <strong>Keep scrolling down</strong> until at least 100 posts (eyeball it) appear on the screen.</li>
-<li><p>Paste the code snippet below in the URL bar. It should select the first 100 posts with checkmarks. <strong>NOTE:</strong> Some browsers will remove the <code>javascript:</code> in front of it. Double check that it&rsquo;s still there, and if not, type <code>javascript:</code> at the beginning of the pasted part.</p>
+<li><p>Paste the following code snippet in the URL bar. It should select the first 100 posts with checkmarks. <strong>NOTE:</strong> Some browsers will remove the <code>javascript:</code> in front of it. Double check that it&rsquo;s still there, and if not, type <code>javascript:</code> at the beginning of the pasted part.</p>
 
 <pre><code>  javascript:$('.overlay').slice(0, 100).click()
 </code></pre></li>
