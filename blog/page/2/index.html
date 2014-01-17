@@ -7,7 +7,7 @@
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="Dec 22nd, 2012 knowledge, math Looking Forward to Discrete Mathematics For one of my math classes this semester (Sets and Topology), we had a short &hellip;">
+	<meta name="description" content="Jan 12th, 2013 projects 2012 in Sideprojects It always surprises me how long a year is. It&rsquo;s hard for me to believe that some of these &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -95,6 +95,60 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner"><div class="blog-index">
   
+  
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-12T00:00:00-05:00" data-updated="true" itemprop="datePublished">Jan 12<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/projects/'>projects</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2013/01/12/sideprojects-2012/" itemprop="url">2012 in Sideprojects</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>It always surprises me how long a year is. It&rsquo;s hard for me to believe that some of these projects were a year ago, but I&rsquo;m happy to see my progress. Here&rsquo;s a walk down memory lane for my projects in 2012, not including course projects and research.</p>
+
+<p><a id="exploits" style="visibility:hidden;"> </a></p>
+
+<h3>Exploit Exercises: Protostar, Nebula</h3>
+
+<p>Description
+: A series of security wargames from <a href="http://exploit-exercises.com">Exploit Exercises</a>.</p>
+
+<p>Languages &amp; Tools
+: shell, C, assembly and shellcode, command line tools, compilation and libraries</p>
+
+<p>Other
+: These were both fun and educational. These problems required a good deal of persistence. Topics ranged from: buffer overflows, shell code, stack layout, library linking, race conditions, format strings, command line tools, networking. I&rsquo;ve posted the solutions on this site for the format string, stack, and shell exploit sections.</p>
+
+<p>Links
+: <a href="http://louisrli.github.com/sideprojects/2012/06/22/nebula0">Nebula shell solutions: part 1</a>, <a href="http://louisrli.github.com/sideprojects/2012/08/18/protostar-stack0">Protostar stack solutions: part 1</a>, <a href="http://louisrli.github.com/sideprojects/2012/08/29/protostar-format0">Protostar format solutions</a></p>
+
+
+		
+		<a href="/blog/2013/01/12/sideprojects-2012/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
   
   
     <article>
@@ -564,64 +618,6 @@ stat64(&quot;/var/tmp/flag15/tls/i686/sse2/cmov&quot;, 0xbfc25f24) = -1 ENOENT (
 
 		
 		<a href="/blog/2012/07/08/systems-prog/" class="more-link">Read more</a>
-	</div>
-
-
-    </article>
-  
-  
-    <article>
-      
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-06-28T00:00:00-04:00" data-updated="true" itemprop="datePublished">Jun 28<span>th</span>, 2012</time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
-
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2012/06/28/nebula1/" itemprop="url">Nebula Shell Exploits (Solutions 10-14)</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<h1>Overview</h1>
-
-<p>This is the second post for my solutions of <a href="http://exploit-exercises.com/nebula">Exploit Exercises</a></p>
-
-<h2>Level 10</h2>
-
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level10">(full)</a>: Read a token file with the password to the target account. A suid program uses <code>access()</code> to upload a file to a host.</p>
-
-<p>According to <a href="http://linux.die.net/man/2/access">man access()</a>, there&rsquo;s a race condition with this usage of the function:</p>
-
-<div>
-  <pre><code class='console'>man access
-Warning: Using access() to check if a user is authorized to, for example, open a file before actually doing so
-using open(2) creates a security hole, because the user might exploit the short time interval between
-checking and opening the file to manipulate it. For this reason, the use of this system call should be
-avoided. (In the example just described, a safer alternative would be to temporarily switch the process&#39;s
-effective user ID to the real ID and then call open(2).)</code></pre>
-</div>
-
-
-
-
-
-		
-		<a href="/blog/2012/06/28/nebula1/" class="more-link">Read more</a>
 	</div>
 
 

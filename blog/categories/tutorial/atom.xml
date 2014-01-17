@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tutorial | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/tutorial/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2014-01-09T02:09:03-05:00</updated>
+  <updated>2014-01-17T17:34:36-05:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -568,7 +568,7 @@ TX packets:4691 errors:0 dropped:0 overruns:0 carrier:0</code></pre>
 <p>Finally, we can SSH to the virtual machine.</p>
 
 <p><div>
-  <pre><code class='console'>$ ssh &lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#x74;&amp;#x6f;&amp;#58;&amp;#x75;&amp;#115;&amp;#x65;&amp;#x72;&amp;#64;&amp;#x31;&amp;#x39;&amp;#50;&amp;#x2e;&amp;#x31;&amp;#54;&amp;#56;&amp;#x2e;&amp;#x35;&amp;#54;&amp;#x2e;&amp;#49;&amp;#x30;&amp;#x31;&quot;&gt;&amp;#x75;&amp;#115;&amp;#101;&amp;#x72;&amp;#64;&amp;#x31;&amp;#57;&amp;#x32;&amp;#46;&amp;#x31;&amp;#x36;&amp;#x38;&amp;#46;&amp;#x35;&amp;#54;&amp;#x2e;&amp;#49;&amp;#x30;&amp;#x31;&lt;/a&gt;</code></pre>
+  <pre><code class='console'>$ ssh &lt;a href=&quot;&amp;#109;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#x74;&amp;#111;&amp;#x3a;&amp;#117;&amp;#115;&amp;#x65;&amp;#x72;&amp;#x40;&amp;#x31;&amp;#57;&amp;#x32;&amp;#46;&amp;#49;&amp;#54;&amp;#x38;&amp;#46;&amp;#x35;&amp;#54;&amp;#46;&amp;#x31;&amp;#x30;&amp;#49;&quot;&gt;&amp;#117;&amp;#x73;&amp;#x65;&amp;#114;&amp;#x40;&amp;#x31;&amp;#57;&amp;#50;&amp;#46;&amp;#49;&amp;#x36;&amp;#56;&amp;#46;&amp;#x35;&amp;#x36;&amp;#x2e;&amp;#49;&amp;#x30;&amp;#x31;&lt;/a&gt;</code></pre>
 </div>
 </p>
 ]]></content>
