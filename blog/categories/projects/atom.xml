@@ -4,7 +4,7 @@
   <title><![CDATA[Category: projects | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/projects/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2014-01-17T21:44:01-05:00</updated>
+  <updated>2014-01-21T14:11:14-05:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -28,6 +28,9 @@
 <li>Proof-based research</li>
 <li>Basic proofs of a calculus. While type soundness proofs and their associated lemmas are core to many calculi, many introductory programming language courses, including the one that I took, skip the details of the proofs.</li>
 </ol>
+
+
+<!-- more -->
 
 
 <p>Here&rsquo;s the abstract:</p>
