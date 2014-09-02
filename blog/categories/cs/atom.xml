@@ -4,7 +4,7 @@
   <title><![CDATA[Category: cs | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/cs/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2014-09-01T04:17:03-07:00</updated>
+  <updated>2014-09-02T10:51:29-04:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Wrapping up the summer]]></title>
     <link href="http://louisrli.github.io/blog/2012/07/12/scala-and-summer/"/>
-    <updated>2012-07-12 00:00:00 -0700</updated>
+    <updated>2012-07-12 00:00:00 -0400</updated>
     <id>http://louisrli.github.io/blog/2012/07/12/scala-and-summer</id>
     <content type="html"><![CDATA[<p>It&rsquo;s one of those posts that relates to everyone, but it had been on the edge of my mind recently. This post, titled the &ldquo;<a href="http://tilomitra.com/the-crazy-world-of-code">Crazy World of Code</a>&rdquo;, appeared on Hacker News a few days ago. It references a comment on a different HN article.</p>
 
@@ -54,7 +54,7 @@
   <entry>
     <title type="html"><![CDATA[The Beginning of Systems]]></title>
     <link href="http://louisrli.github.io/blog/2012/07/08/systems-prog/"/>
-    <updated>2012-07-08 00:00:00 -0700</updated>
+    <updated>2012-07-08 00:00:00 -0400</updated>
     <id>http://louisrli.github.io/blog/2012/07/08/systems-prog</id>
     <content type="html"><![CDATA[<p>That went by fast.</p>
 
