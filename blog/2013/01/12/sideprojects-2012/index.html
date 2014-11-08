@@ -7,7 +7,7 @@
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="2012 in Sideprojects A year in review It always surprises me how long a year is. It&rsquo;s hard for me to believe that some of these projects were &hellip;">
+	<meta name="description" content="2012 in Sideprojects A year in review It always surprises me how long a year is. It’s hard for me to believe that some of these projects were a year &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -23,6 +23,9 @@
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript"
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+          </script>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
 	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -96,127 +99,113 @@
 				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 	<h1 class="title" itemprop="name">2012 in Sideprojects</h1>
         <h3 class="subtitle" itemprop="subtitle">A year in review </h3>
-	<div class="entry-content" itemprop="articleBody"><p>It always surprises me how long a year is. It&rsquo;s hard for me to believe that some of these projects were a year ago, but I&rsquo;m happy to see my progress. Here&rsquo;s a walk down memory lane for my projects in 2012, not including course projects and research.</p>
+	<div class="entry-content" itemprop="articleBody"><p>It always surprises me how long a year is. It’s hard for me to believe that some of these projects were a year ago, but I’m happy to see my progress. Here’s a walk down memory lane for my projects in 2012, not including course projects and research.</p>
 
 <p><a id="exploits" style="visibility:hidden;"> </a></p>
 
-<h3>Exploit Exercises: Protostar, Nebula</h3>
+<h3 id="exploit-exercises-protostar-nebula">Exploit Exercises: Protostar, Nebula</h3>
 
-<p>Description
-: A series of security wargames from <a href="http://exploit-exercises.com">Exploit Exercises</a>.</p>
-
-<p>Languages &amp; Tools
-: shell, C, assembly and shellcode, command line tools, compilation and libraries</p>
-
-<p>Other
-: These were both fun and educational. These problems required a good deal of persistence. Topics ranged from: buffer overflows, shell code, stack layout, library linking, race conditions, format strings, command line tools, networking. I&rsquo;ve posted the solutions on this site for the format string, stack, and shell exploit sections.</p>
-
-<p>Links
-: <a href="http://louisrli.github.com/sideprojects/2012/06/22/nebula0">Nebula shell solutions: part 1</a>, <a href="http://louisrli.github.com/sideprojects/2012/08/18/protostar-stack0">Protostar stack solutions: part 1</a>, <a href="http://louisrli.github.com/sideprojects/2012/08/29/protostar-format0">Protostar format solutions</a></p>
+<dl>
+  <dt>Description</dt>
+  <dd>A series of security wargames from <a href="http://exploit-exercises.com">Exploit Exercises</a>.</dd>
+  <dt>Languages &amp; Tools</dt>
+  <dd>shell, C, assembly and shellcode, command line tools, compilation and libraries</dd>
+  <dt>Other</dt>
+  <dd>These were both fun and educational. These problems required a good deal of persistence. Topics ranged from: buffer overflows, shell code, stack layout, library linking, race conditions, format strings, command line tools, networking. I’ve posted the solutions on this site for the format string, stack, and shell exploit sections.</dd>
+  <dt>Links</dt>
+  <dd><a href="http://louisrli.github.com/sideprojects/2012/06/22/nebula0">Nebula shell solutions: part 1</a>, <a href="http://louisrli.github.com/sideprojects/2012/08/18/protostar-stack0">Protostar stack solutions: part 1</a>, <a href="http://louisrli.github.com/sideprojects/2012/08/29/protostar-format0">Protostar format solutions</a></dd>
+</dl>
 
 <!-- more -->
-
-
 <p><a id="euler" style="visibility:hidden;"> </a></p>
 
-<h3>Project Euler</h3>
-
-<p>Description
-: A series of mathematical programming problems from <a href="http://projecteuler.net/">Project Euler</a>.</p>
-
-<p>Languages &amp; Tools
-: C++, Scala</p>
-
-<p>Other
-: Over the winter break of my freshman year (January 2012), I worked on these in C++. I&rsquo;ll admit that I&rsquo;m a bit embarrassed of the code I wrote &mdash; C++ isn&rsquo;t the greatest language to use to work on these problems. However, Project Euler is a great way to become familiar with a language. The problems become significantly harder, and I continued with Scala (June 2012 &ndash; August 2012).</p>
-
-<p>Links
-: <a href="https://github.com/louisrli/project-euler">code solutions</a></p>
+<h3 id="project-euler">Project Euler</h3>
+<dl>
+  <dt>Description</dt>
+  <dd>A series of mathematical programming problems from <a href="http://projecteuler.net/">Project Euler</a>.</dd>
+  <dt>Languages &amp; Tools</dt>
+  <dd>C++, Scala</dd>
+  <dt>Other</dt>
+  <dd>Over the winter break of my freshman year (January 2012), I worked on these in C++. I’ll admit that I’m a bit embarrassed of the code I wrote – C++ isn’t the greatest language to use to work on these problems. However, Project Euler is a great way to become familiar with a language. The problems become significantly harder, and I continued with Scala (June 2012 - August 2012).</dd>
+  <dt>Links</dt>
+  <dd><a href="https://github.com/louisrli/project-euler">code solutions</a></dd>
+</dl>
 
 <p><a id="grabrc" style="visibility:hidden;"> </a></p>
 
-<h3>.grabrc</h3>
-
-<p>Description
-: A command-line client for downloading dotfiles from Github, giving a comfortable editing environment from any terminal. It can be installed via <a href="http://www.pip-installer.org/en/latest/">pip</a> (<code>pip install grabrc-client</code>).</p>
-
-<p>Languages &amp; Tools
-: Python (client), Scala Play Framework (server)</p>
-
-<p>Other
-: This was a pretty significant endeavor over the summer. The idea was motivated by my work with Amazon EC2 machines, virtual machines, and random in-house servers. Many times, I had to do work while ssh&rsquo;d to those machines, but it was less productive without my comfortable shell and emacs environment at hand. sftp&#8217;ing files is a bit tedious, so I wrote a client (command-line Python) and a server (RESTful API) for accessing my dotfiles. The server is currently hosted on Heroku. I do, in fact, eat my own dog food, and it&rsquo;s very handy when setting up new computers.</p>
-
-<p>Links
-: <a href="https://github.com/louisrli/grabrc-server">server source code</a>, <a href="https://github.com/louisrli/grabrc-client">client source code</a>, <a href="http://pypi.python.org/pypi/grabrc-client/">PyPI index</a></p>
+<h3 id="grabrc">.grabrc</h3>
+<dl>
+  <dt>Description</dt>
+  <dd>A command-line client for downloading dotfiles from Github, giving a comfortable editing environment from any terminal. It can be installed via <a href="http://www.pip-installer.org/en/latest/">pip</a> (<code>pip install grabrc-client</code>).</dd>
+  <dt>Languages &amp; Tools</dt>
+  <dd>Python (client), Scala Play Framework (server)</dd>
+  <dt>Other</dt>
+  <dd>This was a pretty significant endeavor over the summer. The idea was motivated by my work with Amazon EC2 machines, virtual machines, and random in-house servers. Many times, I had to do work while ssh’d to those machines, but it was less productive without my comfortable shell and emacs environment at hand. sftp’ing files is a bit tedious, so I wrote a client (command-line Python) and a server (RESTful API) for accessing my dotfiles. The server is currently hosted on Heroku. I do, in fact, eat my own dog food, and it’s very handy when setting up new computers.</dd>
+  <dt>Links</dt>
+  <dd><a href="https://github.com/louisrli/grabrc-server">server source code</a>, <a href="https://github.com/louisrli/grabrc-client">client source code</a>, <a href="http://pypi.python.org/pypi/grabrc-client/">PyPI index</a></dd>
+</dl>
 
 <p><a id="shuttleboy" style="visibility:hidden;"> </a></p>
 
-<h3>Shuttleboy iOS</h3>
-
-<p>Description
-: A native iOS version of the Harvard shuttle tracker, <a href="http://shuttleboy.cs50.net/">Shuttleboy</a>.</p>
-
-<p>Languages &amp; Tools
-: Objective-C, Cocoa Touch</p>
-
-<p>Other
-: I worked on this for a few weeks during the winter break of my freshman year (January 2012). I didn&rsquo;t want to pay for Apple Developer membership on my own, but after a long wait, I&rsquo;m planning to release it through Rover soon.</p>
-
-<p>Links
-: <a href="/images/shuttleboy-preview.png">screenshots</a></p>
+<h3 id="shuttleboy-ios">Shuttleboy iOS</h3>
+<dl>
+  <dt>Description</dt>
+  <dd>A native iOS version of the Harvard shuttle tracker, <a href="http://shuttleboy.cs50.net/">Shuttleboy</a>.</dd>
+  <dt>Languages &amp; Tools</dt>
+  <dd>Objective-C, Cocoa Touch</dd>
+  <dt>Other</dt>
+  <dd>I worked on this for a few weeks during the winter break of my freshman year (January 2012). I didn’t want to pay for Apple Developer membership on my own, but after a long wait, I’m planning to release it through Rover soon.</dd>
+  <dt>Links</dt>
+  <dd><a href="/images/shuttleboy-preview.png">screenshots</a></dd>
+</dl>
 
 <p><a id="shuttlebaby" style="visibility:hidden;"> </a></p>
 
-<h3><a href="http://www.hcs.harvard.edu/~louis/shuttlebaby/">Shuttlebaby</a></h3>
-
-<p>Description
-: A website with the next few times between two particular stops on <a href="http://shuttleboy.cs50.net/">Shuttleboy</a>. Can be forked and customized.</p>
-
-<p>Languages &amp; Tools
-: PHP, HTML, CSS</p>
-
-<p>Links
-: <a href="http://www.hcs.harvard.edu/~louis/shuttlebaby/">site</a>, <a href="https://github.com/louisrli/shuttlebaby">source code</a></p>
+<h3 id="shuttlebabyhttpwwwhcsharvardedulouisshuttlebaby"><a href="http://www.hcs.harvard.edu/~louis/shuttlebaby/">Shuttlebaby</a></h3>
+<dl>
+  <dt>Description</dt>
+  <dd>A website with the next few times between two particular stops on <a href="http://shuttleboy.cs50.net/">Shuttleboy</a>. Can be forked and customized.</dd>
+  <dt>Languages &amp; Tools</dt>
+  <dd>PHP, HTML, CSS</dd>
+  <dt>Links</dt>
+  <dd><a href="http://www.hcs.harvard.edu/~louis/shuttlebaby/">site</a>, <a href="https://github.com/louisrli/shuttlebaby">source code</a></dd>
+</dl>
 
 <p><a id="hungry" style="visibility:hidden;"> </a></p>
 
-<h3><a href="http://www.hcs.harvard.edu/~louis/hungry/">Hungry</a></h3>
+<h3 id="hungryhttpwwwhcsharvardedulouishungry"><a href="http://www.hcs.harvard.edu/~louis/hungry/">Hungry</a></h3>
+<dl>
+  <dt>Description</dt>
+  <dd>A website with an obnoxiously concise version of the Harvard dining menu, showing only entrees. Includes an option to sign up and receive daily emails.</dd>
+  <dt>Languages &amp; Tools</dt>
+  <dd>PHP, HTML, CSS</dd>
+  <dt>Links</dt>
+  <dd><a href="http://www.hcs.harvard.edu/~louis/hungry/">site</a>, <a href="https://github.com/louisrli/hungry">source code</a></dd>
+</dl>
 
-<p>Description
-: A website with an obnoxiously concise version of the Harvard dining menu, showing only entrees. Includes an option to sign up and receive daily emails.</p>
-
-<p>Languages &amp; Tools
-: PHP, HTML, CSS</p>
-
-<p>Links
-: <a href="http://www.hcs.harvard.edu/~louis/hungry/">site</a>, <a href="https://github.com/louisrli/hungry">source code</a></p>
-
-<h3>Jenkins Arbitrary Parameters Plugin</h3>
-
-<p>Description
-: A plugin for the open-source continuous integration tool [Jenkins] that allows an arbitrary number of string parameters to be passed in as key-value pairs in properties file format.</p>
-
-<p>Languages &amp; Tools
-: Java, Jenkins</p>
-
-<p>Other
-: Over the summer, one of my first intern projects was constructing a parameterized test framework in Jenkins that would run jobs along a matrix of parameters: operating system, MySQL version, log4cpp version, Java version, etc. Along with some work on the ec2-plugin, this was my first time looking at such a huge codebase. After poking around the Javadocs and Confluence wiki for a substantial amount of time, I wrote this plugin.</p>
-
-<p>Links
-: <a href="https://github.com/louisrli/arbitrary-parameters-plugin">source code</a></p>
+<h3 id="jenkins-arbitrary-parameters-plugin">Jenkins Arbitrary Parameters Plugin</h3>
+<dl>
+  <dt>Description</dt>
+  <dd>A plugin for the open-source continuous integration tool [Jenkins] that allows an arbitrary number of string parameters to be passed in as key-value pairs in properties file format.</dd>
+  <dt>Languages &amp; Tools</dt>
+  <dd>Java, Jenkins</dd>
+  <dt>Other</dt>
+  <dd>Over the summer, one of my first intern projects was constructing a parameterized test framework in Jenkins that would run jobs along a matrix of parameters: operating system, MySQL version, log4cpp version, Java version, etc. Along with some work on the ec2-plugin, this was my first time looking at such a huge codebase. After poking around the Javadocs and Confluence wiki for a substantial amount of time, I wrote this plugin.</dd>
+  <dt>Links</dt>
+  <dd><a href="https://github.com/louisrli/arbitrary-parameters-plugin">source code</a></dd>
+</dl>
 
 <p><a id="louisrligithub" style="visibility:hidden;"> </a></p>
 
-<h3><a href="http://louisrli.github.com">louisrli.github.com</a></h3>
-
-<p>Description
-: This site.</p>
-
-<p>Languages &amp; Tools
-: Customized Twitter Bootstrap (HTML/CSS/Javascript), Jekyll, Markdown</p>
-
-<p>Links
-: <a href="https://github.com/louisrli/louisrli.github.com">source code</a>, <a href="http://louisrli.github.com/">site</a></p>
+<h3 id="louisrligithubcomhttplouisrligithubcom"><a href="http://louisrli.github.com">louisrli.github.com</a></h3>
+<dl>
+  <dt>Description</dt>
+  <dd>This site.</dd>
+  <dt>Languages &amp; Tools</dt>
+  <dd>Customized Twitter Bootstrap (HTML/CSS/Javascript), Jekyll, Markdown</dd>
+  <dt>Links</dt>
+  <dd><a href="https://github.com/louisrli/louisrli.github.com">source code</a>, <a href="http://louisrli.github.com/">site</a></dd>
+</dl>
 </div>
 
 </article>

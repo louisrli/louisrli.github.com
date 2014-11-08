@@ -23,6 +23,9 @@
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript"
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+          </script>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
 	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -96,283 +99,326 @@
 				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 	<h1 class="title" itemprop="name">Tips for Computer Science Internship Interviews</h1>
         <h3 class="subtitle" itemprop="subtitle"></h3>
-	<div class="entry-content" itemprop="articleBody"><p>This post is meant to help computer science undergraduates looking for a software engineering internship in the summer. Applying to internships can be daunting, and this post will hopefully address some of the commonly asked questions that I see on Reddit&rsquo;s <a href="http://www.reddit.com/r/cscareerquestions">cscareerquestions</a>.
-Along with some other miscellanea regarding applications, this post covers two things:</p>
+	<div class="entry-content" itemprop="articleBody"><p>This post is meant to help computer science undergraduates looking for a software engineering internship in the summer. Applying to internships can be daunting, and this post will hopefully address some of the commonly asked questions that I see on Reddit’s <a href="http://www.reddit.com/r/cscareerquestions">cscareerquestions</a>.
+Along with some other miscellanea regarding applications, this post covers two things: </p>
 
 <ol>
-<li>What are most internship interviews like?</li>
-<li>How should I prepare for them?</li>
+  <li>What are most internship interviews like?</li>
+  <li>How should I prepare for them?</li>
 </ol>
 
-
-<h2>Background</h2>
-
-<p>I did <a href="/blog/2013/06/28/researchtips/">research</a> last summer, and this summer was my first time seriously looking for an internship. From the beginning of September 2013 to the beginning of January 2014 (around 16 weeks), I did a lot of interviewing: 20 technical interviews, four recruiter interviews, two coding challenges, one product manager interview, and one trader interview (involuntarily moved from software engineering).
-One of the reasons that I did so many interviews was that I did poorly on many of my interviews for the first month.
+<h2 id="background">Background</h2>
+<p>I did <a href="/blog/2013/06/28/researchtips/">research</a> last summer, and this summer was my first time seriously looking for an internship. From the beginning of September 2013 to the beginning of January 2014 (around 16 weeks), I did a lot of interviewing: 20 technical interviews, four recruiter interviews, two coding challenges, one product manager interview, and one trader interview (involuntarily moved from software engineering). 
+One of the reasons that I did so many interviews was that I did poorly on many of my interviews for the first month. 
 Despite having read about interviewing on the internet, I wish I had known more <em>concretely</em> how to prepare.</p>
 
 <!-- more -->
 
-
 <p>Finally, note that I mostly interviewed with medium to large companies in Silicon Valley: your mileage may vary with local companies or smaller startups.
-Out of respect for the companies that I interviewed with, I won&rsquo;t be linking specific companies to specific interview questions.</p>
+Out of respect for the companies that I interviewed with, I won’t be linking specific companies to specific interview questions.</p>
 
-<h1>The three types of internship interviews</h1>
+<h1 id="the-three-types-of-internship-interviews">The three types of internship interviews</h1>
 
 <p>I would categorize my internship interviews as falling into one of three categories:</p>
 
 <ol>
-<li><strong>The programming interview:</strong> algorithms, data structures, coding</li>
-<li><strong>The &ldquo;what you&rsquo;ve done interview&rdquo;:</strong> you and your projects</li>
-<li><strong>The language-specific interview:</strong> quizzed about a language you claim to know</li>
+  <li><strong>The programming interview:</strong> algorithms, data structures, coding</li>
+  <li><strong>The “what you’ve done interview”:</strong> you and your projects</li>
+  <li><strong>The language-specific interview:</strong> quizzed about a language you claim to know</li>
 </ol>
 
-
-<p>I&rsquo;ll explain these in more depth below, adding details on how to prepare for each category. Note
+<p>I’ll explain these in more depth below, adding details on how to prepare for each category. Note
 that not every interview falls precisely into one of the three categories, and some interviews
 are a mix of multiple categories.</p>
 
-<h2>1. The programming interview</h2>
+<ol>
+  <li>
+    <h2 id="the-programming-interview">The programming interview</h2>
+  </li>
+</ol>
 
-<p>The <strong>programming interview</strong> is the most common type of interview, especially if you&rsquo;re not interviewing for a specific team.
-This is how most people envision computer science interviews: you&rsquo;re asked one or more programming questions,
-and you implement solutions on a collaborative editor like <a href="http://stypi.com">Stypi</a> or <a href="http://collabedit.com">Collabedit</a>.</p>
+<p>The <strong>programming interview</strong> is the most common type of interview, especially if you’re not interviewing for a specific team.
+This is how most people envision computer science interviews: you’re asked one or more programming questions, 
+and you implement solutions on a collaborative editor like <a href="http://stypi.com">Stypi</a> or <a href="http://collabedit.com">Collabedit</a>. </p>
 
 <p>I would further divide these interviews into two topics:</p>
 
 <ol>
-<li>Questions involving loops, lists, or strings (easier)</li>
-<li>Questions involving specific data structures (harder)</li>
+  <li>Questions involving loops, lists, or strings (easier)</li>
+  <li>Questions involving specific data structures (harder)</li>
 </ol>
 
+<p>I think the first category is easier, and it includes questions like: <em>Remove duplicates from a list</em> or <em>Generate all of the permutations of a string</em>. Even if you don’t immediately know the answer, there’s a chance that you can figure it out without requiring knowledge of a specific algorithm or data structure.</p>
 
-<p>I think the first category is easier, and it includes questions like: <em>Remove duplicates from a list</em> or <em>Generate all of the permutations of a string</em>. Even if you don&rsquo;t immediately know the answer, there&rsquo;s a chance that you can figure it out without requiring knowledge of a specific algorithm or data structure.</p>
-
-<p>I find the second category trickier, and sometimes the question will be hard
-or near impossible if you don&rsquo;t know about a specific data structure or algorithm.
-For example, if you&rsquo;ve never done breadth-first tree traversal,
-and you&rsquo;re asked: <em>Print the values in this tree level-by-level</em>
+<p>I find the second category trickier, and sometimes the question will be hard 
+or near impossible if you don’t know about a specific data structure or algorithm.
+For example, if you’ve never done breadth-first tree traversal, 
+and you’re asked: <em>Print the values in this tree level-by-level</em> 
 (a question that I received from two different companies),
-the question will be much harder.<br/>
-In one interview, I did poorly when we delved
-deeply into variations of hash tables, but I was only familiar
+the question will be much harder.<br />
+In one interview, I did poorly when we delved 
+deeply into variations of hash tables, but I was only familiar 
 with basic linked list hash tables.</p>
 
-<p>At the end of every question, you will almost always be asked to
-discuss the Big-O complexity of your implementation.</p>
+<p>At the end of every question, you will almost always be asked to 
+discuss the Big-O complexity of your implementation. </p>
 
-<h3>Checklist</h3>
+<h3 id="checklist">Checklist</h3>
 
-<p>Here&rsquo;s what I didn&rsquo;t realize at first: instead of just walking
+<p>Here’s what I didn’t realize at first: instead of just walking
 in, <strong>you should study for interviews</strong>.
-Unless you do algorithmic challenges on a regular basis, it&rsquo;s worth the time
+Unless you do algorithmic challenges on a regular basis, it’s worth the time
 to read and practice.</p>
 
 <ul>
-<li><strong>Read <em><a href="http://www.amazon.com/Programming-Interviews-Exposed-Secrets-Programmer/dp/047012167X">Programming Interviews Exposed</a></em>:</strong>
-Focus on these topics: string manipulation, linked lists, doubly linked lists, hash tables,
+  <li><strong>Read <em><a href="http://www.amazon.com/Programming-Interviews-Exposed-Secrets-Programmer/dp/047012167X">Programming Interviews Exposed</a></em>:</strong> 
+Focus on these topics: string manipulation, linked lists, doubly linked lists, hash tables, 
 trees, queues, stacks, depth-first search, breadth-first-search, basic graphs,
 basic complexity.</li>
-<li><strong>Check Glassdoor</strong>: Many companies have interview questions on Glassdoor. Your goal isn&rsquo;t
+  <li><strong>Check Glassdoor</strong>: Many companies have interview questions on Glassdoor. Your goal isn’t
 to study the interview questions in advance, but you can get a good idea of the general difficulty
 of the programming questions.</li>
-<li><strong>Practice at least once</strong>: I&rsquo;ll let the interview books cover
-this process in more detail, but if this is your first interview,
+  <li><strong>Practice at least once</strong>: I’ll let the interview books cover
+this process in more detail, but if this is your first interview, 
 I highly recommend practicing an interview question from start to finish with a friend.</li>
 </ul>
 
-
 <p>I would take books like <em>Programming Interviews Exposed</em> with a grain of salt. Except for some of the very big companies, like Facebook,
-the interview questions for internships are generally much easier than those for senior developers. You won&rsquo;t be asked to write
+the interview questions for internships are generally much easier than those for senior developers. You won’t be asked to write
 a red-black tree from scratch. From my experience, the list above comprehensively covers the topics from my interview experience
 (suggestions welcome).</p>
 
-<p>Depth- and breadth-first search (DFS and BFS, respectively) were extremely popular, and I would estimate <strong>over half of my algorithms interviews
+<p>Depth- and breadth-first search (DFS and BFS, respectively) were extremely popular, and I would estimate <strong>over half of my algorithms interviews 
 were best solved with DFS or BFS</strong>. Know them!</p>
 
-<h2>2. The &ldquo;what you&rsquo;ve done&rdquo; interview</h2>
+<ol>
+  <li>
+    <h2 id="the-what-youve-done-interview">The “what you’ve done” interview</h2>
+  </li>
+</ol>
 
-<p>The <strong>&ldquo;what you&rsquo;ve done&rdquo; interview</strong> is a non-technical, pleasant conversation with your interviewer,
+<p>The <strong>“what you’ve done” interview</strong> is a non-technical, pleasant conversation with your interviewer,
 where you get the opportunity to talk about your resume and projects. I found that this
 type of interview was more common in small and medium sized companies.</p>
 
 <p>Empirically, I did better on these interviews than on algorithmic interviews, because
 it was an opportunity to pitch myself as a passionate developer.
-I usually talked about my research, my past internship,
+I usually talked about my research, my past internship, 
 and/or my experience at <a href="https://www.meteor.com/blog/2013/07/09/congratulations-to-the-meteor-summer-hackathon-2013-teams">the Meteor Summer Hackathon</a>.</p>
 
-<p>Note that I&rsquo;m a junior (third year undergraduate student).
-If you&rsquo;re a freshman or sophomore, don&rsquo;t panic if you don&rsquo;t have a lot to
+<p>Note that I’m a junior (third year undergraduate student). 
+If you’re a freshman or sophomore, don’t panic if you don’t have a lot to
 talk about yet. Without sideprojects and/or past internships, however,
-this interview can be tough.
+this interview can be tough. 
 You can use course projects, but I think people know that most course projects
 are a few files that are hacked together in a few days (varies by school, of course).</p>
 
-<h3>Checklist</h3>
+<h3 id="checklist-1">Checklist</h3>
 
-<p>Be prepared to talk in-depth about any jobs and projects on your resume.
-For each project, you&rsquo;ll want to be ready to answer these questions:</p>
+<p>Be prepared to talk in-depth about any jobs and projects on your resume. 
+For each project, you’ll want to be ready to answer these questions:</p>
 
-<blockquote><p>What was the project?</p></blockquote>
-
-<p><a></a> <!-- break the blockquote --></p>
-
-<blockquote><p>What was the scope of the project? (i.e., how much time, how big was it)</p></blockquote>
+<blockquote>
+  <p>What was the project?</p>
+</blockquote>
 
 <p><a></a> <!-- break the blockquote --></p>
 
-<blockquote><p>What was your role in the project?</p></blockquote>
+<blockquote>
+  <p>What was the scope of the project? (i.e., how much time, how big was it)</p>
+</blockquote>
 
 <p><a></a> <!-- break the blockquote --></p>
 
-<blockquote><p>What did you learn?</p></blockquote>
+<blockquote>
+  <p>What was your role in the project?</p>
+</blockquote>
 
 <p><a></a> <!-- break the blockquote --></p>
 
-<blockquote><p>What were some of the challenges in the project?</p></blockquote>
+<blockquote>
+  <p>What did you learn?</p>
+</blockquote>
 
-<p>If you prepare these answers, you&rsquo;ll be ready to answer a more general question that frequently shows up in interviews:</p>
+<p><a></a> <!-- break the blockquote --></p>
 
-<blockquote><p>Tell me about a technical challenge that you had.</p></blockquote>
+<blockquote>
+  <p>What were some of the challenges in the project?</p>
+</blockquote>
 
-<h2>3. The language-specific interview</h2>
+<p>If you prepare these answers, you’ll be ready to answer a more general question that frequently shows up in interviews:</p>
+
+<blockquote>
+  <p>Tell me about a technical challenge that you had.</p>
+</blockquote>
+
+<ol>
+  <li>
+    <h2 id="the-language-specific-interview">The language-specific interview</h2>
+  </li>
+</ol>
 
 <p>The language-specific interview tests your knowledge about a specific language that you
-claim to know on your resume. This interview often shows up if you&rsquo;ve been placed to interview
+claim to know on your resume. This interview often shows up if you’ve been placed to interview 
 with a specific team (e.g., iOS Safari team at Apple, YUI team at Yahoo).</p>
 
 <p>I was never asked coding questions in these interviews, but the interviewers
 expected me to show my knowledge through my answers to quiz questions,
 my discussion of relevant projects, and my opinions on language features.</p>
 
-<h3>Checklist</h3>
+<h3 id="checklist-2">Checklist</h3>
 
 <p>If you are placed to interview with a team that uses a specific
 language (or framework), you should prepare for the following questions.
 I was asked each of these on multiple occasions:</p>
 
-<blockquote><p>What makes {language} different from other languages?</p></blockquote>
+<blockquote>
+  <p>What makes {language} different from other languages?</p>
+</blockquote>
 
 <p><a></a> <!-- break the blockquote --></p>
 
-<blockquote><p>If you had to change something in {language}, what would you change?</p></blockquote>
+<blockquote>
+  <p>If you had to change something in {language}, what would you change?</p>
+</blockquote>
 
 <p><a></a> <!-- break the blockquote --></p>
 
-<blockquote><p>Tell me about a technical challenge that you had when you were working on a project in {language}.</p></blockquote>
+<blockquote>
+  <p>Tell me about a technical challenge that you had when you were working on a project in {language}.</p>
+</blockquote>
 
-<h3>JavaScript specific questions</h3>
+<h3 id="javascript-specific-questions">JavaScript specific questions</h3>
 
-<p>In addition to the above questions, I was also asked the following question
+<p>In addition to the above questions, I was also asked the following question 
 on three different occasions for JavaScript-related internships:</p>
 
-<blockquote><p>Tell me about closures in JavaScript.</p></blockquote>
+<blockquote>
+  <p>Tell me about closures in JavaScript.</p>
+</blockquote>
 
-<p>I usually answered with an explanation of 1. callbacks 2. function scope in JavaScript.
+<p>I usually answered with an explanation of 1. callbacks 2. function scope in JavaScript. 
 Closures allow for more traditional object-oriented programming (e.g., objects in Backbone.js are just closures).</p>
 
 <p>One question that I was <em>not</em> asked in any interview was to recite the value of <code>this</code> in various contexts
-(not that this means it isn&rsquo;t fair game).</p>
+(not that this means it isn’t fair game).</p>
 
-<h2>Odds and ends</h2>
+<h2 id="odds-and-ends">Odds and ends</h2>
 
 <p>Again, not every interview will fall into one of these three categories. I encountered a couple of weird interview styles:</p>
 
 <ul>
-<li><em>Straight quizzing:</em> One first round interview a recruiter who read quiz questions about databases, Unix systems, and web requests.
+  <li><em>Straight quizzing:</em> One first round interview a recruiter who read quiz questions about databases, Unix systems, and web requests.
 The recruiter had a list of answers, and I suspect one important metric, in addition to correctness, was how confidently you answered.</li>
-<li><em>Coursework:</em> I interviewed with a very cool stealth startup working on something that has it roots in security research. Correspondingly,
-the whole interview was about my coursework in compilers and theory of computation &mdash; no technical questions.</li>
+  <li><em>Coursework:</em> I interviewed with a very cool stealth startup working on something that has it roots in security research. Correspondingly,
+the whole interview was about my coursework in compilers and theory of computation – no technical questions.</li>
 </ul>
 
-
-<h1>Beginning the interview</h1>
+<h1 id="beginning-the-interview">Beginning the interview</h1>
 
 <p>Some bigger companies dive straight into the technical part of interviews, but your interviewer will <strong>almost always</strong> ask you a very important question (or some variant) that you should prepare:</p>
 
-<blockquote><p>Tell me about yourself.</p></blockquote>
+<blockquote>
+  <p>Tell me about yourself.</p>
+</blockquote>
 
-<p>Keep it succinct! I would say it should be a minute long at most. Hit the important points about your interests and experience, and spare your interviewer the life story. I&rsquo;m saying this because I made the mistake of having a long pitch in the first few interviews, and I could tell that the interviewer ended up getting bored.</p>
+<p>Keep it succinct! I would say it should be a minute long at most. Hit the important points about your interests and experience, and spare your interviewer the life story. I’m saying this because I made the mistake of having a long pitch in the first few interviews, and I could tell that the interviewer ended up getting bored.</p>
 
-<h1>Ending the interview</h1>
+<h1 id="ending-the-interview">Ending the interview</h1>
 
 <p>Even when the interview runs over the allocated time, your interviewer will ask:</p>
 
-<blockquote><p>Do you have any questions for me?</p></blockquote>
+<blockquote>
+  <p>Do you have any questions for me?</p>
+</blockquote>
 
 <p>I used to have a lot of trouble with this, but after I started treating it as
 an opportunity for conversation, it became much easier. This is a chance to connect on a personal level with the interviewer.
 If your performance was borderline, having an insightful conversation
-with the interviewer can&rsquo;t hurt.</p>
+with the interviewer can’t hurt.</p>
 
-<p>If the interviewer hadn&rsquo;t described himself or herself yet, the first thing I asked was:</p>
+<p>If the interviewer hadn’t described himself or herself yet, the first thing I asked was:</p>
 
-<blockquote><p>Can you tell me more about what you do?</p></blockquote>
+<blockquote>
+  <p>Can you tell me more about what you do?</p>
+</blockquote>
 
-<p>I let the conversation flow from there. If there&rsquo;s not much to follow up on, I&rsquo;ll
-ask about how they test their product or choose to target new features. There&rsquo;s <a href="http://programmers.stackexchange.com/questions/16436/do-you-have-any-questions-for-us-in-an-interview">a very good list</a> on Programmers Stack Exchange, although not all of them are suitable for potential interns to ask.</p>
+<p>I let the conversation flow from there. If there’s not much to follow up on, I’ll
+ask about how they test their product or choose to target new features. There’s <a href="http://programmers.stackexchange.com/questions/16436/do-you-have-any-questions-for-us-in-an-interview">a very good list</a> on Programmers Stack Exchange, although not all of them are suitable for potential interns to ask.</p>
 
-<h1>Miscellaneous: FAQ</h1>
+<h1 id="miscellaneous-faq">Miscellaneous: FAQ</h1>
 
-<p>These are my answers to questions that either I was asking at the beginning of the application process or I see
-frequently asked. Most of these don&rsquo;t have black-or-white answers.</p>
+<p>These are my answers to questions that either I was asking at the beginning of the application process or I see 
+frequently asked. Most of these don’t have black-or-white answers.</p>
 
-<blockquote><p>How long should my resume be?</p></blockquote>
+<blockquote>
+  <p>How long should my resume be?</p>
+</blockquote>
 
 <p>For companies based in the US, your resume should not be longer than one page. Personally,
-I don&rsquo;t like reading resumes longer than one page. From what I&rsquo;ve read from various
-recruiters and managers on the internet, they don&rsquo;t either, although it doesn&rsquo;t mean
+I don’t like reading resumes longer than one page. From what I’ve read from various
+recruiters and managers on the internet, they don’t either, although it doesn’t mean
 automatic rejection.</p>
 
-<p>Make sure your resume looks professional &mdash; spacing, font, structure. Use a serif font!</p>
+<p>Make sure your resume looks professional – spacing, font, structure. Use a serif font!</p>
 
-<p>If your resume is too long, consider cutting out parts that are not tech related &mdash; clubs, extracurriculars, experience in a different field.</p>
+<p>If your resume is too long, consider cutting out parts that are not tech related – clubs, extracurriculars, experience in a different field.</p>
 
-<p>Finally, don&rsquo;t include things like your high school GPA, because they don&rsquo;t matter to the people reading your resume.</p>
+<p>Finally, don’t include things like your high school GPA, because they don’t matter to the people reading your resume.</p>
 
-<blockquote><p>When should I start applying?</p></blockquote>
+<blockquote>
+  <p>When should I start applying?</p>
+</blockquote>
 
 <p>Most internship applications started popping up in October and November.
-I think it doesn&rsquo;t hurt to apply earlier, although one friend told me that
+I think it doesn’t hurt to apply earlier, although one friend told me that
 intern candidates at his company usually fared better in spring than in fall.</p>
 
 <p>Before last summer, after I had already decided to do research, I did receive
-a few emails for interviews as late as March. If you didn&rsquo;t jump on it in October,
-don&rsquo;t panic.</p>
+a few emails for interviews as late as March. If you didn’t jump on it in October,
+don’t panic.</p>
 
-<blockquote><p>How important are sideprojects?</p></blockquote>
+<blockquote>
+  <p>How important are sideprojects? </p>
+</blockquote>
 
-<p>It depends on the company, but if you&rsquo;re a freshman (first year) or
-a sophomore (second year), it&rsquo;s important.
-When I applied to my first internship in freshman spring,
-the recruiter emailed me back saying that the manager
+<p>It depends on the company, but if you’re a freshman (first year) or 
+a sophomore (second year), it’s important. 
+When I applied to my first internship in freshman spring, 
+the recruiter emailed me back saying that the manager 
 wanted to know if I had any sideprojects. In addition
 to spicing up your resume, it gives you
-something substantive to talk about in the &ldquo;what you&rsquo;ve done&rdquo; interviews.</p>
+something substantive to talk about in the “what you’ve done” interviews.</p>
 
-<blockquote><p>How long can it take to hear back after an interview?</p></blockquote>
+<blockquote>
+  <p>How long can it take to hear back after an interview?</p>
+</blockquote>
 
-<p>It varies by company.
+<p>It varies by company. 
 From small to medium sized companies, I heard back anywhere from a day to a week.
-Without exception, after a final round interview, it took every big company two weeks to a month
+Without exception, after a final round interview, it took every big company two weeks to a month 
 to respond with either an offer or rejection.</p>
 
-<blockquote><p>How can I overcome nervousness during interviews?</p></blockquote>
+<blockquote>
+  <p>How can I overcome nervousness during interviews?</p>
+</blockquote>
 
-<p>In some of the algorithmic interviews, when I started doing poorly, I would just freeze and ramble &mdash; especially if I hadn&rsquo;t slept much the previous night because of schoolwork.
-Eventually, the interviewer would (pretty much) tell me the answer, which almost always led to rejection after the interview.</p>
+<p>In some of the algorithmic interviews, when I started doing poorly, I would just freeze and ramble – especially if I hadn’t slept much the previous night because of schoolwork.
+Eventually, the interviewer would (pretty much) tell me the answer, which almost always led to rejection after the interview. </p>
 
-<p>If this happens to you, my advice is to tell the interviewer, &ldquo;Let me consolidate my thoughts for a moment.&rdquo; Take a few deep breaths, don&rsquo;t think about anything, and then tackle the question again.</p>
+<p>If this happens to you, my advice is to tell the interviewer, “Let me consolidate my thoughts for a moment.” Take a few deep breaths, don’t think about anything, and then tackle the question again.</p>
 
-<p>If you feel nervous from the very beginning, try to persuade yourself that it&rsquo;s only a friendly conversation.</p>
+<p>If you feel nervous from the very beginning, try to persuade yourself that it’s only a friendly conversation. </p>
 
-<blockquote><p>How can I know how well my interview went?</p></blockquote>
+<blockquote>
+  <p>How can I know how well my interview went?</p>
+</blockquote>
 
-<p>In my experience, if the interviewer starts talking about how much responsibility interns
-have <em>and</em> you didn&rsquo;t explicitly ask about it &mdash; the interview probably went well.  This is not a guarantee by any means.</p>
+<p>In my experience, if the interviewer starts talking about how much responsibility interns 
+have <em>and</em> you didn’t explicitly ask about it – the interview probably went well.  This is not a guarantee by any means.</p>
 
-<p>I&rsquo;ve read a few things on the internet about asking your interviewer how they felt the interview went.
-I haven&rsquo;t tried this before, but feel free to let me know if you have.
+<p>I’ve read a few things on the internet about asking your interviewer how they felt the interview went. 
+I haven’t tried this before, but feel free to let me know if you have. 
 I think it would be a useful source of feedback.</p>
 
 <p>Hope this helps.</p>

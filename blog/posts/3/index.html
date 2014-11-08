@@ -7,7 +7,7 @@
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="Jun 28th, 2012 exploits, projects Nebula Shell Exploits (Solutions 10-14) Overview This is the second post for my solutions of Exploit Exercises &hellip;">
+	<meta name="description" content="cs, knowledge Wrapping Up the Summer It’s one of those posts that relates to everyone, but it had been on the edge of my mind recently. This post, &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,11 +18,14 @@
 
 	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
 	
-	<link rel="canonical" href="http://louisrli.github.io/blog/page/3/">
+	<link rel="canonical" href="http://louisrli.github.io/blog/posts/3/">
 	<link href="/favicon.png" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript"
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+          </script>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
 	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -112,7 +115,85 @@
   
 
 
-<time datetime="2012-06-28T00:00:00-04:00" data-updated="true" itemprop="datePublished">Jun 28<span>th</span>, 2012</time></div>
+<time datetime="2012-07-12T00:00:00-07:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/cs/'>cs</a>, <a class='category' href='/blog/categories/knowledge/'>knowledge</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/07/12/scala-and-summer/" itemprop="url">Wrapping Up the Summer</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>It’s one of those posts that relates to everyone, but it had been on the edge of my mind recently. This post, titled the “<a href="http://tilomitra.com/the-crazy-world-of-code">Crazy World of Code</a>”, appeared on Hacker News a few days ago. It references a comment on a different HN article.</p>
+
+
+		
+		<a href="/blog/2012/07/12/scala-and-summer/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-08T00:00:00-07:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/cs/'>cs</a>, <a class='category' href='/blog/categories/knowledge/'>knowledge</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/07/08/systems-prog/" itemprop="url">The Beginning of Systems</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>That went by fast.</p>
+
+<p>Today, I finished both of my introductions to systems programming: the book <a href="http://www.amazon.com/Hacking-The-Art-Exploitation-Edition/dp/1593271441/">Hacking - The Art of Exploitation 2e</a> (since June) and the <a href="http://cs61.seas.harvard.edu/wiki/Schedule">lecture slides</a> (since three weeks ago) for the Harvard systems programming course, CS61. I thought I’d commemorate.</p>
+
+
+		
+		<a href="/blog/2012/07/08/systems-prog/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-28T00:00:00-07:00" data-updated="true" itemprop="datePublished"></time></div>
 		<div class="tags">
 
 
@@ -124,27 +205,20 @@
 	</div>
 	<h1 class="title" itemprop="name"><a href="/blog/2012/06/28/nebula1/" itemprop="url">Nebula Shell Exploits (Solutions 10-14)</a></h1>
 	<div class="entry-content" itemprop="articleBody">
-		<h1>Overview</h1>
-
+		<h1 id="overview">Overview</h1>
 <p>This is the second post for my solutions of <a href="http://exploit-exercises.com/nebula">Exploit Exercises</a></p>
 
-<h2>Level 10</h2>
-
+<h2 id="level-10">Level 10</h2>
 <p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level10">(full)</a>: Read a token file with the password to the target account. A suid program uses <code>access()</code> to upload a file to a host.</p>
 
-<p>According to <a href="http://linux.die.net/man/2/access">man access()</a>, there&rsquo;s a race condition with this usage of the function:</p>
+<p>According to <a href="http://linux.die.net/man/2/access">man access()</a>, there’s a race condition with this usage of the function:</p>
 
-<div>
-  <pre><code class='console'>man access
-Warning: Using access() to check if a user is authorized to, for example, open a file before actually doing so
-using open(2) creates a security hole, because the user might exploit the short time interval between
-checking and opening the file to manipulate it. For this reason, the use of this system call should be
-avoided. (In the example just described, a safer alternative would be to temporarily switch the process&#39;s
-effective user ID to the real ID and then call open(2).)</code></pre>
-</div>
-
-
-
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">man access</span>
+<span class="go">Warning: Using access() to check if a user is authorized to, for example, open a file before actually doing so</span>
+<span class="go">using open(2) creates a security hole, because the user might exploit the short time interval between</span>
+<span class="go">checking and opening the file to manipulate it. For this reason, the use of this system call should be</span>
+<span class="go">avoided. (In the example just described, a safer alternative would be to temporarily switch the process&#39;s</span>
+<span class="go">effective user ID to the real ID and then call open(2).)</span></code></pre></div>
 
 
 		
@@ -170,7 +244,7 @@ effective user ID to the real ID and then call open(2).)</code></pre>
   
 
 
-<time datetime="2012-06-22T00:00:00-04:00" data-updated="true" itemprop="datePublished">Jun 22<span>nd</span>, 2012</time></div>
+<time datetime="2012-06-22T00:00:00-07:00" data-updated="true" itemprop="datePublished"></time></div>
 		<div class="tags">
 
 
@@ -182,26 +256,23 @@ effective user ID to the real ID and then call open(2).)</code></pre>
 	</div>
 	<h1 class="title" itemprop="name"><a href="/blog/2012/06/22/nebula0/" itemprop="url">Nebula Shell Exploits (Solutions 00-09)</a></h1>
 	<div class="entry-content" itemprop="articleBody">
-		<h1>Overview</h1>
+		<h1 id="overview">Overview</h1>
 
-<p>Nebula is a series of &ldquo;capture the flag&rdquo; exercises from <a href="http://exploit-exercises.com/nebula">Exploit Exercises</a>. I&rsquo;ve been reading <a href="http://www.amazon.com/Hacking-The-Art-Exploitation-Edition/dp/1593271441/">Hacking: The Art of Exploitation 2e</a> &mdash; this was a good supplement.</p>
+<p>Nebula is a series of “capture the flag” exercises from <a href="http://exploit-exercises.com/nebula">Exploit Exercises</a>. I’ve been reading <a href="http://www.amazon.com/Hacking-The-Art-Exploitation-Edition/dp/1593271441/">Hacking: The Art of Exploitation 2e</a> – this was a good supplement.</p>
 
-<p>The provided Ubuntu VM has 20 levels (00 &ndash; 19). The goal of each level is to run the <code>getflag</code> command on a target account, either by exploiting a <a href="http://en.wikipedia.org/wiki/Setuid">suid</a> program or obtaining the password.</p>
+<p>The provided Ubuntu VM has 20 levels (00 - 19). The goal of each level is to run the <code>getflag</code> command on a target account, either by exploiting a <a href="http://en.wikipedia.org/wiki/Setuid">suid</a> program or obtaining the password.</p>
 
-<h1>Solutions</h1>
+<h1 id="solutions">Solutions</h1>
 
 <p>To keep things shorter, a link to the full description is provided with each level. The full description contains relevant source code.</p>
 
-<p>There&rsquo;s no copy paste for Ubuntu Server VMs, but I included the output when it supplemented the solution.</p>
+<p>There’s no copy paste for Ubuntu Server VMs, but I included the output when it supplemented the solution.</p>
 
-<h2>Level 0</h2>
+<h2 id="level-0">Level 0</h2>
 
 <p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level00">(full)</a>: Find a file with setuid permissions.</p>
 
-<div>
-  <pre><code class='bash'>$ find / -perm /u+s</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>find / -perm /u+s</code></pre></div>
 
 <p>Search the root directory for files based on permissions. The file <code>/bin/.../flag00</code> looks suspicious.</p>
 
@@ -217,7 +288,7 @@ effective user ID to the real ID and then call open(2).)</code></pre>
     
     <a href="/blog/archives">Blog Archives</a>
     
-    <a class="next" href="/blog/page/2/">Newer &rarr;</a>
+    <a class="next" href="2">Newer &rarr;</a>
     
   </div>
 </div>

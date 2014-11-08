@@ -23,6 +23,9 @@
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript"
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+          </script>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
 	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -100,31 +103,32 @@
 
 <!-- more -->
 
-
-<h2>Instructions</h2>
+<h2 id="instructions">Instructions</h2>
 
 <p>This will allow you to delete 100 posts at a time. Unfortunately, if you try more, Tumblr will give you a warning that only 100 posts can be edited at one time.</p>
 
 <ol>
-<li>On the right side of the Tumblr dashboard, click <strong>Posts</strong> underneath the name of your blog.</li>
-<li>This should bring up a link called <strong>Mass Post Editor</strong>. Click on <strong>Mass Post Editor</strong>.</li>
-<li>You&rsquo;ll be presented with your posts as tiles. <strong>Keep scrolling down</strong> until at least 100 posts (eyeball it) appear on the screen.</li>
-<li><p>Paste the following code snippet in the URL bar. It should select the first 100 posts with checkmarks. <strong>NOTE:</strong> Some browsers will remove the <code>javascript:</code> in front of it. Double check that it&rsquo;s still there, and if not, type <code>javascript:</code> at the beginning of the pasted part.</p>
+  <li>On the right side of the Tumblr dashboard, click <strong>Posts</strong> underneath the name of your blog.</li>
+  <li>This should bring up a link called <strong>Mass Post Editor</strong>. Click on <strong>Mass Post Editor</strong>.</li>
+  <li>You’ll be presented with your posts as tiles. <strong>Keep scrolling down</strong> until at least 100 posts (eyeball it) appear on the screen.</li>
+  <li>
+    <p>Paste the following code snippet in the URL bar. It should select the first 100 posts with checkmarks. <strong>NOTE:</strong> Some browsers will remove the <code>javascript:</code> in front of it. Double check that it’s still there, and if not, type <code>javascript:</code> at the beginning of the pasted part. </p>
 
-<pre><code>  javascript:$('.overlay').slice(0, 100).click()
-</code></pre></li>
-<li><p>Click <strong>Delete selected posts</strong>.</p></li>
-<li>Refresh the page if needed, and delete another 100 posts!</li>
+    <pre><code>  javascript:$('.overlay').slice(0, 100).click()
+</code></pre>
+  </li>
+  <li>Click <strong>Delete selected posts</strong>.</li>
+  <li>Refresh the page if needed, and delete another 100 posts!</li>
 </ol>
 
-
-<p>If for some reason this doesn&rsquo;t work, let me know in the comments. I&rsquo;ll try to keep this up-to-date.</p>
+<p>If for some reason this doesn’t work, let me know in the comments. I’ll try to keep this up-to-date.</p>
 
 <p>Last updated: December 29, 2013</p>
 
-<h2>Technical Details</h2>
+<h2 id="technical-details">Technical Details</h2>
 
 <p>Tumblr now uses <a href="http://jquery.org">jQuery</a>. An older version of this post loaded the <a href="https://github.com/kangax/protolicious">Protolicious</a> library, but some time between May 2013 and December 2013, Tumblr switched JavaScript libraries.</p>
+
 </div>
 
 </article>

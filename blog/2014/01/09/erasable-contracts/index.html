@@ -23,6 +23,9 @@
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript"
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+          </script>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
 	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -96,28 +99,29 @@
 				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 	<h1 class="title" itemprop="name">Erasable Code Contracts</h1>
         <h3 class="subtitle" itemprop="subtitle"></h3>
-	<div class="entry-content" itemprop="articleBody"><p>This semester, I took a course on the science of cybersecurity, targeted toward an audience with some programming languages background.</p>
+	<div class="entry-content" itemprop="articleBody"><p>This semester, I took a course on the science of cybersecurity, targeted toward an audience with some programming languages background. </p>
 
-<p>A classmate and I had a semester long research project on &ldquo;erasable&rdquo; <a href="http://en.wikipedia.org/wiki/Code_contract">code contracts</a>. More details are below.</p>
+<p>A classmate and I had a semester long research project on “erasable” <a href="http://en.wikipedia.org/wiki/Code_contract">code contracts</a>. More details are below.</p>
 
-<p>This was a valuable experience, giving me an opportunity to work on two things that I hadn&rsquo;t done before:</p>
+<p>This was a valuable experience, giving me an opportunity to work on two things that I hadn’t done before:</p>
 
 <ol>
-<li>Proof-based research</li>
-<li>Basic proofs of a calculus. While type soundness proofs and their associated lemmas are core to many calculi, many introductory programming language courses, including the one that I took, skip the details of the proofs.</li>
+  <li>Proof-based research</li>
+  <li>Basic proofs of a calculus. While type soundness proofs and their associated lemmas are core to many calculi, many introductory programming language courses, including the one that I took, skip the details of the proofs.</li>
 </ol>
-
 
 <!-- more -->
 
+<p>Here’s the abstract:</p>
 
-<p>Here&rsquo;s the abstract:</p>
+<blockquote>
+  <p>Contract programming is a design approach that allows programmers to design formal specifications for software, known as “contracts”. These contracts, executed at runtime, allow programmers to make assertions about the behavior of their software and ensure program correctness. In a language with side-effects, however, it is possible for these contracts to modify memory and consequently change the behavior of the program. While contracts provide the specifications, these specifications clearly should not change the behavior of the program that they enforce. Instead, if the contracts were removed (“erased”), then the behavior of the program should be the same as if the contracts remained. This notion is captured by the idea of erasability. We present a calculus for erasable contracts, establish properties such as type soundness, and prove a formal definition of erasability for the language.</p>
+</blockquote>
 
-<blockquote><p>Contract programming is a design approach that allows programmers to design formal specifications for software, known as “contracts”. These contracts, executed at runtime, allow programmers to make assertions about the behavior of their software and ensure program correctness. In a language with side-effects, however, it is possible for these contracts to modify memory and consequently change the behavior of the program. While contracts provide the specifications, these specifications clearly should not change the behavior of the program that they enforce. Instead, if the contracts were removed (“erased”), then the behavior of the program should be the same as if the contracts remained. This notion is captured by the idea of erasability. We present a calculus for erasable contracts, establish properties such as type soundness, and prove a formal definition of erasability for the language.</p></blockquote>
+<p><a href="/downloads/erasable-final.pdf">Download the PDF</a> or view it below. Note that it’s missing some of the grittier nuances of the eta-reductions.</p>
 
-<p><a href="/downloads/erasable-final.pdf">Download the PDF</a> or view it below. Note that it&rsquo;s missing some of the grittier nuances of the eta-reductions.</p>
+<embed src="/downloads/erasable-final.pdf" type="application/pdf" width="100%" height="600" />
 
-<p><embed src="/downloads/erasable-final.pdf" type="application/pdf" width="100%" height="600"></p>
 </div>
 
 </article>

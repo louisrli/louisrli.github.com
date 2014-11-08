@@ -7,7 +7,7 @@
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="Using Quicksilver Mac and AppleScript to Adjust System Volume Extendible to command line I&rsquo;ve been using Quicksilver for a while, and I&rsquo; &hellip;">
+	<meta name="description" content="Using Quicksilver Mac and AppleScript to Adjust System Volume Extendible to command line I’ve been using Quicksilver for a while, and I’d heard of &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -23,6 +23,9 @@
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript"
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+          </script>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
 	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -96,63 +99,47 @@
 				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 	<h1 class="title" itemprop="name">Using Quicksilver Mac and AppleScript to Adjust System Volume</h1>
         <h3 class="subtitle" itemprop="subtitle">Extendible to command line </h3>
-	<div class="entry-content" itemprop="articleBody"><p>I&rsquo;ve been using <a href="http://qsapp.com/">Quicksilver</a> for a while, and I&rsquo;d heard of how powerful but never taken advantage of it. I wanted to adjust the system volume through Quicksilver: right now, I have to use <code>fn</code> + <code>f10</code> / <code>f11</code> / <code>f12</code> to adjust volume, since I chose to have <code>f1</code>&ndash;<code>f12</code> map to the normal keys.</p>
+	<div class="entry-content" itemprop="articleBody"><p>I’ve been using <a href="http://qsapp.com/">Quicksilver</a> for a while, and I’d heard of how powerful but never taken advantage of it. I wanted to adjust the system volume through Quicksilver: right now, I have to use <code>fn</code> + <code>f10</code> / <code>f11</code> / <code>f12</code> to adjust volume, since I chose to have <code>f1</code>-<code>f12</code> map to the normal keys.</p>
 
-<p>It seems that there&rsquo;s actually no Quicksilver plugin for system volume &mdash; only iTunes volume &mdash; but it&rsquo;s pretty simple to do with AppleScripts. It&rsquo;s not documented everywhere, so I thought I&rsquo;d add it here.</p>
+<p>It seems that there’s actually no Quicksilver plugin for system volume – only iTunes volume – but it’s pretty simple to do with AppleScripts. It’s not documented everywhere, so I thought I’d add it here.</p>
 
 <!-- more -->
-
-
-
 
 <ul class="thumbnails" style="width: 50%; margin: 0px auto;">
 <li class="span4">
 <a href="/images/quicksilver-script.png" class="thumbnail">
-<img alt="Quicksilver script for increasing volume" src="/images/quicksilver-script.png" height="300"/>
+<img alt="Quicksilver script for increasing volume" src="/images/quicksilver-script.png" height="300" />
 </a>
 </li>
 </ul>
 
+<h2 id="volume-applescripts">Volume AppleScripts</h2>
 
-<h2>Volume AppleScripts</h2>
+<p>The AppleScripts below will adjust the system volume, which is measured on a scale of 0 - 100. Here’s a <a href="https://www.dropbox.com/s/8a3rzqtiyupmny1/volume-applescripts.zip">download link</a> for these three scripts. To use them in Quicksilver, add them to the catalog, and opening them in Quicksilver should run them by default.</p>
 
-<p>The AppleScripts below will adjust the system volume, which is measured on a scale of 0 &ndash; 100. Here&rsquo;s a <a href="https://www.dropbox.com/s/8a3rzqtiyupmny1/volume-applescripts.zip">download link</a> for these three scripts. To use them in Quicksilver, add them to the catalog, and opening them in Quicksilver should run them by default.</p>
+<h5 id="decrease-volume">Decrease volume</h5>
 
-<h5>Decrease volume</h5>
+<div class="highlight"><pre><code class="language-applescript" data-lang="applescript"><span class="c"># Decrease\ Volume.scpt</span>
+<span class="k">set</span> <span class="nv">currentVolume</span> <span class="k">to</span> <span class="nv">output</span> <span class="na">volume</span> <span class="k">of</span> <span class="p">(</span><span class="nb">get volume settings</span><span class="p">)</span>
+<span class="nb">set volume</span> <span class="nv">output</span> <span class="na">volume</span> <span class="p">(</span><span class="nv">currentVolume</span> <span class="o">-</span> <span class="mi">10</span><span class="p">)</span></code></pre></div>
 
-<div>
-  <pre><code class='applescript'># Decrease\ Volume.scpt
-set currentVolume to output volume of (get volume settings)
-set volume output volume (currentVolume - 10)</code></pre>
-</div>
+<h5 id="increase-volume">Increase volume</h5>
 
+<div class="highlight"><pre><code class="language-applescript" data-lang="applescript"><span class="c"># Increase\ Volume.scpt</span>
+<span class="k">set</span> <span class="nv">currentVolume</span> <span class="k">to</span> <span class="nv">output</span> <span class="na">volume</span> <span class="k">of</span> <span class="p">(</span><span class="nb">get volume settings</span><span class="p">)</span>
+<span class="nb">set volume</span> <span class="nv">output</span> <span class="na">volume</span> <span class="p">(</span><span class="nv">currentVolume</span> <span class="o">+</span> <span class="mi">10</span><span class="p">)</span></code></pre></div>
 
-<h5>Increase volume</h5>
+<h5 id="mute-volume">Mute volume</h5>
 
-<div>
-  <pre><code class='applescript'># Increase\ Volume.scpt
-set currentVolume to output volume of (get volume settings)
-set volume output volume (currentVolume + 10)</code></pre>
-</div>
+<div class="highlight"><pre><code class="language-applescript" data-lang="applescript"><span class="c"># Mute\ Volume.scpt</span>
+<span class="k">set</span> <span class="nv">isMuted</span> <span class="k">to</span> <span class="nv">output</span> <span class="na">muted</span> <span class="k">of</span> <span class="p">(</span><span class="nb">get volume settings</span><span class="p">)</span>
+<span class="nb">set volume</span> <span class="nv">output</span> <span class="na">muted</span> <span class="ow">not</span> <span class="nv">isMuted</span></code></pre></div>
 
-
-<h5>Mute volume</h5>
-
-<div>
-  <pre><code class='applescript'># Mute\ Volume.scpt
-set isMuted to output muted of (get volume settings)
-set volume output muted not isMuted</code></pre>
-</div>
-
-
-<h2>Using in command line</h2>
+<h2 id="using-in-command-line">Using in command line</h2>
 
 <p>To run an AppleScript file in the command line, run:</p>
 
-<div>
-  <pre><code class='console'>$ osascript /path/to/file</code></pre>
-</div>
-
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> osascript /path/to/file</code></pre></div>
 
 <p>These files have spaces in them so that it looks cleaner in Quicksilver, but you can alias the commands appropriately.</p>
 </div>

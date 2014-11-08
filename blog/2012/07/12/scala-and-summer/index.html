@@ -7,7 +7,7 @@
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="Wrapping Up the Summer Entering the crazy world of code It&rsquo;s one of those posts that relates to everyone, but it had been on the edge of my &hellip;">
+	<meta name="description" content="Wrapping Up the Summer Entering the crazy world of code It’s one of those posts that relates to everyone, but it had been on the edge of my mind &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -23,6 +23,9 @@
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript"
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+          </script>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
 	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -96,36 +99,34 @@
 				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 	<h1 class="title" itemprop="name">Wrapping Up the Summer</h1>
         <h3 class="subtitle" itemprop="subtitle">Entering the crazy world of code </h3>
-	<div class="entry-content" itemprop="articleBody"><p>It&rsquo;s one of those posts that relates to everyone, but it had been on the edge of my mind recently. This post, titled the &ldquo;<a href="http://tilomitra.com/the-crazy-world-of-code">Crazy World of Code</a>&rdquo;, appeared on Hacker News a few days ago. It references a comment on a different HN article.</p>
+	<div class="entry-content" itemprop="articleBody"><p>It’s one of those posts that relates to everyone, but it had been on the edge of my mind recently. This post, titled the “<a href="http://tilomitra.com/the-crazy-world-of-code">Crazy World of Code</a>”, appeared on Hacker News a few days ago. It references a comment on a different HN article.</p>
 
 <!-- more -->
 
+<p>This posts nests the comment three levels deep, so I’ll include <a href="http://www.zemanta.com/fruitblog/i-bet-you-over-engineered-your-startup/#comment-583120247">the original comment</a>.</p>
 
-<p>This posts nests the comment three levels deep, so I&rsquo;ll include <a href="http://www.zemanta.com/fruitblog/i-bet-you-over-engineered-your-startup/#comment-583120247">the original comment</a>.</p>
+<blockquote>
+  <p>I agree, I can’t keep up. I just finished learning backbone.js and now I’m found out on that it’s old news, and I should use ember.js, cross that, it has opinions, I should use Meteor, no, AngularJS, no, Tower.js (on node.js), and for html templates I need handlebars, no mustache, wait, DoT.js is better, hang on, why do I need an HTML parser inside the browser? isn’t that what the browser for? so no HTML templates? ok, DOM snippets, fine, Web Components you say? W3C are in the game too? you mean write REGULAR JavaScript like the Google guys? yuck, oh, I just should write it with CofeeScript and it will look ok, not Coffee? Coco? LiveScript?  DART? GWT? ok, let me just go back to Ruby on Rails, oh it doesn’t scale? Grails? Groovy? Roo? too “Springy?” ok, what about node.js? doesn’t scale either?? but I can write client side, server side and mongodb side code in the same language? (but does it have to be JavaScript?) ok, what about PHP, you say it’s not really thread safe? they lie?? ok, let me go back to server coding, it’s still Java right? no? Lisp? oh it’s called Clojure? well, it has a Bridge / protocol buffers / thrift implementation so we can be language agnostic, so we can support our Haskell developers. Or just go with Scala/Lift/Play it’s the BEST framework (Foresquare use it, so it has to be good). of course we won’t do SOAP and will use only JSON RESTful services cause it’s only for banks and Walmart, and god forbid to use a SQL database it will never scale</p>
+</blockquote>
 
-<blockquote><p>I agree, I can’t keep up. I just finished learning backbone.js and now I’m found out on that it’s old news, and I should use ember.js, cross that, it has opinions, I should use Meteor, no, AngularJS, no, Tower.js (on node.js), and for html templates I need handlebars, no mustache, wait, DoT.js is better, hang on, why do I need an HTML parser inside the browser? isn’t that what the browser for? so no HTML templates? ok, DOM snippets, fine, Web Components you say? W3C are in the game too? you mean write REGULAR JavaScript like the Google guys? yuck, oh, I just should write it with CofeeScript and it will look ok, not Coffee? Coco? LiveScript?  DART? GWT? ok, let me just go back to Ruby on Rails, oh it doesn’t scale? Grails? Groovy? Roo? too “Springy?” ok, what about node.js? doesn’t scale either?? but I can write client side, server side and mongodb side code in the same language? (but does it have to be JavaScript?) ok, what about PHP, you say it’s not really thread safe? they lie?? ok, let me go back to server coding, it’s still Java right? no? Lisp? oh it’s called Clojure? well, it has a Bridge / protocol buffers / thrift implementation so we can be language agnostic, so we can support our Haskell developers. Or just go with Scala/Lift/Play it’s the BEST framework (Foresquare use it, so it has to be good). of course we won’t do SOAP and will use only JSON RESTful services cause it’s only for banks and Walmart, and god forbid to use a SQL database it will never scale</p></blockquote>
+<h2 id="one-project-one-language">One project, one language</h2>
+<p>This post had me thinking about a related topic. I was talking to one of my coworkers about mailing lists, and he said that he followed the Lua mailing list because he was “a big fan of the Lua language.”</p>
 
-<h2>One project, one language</h2>
-
-<p>This post had me thinking about a related topic. I was talking to one of my coworkers about mailing lists, and he said that he followed the Lua mailing list because he was &ldquo;a big fan of the Lua language.&rdquo;</p>
-
-<p>Again, it&rsquo;s one of those phrases that stick in my head. I&rsquo;ve done about one distinct language per project<sup>1, 2</sup>, but I&rsquo;ve never considered myself a &ldquo;big fan&rdquo; of any as a whole. Each time I start a new project, too, it&rsquo;s hard not to chase the shiny objects. There&rsquo;s a lot out there.</p>
+<p>Again, it’s one of those phrases that stick in my head. I’ve done about one distinct language per project<sup>1, 2</sup>, but I’ve never considered myself a “big fan” of any as a whole. Each time I start a new project, too, it’s hard not to chase the shiny objects. There’s a lot out there.</p>
 
 <p>It would be nice to start working toward knowing a language more intimately, like how <a href="http://stackoverflow.com/users/22656/jon-skeet">Jon Skeet</a> knows C#.</p>
 
-<h2>The rest of the summer</h2>
+<h2 id="the-rest-of-the-summer">The rest of the summer</h2>
+<p>I’m giving <a href="http://www.scala-lang.org/">Scala</a> a shot for my “standard language.”  I’ve liked my experiences with both OCaml (functional, statically typed) and Java (object-oriented, compiled, statically typed). It seems like a language that I would really like, though, to clarify, it won’t be the right tool for all problems.</p>
 
-<p>I&rsquo;m giving <a href="http://www.scala-lang.org/">Scala</a> a shot for my &ldquo;standard language.&rdquo;  I&rsquo;ve liked my experiences with both OCaml (functional, statically typed) and Java (object-oriented, compiled, statically typed). It seems like a language that I would really like, though, to clarify, it won&rsquo;t be the right tool for all problems.</p>
-
-<p>I thought deeply about this post because there&rsquo;s two distinct ideas floating in my head, and I&rsquo;m pretty excited to dig into both. I&rsquo;ve read a lot this summer and depended on my internship for &ldquo;doing,&rdquo; but I finally sat down and started thinking about projects that I&rsquo;d like to start.</p>
+<p>I thought deeply about this post because there’s two distinct ideas floating in my head, and I’m pretty excited to dig into both. I’ve read a lot this summer and depended on my internship for “doing,” but I finally sat down and started thinking about projects that I’d like to start.</p>
 
 <p><a href="http://www.amazon.com/Programming-Scala-Comprehensive-Step---Step/dp/0981531644">One last reading</a> for Scala, more exploit-exercises, and these (still under the radar) projects.</p>
 
 <ol>
-<li>Way different from one distinct project per language</li>
-<li><code>catch (Exception e) { Java, Objective-C }</code></li>
+  <li>Way different from one distinct project per language</li>
+  <li><code>catch (Exception e) { Java, Objective-C }</code></li>
 </ol>
-
 </div>
 
 </article>

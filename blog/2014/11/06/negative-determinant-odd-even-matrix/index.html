@@ -3,11 +3,12 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Category: exploits - Louis Li</title>
+	<title>det(-A) = -det(A) for Odd Square Matrix - Louis Li</title>
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="Category: exploits">
+	<meta name="description" content="det(-A) = -det(A) for Odd Square Matrix The proof for this is straightforward, but I didn’t find it explicitly stated elsewhere on the web
+– it may &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
 
 	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
 	
-	<link rel="canonical" href="http://louisrli.github.io/blog/categories/exploits/">
+	<link rel="canonical" href="http://louisrli.github.io/blog/2014/11/06/negative-determinant-odd-even-matrix/">
 	<link href="/favicon.png" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -96,144 +97,64 @@
 				
 			
 			<div class="mid-col-container">
-				<div id="content" class="inner">
-	
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">det(-A) = -det(A) for Odd Square Matrix</h1>
+        <h3 class="subtitle" itemprop="subtitle"></h3>
+	<div class="entry-content" itemprop="articleBody"><p>The proof for this is straightforward, but I didn’t find it explicitly stated elsewhere on the web
+– it may just be one of those propositions that’s hard to phrase as a search query. In words:
+the negative determinant of an odd square matrix is the determinant of the negative matrix.</p>
 
+<h2 id="proposition">Proposition</h2>
+<blockquote>
+  <p>If <script type="math/tex">A</script> is an <script type="math/tex"> n \times n </script> square matrix and <script type="math/tex"> n </script> is odd, then <script type="math/tex"> \det(-A) =
+-\det(A) </script>.</p>
+</blockquote>
 
-	
-	
-	<section class="archives"><h1 class="year">2012</h1>
+<!-- more -->
 
-<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<span class="date"><time datetime="2012-08-29T00:00:00-07:00" itemprop="datePublished">Aug 29</time></span>
-		<br>
-		<span class="tags">
+<h2 id="proof">Proof</h2>
 
+<p>Negating all elements of a row of the matrix <script type="math/tex">A</script> negates the determinant of the matrix
+(<a href="https://proofwiki.org/wiki/Effect_of_Sequence_of_Elementary_Row_Operations_on_Determinant">proof</a>
+– think about it as multiplying a row by the scalar <script type="math/tex">-1</script>). </p>
 
-	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+<p><script type="math/tex">-A</script> is equivalent to <script type="math/tex"> A </script> with each of its rows negated. Because <script type="math/tex"> n </script> is
+odd:</p>
 
+<script type="math/tex; mode=display"> \det(-A) = (-1)^n \det(A) = -\det(A) </script>
 
-</span>
-	    
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2012/08/29/protostar-format0/">Protostar Format String Exploits (Solutions 0-4)</a></h1>
+<h2 id="context">Context</h2>
+<p>This fact was needed to prove that if <script type="math/tex"> A </script> is a <a href="http://en.wikipedia.org/wiki/Orthogonal_group">special orthogonal
+matrix</a> and <script type="math/tex"> n </script>
+is odd, then <script type="math/tex"> A </script> has at least one eigenvector with eigenvalue <script type="math/tex"> 1 </script>.</p>
+
+<p>Note that if <script type="math/tex">n</script> is even, we can prove that <script type="math/tex">\det(A) = \det(-A)</script> using the same technique.</p>
+</div>
+
 </article>
 
-	
+	<div class="share">
+  <!--AddThis Button BEGIN -->
+  <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+    <a class="addthis_button_preferred_1"></a>
+    <a class="addthis_button_preferred_2"></a>
+    <a class="addthis_button_preferred_3"></a>
+    <a class="addthis_button_preferred_4"></a>
+    <a class="addthis_button_compact"></a>
+    <a class="addthis_counter addthis_bubble_style"></a>
+  </div>
+  <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51e5a5762f46bbe9"></script>
+  <!-- AddThis Button END -->
+</div>
 
 
-<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<span class="date"><time datetime="2012-08-28T00:00:00-07:00" itemprop="datePublished">Aug 28</time></span>
-		<br>
-		<span class="tags">
 
-
-	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
-
-
-</span>
-	    
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2012/08/28/protostar-stack2/">Protostar Stack Exploits (Solutions 6-7)</a></h1>
-</article>
-
-	
-
-
-<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<span class="date"><time datetime="2012-08-24T00:00:00-07:00" itemprop="datePublished">Aug 24</time></span>
-		<br>
-		<span class="tags">
-
-
-	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
-
-
-</span>
-	    
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2012/08/24/protostar-stack1/">Protostar Stack Exploits (Solutions 4-5)</a></h1>
-</article>
-
-	
-
-
-<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<span class="date"><time datetime="2012-08-18T00:00:00-07:00" itemprop="datePublished">Aug 18</time></span>
-		<br>
-		<span class="tags">
-
-
-	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
-
-
-</span>
-	    
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2012/08/18/protostar-stack0/">Protostar Stack Exploits (Solutions 0-3)</a></h1>
-</article>
-
-	
-
-
-<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<span class="date"><time datetime="2012-08-17T00:00:00-07:00" itemprop="datePublished">Aug 17</time></span>
-		<br>
-		<span class="tags">
-
-
-	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
-
-
-</span>
-	    
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2012/08/17/nebula2/">Nebula Shell Exploits (Solutions 15-19)</a></h1>
-</article>
-
-	
-
-
-<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<span class="date"><time datetime="2012-06-28T00:00:00-07:00" itemprop="datePublished">Jun 28</time></span>
-		<br>
-		<span class="tags">
-
-
-	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
-
-
-</span>
-	    
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2012/06/28/nebula1/">Nebula Shell Exploits (Solutions 10-14)</a></h1>
-</article>
-
-	
-
-
-<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<span class="date"><time datetime="2012-06-22T00:00:00-07:00" itemprop="datePublished">Jun 22</time></span>
-		<br>
-		<span class="tags">
-
-
-	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
-
-
-</span>
-	    
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2012/06/22/nebula0/">Nebula Shell Exploits (Solutions 00-09)</a></h1>
-</article>
-
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
 </div>
 			</div>
 			<footer id="footer" class="inner"><p>
@@ -255,7 +176,10 @@ Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Sha
       var disqus_shortname = 'llgithub';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://louisrli.github.io/blog/2014/11/06/negative-determinant-odd-even-matrix/';
+        var disqus_url = 'http://louisrli.github.io/blog/2014/11/06/negative-determinant-odd-even-matrix/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
