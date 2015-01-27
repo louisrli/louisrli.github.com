@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2014-11-07T17:09:31-08:00</updated>
+  <updated>2015-01-27T07:28:19-05:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Topological Proof of Bolzano-Weierstrass Without Constructing Sequences]]></title>
     <link href="http://louisrli.github.io/blog/2014/11/07/bolzano-weierstrass-without-sequences/"/>
-    <updated>2014-11-07T00:00:00-08:00</updated>
+    <updated>2014-11-07T00:00:00-05:00</updated>
     <id>http://louisrli.github.io/blog/2014/11/07/bolzano-weierstrass-without-sequences</id>
     <content type="html"><![CDATA[<p>The <a href="http://en.wikipedia.org/wiki/Bolzano%E2%80%93Weierstrass_theorem">Bolzano-Weierstrass theorem</a>
 is a common theorem taught in introductory real analysis and topology courses. </p>
@@ -91,7 +91,7 @@ follows that <script type="math/tex"> \{ x_i \} </script> must have a convergent
   <entry>
     <title type="html"><![CDATA[det(-A) = -det(A) for Odd Square Matrix]]></title>
     <link href="http://louisrli.github.io/blog/2014/11/06/negative-determinant-odd-even-matrix/"/>
-    <updated>2014-11-06T00:00:00-08:00</updated>
+    <updated>2014-11-06T00:00:00-05:00</updated>
     <id>http://louisrli.github.io/blog/2014/11/06/negative-determinant-odd-even-matrix</id>
     <content type="html"><![CDATA[<p>The proof for this is straightforward, but I didn’t find it explicitly stated elsewhere on the web
 – it may just be one of those propositions that’s hard to phrase as a search query. In words:
@@ -128,7 +128,7 @@ is odd, then <script type="math/tex"> A </script> has at least one eigenvector w
   <entry>
     <title type="html"><![CDATA[Tips for Computer Science Internship Interviews]]></title>
     <link href="http://louisrli.github.io/blog/2014/01/18/tips-for-computer-science-internship-interviews/"/>
-    <updated>2014-01-18T00:00:00-08:00</updated>
+    <updated>2014-01-18T00:00:00-05:00</updated>
     <id>http://louisrli.github.io/blog/2014/01/18/tips-for-computer-science-internship-interviews</id>
     <content type="html"><![CDATA[<p>This post is meant to help computer science undergraduates looking for a software engineering internship in the summer. Applying to internships can be daunting, and this post will hopefully address some of the commonly asked questions that I see on Reddit’s <a href="http://www.reddit.com/r/cscareerquestions">cscareerquestions</a>.
 Along with some other miscellanea regarding applications, this post covers two things: </p>
@@ -461,7 +461,7 @@ I think it would be a useful source of feedback.</p>
   <entry>
     <title type="html"><![CDATA[Erasable Code Contracts]]></title>
     <link href="http://louisrli.github.io/blog/2014/01/09/erasable-contracts/"/>
-    <updated>2014-01-09T00:00:00-08:00</updated>
+    <updated>2014-01-09T00:00:00-05:00</updated>
     <id>http://louisrli.github.io/blog/2014/01/09/erasable-contracts</id>
     <content type="html"><![CDATA[<p>This semester, I took a course on the science of cybersecurity, targeted toward an audience with some programming languages background. </p>
 
@@ -492,7 +492,7 @@ I think it would be a useful source of feedback.</p>
   <entry>
     <title type="html"><![CDATA[Hungrier: Harvard Dining Menu, Re-released]]></title>
     <link href="http://louisrli.github.io/blog/2013/08/22/hungry-revamped/"/>
-    <updated>2013-08-22T00:00:00-07:00</updated>
+    <updated>2013-08-22T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2013/08/22/hungry-revamped</id>
     <content type="html"><![CDATA[<p>I’ve rewritten and redesigned <a href="http://louisrli.github.io/hungry/">Hungry</a>, a site that filters the noisy Harvard dining menu for relevant entries. If you’re reading this during the school year, there probably won’t be anything, since student dining isn’t open.</p>
 
@@ -505,7 +505,7 @@ I think it would be a useful source of feedback.</p>
   <entry>
     <title type="html"><![CDATA[How To Use Meteor.js Routing with Disqus]]></title>
     <link href="http://louisrli.github.io/blog/2013/07/29/using-meteor-js-with-disqus/"/>
-    <updated>2013-07-29T00:00:00-07:00</updated>
+    <updated>2013-07-29T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2013/07/29/using-meteor-js-with-disqus</id>
     <content type="html"><![CDATA[<p>On most sites, using Disqus as the commenting system is as simple as copying the <a href="http://disqus.com/admin/universalcode/">Universal Code</a> (also known as <code>embed.js</code>) into a web page. In single-page JavaScript applications, however, much of the rendering is on the client-side. This means that <code>embed.js</code> might lead to stale Disqus threads or function incorrectly as pages are re-rendered.</p>
 
@@ -691,7 +691,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Five Research Tips for First-Time Undergraduate Researchers]]></title>
     <link href="http://louisrli.github.io/blog/2013/06/28/researchtips/"/>
-    <updated>2013-06-28T00:00:00-07:00</updated>
+    <updated>2013-06-28T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2013/06/28/researchtips</id>
     <content type="html"><![CDATA[<p>Today, I submitted my first extended abstract to the ASSETS 2013 Student Research Competition. This marks my first tangible output in undergraduate research. This isn’t quite the end of the story – I plan to continue gathering results and writing a paper for submission to CHI. It is, however, time for reflection.</p>
 
@@ -757,7 +757,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Sophomore Spring: A Brief List of What I Learned]]></title>
     <link href="http://louisrli.github.io/blog/2013/05/13/what-i-learned-this-semester/"/>
-    <updated>2013-05-13T00:00:00-07:00</updated>
+    <updated>2013-05-13T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2013/05/13/what-i-learned-this-semester</id>
     <content type="html"><![CDATA[<p>Here’s a concise list of [some of] the things that I learned this semester. I would say that the things that I learned this semester are a lot more diverse than those from last semester (I’d describe last semester as…math).</p>
 
@@ -823,7 +823,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Up-to-date Guide on How to Delete All Posts on Your Tumblr]]></title>
     <link href="http://louisrli.github.io/blog/2013/05/11/how-to-delete-all-tumblr-posts/"/>
-    <updated>2013-05-11T00:00:00-07:00</updated>
+    <updated>2013-05-11T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2013/05/11/how-to-delete-all-tumblr-posts</id>
     <content type="html"><![CDATA[<p>One of my friends asked me how to batch delete all of the posts on a <a href="http://tumblr.com">Tumblr</a>. There are some PHP and Ruby scripts on the internet that claim to achieve this, but they seem to be outdated in regards to the Tumblr API, or they require installing some packages.</p>
 
@@ -861,7 +861,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[A Rational Approximation of Pi Using the Pigeonhole Principle]]></title>
     <link href="http://louisrli.github.io/blog/2013/01/31/approximating-pi-pigeonhole-principle/"/>
-    <updated>2013-01-31T00:00:00-08:00</updated>
+    <updated>2013-01-31T00:00:00-05:00</updated>
     <id>http://louisrli.github.io/blog/2013/01/31/approximating-pi-pigeonhole-principle</id>
     <content type="html"><![CDATA[<p>Below is a short Python script that finds a fractional approximation of \(\pi\) using the first 1001 multiples of \(\pi\) (the case with 11 multiples of \(\pi\) can easily be done by hand). It makes use of the <em>pigeonhole principle</em>. The 11-multiple version of the problem has been used in the module teaching the pigeonhole principle in various classes that I have taken or taught.</p>
 
@@ -992,7 +992,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Chrome Extensions: Taking Screenshots with Javascript/jQuery, HTML5, Canvas]]></title>
     <link href="http://louisrli.github.io/blog/2013/01/16/javascript-canvas-screenshot/"/>
-    <updated>2013-01-16T00:00:00-08:00</updated>
+    <updated>2013-01-16T00:00:00-05:00</updated>
     <id>http://louisrli.github.io/blog/2013/01/16/javascript-canvas-screenshot</id>
     <content type="html"><![CDATA[<p>This post describes how to create a completely accurate image preview of a DOM element on the page by using Javascript in a Chrome extension. I stumbled upon this issue while working on a web implementation of <a href="http://www.mendeley.com/research/enhanced-area-cursors-reducing-fine-pointing-demands-people-motor-impairments/">click-and-cross (Findlater et al.)</a> for research. This process consists of two subproblems.</p>
 
@@ -1136,7 +1136,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Using Quicksilver Mac and AppleScript to Adjust System Volume]]></title>
     <link href="http://louisrli.github.io/blog/2013/01/15/applescript-volume/"/>
-    <updated>2013-01-15T00:00:00-08:00</updated>
+    <updated>2013-01-15T00:00:00-05:00</updated>
     <id>http://louisrli.github.io/blog/2013/01/15/applescript-volume</id>
     <content type="html"><![CDATA[<p>I’ve been using <a href="http://qsapp.com/">Quicksilver</a> for a while, and I’d heard of how powerful but never taken advantage of it. I wanted to adjust the system volume through Quicksilver: right now, I have to use <code>fn</code> + <code>f10</code> / <code>f11</code> / <code>f12</code> to adjust volume, since I chose to have <code>f1</code>-<code>f12</code> map to the normal keys.</p>
 
@@ -1187,7 +1187,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[2012 in Sideprojects]]></title>
     <link href="http://louisrli.github.io/blog/2013/01/12/sideprojects-2012/"/>
-    <updated>2013-01-12T00:00:00-08:00</updated>
+    <updated>2013-01-12T00:00:00-05:00</updated>
     <id>http://louisrli.github.io/blog/2013/01/12/sideprojects-2012</id>
     <content type="html"><![CDATA[<p>It always surprises me how long a year is. It’s hard for me to believe that some of these projects were a year ago, but I’m happy to see my progress. Here’s a walk down memory lane for my projects in 2012, not including course projects and research.</p>
 
@@ -1302,7 +1302,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Looking Forward to Discrete Mathematics]]></title>
     <link href="http://louisrli.github.io/blog/2012/12/22/discrete-math-paper/"/>
-    <updated>2012-12-22T00:00:00-08:00</updated>
+    <updated>2012-12-22T00:00:00-05:00</updated>
     <id>http://louisrli.github.io/blog/2012/12/22/discrete-math-paper</id>
     <content type="html"><![CDATA[<p>For one of my math classes this semester (Sets and Topology), we had a short project: a three-to-five page paper on some area in mathematics. I opted for discrete mathematics, which is a topic on the broad side; five pages, of course.</p>
 
@@ -1323,7 +1323,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Enabling VirtualBox SSH on IPv6 (Linux host, Linux guest)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/30/virtualbox-ipv6-ssh/"/>
-    <updated>2012-08-30T00:00:00-07:00</updated>
+    <updated>2012-08-30T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2012/08/30/virtualbox-ipv6-ssh</id>
     <content type="html"><![CDATA[<p>This is a quick article describing how to SSH to a VirtualBox machine from the host machine, written for VirtualBox 4.1.18 Fedora. The standard choice – bridged networking – doesn’t work when the host has an IPv6 address.</p>
 
@@ -1387,7 +1387,7 @@ iface eth1 inet dhcp</code></pre></div>
   <entry>
     <title type="html"><![CDATA[Protostar Format String Exploits (Solutions 0-4)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/29/protostar-format0/"/>
-    <updated>2012-08-29T00:00:00-07:00</updated>
+    <updated>2012-08-29T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2012/08/29/protostar-format0</id>
     <content type="html"><![CDATA[<h1 id="overview">Overview</h1>
 <p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
@@ -1573,7 +1573,7 @@ ebx at 0xbffff564, ebp at 0xbffff568, eip at 0xbffff56c
   <entry>
     <title type="html"><![CDATA[Protostar Stack Exploits (Solutions 6-7)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/28/protostar-stack2/"/>
-    <updated>2012-08-28T00:00:00-07:00</updated>
+    <updated>2012-08-28T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2012/08/28/protostar-stack2</id>
     <content type="html"><![CDATA[<h1 id="overview">Overview</h1>
 <p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
@@ -1787,7 +1787,7 @@ Buffer end (84 bytes total)</code></pre></div>
   <entry>
     <title type="html"><![CDATA[Protostar Stack Exploits (Solutions 4-5)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/24/protostar-stack1/"/>
-    <updated>2012-08-24T00:00:00-07:00</updated>
+    <updated>2012-08-24T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2012/08/24/protostar-stack1</id>
     <content type="html"><![CDATA[<h1 id="overview">Overview</h1>
 <p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
@@ -1952,7 +1952,7 @@ Program exited normally.</code></pre></div>
   <entry>
     <title type="html"><![CDATA[Protostar Stack Exploits (Solutions 0-3)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/18/protostar-stack0/"/>
-    <updated>2012-08-18T00:00:00-07:00</updated>
+    <updated>2012-08-18T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2012/08/18/protostar-stack0</id>
     <content type="html"><![CDATA[<h1 id="overview">Overview</h1>
 <p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
@@ -1997,7 +1997,7 @@ Program exited normally.</code></pre></div>
   <entry>
     <title type="html"><![CDATA[Nebula Shell Exploits (Solutions 15-19)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/17/nebula2/"/>
-    <updated>2012-08-17T00:00:00-07:00</updated>
+    <updated>2012-08-17T00:00:00-04:00</updated>
     <id>http://louisrli.github.io/blog/2012/08/17/nebula2</id>
     <content type="html"><![CDATA[<h1 id="overview">Overview</h1>
 <p>This is third and final post of my solutions for <a href="http://exploit-exercises.com/nebula">Exploit Exercises</a>. This comes about a month after finishing 10-14 – I was distracted by some other projects.</p>
