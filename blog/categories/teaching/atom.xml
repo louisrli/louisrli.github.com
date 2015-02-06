@@ -4,7 +4,7 @@
   <title><![CDATA[Category: teaching | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/teaching/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2015-02-05T20:11:08-05:00</updated>
+  <updated>2015-02-05T20:27:37-05:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -44,7 +44,22 @@ mistakes that student instructors make. </p>
   <li>My observations of other student instructors</li>
 </ol>
 
-<h1 id="avoid-saying-that-things-are-easy">1. Avoid saying that things are easy.</h1>
+<h1 id="explicitly-emphasize-your-accessibility">1. Explicitly emphasize your accessibility.</h1>
+<p><strong>Concrete action</strong>: At the beginning of every section (or every section for the first half of the
+semester), tell the students to email you any questions that they have about the course or problem
+sets – no matter how trivial.</p>
+
+<p><strong>Phrasing is important.</strong> As an instructor, I particularly emphasized my willingness to look at the
+rigor of proofs,
+a common concern in introductory mathematics courses – telling students that I would avoid saying
+whether their answer was correct but would instead give feedback on the rigor of their proofs.</p>
+
+<p>Consider the result of being passively open to questions. In the back of their heads, students
+know that they <em>can</em> approach you for questions, but they may be worried about looking “dumb” or
+coming off as annoying. Explicitly emphasizing your accessibility fosters an environment that allows
+you to help struggling students.</p>
+
+<h1 id="avoid-saying-that-things-are-easy">2. Avoid saying that things are easy.</h1>
 <p><strong>Concrete action</strong>: Try to catch yourself before using any of these phrases or their variants:
 “this problem is easy”, “this problem is really simple”, “this is not too hard”, etc.</p>
 
@@ -60,21 +75,6 @@ achieved nothing positive. It only served to foster the student’s apprehension
 is easy. However, note that it’s also a bad <em>preface</em> to an example problem – before anybody
 mentions confusion. Deeming the problem “easy” beforehand will make potentially confused
 students feel worse.</p>
-
-<h1 id="explicitly-emphasize-your-accessibility">2. Explicitly emphasize your accessibility.</h1>
-<p><strong>Concrete action</strong>: At the beginning of every section (or every section for the first half of the
-semester), tell the students to email you any questions that they have about the course or problem
-sets – no matter how trivial.</p>
-
-<p><strong>Phrasing is important.</strong> As an instructor, I particularly emphasized my willingness to look at the
-rigor of proofs,
-a common concern in introductory mathematics courses – telling students that I would avoid saying
-whether their answer was correct but would instead give feedback on the rigor of their proofs.</p>
-
-<p>Consider the result of being passively open to questions. In the back of their heads, students
-know that they <em>can</em> approach you for questions, but they may be worried about looking “dumb” or
-coming off as annoying. Explicitly emphasizing your accessibility fosters an environment that allows
-you to help struggling students.</p>
 
 <h1 id="admit-when-you-dont-know-the-answer----then-find-it">3. Admit when you don’t know the answer – then find it.</h1>
 <p><strong>Concrete action</strong>: If a student puts you on the spot with a question, and you can’t figure out the
