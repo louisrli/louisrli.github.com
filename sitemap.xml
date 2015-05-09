@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://louisrli.github.io/blog/2015/05/03/senior-thesis/</loc>
+    <lastmod>2015-05-03T00:00:00-04:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>http://louisrli.github.io/blog/2015/01/27/five-tips-for-being-an-effective-teaching-fellow/</loc>
     <lastmod>2015-01-27T23:13:28-05:00</lastmod>
     <priority>0.8</priority>
@@ -127,25 +132,25 @@
   </url>
   <url>
     <loc>http://louisrli.github.io/blog/archives/</loc>
-    <lastmod>2015-02-05T20:27:37-05:00</lastmod>
+    <lastmod>2015-05-07T08:38:44-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://louisrli.github.io/blog/</loc>
-    <lastmod>2015-02-05T20:27:37-05:00</lastmod>
+    <lastmod>2015-05-07T08:38:44-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://louisrli.github.io/</loc>
-    <lastmod>2015-02-05T20:27:37-05:00</lastmod>
+    <lastmod>2015-05-07T08:38:44-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://louisrli.github.io/publications/</loc>
-    <lastmod>2015-02-05T20:27:37-05:00</lastmod>
+    <lastmod>2015-05-07T08:38:44-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

