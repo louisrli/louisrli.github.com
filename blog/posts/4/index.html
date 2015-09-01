@@ -3,11 +3,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Category: travel - Louis Li</title>
+	<title>Blog - Louis Li</title>
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="Category: travel">
+	<meta name="description" content="exploits, projects Nebula Shell Exploits (Solutions 00-09) Overview Nebula is a series of “capture the flag” exercises from Exploit Exercises. I’ve &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
 
 	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
 	
-	<link rel="canonical" href="http://louisrli.github.io/blog/categories/travel/">
+	<link rel="canonical" href="http://louisrli.github.io/blog/posts/4/">
 	<link href="/favicon.png" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -96,106 +96,78 @@
 				
 			
 			<div class="mid-col-container">
-				<div id="content" class="inner">
-	
-
-
-	
-	
-	<section class="archives"><h1 class="year">2015</h1>
-
-<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+				<div id="content" class="inner"><div class="blog-index">
+  
+  
+  
+    <article>
+      
 	<div class="meta">
-		<span class="date"><time datetime="2015-08-31T00:00:00+02:00" itemprop="datePublished">Aug 31</time></span>
-		<br>
-		<span class="tags">
+		<div class="date">
 
 
-	<a class='category' href='/blog/categories/albania/'>albania</a>, <a class='category' href='/blog/categories/travel/'>travel</a>
 
 
-</span>
-	    
+
+
+
+
+  
+
+
+<time datetime="2012-06-22T00:00:00+02:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+
+
+</div>
+		
 	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/08/31/tirana-durres-schkoder-albania/">Transportation from Tirana to Durres / Schkoder (Albania)</a></h1>
-</article>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/06/22/nebula0/" itemprop="url">Nebula Shell Exploits (Solutions 00-09)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h1 id="overview">Overview</h1>
 
-	
+<p>Nebula is a series of “capture the flag” exercises from <a href="http://exploit-exercises.com/nebula">Exploit Exercises</a>. I’ve been reading <a href="http://www.amazon.com/Hacking-The-Art-Exploitation-Edition/dp/1593271441/">Hacking: The Art of Exploitation 2e</a> – this was a good supplement.</p>
+
+<p>The provided Ubuntu VM has 20 levels (00 - 19). The goal of each level is to run the <code>getflag</code> command on a target account, either by exploiting a <a href="http://en.wikipedia.org/wiki/Setuid">suid</a> program or obtaining the password.</p>
+
+<h1 id="solutions">Solutions</h1>
+
+<p>To keep things shorter, a link to the full description is provided with each level. The full description contains relevant source code.</p>
+
+<p>There’s no copy paste for Ubuntu Server VMs, but I included the output when it supplemented the solution.</p>
+
+<h2 id="level-0">Level 0</h2>
+
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level00">(full)</a>: Find a file with setuid permissions.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>find / -perm /u+s</code></pre></div>
+
+<p>Search the root directory for files based on permissions. The file <code>/bin/.../flag00</code> looks suspicious.</p>
 
 
-<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<span class="date"><time datetime="2015-08-30T00:00:00+02:00" itemprop="datePublished">Aug 30</time></span>
-		<br>
-		<span class="tags">
-
-
-	<a class='category' href='/blog/categories/travel/'>travel</a>
-
-
-</span>
-	    
+		
+		<a href="/blog/2012/06/22/nebula0/" class="more-link">Read more</a>
 	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/08/30/mt-dajt-tirana-albania/">Transportation to Mount Dajti (Tirana, Albania)</a></h1>
-</article>
-
-	
 
 
-<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<span class="date"><time datetime="2015-08-17T00:00:00+02:00" itemprop="datePublished">Aug 17</time></span>
-		<br>
-		<span class="tags">
-
-
-	<a class='category' href='/blog/categories/taiwan/'>taiwan</a>, <a class='category' href='/blog/categories/travel/'>travel</a>
-
-
-</span>
-	    
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/08/17/meat-and-rice-zhaopaikaoroufan/">Best Meat and Rice in Taipei: Barbecue Pork Rice 御狀元烤肉飯 (Taipei, Taiwan)</a></h1>
-</article>
-
-	
-
-
-<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<span class="date"><time datetime="2015-08-11T00:00:00+02:00" itemprop="datePublished">Aug 11</time></span>
-		<br>
-		<span class="tags">
-
-
-	<a class='category' href='/blog/categories/taiwan/'>taiwan</a>, <a class='category' href='/blog/categories/travel/'>travel</a>
-
-
-</span>
-	    
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/08/11/yangmingshan/">Yangmingshan Transportation 阳明山 (Taipei, Taiwan)</a></h1>
-</article>
-
-	
-
-
-<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<span class="date"><time datetime="2015-07-10T00:00:00+02:00" itemprop="datePublished">Jul 10</time></span>
-		<br>
-		<span class="tags">
-
-
-	<a class='category' href='/blog/categories/taiwan/'>taiwan</a>, <a class='category' href='/blog/categories/travel/'>travel</a>
-
-
-</span>
-	    
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/07/10/sun-moon-lake/">English Guide to Sun Moon Lake 日月潭 (Taiwan)</a></h1>
-</article>
-
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="3">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    
+  
+</aside>
 </div>
 			</div>
 			<footer id="footer" class="inner"><p>

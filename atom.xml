@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2015-08-30T23:38:19+02:00</updated>
+  <updated>2015-09-01T22:05:30+02:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,6 +12,63 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Transportation from Tirana to Durres / Schkoder (Albania)]]></title>
+    <link href="http://louisrli.github.io/blog/2015/08/31/tirana-durres-schkoder-albania/"/>
+    <updated>2015-08-31T00:00:00+02:00</updated>
+    <id>http://louisrli.github.io/blog/2015/08/31/tirana-durres-schkoder-albania</id>
+    <content type="html"><![CDATA[<p>This article contains bus directions based on my travels in Albania in August 2015. 
+Durres is a coastal city around thirty minutes away, containing
+ferries to Italy and beaches. </p>
+
+<p>Schkoder is a historical city around 1.25 to 1.75 hours away,
+depending on traffic. It is a northern border city with bus transfers to Ulcinj, Montenegro. </p>
+
+<!-- more -->
+
+<p>Confirm these
+directions. Two years ago, the bus to Schkoder was at a different location, and some of the
+directions that I found were outdated.</p>
+
+<h2 id="directions-to-the-bus-stop">Directions to the bus stop</h2>
+
+<p>The Google Maps diagram below shows the bus stop, which is in the roundabout of Karl Topia Square.
+It shouldn’t be too hard to find the correct bus: each bus has a person shouting its destination.  </p>
+
+<div style="text-align: center;">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2995.868120776664!2d19.804230999999994!3d41.333481!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDIwJzAwLjUiTiAxOcKwNDgnMTUuMiJF!5e0!3m2!1sen!2sus!4v1441137271939" width="400" height="300" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+</div>
+
+<h2 id="bus">Bus</h2>
+
+<p>The buses, known as <em>furgons</em>, are more akin to vans or cars. For an afternoon bus to Durres, I took
+a van that fit approximately 15 people. For a 7 AM bus to Schkoder, the vehicle was someone’s
+five-seat Volkswagen. Don’t be worried if it just seems like you’re getting in someone’s car (you
+are).</p>
+
+<p>The buses don’t leave until they are full or almost full. For Durres, this seems to be approximately
+every thirty minutes. For Schkoder, this seems to be approximately every hour. </p>
+
+<p class="minipic"><img src="http://louisrli.github.io/images/travel/tiranabus/bus.jpg" alt="Vans that will take you through beautiful Albania" /></p>
+
+<h2 id="fare">Fare</h2>
+
+<p>In August 2015, the fare for each direction was:</p>
+
+<ul>
+  <li>150 lek to Durres</li>
+  <li>500 lek to Schkoder</li>
+</ul>
+
+<p>The drivers take euro. If you want to get rid of some remaining lek, they also take euro-lek mix.</p>
+
+<p>Enjoy the Albanian music on the drive!</p>
+
+<p><em>Last updated: August 2015</em></p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Transportation to Mount Dajti (Tirana, Albania)]]></title>
@@ -1809,27 +1866,6 @@ about appending an element to <code>null</code>.</li>
   <dt>Links</dt>
   <dd><a href="https://github.com/louisrli/louisrli.github.com">source code</a>, <a href="http://louisrli.github.com/">site</a></dd>
 </dl>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Looking Forward to Discrete Mathematics]]></title>
-    <link href="http://louisrli.github.io/blog/2012/12/22/discrete-math-paper/"/>
-    <updated>2012-12-22T00:00:00+01:00</updated>
-    <id>http://louisrli.github.io/blog/2012/12/22/discrete-math-paper</id>
-    <content type="html"><![CDATA[<p>For one of my math classes this semester (Sets and Topology), we had a short project: a three-to-five page paper on some area in mathematics. I opted for discrete mathematics, which is a topic on the broad side; five pages, of course.</p>
-
-<!-- more -->
-
-<p>The target audience was supposed to be other students in the course, and the paper should help students decide whether they would pursue the given area of mathematics.</p>
-
-<p>I found this project surprisingly pleasant. Here’s <a href="https://www.dropbox.com/s/o1dalrrvstz0u7g/math101-final-paper.pdf">a link to the paper</a>.</p>
-
-<h2 id="course-assisting">Course assisting</h2>
-
-<p>I’m going to be a course assistant for a one-week winter break course on discrete math. I’m very excited to return this year to teach, having been a student of the course last year.It’s a fast-paced, active learning course that covers 10 modules (topics), two per day. I’ll be preparing and presenting the logic module. I’ve recently been converted into a believer for active learning.</p>
-
-<p>Discrete math!</p>
 ]]></content>
   </entry>
   
