@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: croatia | Louis Li]]></title>
+  <link href="http://louisrli.github.io/blog/categories/croatia/atom.xml" rel="self"/>
+  <link href="http://louisrli.github.io/"/>
+  <updated>2015-09-02T23:16:23+02:00</updated>
+  <id>http://louisrli.github.io/</id>
+  <author>
+    <name><![CDATA[Louis Li]]></name>
+    <email><![CDATA[louisrli@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Dubrovnik Bus Departure Schedule (Croatia)]]></title>
+    <link href="http://louisrli.github.io/blog/2015/09/02/dubrovnik-bus-departure-schedule/"/>
+    <updated>2015-09-02 21:15:33 +0200</updated>
+    <id>http://louisrli.github.io/blog/2015/09/02/dubrovnik-bus-departure-schedule</id>
+    <content type="html"><![CDATA[<p>This article contains the bus schedule for departures from Dubrovonik, Croatia. Dubrovonik is a
+popular coastal destination (and the filming site of King’s Landing for the <em>Game of Thrones</em> TV
+show!). </p>
+
+<p><em>Last updated: 1 September 2015</em></p>
+
+<!-- more -->
+
+<p>Timetables may differ between on and off seasons. My trip was at the beginning of September, which is on
+the border of on and off seasons.</p>
+
+<h2 id="timetable">Timetable</h2>
+
+<p>If you find an updated timetable during your travels, please send it to me to update this page for
+other travelers.</p>
+
+<p class="minipic"><img src="/images/travel/dubrovonikbus/timetable.jpg" alt="Bus timetable" /></p>
+
+<h2 id="destinations">Destinations</h2>
+
+<p><strong>International:</strong></p>
+
+<ul>
+  <li>Sarajevo</li>
+  <li>Medugorje</li>
+  <li>Kotor</li>
+  <li>Budva</li>
+  <li>Trieste</li>
+  <li>Herceg Novi</li>
+  <li>Ulcinj</li>
+  <li>Podgorica</li>
+  <li>Zenica</li>
+  <li>Mos</li>
+  <li>Ivanica - Trebinje</li>
+  <li>Skopje</li>
+  <li>Ljubljana</li>
+  <li>Petrovac</li>
+  <li>Bar</li>
+  <li>Tivat</li>
+  <li>Frankfurt</li>
+  <li>Tuzla</li>
+  <li>Beograd (Belgrade)</li>
+</ul>
+
+<p><strong>Domestic:</strong></p>
+
+<ul>
+  <li>Metkovic</li>
+  <li>Ploce</li>
+  <li>Orebic</li>
+  <li>Korcula - Vela Luka</li>
+  <li>Makarska</li>
+  <li>Split</li>
+  <li>Trogir</li>
+  <li>Sibenik</li>
+  <li>Zadar</li>
+  <li>Rijeka</li>
+  <li>Pula</li>
+  <li>Karlovac</li>
+  <li>Zagreb</li>
+  <li>Osijek, Vinkovci, S. Brod</li>
+  <li>Varazdin</li>
+  <li>Vrgorac</li>
+  <li>Otric-Seoci</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2015-09-02T12:34:47+02:00</updated>
+  <updated>2015-09-02T23:16:23+02:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,6 +12,80 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Dubrovnik Bus Departure Schedule (Croatia)]]></title>
+    <link href="http://louisrli.github.io/blog/2015/09/02/dubrovnik-bus-departure-schedule/"/>
+    <updated>2015-09-02T21:15:33+02:00</updated>
+    <id>http://louisrli.github.io/blog/2015/09/02/dubrovnik-bus-departure-schedule</id>
+    <content type="html"><![CDATA[<p>This article contains the bus schedule for departures from Dubrovonik, Croatia. Dubrovonik is a
+popular coastal destination (and the filming site of King’s Landing for the <em>Game of Thrones</em> TV
+show!). </p>
+
+<p><em>Last updated: 1 September 2015</em></p>
+
+<!-- more -->
+
+<p>Timetables may differ between on and off seasons. My trip was at the beginning of September, which is on
+the border of on and off seasons.</p>
+
+<h2 id="timetable">Timetable</h2>
+
+<p>If you find an updated timetable during your travels, please send it to me to update this page for
+other travelers.</p>
+
+<p class="minipic"><img src="http://louisrli.github.io/images/travel/dubrovonikbus/timetable.jpg" alt="Bus timetable" /></p>
+
+<h2 id="destinations">Destinations</h2>
+
+<p><strong>International:</strong></p>
+
+<ul>
+  <li>Sarajevo</li>
+  <li>Medugorje</li>
+  <li>Kotor</li>
+  <li>Budva</li>
+  <li>Trieste</li>
+  <li>Herceg Novi</li>
+  <li>Ulcinj</li>
+  <li>Podgorica</li>
+  <li>Zenica</li>
+  <li>Mos</li>
+  <li>Ivanica - Trebinje</li>
+  <li>Skopje</li>
+  <li>Ljubljana</li>
+  <li>Petrovac</li>
+  <li>Bar</li>
+  <li>Tivat</li>
+  <li>Frankfurt</li>
+  <li>Tuzla</li>
+  <li>Beograd (Belgrade)</li>
+</ul>
+
+<p><strong>Domestic:</strong></p>
+
+<ul>
+  <li>Metkovic</li>
+  <li>Ploce</li>
+  <li>Orebic</li>
+  <li>Korcula - Vela Luka</li>
+  <li>Makarska</li>
+  <li>Split</li>
+  <li>Trogir</li>
+  <li>Sibenik</li>
+  <li>Zadar</li>
+  <li>Rijeka</li>
+  <li>Pula</li>
+  <li>Karlovac</li>
+  <li>Zagreb</li>
+  <li>Osijek, Vinkovci, S. Brod</li>
+  <li>Varazdin</li>
+  <li>Vrgorac</li>
+  <li>Otric-Seoci</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Transportation from Tirana to Ulcinj / Budva / Kotor]]></title>
@@ -1780,57 +1854,6 @@ about appending an element to <code>null</code>.</li>
     </li>
 
 </ul>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Using Quicksilver Mac and AppleScript to Adjust System Volume]]></title>
-    <link href="http://louisrli.github.io/blog/2013/01/15/applescript-volume/"/>
-    <updated>2013-01-15T00:00:00+01:00</updated>
-    <id>http://louisrli.github.io/blog/2013/01/15/applescript-volume</id>
-    <content type="html"><![CDATA[<p>I’ve been using <a href="http://qsapp.com/">Quicksilver</a> for a while, and I’d heard of how powerful but never taken advantage of it. I wanted to adjust the system volume through Quicksilver: right now, I have to use <code>fn</code> + <code>f10</code> / <code>f11</code> / <code>f12</code> to adjust volume, since I chose to have <code>f1</code>-<code>f12</code> map to the normal keys.</p>
-
-<p>It seems that there’s actually no Quicksilver plugin for system volume – only iTunes volume – but it’s pretty simple to do with AppleScripts. It’s not documented everywhere, so I thought I’d add it here.</p>
-
-<!-- more -->
-
-<ul class="thumbnails" style="width: 50%; margin: 0px auto;">
-<li class="span4">
-<a href="http://louisrli.github.io/images/quicksilver-script.png" class="thumbnail">
-<img alt="Quicksilver script for increasing volume" src="http://louisrli.github.io/images/quicksilver-script.png" height="300" />
-</a>
-</li>
-</ul>
-
-<h2 id="volume-applescripts">Volume AppleScripts</h2>
-
-<p>The AppleScripts below will adjust the system volume, which is measured on a scale of 0 - 100. Here’s a <a href="https://www.dropbox.com/s/8a3rzqtiyupmny1/volume-applescripts.zip">download link</a> for these three scripts. To use them in Quicksilver, add them to the catalog, and opening them in Quicksilver should run them by default.</p>
-
-<h5 id="decrease-volume">Decrease volume</h5>
-
-<div class="highlight"><pre><code class="language-applescript" data-lang="applescript"><span class="c"># Decrease\ Volume.scpt</span>
-<span class="k">set</span> <span class="nv">currentVolume</span> <span class="k">to</span> <span class="nv">output</span> <span class="na">volume</span> <span class="k">of</span> <span class="p">(</span><span class="nb">get volume settings</span><span class="p">)</span>
-<span class="nb">set volume</span> <span class="nv">output</span> <span class="na">volume</span> <span class="p">(</span><span class="nv">currentVolume</span> <span class="o">-</span> <span class="mi">10</span><span class="p">)</span></code></pre></div>
-
-<h5 id="increase-volume">Increase volume</h5>
-
-<div class="highlight"><pre><code class="language-applescript" data-lang="applescript"><span class="c"># Increase\ Volume.scpt</span>
-<span class="k">set</span> <span class="nv">currentVolume</span> <span class="k">to</span> <span class="nv">output</span> <span class="na">volume</span> <span class="k">of</span> <span class="p">(</span><span class="nb">get volume settings</span><span class="p">)</span>
-<span class="nb">set volume</span> <span class="nv">output</span> <span class="na">volume</span> <span class="p">(</span><span class="nv">currentVolume</span> <span class="o">+</span> <span class="mi">10</span><span class="p">)</span></code></pre></div>
-
-<h5 id="mute-volume">Mute volume</h5>
-
-<div class="highlight"><pre><code class="language-applescript" data-lang="applescript"><span class="c"># Mute\ Volume.scpt</span>
-<span class="k">set</span> <span class="nv">isMuted</span> <span class="k">to</span> <span class="nv">output</span> <span class="na">muted</span> <span class="k">of</span> <span class="p">(</span><span class="nb">get volume settings</span><span class="p">)</span>
-<span class="nb">set volume</span> <span class="nv">output</span> <span class="na">muted</span> <span class="ow">not</span> <span class="nv">isMuted</span></code></pre></div>
-
-<h2 id="using-in-command-line">Using in command line</h2>
-
-<p>To run an AppleScript file in the command line, run:</p>
-
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> osascript /path/to/file</code></pre></div>
-
-<p>These files have spaces in them so that it looks cleaner in Quicksilver, but you can alias the commands appropriately.</p>
 ]]></content>
   </entry>
   
