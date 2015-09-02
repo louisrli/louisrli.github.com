@@ -7,7 +7,8 @@
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="exploits, projects Nebula Shell Exploits (Solutions 00-09) Overview Nebula is a series of “capture the flag” exercises from Exploit Exercises. I’ve &hellip;">
+	<meta name="description" content="exploits, projects Nebula Shell Exploits (Solutions 10-14) Overview
+This is the second post for my solutions of Exploit Exercises Level 10 &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,6 +99,57 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner"><div class="blog-index">
   
+  
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-28T00:00:00+02:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/06/28/nebula1/" itemprop="url">Nebula Shell Exploits (Solutions 10-14)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h1 id="overview">Overview</h1>
+<p>This is the second post for my solutions of <a href="http://exploit-exercises.com/nebula">Exploit Exercises</a></p>
+
+<h2 id="level-10">Level 10</h2>
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level10">(full)</a>: Read a token file with the password to the target account. A suid program uses <code>access()</code> to upload a file to a host.</p>
+
+<p>According to <a href="http://linux.die.net/man/2/access">man access()</a>, there’s a race condition with this usage of the function:</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">man access</span>
+<span class="go">Warning: Using access() to check if a user is authorized to, for example, open a file before actually doing so</span>
+<span class="go">using open(2) creates a security hole, because the user might exploit the short time interval between</span>
+<span class="go">checking and opening the file to manipulate it. For this reason, the use of this system call should be</span>
+<span class="go">avoided. (In the example just described, a safer alternative would be to temporarily switch the process&#39;s</span>
+<span class="go">effective user ID to the real ID and then call open(2).)</span></code></pre></div>
+
+
+		
+		<a href="/blog/2012/06/28/nebula1/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
   
   
     <article>
