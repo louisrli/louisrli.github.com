@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2015-11-19T06:10:38-08:00</updated>
+  <updated>2015-11-19T06:45:28-08:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,41 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Meat and Noodles in Taiwan: Gao's Mi Tai Mu (Taipei, Taiwan)]]></title>
-    <link href="http://louisrli.github.io/blog/2015/09/03/taiwanese-noodles-gaos-mi-tai-mu/"/>
-    <updated>2015-09-03T23:59:05-07:00</updated>
-    <id>http://louisrli.github.io/blog/2015/09/03/taiwanese-noodles-gaos-mi-tai-mu</id>
-    <content type="html"><![CDATA[<p>What is Mi Tai Mu.</p>
-
-<p>As far as I know, they’re open 24 h.</p>
-
-<h2 id="dishes">Dishes</h2>
-
-<p>lu rou fan
-pig intestine
-octopus
-hong shao rou</p>
-
-<h2 id="directions">Directions</h2>
-
-<h2 id="price">Price</h2>
-
-<p>prices not listed</p>
-
-<p>noodles + one side dish should be 90 NT or less</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Taiwanese Noodles: Gao's Mi Tai Mu]]></title>
-    <link href="http://louisrli.github.io/blog/2015/09/03/taiwanese-noodles-gaos-mi-tai-mu/"/>
-    <updated>2015-09-03T23:59:05-07:00</updated>
-    <id>http://louisrli.github.io/blog/2015/09/03/taiwanese-noodles-gaos-mi-tai-mu</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Dubrovnik Bus Departure Schedule (Croatia)]]></title>
@@ -1619,6 +1584,175 @@ about appending an element to <code>null</code>.</li>
 <p>Javascript frameworks seem to be the new thing. Client-side frameworks for single page web applications make a lot of sense though, reducing the unnecessary overhead of maintaining the server. I’d definitely like to try <a href="http://meteor.com">Meteor</a>. No jQuery spaghetti.</p>
 
 <p>That being said, a <em>lot</em> more experience with web development this semester through my research project. If I could go back, I would have used a Javascript framework (but that’s what the first major project in a language is for!).</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Up-to-date Guide on How to Delete All Posts on Your Tumblr]]></title>
+    <link href="http://louisrli.github.io/blog/2013/05/11/how-to-delete-all-tumblr-posts/"/>
+    <updated>2013-05-11T00:00:00-07:00</updated>
+    <id>http://louisrli.github.io/blog/2013/05/11/how-to-delete-all-tumblr-posts</id>
+    <content type="html"><![CDATA[<p>One of my friends asked me how to batch delete all of the posts on a <a href="http://tumblr.com">Tumblr</a>. There are some PHP and Ruby scripts on the internet that claim to achieve this, but they seem to be outdated in regards to the Tumblr API, or they require installing some packages.</p>
+
+<!-- more -->
+
+<h2 id="instructions">Instructions</h2>
+
+<p>This will allow you to delete 100 posts at a time. Unfortunately, if you try more, Tumblr will give you a warning that only 100 posts can be edited at one time.</p>
+
+<ol>
+  <li>On the right side of the Tumblr dashboard, click <strong>Posts</strong> underneath the name of your blog.</li>
+  <li>This should bring up a link called <strong>Mass Post Editor</strong>. Click on <strong>Mass Post Editor</strong>.</li>
+  <li>You’ll be presented with your posts as tiles. <strong>Keep scrolling down</strong> until at least 100 posts (eyeball it) appear on the screen.</li>
+  <li>
+    <p>Paste the following code snippet in the URL bar. It should select the first 100 posts with checkmarks. <strong>NOTE:</strong> Some browsers will remove the <code>javascript:</code> in front of it. Double check that it’s still there, and if not, type <code>javascript:</code> at the beginning of the pasted part. </p>
+
+    <pre><code>  javascript:$('.overlay').slice(0, 100).click()
+</code></pre>
+  </li>
+  <li>Click <strong>Delete selected posts</strong>.</li>
+  <li>Refresh the page if needed, and delete another 100 posts!</li>
+</ol>
+
+<p>If for some reason this doesn’t work, let me know in the comments. I’ll try to keep this up-to-date.</p>
+
+<p>Last updated: December 29, 2013</p>
+
+<h2 id="technical-details">Technical Details</h2>
+
+<p>Tumblr now uses <a href="http://jquery.org">jQuery</a>. An older version of this post loaded the <a href="https://github.com/kangax/protolicious">Protolicious</a> library, but some time between May 2013 and December 2013, Tumblr switched JavaScript libraries.</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A Rational Approximation of Pi Using the Pigeonhole Principle]]></title>
+    <link href="http://louisrli.github.io/blog/2013/01/31/approximating-pi-pigeonhole-principle/"/>
+    <updated>2013-01-31T00:00:00-08:00</updated>
+    <id>http://louisrli.github.io/blog/2013/01/31/approximating-pi-pigeonhole-principle</id>
+    <content type="html"><![CDATA[<p>Below is a short Python script that finds a fractional approximation of \(\pi\) using the first 1001 multiples of \(\pi\) (the case with 11 multiples of \(\pi\) can easily be done by hand). It makes use of the <em>pigeonhole principle</em>. The 11-multiple version of the problem has been used in the module teaching the pigeonhole principle in various classes that I have taken or taught.</p>
+
+<p>The <a href="http://en.wikipedia.org/wiki/Pigeonhole_principle">pigeonhole principle</a> states that:</p>
+
+<blockquote>
+  <p>If \(n &gt; m\) and \(n\) pigeons are placed in \(m \) pigeonholes, then one pigeonhole must contain more than one pigeon.</p>
+</blockquote>
+
+<!-- more -->
+
+<h2 id="problem-and-solution">Problem and Solution</h2>
+
+<blockquote>
+  <p>Given the following multiples of \(\pi\), each truncated to four decimal places:</p>
+
+  <p>\(0\pi = 0.0000, 1\pi = 3.1415, 2\pi = 6.2831, … 1001\pi = 3144.7342 \)</p>
+
+  <p>Use the pigeonhole principle to find a good rational approximation to \(\pi\).</p>
+</blockquote>
+
+<p>If we are given the multiples \(0 \pi \) through \( 1000 \pi \), we have 1001 multiples of \(0 \pi \). Consider the first three digits to the right of the decimal place of a number (in 123.456, the digits 456).</p>
+
+<p>There are only 1000 possibilities for the first three digits to the right of the decimal place. Given 1001 multiples of \(\pi \), we can conclude from the pigeonhole principle that two such multiples must have the same three digits. This means that the difference to the right of the decimal point them is less than 0.001 in absolute value (for example, \(0.1235 - 0.1230 = 0.005\)).</p>
+
+<p>Let \(m \pi, n \pi, m &gt; n \) be two multiples sharing the three numbers to the right of the decimal place. Then:</p>
+
+<script type="math/tex; mode=display"> m\pi - n\pi = (m - n) \pi \implies \pi = \frac{m \pi - n \pi}{m - n} </script>
+
+<p>Because \( m\pi - n\pi \) has a difference to the right of the decimal place that is less than 0.001, it approximates some integer. Therefore, we can use \( \frac{m \pi - n \pi}{m - n} \) as a rational approximation of \pi.</p>
+
+<h2 id="code">Code</h2>
+
+<p>For 11 multiples of \( \pi \), the problem is trivial to do by hand. For 1001 multiples, I’ve written a Python script to solve the problem. You can play around with the code <a href="http://codepad.org/HCmovMEd">here</a>.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="sd">&quot;&quot;&quot;</span>
+</span><span class="line"><span class="sd">pi.py</span>
+</span><span class="line"><span class="sd">Calculates an approximation of pi given the multiples 0pi - 1000pi using</span>
+</span><span class="line"><span class="sd">the Pigeonhole Principle. Outputs the first approximation found.</span>
+</span><span class="line">
+</span><span class="line"><span class="sd">Author: Louis Li</span>
+</span><span class="line"><span class="sd">&quot;&quot;&quot;</span>
+</span><span class="line">
+</span><span class="line"><span class="kn">import</span> <span class="nn">math</span>
+</span><span class="line">
+</span><span class="line">
+</span><span class="line"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span><span class="line">    <span class="c"># Store the decimals we&#39;ve found in a dictionary with its multiple of pi</span>
+</span><span class="line">    <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+</span><span class="line">
+</span><span class="line">    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1001</span><span class="p">):</span>
+</span><span class="line">        <span class="n">n_pi</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+</span><span class="line">
+</span><span class="line">        <span class="n">first_three_dec</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">n_pi</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000</span><span class="p">))</span>
+</span><span class="line">
+</span><span class="line">        <span class="k">if</span> <span class="ow">not</span> <span class="n">first_three_dec</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+</span><span class="line">            <span class="n">d</span><span class="p">[</span><span class="n">first_three_dec</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>
+</span><span class="line">        <span class="k">else</span><span class="p">:</span>
+</span><span class="line">            <span class="c"># Calculate an approximation, having found two numbers</span>
+</span><span class="line">            <span class="c"># with the same first three decimal places</span>
+</span><span class="line">            <span class="n">m</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">first_three_dec</span><span class="p">]</span>
+</span><span class="line">            <span class="n">m_pi</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+</span><span class="line">
+</span><span class="line">            <span class="k">print</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">n_pi</span> <span class="o">-</span> <span class="n">m_pi</span><span class="p">))</span>
+</span><span class="line">            <span class="k">print</span> <span class="s">&quot;----- = &quot;</span><span class="p">,</span> <span class="p">((</span><span class="n">n_pi</span> <span class="o">-</span> <span class="n">m_pi</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">)),</span> \
+</span><span class="line">                <span class="s">&quot;(m = </span><span class="si">%d</span><span class="s">, n = </span><span class="si">%d</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span><span class="line">            <span class="k">print</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">)</span>
+</span><span class="line">            <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">Actual value, pi: &quot;</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+</span><span class="line">            <span class="k">break</span>
+</span><span class="line">
+</span><span class="line"><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+</span><span class="line">    <span class="n">main</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>This will output the first solution found:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">355
+</span><span class="line">----- =  3.14159265359 (m = 1, n = 114)
+</span><span class="line">113
+</span><span class="line">
+</span><span class="line">Actual value, pi:  3.14159265359</span></code></pre></td></tr></table></div></figure></notextile></div>
+
 ]]></content>
   </entry>
   
