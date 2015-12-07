@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2015-12-06T20:23:37-08:00</updated>
+  <updated>2015-12-06T20:30:30-08:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -18,14 +18,17 @@
     <link href="http://louisrli.github.io/blog/2015/12/06/bboy-practices/"/>
     <updated>2015-12-06T20:08:13-08:00</updated>
     <id>http://louisrli.github.io/blog/2015/12/06/bboy-practices</id>
-    <content type="html"><![CDATA[<p><a href="http://bboypractices.com">bboypractices</a> is live: a site for traveling bboys to find practices. </p>
+    <content type="html"><![CDATA[<p><a href="http://bboypractices.com">bboypractices</a> is live: a site for traveling bboys to find bboy practices. </p>
 
 <p>I’ll let the site speak for itself – a good site shouldn’t require a long blog post as an
 explanation.</p>
 
 <!-- more -->
 <p>The motivation behind the site can be found under the <em>About</em> page at 
-<a href="http://bboypractices.com">http://bboypractices.com</a>.</p>
+<a href="http://bboypractices.com">http://bboypractices.com</a>. Briefly, there was a lot of manual labor
+involved in finding practices while I was traveling – reaching out to friends of friends of
+friends. I’d like to keep the human element of finding bboy practices while enabling people to find
+practice spots.</p>
 
 <p>In related news, this is my first major release of a personal project. This was my first time
 hooking up a domain and setting up a site via EC2 (running on my student credits). Thanks to everybody who
