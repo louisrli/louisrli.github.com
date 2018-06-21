@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2018-06-21T15:51:52+05:30</updated>
+  <updated>2018-06-21T17:18:18+05:30</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,6 +12,85 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Transportation from Agra to Delhi Airport]]></title>
+    <link href="http://louisrli.github.io/blog/2018/06/21/transportation-from-agra-to-delhi-airport/"/>
+    <updated>2018-06-21T00:00:00+05:30</updated>
+    <id>http://louisrli.github.io/blog/2018/06/21/transportation-from-agra-to-delhi-airport</id>
+    <content type="html"><![CDATA[<p><em>Last updated: June 2018</em></p>
+
+<p>This post describes how to get from <a href="https://wikitravel.org/en/Agra">Agra, India</a>, to New Delhi,
+India. It focuses on how to get to the airport in the same day, though all of the advice applies
+more generally to getting from one city to the other.</p>
+
+<p>While attending a wedding in Agra, I had to get from Agra to Delhi in the same day in order to catch
+a 14:00 flight.  The distance from Agra to Delhi is quite large (3-5 hour drive depending on
+traffic), so I did some research on the most economical methods of reaching the Delhi airport. This
+is a summary of my research that will hopefully help other travelers evaluate their options.</p>
+
+<!-- more -->
+
+<h2 id="traditional-taxi-service">Traditional taxi service</h2>
+
+<p><strong>Cost: ~4000 rupees</strong></p>
+
+<p>It’s easy to get a bunch of conflicting prices here. Definitely don’t book through a hotel (hostel
+will probably give you better price) as they will way overcharge you – hotels’ quoted prices 
+were around 200 USD.</p>
+
+<p>We used <a href="https://www.tripadvisor.in/Attraction_Review-g297683-d13188303-Reviews-D_K_Car_and_Driver_India-Agra_Agra_District_Uttar_Pradesh.html">D.K. Car and Driver India</a>, which was the first result on TripAdvisor at the time of our trip. I called him using the hotel phone, but he also responded to my Facebook messages in about an hour, which was advantageous since I was trying to book at 4 PM the day before. Everything went seamlessly, so I’m willing to stick in my endorsement for D.K. here.</p>
+
+<p>We paid around 4000 rupees, which at the time of writing, was about 60 USD. The trip was four hours.</p>
+
+<h2 id="savaari--clearcar--other-taxi-aggregator">Savaari / ClearCar / other taxi aggregator</h2>
+
+<p><strong>Cost: ~2500 rupees</strong>. The sites don’t give an exact amount, but this is an estimation based on
+their formulas for trips over 80km.</p>
+
+<p>There are a number of taxi aggregators in India (Savaari, ClearCar, etc.) that do “outstation” (out of town) trips. These are essentially like Uber, except that you book the car in advance, and it shows up at the specified time. Savaari was suggested by a native Indian
+acquaintance of mine, as he was using it to leave Agra after the wedding. </p>
+
+<p>After doing some research of reviews, it
+seems that these services aren’t fully reliable; many reviews contained instances of drivers being late,
+cancelling the hour beforehand, intentionally taking longer routes, etc. While online reviews are
+likely biased toward the bad instances, it does suggest that these services could be hit-or-miss
+(although it must be “hit” enough that a native Indian suggested it to us).</p>
+
+<p>Despite being the best balance of convenience and price, I ended up not going with this option due
+to the potential time unreliability, especially for a 7AM flight. However, <strong>if you simply want to get from
+Agra to Delhi as a group with looser time constraints, Savaari is both cheaper and more convenient
+than public transportation.</strong></p>
+
+<h2 id="public-transportation">Public transportation</h2>
+
+<p><strong>Cost: ~1000 rupees / person.</strong> Air-conditioned class train tickets ranged from 700 to 1200 rupees.</p>
+
+<p>Public transportation here means train, metro, and bus/short-distance cab.  For the trains, view
+up-to-date timetables and book tickets at <a href="https://www.irctc.co.in/">IRCTC</a>. I’m not sure if they
+take international cards; I’ve seen varying reports online.</p>
+
+<p>In general, public transportation (train/metro) is a good option for Agra to Delhi. </p>
+
+<p>For getting to the airport specifically, it becomes more complicated. We ran into a myriad of issues trying to plan a public transit route. The fastest 2.25 hour express trains from Agra to Delhi ran only in the evening, which didn’t work for our 14:00 flight, so the train would be least 3 hours. Additionally, the trains for our timetable only went to Hazrat Nizmuddin station, which would require either a bus/cab to the airport or airport metro line.</p>
+
+<p>To summarize, the trip would involve:</p>
+
+<ul>
+  <li>Residence in Agra to Agra Cantt station (<strong>10-20 min</strong>)</li>
+  <li>Agra Cantt to New Delhi Station or Hazrat Nizmuddin station (<strong>2.25 to 3.5 hours</strong>, depending on what
+train you catch)</li>
+  <li>If at New Delhi Station, metro to airport. If at Hazrat Nizmuddin station, figure out a way to get
+to the airport metro, then head to airport (either way, <strong>30 min to 1 hour</strong>, and traffic is bad).</li>
+</ul>
+
+<p>If you have an evening flight, then public transportation to the airport is a viable
+option, as you have more time flexibility without waking up at an ungodly hour. If traveling solo,
+this is the cheapest option by far, but if your group
+has two or more people and you have time flexibility, a Savaari cab becomes about the same
+price per person.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Dubrovnik Bus Departure Schedule (Croatia)]]></title>
@@ -1621,137 +1700,6 @@ about appending an element to <code>null</code>.</li>
 <h2 id="technical-details">Technical Details</h2>
 
 <p>Tumblr now uses <a href="http://jquery.org">jQuery</a>. An older version of this post loaded the <a href="https://github.com/kangax/protolicious">Protolicious</a> library, but some time between May 2013 and December 2013, Tumblr switched JavaScript libraries.</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[A Rational Approximation of Pi Using the Pigeonhole Principle]]></title>
-    <link href="http://louisrli.github.io/blog/2013/01/31/approximating-pi-pigeonhole-principle/"/>
-    <updated>2013-01-31T00:00:00+05:30</updated>
-    <id>http://louisrli.github.io/blog/2013/01/31/approximating-pi-pigeonhole-principle</id>
-    <content type="html"><![CDATA[<p>Below is a short Python script that finds a fractional approximation of \(\pi\) using the first 1001 multiples of \(\pi\) (the case with 11 multiples of \(\pi\) can easily be done by hand). It makes use of the <em>pigeonhole principle</em>. The 11-multiple version of the problem has been used in the module teaching the pigeonhole principle in various classes that I have taken or taught.</p>
-
-<p>The <a href="http://en.wikipedia.org/wiki/Pigeonhole_principle">pigeonhole principle</a> states that:</p>
-
-<blockquote>
-  <p>If \(n &gt; m\) and \(n\) pigeons are placed in \(m \) pigeonholes, then one pigeonhole must contain more than one pigeon.</p>
-</blockquote>
-
-<!-- more -->
-
-<h2 id="problem-and-solution">Problem and Solution</h2>
-
-<blockquote>
-  <p>Given the following multiples of \(\pi\), each truncated to four decimal places:</p>
-
-  <p>\(0\pi = 0.0000, 1\pi = 3.1415, 2\pi = 6.2831, … 1001\pi = 3144.7342 \)</p>
-
-  <p>Use the pigeonhole principle to find a good rational approximation to \(\pi\).</p>
-</blockquote>
-
-<p>If we are given the multiples \(0 \pi \) through \( 1000 \pi \), we have 1001 multiples of \(0 \pi \). Consider the first three digits to the right of the decimal place of a number (in 123.456, the digits 456).</p>
-
-<p>There are only 1000 possibilities for the first three digits to the right of the decimal place. Given 1001 multiples of \(\pi \), we can conclude from the pigeonhole principle that two such multiples must have the same three digits. This means that the difference to the right of the decimal point them is less than 0.001 in absolute value (for example, \(0.1235 - 0.1230 = 0.005\)).</p>
-
-<p>Let \(m \pi, n \pi, m &gt; n \) be two multiples sharing the three numbers to the right of the decimal place. Then:</p>
-
-<script type="math/tex; mode=display"> m\pi - n\pi = (m - n) \pi \implies \pi = \frac{m \pi - n \pi}{m - n} </script>
-
-<p>Because \( m\pi - n\pi \) has a difference to the right of the decimal place that is less than 0.001, it approximates some integer. Therefore, we can use \( \frac{m \pi - n \pi}{m - n} \) as a rational approximation of \pi.</p>
-
-<h2 id="code">Code</h2>
-
-<p>For 11 multiples of \( \pi \), the problem is trivial to do by hand. For 1001 multiples, I’ve written a Python script to solve the problem. You can play around with the code <a href="http://codepad.org/HCmovMEd">here</a>.</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-<span class="line-number">19</span>
-<span class="line-number">20</span>
-<span class="line-number">21</span>
-<span class="line-number">22</span>
-<span class="line-number">23</span>
-<span class="line-number">24</span>
-<span class="line-number">25</span>
-<span class="line-number">26</span>
-<span class="line-number">27</span>
-<span class="line-number">28</span>
-<span class="line-number">29</span>
-<span class="line-number">30</span>
-<span class="line-number">31</span>
-<span class="line-number">32</span>
-<span class="line-number">33</span>
-<span class="line-number">34</span>
-<span class="line-number">35</span>
-<span class="line-number">36</span>
-<span class="line-number">37</span>
-</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="sd">&quot;&quot;&quot;</span>
-</span><span class="line"><span class="sd">pi.py</span>
-</span><span class="line"><span class="sd">Calculates an approximation of pi given the multiples 0pi - 1000pi using</span>
-</span><span class="line"><span class="sd">the Pigeonhole Principle. Outputs the first approximation found.</span>
-</span><span class="line">
-</span><span class="line"><span class="sd">Author: Louis Li</span>
-</span><span class="line"><span class="sd">&quot;&quot;&quot;</span>
-</span><span class="line">
-</span><span class="line"><span class="kn">import</span> <span class="nn">math</span>
-</span><span class="line">
-</span><span class="line">
-</span><span class="line"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-</span><span class="line">    <span class="c"># Store the decimals we&#39;ve found in a dictionary with its multiple of pi</span>
-</span><span class="line">    <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-</span><span class="line">
-</span><span class="line">    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1001</span><span class="p">):</span>
-</span><span class="line">        <span class="n">n_pi</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
-</span><span class="line">
-</span><span class="line">        <span class="n">first_three_dec</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">n_pi</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000</span><span class="p">))</span>
-</span><span class="line">
-</span><span class="line">        <span class="k">if</span> <span class="ow">not</span> <span class="n">first_three_dec</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
-</span><span class="line">            <span class="n">d</span><span class="p">[</span><span class="n">first_three_dec</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>
-</span><span class="line">        <span class="k">else</span><span class="p">:</span>
-</span><span class="line">            <span class="c"># Calculate an approximation, having found two numbers</span>
-</span><span class="line">            <span class="c"># with the same first three decimal places</span>
-</span><span class="line">            <span class="n">m</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">first_three_dec</span><span class="p">]</span>
-</span><span class="line">            <span class="n">m_pi</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
-</span><span class="line">
-</span><span class="line">            <span class="k">print</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">n_pi</span> <span class="o">-</span> <span class="n">m_pi</span><span class="p">))</span>
-</span><span class="line">            <span class="k">print</span> <span class="s">&quot;----- = &quot;</span><span class="p">,</span> <span class="p">((</span><span class="n">n_pi</span> <span class="o">-</span> <span class="n">m_pi</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">)),</span> \
-</span><span class="line">                <span class="s">&quot;(m = </span><span class="si">%d</span><span class="s">, n = </span><span class="si">%d</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-</span><span class="line">            <span class="k">print</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">)</span>
-</span><span class="line">            <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">Actual value, pi: &quot;</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
-</span><span class="line">            <span class="k">break</span>
-</span><span class="line">
-</span><span class="line"><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-</span><span class="line">    <span class="n">main</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>This will output the first solution found:</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">355
-</span><span class="line">----- =  3.14159265359 (m = 1, n = 114)
-</span><span class="line">113
-</span><span class="line">
-</span><span class="line">Actual value, pi:  3.14159265359</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 ]]></content>
   </entry>
