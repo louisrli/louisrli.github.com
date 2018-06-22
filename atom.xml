@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2018-06-21T17:18:18+05:30</updated>
+  <updated>2018-06-22T09:54:30+05:30</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,6 +12,25 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Transportation from Dharamshala Airport to McLeod Ganj]]></title>
+    <link href="http://louisrli.github.io/blog/2018/06/22/transportation-from-dharamshala-airport-to-mcleod-ganj/"/>
+    <updated>2018-06-22T00:00:00+05:30</updated>
+    <id>http://louisrli.github.io/blog/2018/06/22/transportation-from-dharamshala-airport-to-mcleod-ganj</id>
+    <content type="html"><![CDATA[<p><em>Last updated: June 2018</em></p>
+
+<p>This post describes what to expect when going from the Dharamshala Airport to MacLeod Ganj,
+Dharamshala, India – the central tourist area of Dharamshala.</p>
+
+<!-- more -->
+
+<p>We took a taxi from the airport to McLeod Ganj for 800 rupees, though the exact price depends on the
+location of your residence. Go to the prepaid taxi booth and talk to the booth. There will be a number of drivers and a clerk outside of the stand. The drivers may try to
+circumvent you from speaking to the booth, ignore them temporarily and get the slip signed off. In
+our case, we ended up getting a lower price confirmed by the booth.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Transportation from Agra to Delhi Airport]]></title>
@@ -1663,44 +1682,6 @@ about appending an element to <code>null</code>.</li>
 <p>Javascript frameworks seem to be the new thing. Client-side frameworks for single page web applications make a lot of sense though, reducing the unnecessary overhead of maintaining the server. I’d definitely like to try <a href="http://meteor.com">Meteor</a>. No jQuery spaghetti.</p>
 
 <p>That being said, a <em>lot</em> more experience with web development this semester through my research project. If I could go back, I would have used a Javascript framework (but that’s what the first major project in a language is for!).</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Up-to-date Guide on How to Delete All Posts on Your Tumblr]]></title>
-    <link href="http://louisrli.github.io/blog/2013/05/11/how-to-delete-all-tumblr-posts/"/>
-    <updated>2013-05-11T00:00:00+05:30</updated>
-    <id>http://louisrli.github.io/blog/2013/05/11/how-to-delete-all-tumblr-posts</id>
-    <content type="html"><![CDATA[<p>One of my friends asked me how to batch delete all of the posts on a <a href="http://tumblr.com">Tumblr</a>. There are some PHP and Ruby scripts on the internet that claim to achieve this, but they seem to be outdated in regards to the Tumblr API, or they require installing some packages.</p>
-
-<!-- more -->
-
-<h2 id="instructions">Instructions</h2>
-
-<p>This will allow you to delete 100 posts at a time. Unfortunately, if you try more, Tumblr will give you a warning that only 100 posts can be edited at one time.</p>
-
-<ol>
-  <li>On the right side of the Tumblr dashboard, click <strong>Posts</strong> underneath the name of your blog.</li>
-  <li>This should bring up a link called <strong>Mass Post Editor</strong>. Click on <strong>Mass Post Editor</strong>.</li>
-  <li>You’ll be presented with your posts as tiles. <strong>Keep scrolling down</strong> until at least 100 posts (eyeball it) appear on the screen.</li>
-  <li>
-    <p>Paste the following code snippet in the URL bar. It should select the first 100 posts with checkmarks. <strong>NOTE:</strong> Some browsers will remove the <code>javascript:</code> in front of it. Double check that it’s still there, and if not, type <code>javascript:</code> at the beginning of the pasted part. </p>
-
-    <pre><code>  javascript:$('.overlay').slice(0, 100).click()
-</code></pre>
-  </li>
-  <li>Click <strong>Delete selected posts</strong>.</li>
-  <li>Refresh the page if needed, and delete another 100 posts!</li>
-</ol>
-
-<p>If for some reason this doesn’t work, let me know in the comments. I’ll try to keep this up-to-date.</p>
-
-<p>Last updated: December 29, 2013</p>
-
-<h2 id="technical-details">Technical Details</h2>
-
-<p>Tumblr now uses <a href="http://jquery.org">jQuery</a>. An older version of this post loaded the <a href="https://github.com/kangax/protolicious">Protolicious</a> library, but some time between May 2013 and December 2013, Tumblr switched JavaScript libraries.</p>
-
 ]]></content>
   </entry>
   
