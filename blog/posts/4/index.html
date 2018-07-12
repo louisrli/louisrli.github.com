@@ -7,7 +7,7 @@
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="exploits, projects Protostar Stack Exploits (Solutions 0-3) Overview
+	<meta name="description" content="exploits, projects Protostar Stack Exploits (Solutions 4-5) Overview
 Protostar is a series of exercises from Exploit Exercises. In addition to three &hellip;">
 	
 
@@ -116,7 +116,56 @@ Protostar is a series of exercises from Exploit Exercises. In addition to three 
   
 
 
-<time datetime="2012-08-18T00:00:00+05:30" data-updated="true" itemprop="datePublished"></time></div>
+<time datetime="2012-08-24T00:00:00+03:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/08/24/protostar-stack1/" itemprop="url">Protostar Stack Exploits (Solutions 4-5)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h1 id="overview">Overview</h1>
+<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
+
+<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (“Stack”). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels. This is the second of three posts for Stack.</p>
+
+<h1 id="solutions">Solutions</h1>
+<p>## Stack: Level 4
+<strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack4">full</a>): Overwrite the <a href="http://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture#Instruction_Pointer">eip register</a> to change execution flow.</p>
+
+<p>First, we want to find the offset to the return address. We can explore using gdb and a breakpoint on <code>main</code>.</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> gdb ./stack4</code></pre></div>
+
+
+		
+		<a href="/blog/2012/08/24/protostar-stack1/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-18T00:00:00+03:00" data-updated="true" itemprop="datePublished"></time></div>
 		<div class="tags">
 
 
@@ -172,7 +221,7 @@ Protostar is a series of exercises from Exploit Exercises. In addition to three 
   
 
 
-<time datetime="2012-08-17T00:00:00+05:30" data-updated="true" itemprop="datePublished"></time></div>
+<time datetime="2012-08-17T00:00:00+03:00" data-updated="true" itemprop="datePublished"></time></div>
 		<div class="tags">
 
 
@@ -230,7 +279,7 @@ Protostar is a series of exercises from Exploit Exercises. In addition to three 
   
 
 
-<time datetime="2012-07-12T00:00:00+05:30" data-updated="true" itemprop="datePublished"></time></div>
+<time datetime="2012-07-12T00:00:00+03:00" data-updated="true" itemprop="datePublished"></time></div>
 		<div class="tags">
 
 
@@ -268,7 +317,7 @@ Protostar is a series of exercises from Exploit Exercises. In addition to three 
   
 
 
-<time datetime="2012-07-08T00:00:00+05:30" data-updated="true" itemprop="datePublished"></time></div>
+<time datetime="2012-07-08T00:00:00+03:00" data-updated="true" itemprop="datePublished"></time></div>
 		<div class="tags">
 
 
@@ -308,7 +357,7 @@ Protostar is a series of exercises from Exploit Exercises. In addition to three 
   
 
 
-<time datetime="2012-06-28T00:00:00+05:30" data-updated="true" itemprop="datePublished"></time></div>
+<time datetime="2012-06-28T00:00:00+03:00" data-updated="true" itemprop="datePublished"></time></div>
 		<div class="tags">
 
 
@@ -359,7 +408,7 @@ Protostar is a series of exercises from Exploit Exercises. In addition to three 
   
 
 
-<time datetime="2012-06-22T00:00:00+05:30" data-updated="true" itemprop="datePublished"></time></div>
+<time datetime="2012-06-22T00:00:00+03:00" data-updated="true" itemprop="datePublished"></time></div>
 		<div class="tags">
 
 
