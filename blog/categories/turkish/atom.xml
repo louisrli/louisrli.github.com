@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: turkish | Louis Li]]></title>
+  <link href="http://louisrli.github.io/blog/categories/turkish/atom.xml" rel="self"/>
+  <link href="http://louisrli.github.io/"/>
+  <updated>2020-04-24T12:53:59+03:00</updated>
+  <id>http://louisrli.github.io/</id>
+  <author>
+    <name><![CDATA[Louis Li]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Fiilimsi: Turkish Verbal Nouns, Adjectives, and Adverbs]]></title>
+    <link href="http://louisrli.github.io/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives/"/>
+    <updated>2020-04-20 00:00:00 +0300</updated>
+    <id>http://louisrli.github.io/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives</id>
+    <content type="html"><![CDATA[<style>
+blockquote {
+  font-style: unset;
+}
+
+blockquote hr {
+  margin: 0.3em 0;
+}
+
+blockquote p:first-child {
+  font-size: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* In case we want to bold the example headers later. */
+blockquote p:first-child strong {
+  font-weight: unset;
+}
+
+blockquote p {
+  margin-top: 0.3em !important;
+  margin-bottom: 0.3em !important;
+}
+
+</style>
+
+<p>This post talks about the concept of “fiilimsi”, which are nouns, adjectives, or
+adverbs derived from verbs. In English, for example, these include gerunds
+(“<em>Running</em> is fun”) or participle adjectives (“The dog <em>that I saw</em>”).</p>
+
+<p>This post is not intended to be a comprehensive resource of all fiilimsi.
+There are three categories of fiilimsi:</p>
+
+<ol>
+  <li><strong>isim-fiil</strong>: verbal noun</li>
+  <li><strong>sıfat-fiil</strong>: verbal adjective</li>
+  <li><strong>zarf-fiil</strong>: verbal adverb</li>
+</ol>
+
+<p>There’s a noticeable lack of English language resources on the internet about
+certain Turkish language topics. In fact, Googling “Turkish fiilimsi” with the
+language constrained to English doesn’t yield a single result other than some
+forum posts. I hope this post fills that niche.</p>
+
+<p>Almost all of this material was derived from a lesson on the <a href="https://discord.me/turkceogrenelim">Türkçe Öğrenelim
+Discord</a>. Feel free to join the community
+and support them on <a href="https://www.patreon.com/letslearnturkish">Patreon</a>.</p>
+
+<!-- more -->
+
+<h1 id="prerequisites">Prerequisites</h1>
+<p>This post is not intended for complete beginners of Turkish grammar. Fiilimsi
+builds on many of the foundations of Turkish grammar. This post assumes
+prerequisite familiarity in the following topics,
+and as such will not be explaining any of the following in example
+sentences:</p>
+
+<ul>
+  <li>Possessive</li>
+  <li>Buffer letters, consonant mutation, vowel harmony</li>
+  <li>Infinitive form</li>
+  <li>Subjects and objects in Turkish</li>
+</ul>
+
+<p>There are sentence examples and grammar derivations that utilize the following,
+though it’s possible to grasp the basic idea without a strong understanding of
+these:</p>
+
+<ul>
+  <li>Simple present tense, past tense</li>
+  <li>Dative, locative, accusative cases</li>
+  <li>Future tense</li>
+  <li>Reported past tense</li>
+</ul>
+
+<h1 id="isim-fiil-verbal-nouns">Isim-fiil: Verbal nouns</h1>
+
+<h2 id="makmek-infinitive-as-a-subject">-mak/mek: Infinitive as a subject</h2>
+
+<p>Infinitives are the “dictionary form” of a verb ending with <strong>-mak/mek</strong>, e.g.,
+bakmak (to look).</p>
+
+<h3 id="usage">Usage</h3>
+<p>The verbal noun infinitive form:</p>
+
+<ul>
+  <li>used as subject</li>
+  <li>cannot be <a href="https://en.wikipedia.org/wiki/Declension">declined</a> – that is, no
+suffixes are added to it</li>
+</ul>
+
+<blockquote>
+  <p><strong>Example</strong> (<a href="https://www.youtube.com/watch?v=uqIEiUv1bVQ">a line from this song</a>)  </p>
+
+  <p><strong>Eğlenmek</strong> güzel şey.<br />
+<strong>To have fun</strong> is a beautiful thing / <strong>having fun</strong> is a beautiful thing.</p>
+</blockquote>
+
+<p>It should be noted that there are many other uses of the infinitive, but here
+we’re talking only about its usage as a noun derived from a verb.</p>
+
+<h2 id="mame-gerund-form">-ma/me: Gerund form</h2>
+
+<p>The gerund form is constructed by adding <strong>-ma/-me</strong> to the verb root
+(alternatively, one can think of simply removing the <strong>k</strong> from the infinitive).</p>
+
+<ul>
+  <li>yap<strong>ma</strong> (doing)</li>
+  <li>bak<strong>ma</strong> (looking)</li>
+  <li>sor<strong>ma</strong> (sormak)</li>
+</ul>
+
+<h3 id="usage-1">Usage</h3>
+<p>The gerund form:</p>
+
+<ul>
+  <li>used as object</li>
+  <li>can be declined</li>
+</ul>
+
+<blockquote>
+  <p><strong>Examples</strong>  </p>
+
+  <p>Kitap <strong>okuma</strong>yı seviyorum.<br />
+I love reading books.</p>
+
+  <p>Dans <strong>etme</strong>ye başladım.<br />
+I started dancing.</p>
+</blockquote>
+
+<p><strong>Tip</strong>: The <em>-ma/-me</em> suffix is also used for the negative conjugation, but do
+not confuse it with the gerund construction. They can actually stack, for
+example <strong>anla-ma-ma</strong> is the noun “not understanding” (<strong>anlamak</strong> – to
+understand).</p>
+
+<h3 id="declension-exception-ablative">Declension exception: ablative</h3>
+<p>There is one exception where we use the infinitive instead; for the ablative
+form (<strong>-dan/den</strong>), we still use the infinitive form. This also violates the
+“no declension infinitive” rule. In the example below, eğlenmekten is the
+object.</p>
+
+<blockquote>
+  <p><strong>Example</strong>  </p>
+
+  <p><strong>Eğlenmekten</strong> keyif alırım.<br />
+I enjoy having fun.</p>
+</blockquote>
+
+<p>Likely this is because the gerund form causes ambiguity with
+<strong>-meden/-madan</strong> (eğlenmeden), which is also a verbal adverb suffix.</p>
+
+<h3 id="declension-exception-locative">Declension exception: locative</h3>
+
+<p>The locative can also be used interchangeably in some contexts. In the example
+below, both are valid uses of the verbal noun as an object.</p>
+
+<blockquote>
+  <p><strong>Examples</strong>  </p>
+
+  <p>Böyle yap<strong>mada</strong> sorun yok.<br />
+Böyle yap<strong>makta</strong> sorun yok.<br />
+There is no problem in doing this.</p>
+</blockquote>
+
+<p>However, you cannot use the genitive suffixes with the infinitive, so for the
+example sentence below, there is only one valid construction (yap-ma-n-da, with
+the n coming from the second-person genitive).</p>
+
+<blockquote>
+  <p><strong>Examples</strong>  </p>
+
+  <p>Böyle yap<strong>manda</strong> sorun yok.<br />
+There is no problem in your doing this.</p>
+</blockquote>
+
+<p>To summarize, you cannot use the accusative, dative, or genitive suffixes with
+the infinitive, but you can use the ablative and locative.</p>
+
+<h2 id="native-speaking-gerund-and-infinitive">Native speaking: gerund and infinitive</h2>
+<p>There’s a tricky exception that’s technically not correct but will be seen in
+daily speech. People add (gerund + possessed) suffixes as a way of
+creating a verbal noun in lieu of <strong>both the gerund and infinitive forms above</strong>.</p>
+
+<blockquote>
+  <p><strong>Subject example</strong>  </p>
+
+  <p>Denizde <strong>yüzmek</strong> eğlenceli. (gramatically correct)<br />
+Denizde <strong>yüzmesi</strong> eğlenceli. (seen in daily speech)<br />
+<strong>Swimming</strong> in the sea is fun.</p>
+</blockquote>
+
+<p>In this example, we have <strong>yüz-me-si</strong>, which adds the gerund and possessed
+suffixes, respectively.</p>
+
+<blockquote>
+  <p><strong>Object example</strong>  </p>
+
+  <p>Denizde <strong>yüzmeyi</strong> seviyorum.<br />
+Denizde <strong>yüzmesini</strong> seviyorum.</p>
+</blockquote>
+
+<p>In this example, we have <strong>yüz-me-si-n-i</strong>, which adds the gerund, possessed,
+-n- possessed buffer, and accusative suffixes, respectively.</p>
+
+<h2 id="siu-the-way-of">-ıs/iş/uş/üş: “the way of”</h2>
+
+<p><strong>DISCLAIMER</strong>: “the way of” is not always the exact meaning of this suffix; it
+can vary phrase by phrase. However, it can give a general idea.</p>
+
+<ul>
+  <li>yap<strong>ış</strong> (the way of doing)</li>
+  <li>bak<strong>ış</strong> (the way of looking)</li>
+  <li>sor<strong>uş</strong> (the way of asking)</li>
+</ul>
+
+<p>There are two words derived in this manner that are very common on signs: giriş
+and cıkış (entrance and exit).</p>
+
+<blockquote>
+  <p><strong>Examples</strong>  </p>
+
+  <p>Bana <strong>bakışını</strong> sevmiyorum. <br />
+I don’t like the way you looked at me.</p>
+
+  <p>Onun <strong>çıkışını</strong> gördün mü? <br />
+Did you see how he left? / Did you see the way he left?</p>
+</blockquote>
+
+<h1 id="sfat-fiil-verbal-adjectives">Sıfat-fiil: Verbal adjectives</h1>
+
+<h2 id="yan-en-subject-participles">-(y)an/-en: Subject participles</h2>
+<p>In English, you’ll see this grammar concept associated with the terms relative
+clause and participle.</p>
+
+<p>We use these to form a verbal adjective that describes a noun.
+It is called the subject participle because the described noun is the subject
+performing the action.</p>
+
+<blockquote>
+  <p><strong>Examples</strong>  </p>
+
+  <p>evime gel<strong>en</strong> misafir<br />
+the guest <strong>who comes / is coming / came</strong> to my house</p>
+
+  <p>uyu<strong>yan</strong> adam <br />
+the man <strong>who sleeps / is sleeping / slept</strong></p>
+</blockquote>
+
+<h3 id="negation">Negation</h3>
+
+<p>Negation works as one might expect.</p>
+
+<blockquote>
+  <p><strong>Example</strong>  </p>
+
+  <p>uyu<strong>mayan</strong> adam<br />
+the man <strong>who is not sleeping</strong></p>
+</blockquote>
+
+<p><strong>Tip</strong>: In practice, the -y- buffer will always be there since <strong>-ma/me</strong> end
+with a vowel.</p>
+
+<h3 id="tense">Tense</h3>
+<p>The tense is implied by context. It can take the present continuous, simple
+past, and simple present (aka wide present) tenses.</p>
+
+<h2 id="dik-and-possessor-suffix-object-participles">-dIk and possessor suffix: Object participles</h2>
+
+<p>Recall that <strong>-dIk notation</strong> indicates it could be <strong>-dık -dik -duk -dük</strong>. The
+d also mutates to t when appropriate (consonant mutation).</p>
+
+<p>This adjective is called the object participle, because the noun described by
+the verbal adjective is the object of the verb. Because of this, we also need to
+specify who is performing the action of the verb; this is done by the possessor
+ending.</p>
+
+<blockquote>
+  <p><strong>Examples</strong>  </p>
+
+  <p>oku<strong>duğum</strong> kitap<br />
+the book <strong>that I read / am reading / read (in the past)</strong></p>
+
+  <p>oku<strong>duğun</strong> kitap<br />
+the book <strong>that you read (…same tenses)</strong></p>
+</blockquote>
+
+<p><strong>Tip</strong>: In practice, the <strong>k</strong> in <strong>-dIk</strong> always mutates to a <strong>ğ</strong> since all
+of the possessor endings start with a vowel.</p>
+
+<h3 id="negation-1">Negation</h3>
+<p>Negation again works as one would expect.</p>
+
+<blockquote>
+  <p><strong>Example</strong>  </p>
+
+  <p>bak<strong>madığım</strong> adam<br />
+the man <strong>who I am not looking at</strong></p>
+</blockquote>
+
+<h3 id="tense-1">Tense</h3>
+<p>The tense is implied by context. It can take the present continuous, simple
+past, and simple present (aka wide present) tenses.</p>
+
+<h3 id="usage-with-sonra">Usage with sonra</h3>
+
+<p>You will also see this suffix used with the word sonra (“after”), but without the
+possessed ending.</p>
+
+<blockquote>
+  <p><strong>Example</strong>  </p>
+
+  <p>O kahvaltı yap<strong>tıktan sonra</strong> bir sigara içer.<br />
+After eating breakfast, he smokes a cigarette.</p>
+</blockquote>
+
+<p>Notably, it is not symmetrically used with önce, which uses the <strong>-mAdAn</strong>
+suffix with verbs with our previously described gerund form.</p>
+
+<blockquote>
+  <p><strong>Example</strong>  </p>
+
+  <p>Uyu<strong>madan önce</strong> kitap okurum.<br />
+Before sleeping, I read books.</p>
+</blockquote>
+
+<h2 id="future-and-reported-past-participles">Future and reported past participles</h2>
+<p>Building upon the two forms we learned above, we can create both object and
+subject participles using the suffixes of both the future and reported past tenses. These tenses
+won’t be covered here, so this section can be skipped if the reader is not
+familiar with them.</p>
+
+<p>Understanding of these derivations follow easily with an understanding of the
+<strong>-acak/ecek</strong> future suffixes and the <strong>-mış/miş/muş/müş</strong> reported past
+suffixes.</p>
+
+<blockquote>
+  <p><strong>Examples (future tense)</strong>  </p>
+
+  <p>konuşacak adam<br />
+the man who will speak</p>
+
+  <p>konuşacağı adam<br />
+the man he/she will talk to</p>
+
+  <p>adam konuşacak<br />
+the man will talk (normal future tense)</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Examples (reported past tense)</strong>  </p>
+
+  <p>kitap <strong>okumuş</strong> çocuk<br />
+the child <strong>who (apparently) read</strong> books</p>
+
+  <p><strong>boşanmış</strong> kadın<br />
+the woman <strong>who (apparently) was divorced</strong></p>
+</blockquote>
+
+<h2 id="other-verbal-adjectives">Other verbal adjectives</h2>
+<p>There are a bunch of other verbal adjectives, often with different meaning.
+There’s a <a href="https://www.dilbilgisi.net/fiilimsi-konu-anlatimi/">Turkish page</a>
+containing some of them here, but they’re less important and often vary in
+meaning phrase-by-phrase.</p>
+
+<h1 id="zarf-fiil-verbal-adverbs">Zarf-fiil: Verbal adverbs</h1>
+<p>This is not intended to comprehensively cover all zarf-fiil, but it covers a
+few of the most common ones.</p>
+
+<h2 id="eliali-since">-eli/ali: Since</h2>
+<p>This suffix means “since” in the sense of time passing (not “since” as in the word “because”, which can also be used in English).</p>
+
+<blockquote>
+  <p><strong>Example</strong>  </p>
+
+  <p>Okuldan <strong>geleli</strong> beş saat oldu.<br />
+It has been five hours <strong>since I came</strong> from the school.</p>
+</blockquote>
+
+<h3 id="subject-of-the-since-clause">Subject of the since-clause</h3>
+<p>The subject is optional, but it can be used to clarify the subject of the since-clause when it cannot be derived from context.</p>
+
+<blockquote>
+  <p><strong>Examples (with pronoun)</strong>  </p>
+
+  <p><strong>Sen</strong> okuldan gel<strong>eli</strong> beş saat oldu.<br />
+It has been five hours since <strong>you</strong> came from the school.</p>
+</blockquote>
+
+<h2 id="madanmeden-before-with-nce--without">-madan/meden: before (with önce) / without</h2>
+
+<h3 id="meaning-without">Meaning “without”</h3>
+
+<blockquote>
+  <p><strong>Example</strong>  </p>
+
+  <p>Maske <strong>takmadan</strong> dışarı çıkmak yasaktır.<br />
+It is forbidden to go out <strong>without wearing</strong> a mask.</p>
+</blockquote>
+
+<h3 id="meaning-before">Meaning “before”</h3>
+
+<blockquote>
+  <p><strong>Example</strong>  </p>
+
+  <p>Ben polisi aramadan buradan ayrıl.<br />
+Leave this place before I call the police.</p>
+</blockquote>
+
+<h4 id="with-nce">With önce</h4>
+<p>In the section on -dIk, it was explained that “sonra verb + dIktAn” could be used to say something that happened after an action. The -madan/meden suffix serves is often seen with <em>önce</em>. With or without önce is essentially the same (to my understanding).</p>
+
+<blockquote>
+  <p><strong>Example</strong>  </p>
+
+  <p>Çalışmaya başla<strong>madan önce</strong> bir kahve içerim.<br />
+Before studying, I drink a coffee.</p>
+</blockquote>
+
+<h4 id="madan-meden-modifying-a-negative-verb">-madan/-meden modifying a negative verb</h4>
+<p>There is a second construction using -madan/-meden. In this one, if the modified verb is negative, then the adverb happens first in the sequence of events. This is a bit confusing to explain but easily clarified with equivalent examples. Note the negative suffix in the verbs below.</p>
+
+<blockquote>
+  <p><strong>Example</strong>  </p>
+
+  <p>Kitap <strong>okumadan</strong> yat<strong>ma</strong>dı.<br />
+Kitap okudu ve yattı. (equivalent)<br />
+I read a book before I slept.</p>
+</blockquote>
+
+<p>A direct English translation can be a bit weird due to the negatives.</p>
+
+<blockquote>
+  <p><strong>Question example</strong>  </p>
+
+  <p>Siz ne <strong>yapmadan</strong> okula gitmiyorsunuz?<br />
+What do you <strong>do before</strong> going to school?</p>
+</blockquote>
+
+<p>The example could literally be translated as, “you don’t go to school before
+doing what?”</p>
+
+<p><a href="https://youtube.com/watch?v=V_bC-hn7cC8">This video</a> (in Turkish, albeit slow
+Turkish) is a good explanation of this negative construction. Credit goes to
+this video for the examples above.</p>
+
+<h2 id="ar--maz---er--mez-as-soon-as">-ar -maz / -er -mez: as soon as</h2>
+<p>Note that the title isn’t precisely correct, the set of suffixes is the same as
+those used in the simple present tense, which has a ruleset not within the scope
+of this article. One can think of this construction as simply the positive and
+negative simple present tense third person forms in succession.</p>
+
+<p>Like -eli/ali, the subject is implied by context, but can optionally be
+clarified by a pronoun.</p>
+
+<blockquote>
+  <p><strong>Example</strong>  </p>
+
+  <p>(Biz) <strong>Dışarıya çıkar çıkmaz</strong> yağmur başladı.<br />
+<strong>As soon as we went out,</strong> it started to rain.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Example constructions</strong>  </p>
+
+  <p>yapar yapmaz<br />
+gelir gelmez<br />
+görür görmez</p>
+</blockquote>
+
+<h2 id="yarakerek-by">-(y)arak/erek: “by”</h2>
+<p>This adverb indicates that something was achieved in a certain manner.</p>
+
+<blockquote>
+  <p><strong>Example</strong>  </p>
+
+  <p>Türkçe <strong>öğrenerek</strong> ne yapmayı planlıyorsun?<br />
+What do you plan to do <strong>by learning</strong> Turkish?</p>
+</blockquote>
+
+<p>A good way to remember this is the word <strong>bilerek</strong>, which means “on purpose.”
+But with the literal translation of the suffix, it would mean “by knowing.”</p>
+
+<h2 id="negation-2">Negation</h2>
+<p>Simply add -ma/-me with a y buffer. For example, <strong>istemeyerek</strong>
+(unintentionally, reluctantly, “by not wanting”).</p>
+
+<h2 id="pipupp-two-actions-in-succession">-ıp/ip/up/üp: two actions in succession</h2>
+<p>Again, notice that the subject is implied in the example sentence below. The
+suffixed verb is the one that occurs first.</p>
+
+<blockquote>
+  <p><strong>Example</strong>  </p>
+
+  <p>Konuyu <strong>anlatıp pratik</strong> yapacağız.<br />
+We will explain the subject and then do practice.</p>
+</blockquote>
+
+<p>Usually, there is only one usage of -ip in a sentence.</p>
+
+<h3 id="ip-durmak-idiom">-ip durmak: idiom</h3>
+<p><strong>-ip durmak</strong> means to keep doing something all the time.</p>
+
+<blockquote>
+  <p><strong>Example</strong>  </p>
+
+  <p>Öksürüp duruyor.<br />
+He’s constantly coughing.</p>
+</blockquote>
+
+<h3 id="difference-from-sonradan">Difference from sonradan</h3>
+<p>Sonradan (“afterwards”) can ostensibly express the same set of sentences, but
+the connotation is slightly different. With -ip, the implication is that one
+thing happened very quickly after another, while with sonradan, the time gap
+could be wider.</p>
+
+<h2 id="further-reference">Further reference</h2>
+<p>The end of Unit 10 in <em>The Delights of Learning Turkish</em> is a decent English
+language resource for these verbal adverbs.</p>
+]]></content>
+  </entry>
+  
+</feed>
