@@ -7,8 +7,16 @@
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="Topological Proof of Bolzano-Weierstrass Without Constructing Sequences The Bolzano-Weierstrass theorem
-is a common theorem taught in introductory &hellip;">
+	<meta name="description" content="
+
+
+
+
+
+	Topological Proof of Bolzano-Weierstrass Without Constructing Sequences
+        
+	The Bolzano-Weierstrass theorem
+is a common theorem taught...">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -107,18 +115,18 @@ is a common theorem taught in introductory &hellip;">
 	<h1 class="title" itemprop="name">Topological Proof of Bolzano-Weierstrass Without Constructing Sequences</h1>
         <h3 class="subtitle" itemprop="subtitle"></h3>
 	<div class="entry-content" itemprop="articleBody"><p>The <a href="http://en.wikipedia.org/wiki/Bolzano%E2%80%93Weierstrass_theorem">Bolzano-Weierstrass theorem</a>
-is a common theorem taught in introductory real analysis and topology courses. </p>
+is a common theorem taught in introductory real analysis and topology courses.</p>
 
 <p>All of the proofs that I’ve read for the Bolzano-Weierstrass theorem involve constructing sequences.
 In my introductory topology course, I wanted to see if I could write a simple proof of the theorem
 <em>without</em> having to explicitly construct any sequences.</p>
 
-<p>(It’s worth noting that the proof for compact <script type="math/tex">\implies</script> sequentially compact requires constructing
+<p>(It’s worth noting that the proof for compact \(\implies\) sequentially compact requires constructing
 sequences. If we take this as given, then we get to avoid sequences.)</p>
 
 <h2 id="theorem-bolzano-weierstrass">Theorem (Bolzano-Weierstrass)</h2>
 <blockquote>
-  <p>Any bounded sequence in <script type="math/tex">\mathbb{R}^n</script> has a convergent subsequence.</p>
+  <p>Any bounded sequence in \(\mathbb{R}^n\) has a convergent subsequence.</p>
 </blockquote>
 
 <!-- more -->
@@ -126,7 +134,7 @@ sequences. If we take this as given, then we get to avoid sequences.)</p>
 <h2 id="proof">Proof</h2>
 
 <p>We will make use of the following propositions, which I will assume to be previously proved. The
-proofs of these are in a standard topology textbook (I’m reading from Munkres, 2nd edition). </p>
+proofs of these are in a standard topology textbook (I’m reading from Munkres, 2nd edition).</p>
 
 <p>I’ll redefine various notions of compactness below, since there exists some ambiguity in the
 different forms of compactness.</p>
@@ -137,7 +145,7 @@ infinite sequence has a convergent subsequence.</p>
 </blockquote>
 
 <blockquote>
-  <p><strong>Proposition 1.</strong> The interval <script type="math/tex"> [a, b] \subset \mathbb{R} </script> is compact.</p>
+  <p><strong>Proposition 1.</strong> The interval \([a, b] \subset \mathbb{R}\) is compact.</p>
 </blockquote>
 
 <blockquote>
@@ -148,31 +156,29 @@ infinite sequence has a convergent subsequence.</p>
 theorem</a>) and the finite case.</p>
 
 <blockquote>
-  <p><strong>Proposition 3.</strong> (Munkres, Theorem 28.2) <script type="math/tex"> X </script> is compact <script type="math/tex"> \implies </script> <script type="math/tex"> X </script> is
+  <p><strong>Proposition 3.</strong> (Munkres, Theorem 28.2) \(X\) is compact \(\implies\) \(X\) is
 sequentially compact.</p>
 </blockquote>
 
 <p>We now prove Bolzano-Weierstrass.</p>
 
-<p>Let <script type="math/tex"> \{ x_i \} </script> be a bounded sequence in <script type="math/tex"> \mathbb{R}^n </script>. We need to show that <script type="math/tex"> \{ x_i \}
-</script> has a convergent subsequence.</p>
+<p>Let \(\{ x_i \}\) be a bounded sequence in \(\mathbb{R}^n\). We need to show that \(\{ x_i \}\) has a convergent subsequence.</p>
 
-<p>Since the sequence is bounded in <script type="math/tex"> \mathbb{R}^n </script>, by definition of bounded, every element of
-the sequence is contained in some closed interval of <script type="math/tex"> \mathbb{R}^n </script>:</p>
+<p>Since the sequence is bounded in \(\mathbb{R}^n\), by definition of bounded, every element of
+the sequence is contained in some closed interval of \(\mathbb{R}^n\):</p>
 
-<script type="math/tex; mode=display"> A = [m, M]^n </script>
+\[A = [m, M]^n\]
 
-<p>where <script type="math/tex"> m, M </script> denote the “minimum” and “maximum” of our bounded interval. </p>
+<p>where \(m, M\) denote the “minimum” and “maximum” of our bounded interval.</p>
 
-<p>Note that <script type="math/tex">[m, M] </script> is compact (Proposition 1). </p>
+<p>Note that \([m, M]\) is compact (Proposition 1).</p>
 
-<p>It follows that <script type="math/tex"> A </script> is compact – it is the product of compact spaces (Proposition 2). </p>
+<p>It follows that \(A\) is compact – it is the product of compact spaces (Proposition 2).</p>
 
-<p>Because <script type="math/tex"> A </script> is compact, <script type="math/tex"> A </script> is sequentially compact (Proposition 3). </p>
+<p>Because \(A\) is compact, \(A\) is sequentially compact (Proposition 3).</p>
 
-<p>In a sequentially compact space, any sequence of points has a convergent subsequence. Note that <script type="math/tex">
-\{ x_i \} </script> is one such sequence contained in the sequentially compact space <script type="math/tex"> A </script>, and it
-follows that <script type="math/tex"> \{ x_i \} </script> must have a convergent subsequence.</p>
+<p>In a sequentially compact space, any sequence of points has a convergent subsequence. Note that \(\{ x_i \}\) is one such sequence contained in the sequentially compact space \(A\), and it
+follows that \(\{ x_i \}\) must have a convergent subsequence.</p>
 </div>
 
 </article>
@@ -217,11 +223,11 @@ follows that <script type="math/tex"> \{ x_i \} </script> must have a convergent
 </div>
 			</div>
 			<footer id="footer" class="inner"><p>
-  Copyright &copy; 2020 - Louis Li -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  Copyright &copy; 2020 - Louis Li
 </p>
 
-Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+Theme originally by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+</footer>
 			<script src="/javascripts/slash.js"></script>
 <script src="/javascripts/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">

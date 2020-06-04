@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2020-04-24T15:07:16+03:00</updated>
+  <updated>2020-06-05T01:42:58+03:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,6 +12,144 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Using MathJax with React]]></title>
+    <link href="http://louisrli.github.io/blog/2020/06/04/react-mathjax/"/>
+    <updated>2020-06-04T00:00:00+03:00</updated>
+    <id>http://louisrli.github.io/blog/2020/06/04/react-mathjax</id>
+    <content type="html"><![CDATA[<p>This post describes how to use React (Typescript) and MathJax.</p>
+
+<!-- more -->
+
+<p>There are a few performance optimizations:</p>
+
+<ul>
+  <li><a href="https://reactjs.org/docs/react-api.html#reactmemo">React.memo</a> makes it so
+that even if the parent rerenders but the Latex does not change, the component
+does not rerender
+(<a href="reference">https://stackoverflow.com/questions/54015086/how-to-prevent-child-component-from-re-rendering-when-using-react-hooks-and-memo</a>).</li>
+  <li>The MathJax <code class="language-plaintext highlighter-rouge">typeset()</code> is only called when <code class="language-plaintext highlighter-rouge">rawLatex</code> changes. Technically,
+this is unnecessary, as the <code class="language-plaintext highlighter-rouge">React.memo</code> should mean that it only rerenders
+when the prop changes.</li>
+</ul>
+
+<p>You can either load MathJax in the head or load it dynamically in other ways.
+With Next.js, I was running into issues with using the <code class="language-plaintext highlighter-rouge">&lt;Head&gt;</code> tag; see <a href="./2020-06-04-react-dynamic-script-hook">how to
+dynamically load scripts in React</a>.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Combined with dynamic script loading, this component allows us to render
+ * MathJax. Uses MathJax 3.0. It takes an approach similar to the article below:
+ *
+ * https://engineering.classpro.in/render-latex-in-react-using-mathjax-f9742504678
+ *
+ * but then adapts based on MathJax 3.0:
+ *
+ * http://docs.mathjax.org/en/latest/web/typeset.html#handling-asynchronous-typesetting
+ */</span>
+
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">getMathJax</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nb">window</span> <span class="k">as</span> <span class="nx">any</span><span class="p">).</span><span class="nx">MathJax</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">typeset</span> <span class="o">=</span> <span class="p">(</span><span class="nx">selector</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">HTMLElement</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">mathJax</span> <span class="o">=</span> <span class="nx">getMathJax</span><span class="p">();</span>
+  <span class="c1">// If MathJax script hasn't been loaded yet, then do nothing.</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">mathJax</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">mathJax</span><span class="p">.</span><span class="nx">startup</span><span class="p">.</span><span class="nx">promise</span> <span class="o">=</span> <span class="nx">mathJax</span><span class="p">.</span><span class="nx">startup</span><span class="p">.</span><span class="nx">promise</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">selector</span><span class="p">();</span>
+      <span class="k">return</span> <span class="nx">mathJax</span><span class="p">.</span><span class="nx">typesetPromise</span><span class="p">();</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="na">err</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">`Typeset failed: </span><span class="p">${</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span><span class="s2">`</span><span class="p">));</span>
+  <span class="k">return</span> <span class="nx">mathJax</span><span class="p">.</span><span class="nx">startup</span><span class="p">.</span><span class="nx">promise</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kr">interface</span> <span class="nx">LatexProps</span> <span class="p">{</span>
+  <span class="na">rawLatex</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="na">Latex</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">FC</span><span class="o">&lt;</span><span class="nx">LatexProps</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">rawLatex</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">ref</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createRef</span><span class="o">&lt;</span><span class="nx">HTMLSpanElement</span><span class="o">&gt;</span><span class="p">();</span>
+  <span class="nx">React</span><span class="p">.</span><span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">typeset</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">ref</span><span class="p">.</span><span class="nx">current</span><span class="o">!</span><span class="p">);</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">rawLatex</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">ref</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">rawLatex</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/span&gt;</span><span class="err">;
+</span><span class="p">};</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">React</span><span class="p">.</span><span class="nx">memo</span><span class="p">(</span><span class="nx">Latex</span><span class="p">);</span>
+</code></pre></div></div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Dynamic Script Loading in React with Hooks]]></title>
+    <link href="http://louisrli.github.io/blog/2020/06/04/react-dynamic-script-hook/"/>
+    <updated>2020-06-04T00:00:00+03:00</updated>
+    <id>http://louisrli.github.io/blog/2020/06/04/react-dynamic-script-hook</id>
+    <content type="html"><![CDATA[<p>This post describes how to dynamically load a script by adding a script tag to
+your document using React Hooks.</p>
+
+<!-- more -->
+
+<p>This is a modification on the code presented in <a href="https://cleverbeagle.com/blog/articles/tutorial-how-to-load-third-party-scripts-dynamically-in-javascript">this
+article</a>.
+The script adds a script tag to the page and optionally calls a callback. It
+will not add the script again if it is already loaded. If a callback was
+provided, then it removes the script from the page when the component unmounts
+(so that the callback can be called again).</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Dynamic script loading hook.
+ */</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="c1">// If no callback is provided, the script will not be removed on unmount. This</span>
+<span class="c1">// kinda matters if the script loading is not idempotent (for some reason</span>
+<span class="c1">// MathJax is not, which is one of the scripts I was using this for) or</span>
+<span class="c1">// if you need the callback to happen again.</span>
+<span class="kd">const</span> <span class="nx">useScript</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="nx">scriptUrl</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+  <span class="nx">scriptId</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+  <span class="nx">callback</span><span class="p">?:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">void</span>
+<span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">React</span><span class="p">.</span><span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">existingScript</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">scriptId</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">existingScript</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">script</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">'</span><span class="s1">script</span><span class="dl">'</span><span class="p">);</span>
+      <span class="nx">script</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">scriptUrl</span><span class="p">;</span>
+      <span class="nx">script</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">scriptId</span><span class="p">;</span>
+      <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span>
+
+      <span class="nx">script</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">callback</span><span class="p">();</span>
+        <span class="p">}</span>
+      <span class="p">};</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">existingScript</span> <span class="o">&amp;&amp;</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">callback</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">existingScript</span> <span class="o">&amp;&amp;</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">existingScript</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+      <span class="p">}</span>
+    <span class="p">};</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">scriptUrl</span><span class="p">,</span> <span class="nx">scriptId</span><span class="p">]);</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">useScript</span><span class="p">;</span>
+
+</code></pre></div></div>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Fiilimsi: Turkish Verbal Nouns, Adjectives, and Adverbs]]></title>
@@ -94,7 +232,7 @@ these:</p>
 
 <h1 id="isim-fiil-verbal-nouns">Isim-fiil: Verbal nouns</h1>
 
-<h2 id="makmek-infinitive-as-a-subject">-mak/mek: Infinitive as a subject</h2>
+<h2 id="-makmek-infinitive-as-a-subject">-mak/mek: Infinitive as a subject</h2>
 
 <p>Infinitives are the “dictionary form” of a verb ending with <strong>-mak/mek</strong>, e.g.,
 bakmak (to look).</p>
@@ -109,7 +247,7 @@ suffixes are added to it</li>
 </ul>
 
 <blockquote>
-  <p><strong>Example</strong> (<a href="https://www.youtube.com/watch?v=uqIEiUv1bVQ">a line from this song</a>)  </p>
+  <p><strong>Example</strong> (<a href="https://www.youtube.com/watch?v=uqIEiUv1bVQ">a line from this song</a>)</p>
 
   <p><strong>Eğlenmek</strong> güzel şey.<br />
 <strong>To have fun</strong> is a beautiful thing / <strong>having fun</strong> is a beautiful thing.</p>
@@ -118,7 +256,7 @@ suffixes are added to it</li>
 <p>It should be noted that there are many other uses of the infinitive, but here
 we’re talking only about its usage as a noun derived from a verb.</p>
 
-<h2 id="mame-gerund-form">-ma/me: Gerund form</h2>
+<h2 id="-mame-gerund-form">-ma/me: Gerund form</h2>
 
 <p>The gerund form is constructed by adding <strong>-ma/-me</strong> to the verb root
 (alternatively, one can think of simply removing the <strong>k</strong> from the infinitive).</p>
@@ -138,7 +276,7 @@ we’re talking only about its usage as a noun derived from a verb.</p>
 </ul>
 
 <blockquote>
-  <p><strong>Examples</strong>  </p>
+  <p><strong>Examples</strong></p>
 
   <p>Kitap <strong>okuma</strong>yı seviyorum.<br />
 I love reading books.</p>
@@ -159,7 +297,7 @@ form (<strong>-dan/den</strong>), we still use the infinitive form. This also vi
 object.</p>
 
 <blockquote>
-  <p><strong>Example</strong>  </p>
+  <p><strong>Example</strong></p>
 
   <p><strong>Eğlenmekten</strong> keyif alırım.<br />
 I enjoy having fun.</p>
@@ -174,7 +312,7 @@ I enjoy having fun.</p>
 below, both are valid uses of the verbal noun as an object.</p>
 
 <blockquote>
-  <p><strong>Examples</strong>  </p>
+  <p><strong>Examples</strong></p>
 
   <p>Böyle yap<strong>mada</strong> sorun yok.<br />
 Böyle yap<strong>makta</strong> sorun yok.<br />
@@ -186,7 +324,7 @@ example sentence below, there is only one valid construction (yap-ma-n-da, with
 the n coming from the second-person genitive).</p>
 
 <blockquote>
-  <p><strong>Examples</strong>  </p>
+  <p><strong>Examples</strong></p>
 
   <p>Böyle yap<strong>manda</strong> sorun yok.<br />
 There is no problem in your doing this.</p>
@@ -201,7 +339,7 @@ daily speech. People add (gerund + possessed) suffixes as a way of
 creating a verbal noun in lieu of <strong>both the gerund and infinitive forms above</strong>.</p>
 
 <blockquote>
-  <p><strong>Subject example</strong>  </p>
+  <p><strong>Subject example</strong></p>
 
   <p>Denizde <strong>yüzmek</strong> eğlenceli. (gramatically correct)<br />
 Denizde <strong>yüzmesi</strong> eğlenceli. (seen in daily speech)<br />
@@ -212,7 +350,7 @@ Denizde <strong>yüzmesi</strong> eğlenceli. (seen in daily speech)<br />
 suffixes, respectively.</p>
 
 <blockquote>
-  <p><strong>Object example</strong>  </p>
+  <p><strong>Object example</strong></p>
 
   <p>Denizde <strong>yüzmeyi</strong> seviyorum.<br />
 Denizde <strong>yüzmesini</strong> seviyorum.</p>
@@ -221,7 +359,7 @@ Denizde <strong>yüzmesini</strong> seviyorum.</p>
 <p>In this example, we have <strong>yüz-me-si-n-i</strong>, which adds the gerund, possessed,
 -n- possessed buffer, and accusative suffixes, respectively.</p>
 
-<h2 id="siu-the-way-of">-ıs/iş/uş/üş: “the way of”</h2>
+<h2 id="-ısişuşüş-the-way-of">-ıs/iş/uş/üş: “the way of”</h2>
 
 <p><strong>DISCLAIMER</strong>: “the way of” is not always the exact meaning of this suffix; it
 can vary phrase by phrase. However, it can give a general idea.</p>
@@ -236,7 +374,7 @@ can vary phrase by phrase. However, it can give a general idea.</p>
 and cıkış (entrance and exit).</p>
 
 <blockquote>
-  <p><strong>Examples</strong>  </p>
+  <p><strong>Examples</strong></p>
 
   <p>Bana <strong>bakışını</strong> sevmiyorum. <br />
 I don’t like the way you looked at me.</p>
@@ -245,9 +383,9 @@ I don’t like the way you looked at me.</p>
 Did you see how he left? / Did you see the way he left?</p>
 </blockquote>
 
-<h1 id="sfat-fiil-verbal-adjectives">Sıfat-fiil: Verbal adjectives</h1>
+<h1 id="sıfat-fiil-verbal-adjectives">Sıfat-fiil: Verbal adjectives</h1>
 
-<h2 id="yan-en-subject-participles">-(y)an/-en: Subject participles</h2>
+<h2 id="-yan-en-subject-participles">-(y)an/-en: Subject participles</h2>
 <p>In English, you’ll see this grammar concept associated with the terms relative
 clause and participle.</p>
 
@@ -256,7 +394,7 @@ It is called the subject participle because the described noun is the subject
 performing the action.</p>
 
 <blockquote>
-  <p><strong>Examples</strong>  </p>
+  <p><strong>Examples</strong></p>
 
   <p>evime gel<strong>en</strong> misafir<br />
 the guest <strong>who comes / is coming / came</strong> to my house</p>
@@ -270,7 +408,7 @@ the man <strong>who sleeps / is sleeping / slept</strong></p>
 <p>Negation works as one might expect.</p>
 
 <blockquote>
-  <p><strong>Example</strong>  </p>
+  <p><strong>Example</strong></p>
 
   <p>uyu<strong>mayan</strong> adam<br />
 the man <strong>who is not sleeping</strong></p>
@@ -283,7 +421,7 @@ with a vowel.</p>
 <p>The tense is implied by context. It can take the present continuous, simple
 past, and simple present (aka wide present) tenses.</p>
 
-<h2 id="dik-and-possessor-suffix-object-participles">-dIk and possessor suffix: Object participles</h2>
+<h2 id="-dik-and-possessor-suffix-object-participles">-dIk and possessor suffix: Object participles</h2>
 
 <p>Recall that <strong>-dIk notation</strong> indicates it could be <strong>-dık -dik -duk -dük</strong>. The
 d also mutates to t when appropriate (consonant mutation).</p>
@@ -294,7 +432,7 @@ specify who is performing the action of the verb; this is done by the possessor
 ending.</p>
 
 <blockquote>
-  <p><strong>Examples</strong>  </p>
+  <p><strong>Examples</strong></p>
 
   <p>oku<strong>duğum</strong> kitap<br />
 the book <strong>that I read / am reading / read (the past)</strong></p>
@@ -308,20 +446,20 @@ of the possessor endings start with a vowel. The only exception is when the
 plural is added to onlar, as below.</p>
 
 <blockquote>
-  <p><strong>Examples (with onlar)</strong>  </p>
+  <p><strong>Examples (with onlar)</strong></p>
 
   <p>onların <strong>okuduğu</strong> kitap<br />
 onların <strong>okudukları</strong> kitap<br />
 the book <strong>that they read / am reading / read (past)</strong></p>
 
   <p>oku<strong>duğun</strong> kitap<br />
-the book <strong>that you read (…same tenses)</strong>
-### Negation
-Negation again works as one would expect.</p>
+the book <strong>that you read (…same tenses)</strong></p>
+  <h3 id="negation-1">Negation</h3>
+  <p>Negation again works as one would expect.</p>
 </blockquote>
 
 <blockquote>
-  <p><strong>Example</strong>  </p>
+  <p><strong>Example</strong></p>
 
   <p>bak<strong>madığım</strong> adam<br />
 the man <strong>who I am not looking at</strong></p>
@@ -337,7 +475,7 @@ past, and simple present (aka wide present) tenses.</p>
 possessed ending.</p>
 
 <blockquote>
-  <p><strong>Example</strong>  </p>
+  <p><strong>Example</strong></p>
 
   <p>O kahvaltı yap<strong>tıktan sonra</strong> bir sigara içer.<br />
 After eating breakfast, he smokes a cigarette.</p>
@@ -347,7 +485,7 @@ After eating breakfast, he smokes a cigarette.</p>
 suffix with verbs with our previously described gerund form.</p>
 
 <blockquote>
-  <p><strong>Example</strong>  </p>
+  <p><strong>Example</strong></p>
 
   <p>Uyu<strong>madan önce</strong> kitap okurum.<br />
 Before sleeping, I read books.</p>
@@ -364,7 +502,7 @@ familiar with them.</p>
 suffixes.</p>
 
 <blockquote>
-  <p><strong>Examples (future tense)</strong>  </p>
+  <p><strong>Examples (future tense)</strong></p>
 
   <p>konuşacak adam<br />
 the man who will speak</p>
@@ -377,7 +515,7 @@ the man will talk (normal future tense)</p>
 </blockquote>
 
 <blockquote>
-  <p><strong>Examples (reported past tense)</strong>  </p>
+  <p><strong>Examples (reported past tense)</strong></p>
 
   <p>kitap <strong>okumuş</strong> çocuk<br />
 the child <strong>who (apparently) read</strong> books</p>
@@ -396,13 +534,13 @@ meaning phrase-by-phrase.</p>
 <p>This is not intended to comprehensively cover all zarf-fiil, but it covers a
 few of the most common ones.</p>
 
-<h2 id="eliali-since">-eli/ali: Since</h2>
+<h2 id="-eliali-since">-eli/ali: Since</h2>
 <p>This suffix means “since” in the sense of time passing (not “since” as in the
 word “because”, which can also be used in English). It can only be used events
 happening since a specific time duration.</p>
 
 <blockquote>
-  <p><strong>Example</strong>  </p>
+  <p><strong>Example</strong></p>
 
   <p>Okuldan <strong>geleli</strong> beş saat oldu.<br />
 It has been five hours <strong>since I came</strong> from the school.</p>
@@ -412,7 +550,7 @@ It has been five hours <strong>since I came</strong> from the school.</p>
 verb is repeated in the past tense.</p>
 
 <blockquote>
-  <p><strong>Example</strong>  </p>
+  <p><strong>Example</strong></p>
 
   <p>Türkiye’ye <strong>geldim geleli</strong> birçok kişiyle tanıştım.<br />
 I’ve met many people <strong>since I came</strong> to Turkey.</p>
@@ -422,18 +560,18 @@ I’ve met many people <strong>since I came</strong> to Turkey.</p>
 <p>The subject is optional, but it can be used to clarify the subject of the since-clause when it cannot be derived from context.</p>
 
 <blockquote>
-  <p><strong>Examples (with pronoun)</strong>  </p>
+  <p><strong>Examples (with pronoun)</strong></p>
 
   <p><strong>Sen</strong> okuldan gel<strong>eli</strong> beş saat oldu.<br />
 It has been five hours since <strong>you</strong> came from the school.</p>
 </blockquote>
 
-<h2 id="madanmeden-before-with-nce--without">-madan/meden: before (with önce) / without</h2>
+<h2 id="-madanmeden-before-with-önce--without">-madan/meden: before (with önce) / without</h2>
 
 <h3 id="meaning-without">Meaning “without”</h3>
 
 <blockquote>
-  <p><strong>Example</strong>  </p>
+  <p><strong>Example</strong></p>
 
   <p>Maske <strong>takmadan</strong> dışarı çıkmak yasaktır.<br />
 It is forbidden to go out <strong>without wearing</strong> a mask.</p>
@@ -442,27 +580,27 @@ It is forbidden to go out <strong>without wearing</strong> a mask.</p>
 <h3 id="meaning-before">Meaning “before”</h3>
 
 <blockquote>
-  <p><strong>Example</strong>  </p>
+  <p><strong>Example</strong></p>
 
   <p>Ben polisi aramadan buradan ayrıl.<br />
 Leave this place before I call the police.</p>
 </blockquote>
 
-<h4 id="with-nce">With önce</h4>
+<h4 id="with-önce">With önce</h4>
 <p>In the section on -dIk, it was explained that “(verb + dIktAn) sonra” could be used to say something that happened after an action. The -madan/meden suffix serves is often seen with <em>önce</em>. With or without önce is essentially the same (to my understanding).</p>
 
 <blockquote>
-  <p><strong>Example</strong>  </p>
+  <p><strong>Example</strong></p>
 
   <p>Çalışmaya başla<strong>madan önce</strong> bir kahve içerim.<br />
 Before studying, I drink a coffee.</p>
 </blockquote>
 
-<h4 id="madan-meden-modifying-a-negative-verb">-madan/-meden modifying a negative verb</h4>
+<h4 id="-madan-meden-modifying-a-negative-verb">-madan/-meden modifying a negative verb</h4>
 <p>There is a second construction using -madan/-meden. In this one, if the modified verb is negative, then the adverb happens first in the sequence of events. This is a bit confusing to explain but easily clarified with equivalent examples. Note the negative suffix in the verbs below.</p>
 
 <blockquote>
-  <p><strong>Example</strong>  </p>
+  <p><strong>Example</strong></p>
 
   <p>Kitap <strong>okumadan</strong> yat<strong>ma</strong>dı.<br />
 Kitap okudu ve yattı. (equivalent)<br />
@@ -472,7 +610,7 @@ He read a book before he slept.</p>
 <p>A direct English translation can be a bit weird due to the negatives.</p>
 
 <blockquote>
-  <p><strong>Question example</strong>  </p>
+  <p><strong>Question example</strong></p>
 
   <p>Siz ne <strong>yapmadan</strong> okula gitmiyorsunuz?<br />
 What do you <strong>do before</strong> going to school?</p>
@@ -485,7 +623,7 @@ doing what?”</p>
 Turkish) is a good explanation of this negative construction. Credit goes to
 this video for the examples above.</p>
 
-<h2 id="ar--maz---er--mez-as-soon-as">-ar -maz / -er -mez: as soon as</h2>
+<h2 id="-ar--maz---er--mez-as-soon-as">-ar -maz / -er -mez: as soon as</h2>
 <p>Note that the title isn’t precisely correct, the set of suffixes is the same as
 those used in the simple present tense, which has a ruleset not within the scope
 of this article. One can think of this construction as simply the positive and
@@ -495,25 +633,25 @@ negative simple present tense third person forms in succession.</p>
 clarified by a pronoun.</p>
 
 <blockquote>
-  <p><strong>Example</strong>  </p>
+  <p><strong>Example</strong></p>
 
   <p>(Biz) <strong>Dışarıya çıkar çıkmaz</strong> yağmur başladı.<br />
 <strong>As soon as we went out,</strong> it started to rain.</p>
 </blockquote>
 
 <blockquote>
-  <p><strong>Example constructions</strong>  </p>
+  <p><strong>Example constructions</strong></p>
 
   <p>yapar yapmaz<br />
 gelir gelmez<br />
 görür görmez</p>
 </blockquote>
 
-<h2 id="yarakerek-by">-(y)arak/erek: “by”</h2>
+<h2 id="-yarakerek-by">-(y)arak/erek: “by”</h2>
 <p>This adverb indicates that something was achieved in a certain manner.</p>
 
 <blockquote>
-  <p><strong>Example</strong>  </p>
+  <p><strong>Example</strong></p>
 
   <p>Türkçe <strong>öğrenerek</strong> ne yapmayı planlıyorsun?<br />
 What do you plan to do <strong>by learning</strong> Turkish?</p>
@@ -522,16 +660,16 @@ What do you plan to do <strong>by learning</strong> Turkish?</p>
 <p>A good way to remember this is the word <strong>bilerek</strong>, which means “on purpose.”
 But with the literal translation of the suffix, it would mean “by knowing.”</p>
 
-<h2 id="negation-1">Negation</h2>
+<h2 id="negation-2">Negation</h2>
 <p>Simply add -ma/-me with a y buffer. For example, <strong>istemeyerek</strong>
 (unintentionally, reluctantly, “by not wanting”).</p>
 
-<h2 id="pipupp-two-actions-in-succession">-ıp/ip/up/üp: two actions in succession</h2>
+<h2 id="-ıpipupüp-two-actions-in-succession">-ıp/ip/up/üp: two actions in succession</h2>
 <p>Again, notice that the subject is implied in the example sentence below. The
 suffixed verb is the one that occurs first.</p>
 
 <blockquote>
-  <p><strong>Example</strong>  </p>
+  <p><strong>Example</strong></p>
 
   <p>Konuyu <strong>anlatıp pratik</strong> yapacağız.<br />
 We will explain the subject and then do practice.</p>
@@ -539,11 +677,11 @@ We will explain the subject and then do practice.</p>
 
 <p>Usually, there is only one usage of -ip in a sentence.</p>
 
-<h3 id="ip-durmak-idiom">-ip durmak: idiom</h3>
+<h3 id="-ip-durmak-idiom">-ip durmak: idiom</h3>
 <p><strong>-ip durmak</strong> means to keep doing something all the time.</p>
 
 <blockquote>
-  <p><strong>Example</strong>  </p>
+  <p><strong>Example</strong></p>
 
   <p>Öksürüp duruyor.<br />
 He’s constantly coughing.</p>
@@ -623,11 +761,11 @@ a verification code that is texted to the Turkish number before you can respond.
 would expect such as flat type and price, it also allows filtering by
 furnished/unfurnished, renting from owner/broker, building age.</p>
 
-<p><img src="http://louisrli.github.io/images/travel/sahibinden/example.png" alt="Example map search" /></p>
+<p><img src="/images/travel/sahibinden/example.png" alt="Example map search" /></p>
 
 <p>On a separate topic, finding housing in Istanbul has a number of options. I’d
 recommend reading <a href="https://yabangee.com/finding-a-flat-in-istanbul-a-basic-guide-to-accommodation/">this article</a>, particularly on the difference between renting
-from a broker and an owner. </p>
+from a broker and an owner.</p>
 
 <p>Note: I do dispute one part of this article. They say that renting through an
 owner usually has higher quality furnishing. At least in Sisli, my experience
@@ -1000,7 +1138,7 @@ were around 200 USD.</p>
 their formulas for trips over 80km.</p>
 
 <p>There are a number of taxi aggregators in India (Savaari, ClearCar, etc.) that do “outstation” (out of town) trips. These are essentially like Uber, except that you book the car in advance, and it shows up at the specified time. Savaari was suggested by a native Indian
-acquaintance of mine, as he was using it to leave Agra after the wedding. </p>
+acquaintance of mine, as he was using it to leave Agra after the wedding.</p>
 
 <p>After doing some research of reviews, it
 seems that these services aren’t fully reliable; many reviews contained instances of drivers being late,
@@ -1021,7 +1159,7 @@ than public transportation.</strong></p>
 up-to-date timetables and book tickets at <a href="https://www.irctc.co.in/">IRCTC</a>. I’m not sure if they
 take international cards; I’ve seen varying reports online.</p>
 
-<p>In general, public transportation (train/metro) is a good option for Agra to Delhi. </p>
+<p>In general, public transportation (train/metro) is a good option for Agra to Delhi.</p>
 
 <p>For getting to the airport specifically, it becomes more complicated. We ran into a myriad of issues trying to plan a public transit route. The fastest 2.25 hour express trains from Agra to Delhi ran only in the evening, which didn’t work for our 14:00 flight, so the train would be least 3 hours. Additionally, the trains for our timetable only went to Hazrat Nizmuddin station, which would require either a bus/cab to the airport or airport metro line.</p>
 
@@ -1046,11 +1184,11 @@ price per person.</p>
   <entry>
     <title type="html"><![CDATA[Dubrovnik Bus Departure Schedule (Croatia)]]></title>
     <link href="http://louisrli.github.io/blog/2015/09/02/dubrovnik-bus-departure-schedule/"/>
-    <updated>2015-09-02T21:15:33+02:00</updated>
+    <updated>2015-09-02T22:15:33+03:00</updated>
     <id>http://louisrli.github.io/blog/2015/09/02/dubrovnik-bus-departure-schedule</id>
     <content type="html"><![CDATA[<p>This article contains the bus schedule for departures from Dubrovonik, Croatia. Dubrovonik is a
 popular coastal destination (and the filming site of King’s Landing for the <em>Game of Thrones</em> TV
-show!). </p>
+show!).</p>
 
 <p><em>Last updated: 1 September 2015</em></p>
 
@@ -1064,7 +1202,7 @@ the border of on and off seasons.</p>
 <p>If you find an updated timetable during your travels, please send it to me to update this page for
 other travelers.</p>
 
-<p class="minipic"><img src="http://louisrli.github.io/images/travel/dubrovonikbus/timetable.jpg" alt="Bus timetable" /></p>
+<p class="minipic"><img src="/images/travel/dubrovonikbus/timetable.jpg" alt="Bus timetable" /></p>
 
 <h2 id="destinations">Destinations</h2>
 
@@ -1120,28 +1258,28 @@ other travelers.</p>
   <entry>
     <title type="html"><![CDATA[Dubrovnik's Best Currency Exchange (Croatia)]]></title>
     <link href="http://louisrli.github.io/blog/2015/09/02/dubrovnik-best-currency-exchange/"/>
-    <updated>2015-09-02T21:15:33+02:00</updated>
+    <updated>2015-09-02T22:15:33+03:00</updated>
     <id>http://louisrli.github.io/blog/2015/09/02/dubrovnik-best-currency-exchange</id>
     <content type="html"><![CDATA[<p>This article contains information about the best place to exchange currency in Dubrovnik, Croatia:
 <strong>OK Travel Agency</strong>.</p>
 
 <p>Dubrovnik is a popular coastal destination (and the filming site of King’s Landing for the <em>Game of Thrones</em> TV
-show!). </p>
+show!).</p>
 
 <!-- more -->
 
 <h2 id="directions">Directions</h2>
 
-<p>The travel agency is located at <strong>Obala Stjepana Radića 32, Dubrovnik, Croatia</strong>. </p>
+<p>The travel agency is located at <strong>Obala Stjepana Radića 32, Dubrovnik, Croatia</strong>.</p>
 
 <p>It is very
 convenient to reach when arriving in Dubrovonik by bus or boat, because it is located next to the main
-port and central bus station. </p>
+port and central bus station.</p>
 
 <p>It is further from Old Town, and you will take one of the buses to the central bus station or
-port (most of them stop here), then walk to the agency. </p>
+port (most of them stop here), then walk to the agency.</p>
 
-<p class="minipic"><img src="http://louisrli.github.io/images/travel/dubrovonikcurrency/oktravel.jpg" alt="Outside of OK Travel Agency" /></p>
+<p class="minipic"><img src="/images/travel/dubrovonikcurrency/oktravel.jpg" alt="Outside of OK Travel Agency" /></p>
 
 <div style="text-align: center;">
 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5868.382096555248!2d18.08878992153864!3d42.65730670065322!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x134c7525b02fd643%3A0x9fe451262d4d1f78!2sObala+Stjepana+Radi%C4%87a+32%2C+20000%2C+Dubrovnik%2C+Croatia!5e0!3m2!1sen!2sus!4v1441228112407" width="400" height="300" frameborder="0" style="border:0" allowfullscreen=""></iframe>
@@ -1153,7 +1291,7 @@ port (most of them stop here), then walk to the agency. </p>
 the midmarket rate</strong> (the rate from internet searches). There was <strong>no commission</strong>.</p>
 
 <p>Rates change over time, but in September 2015, the midmarket rate was 7.55 kuna to the euro. I
-received 7.49 kuna to the euro. <script type="math/tex">(1 - 7.49 / 7.55 = 0.079)</script></p>
+received 7.49 kuna to the euro. \((1 - 7.49 / 7.55 = 0.079)\)</p>
 
 <p><em>Last updated: 2 September 2015</em></p>
 
@@ -1168,10 +1306,10 @@ received 7.49 kuna to the euro. <script type="math/tex">(1 - 7.49 / 7.55 = 0.079
     <content type="html"><![CDATA[<p>This article describes directions from Tirana, Albania to Ulcinj / Budva / Kotor, Montenegro by bus,
 based on my travels in August 2015. It is possible
 to start early and arrive in Kotor by the afternoon, but be prepared to wake up early to ride four
-buses. </p>
+buses.</p>
 
 <p>I caught the
-first bus at 7:00 and arrived in Kotor around 14:00. </p>
+first bus at 7:00 and arrived in Kotor around 14:00.</p>
 
 <!-- more -->
 
@@ -1181,7 +1319,7 @@ first bus at 7:00 and arrived in Kotor around 14:00. </p>
 
 <p><strong>Fare:</strong> 500 lek (about €2)</p>
 
-<p>See the <a href="http://louisrli.github.io/blog/2015/08/31/tirana-durres-schkoder-albania/">Tirana to Schkoder article</a>.</p>
+<p>See the <a href="/blog/2015/08/31/tirana-durres-schkoder-albania/">Tirana to Schkoder article</a>.</p>
 
 <h2 id="leg-2-schkoder-to-ulcinj">Leg 2: Schkoder to Ulcinj</h2>
 
@@ -1192,7 +1330,7 @@ first bus at 7:00 and arrived in Kotor around 14:00. </p>
 <p>The buses (vans) are near the fountain at the city center. Ask around for
 Schkoder if nobody is shouting, or ask the driver from Tirana. I asked the driver from Tirana, who
 showed me to the next van.
-The driver leaves at 9:00, sitting at a cafe and chatting with his friends before then. </p>
+The driver leaves at 9:00, sitting at a cafe and chatting with his friends before then.</p>
 
 <p>Ask the Schkoder-Ulcinj driver to drop you off at the bus stop. The rest is easy –
 Montenegro has much more signage for its bus system than Albania does.</p>
@@ -1213,9 +1351,9 @@ Montenegro has much more signage for its bus system than Albania does.</p>
 
 <p>According to possibly-outdated information from the internet, there are only two buses direct from
 Ulcinj to Kotor in a day. It may be possible to catch a bus directly to Kotor; otherwise, head to
-Budva. </p>
+Budva.</p>
 
-<p>An alternative option is to go from Ulcinj to Bar, but buses from Bar to Kotor are less frequent. </p>
+<p>An alternative option is to go from Ulcinj to Bar, but buses from Bar to Kotor are less frequent.</p>
 
 <p>I’m not sure about the precise schedule, but buses from Ulcinj to Budva should be fairly frequent. 
 I arrived from Ulcinj five minutes before a bus was leaving for Budva.</p>
@@ -1233,7 +1371,7 @@ I arrived from Ulcinj five minutes before a bus was leaving for Budva.</p>
 <p>500 lek + €5 + €7 + €3 = <strong>€18</strong></p>
 
 <p>This is much cheaper than the “direct transfer service” offered by Montenegro Hostel from Tirana to
-Kotor (€35). </p>
+Kotor (€35).</p>
 
 <p><em>Last updated: August 2015</em></p>
 
@@ -1247,10 +1385,10 @@ Kotor (€35). </p>
     <id>http://louisrli.github.io/blog/2015/08/31/tirana-durres-schkoder-albania</id>
     <content type="html"><![CDATA[<p>This article contains bus directions based on my travels in Albania in August 2015. 
 Durres is a coastal city around thirty minutes away, containing
-ferries to Italy and beaches. </p>
+ferries to Italy and beaches.</p>
 
 <p>Schkoder is a historical city around 1.25 to 1.75 hours away,
-depending on traffic. It is a northern border city with bus transfers to Ulcinj, Montenegro. </p>
+depending on traffic. It is a northern border city with bus transfers to Ulcinj, Montenegro.</p>
 
 <!-- more -->
 
@@ -1261,7 +1399,7 @@ directions that I found were outdated.</p>
 <h2 id="directions-to-the-bus-stop">Directions to the bus stop</h2>
 
 <p>The Google Maps diagram below shows the bus stop, which is in the roundabout of Karl Topia Square.
-It shouldn’t be too hard to find the correct bus: each bus has a person shouting its destination.  </p>
+It shouldn’t be too hard to find the correct bus: each bus has a person shouting its destination.</p>
 
 <div style="text-align: center;">
 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2995.868120776664!2d19.804230999999994!3d41.333481!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDIwJzAwLjUiTiAxOcKwNDgnMTUuMiJF!5e0!3m2!1sen!2sus!4v1441137271939" width="400" height="300" frameborder="0" style="border:0" allowfullscreen=""></iframe>
@@ -1275,9 +1413,9 @@ five-seat Volkswagen. Don’t be worried if it just seems like you’re getting 
 are).</p>
 
 <p>The buses don’t leave until they are full or almost full. For Durres, this seems to be approximately
-every thirty minutes. For Schkoder, this seems to be approximately every hour. </p>
+every thirty minutes. For Schkoder, this seems to be approximately every hour.</p>
 
-<p class="minipic"><img src="http://louisrli.github.io/images/travel/tiranabus/bus.jpg" alt="Vans that will take you through beautiful Albania" /></p>
+<p class="minipic"><img src="/images/travel/tiranabus/bus.jpg" alt="Vans that will take you through beautiful Albania" /></p>
 
 <h2 id="fare">Fare</h2>
 
@@ -1311,22 +1449,22 @@ city center to Mount Dajti.</p>
 
 <h2 id="directions-to-the-cable-car-station">Directions to the cable car station</h2>
 <p>The <a href="www.dajtiekspres.com/">Dajti Express</a> cable car is the preferred method of going up. The site does not say its hours of operation, but as of August 2015 it
-operates from 9:00 - 22:00. </p>
+operates from 9:00 - 22:00.</p>
 
-<p>The cable car station is about 5 km from Skanderbeg Square, the city center. </p>
+<p>The cable car station is about 5 km from Skanderbeg Square, the city center.</p>
 
-<p class="minipic"><img src="http://louisrli.github.io/images/travel/dajti/view.jpg" alt="View from the cable car, scratched glass and all" /></p>
+<p class="minipic"><img src="/images/travel/dajti/view.jpg" alt="View from the cable car, scratched glass and all" /></p>
 
 <h3 id="by-public-bus">By public bus</h3>
 <p>The bus waits outside the clock tower near Skanderbeg Square, dropping you off a short, uphill walk from the
 cable car station. The bus should say Porcelani on it. It
-costs about 100 lek. </p>
+costs about 100 lek.</p>
 
 <h3 id="by-dajti-express-van">By Dajti Express van</h3>
 
 <p>I couldn’t find information about this on the internet (I suspect nothing has been updated), but on my return trip, there was a <strong>free
 van</strong> that
-stopped directly at the cable car station at the base of the mountain. </p>
+stopped directly at the cable car station at the base of the mountain.</p>
 
 <p>The Google Maps link below shows where it dropped me off outside the cafes near Skanderbeg Square, which is likely where it picks up for a free trip to the cable car
 station. If you don’t mind waiting, then you can wait there for a potential free trip by looking for
@@ -1337,7 +1475,7 @@ friendly, and it doesn’t hurt to ask around.</p>
 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.102796304338!2d19.818874999999995!3d41.328378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDE5JzQyLjIiTiAxOcKwNDknMDguMCJF!5e0!3m2!1sen!2sus!4v1440968571219" width="400" height="300" frameborder="0" style="border:0" allowfullscreen=""></iframe>
 </div>
 
-<p class="minipic"><img src="http://louisrli.github.io/images/travel/dajti/van.jpg" alt="The mystery van operated by Dajti Express" /></p>
+<p class="minipic"><img src="/images/travel/dajti/van.jpg" alt="The mystery van operated by Dajti Express" /></p>
 
 <h3 id="by-foot-or-bike">By foot or bike</h3>
 <p>Since the station is 5 km away from Skanderbeg, running or biking to the station are viable options.</p>
@@ -1347,7 +1485,7 @@ summit, but I’m not familiar with these routes.</p>
 
 <h2 id="trail-map">Trail Map</h2>
 
-<p class="minipic"><img src="http://louisrli.github.io/images/travel/dajti/trails.jpg" alt="Trail map" /></p>
+<p class="minipic"><img src="/images/travel/dajti/trails.jpg" alt="Trail map" /></p>
 
 <p>I didn’t find this map very useful, and online reviews say that the trails are not well marked (I
 had this impression as well, though I didn’t actually end up hiking – I crashed an Albanian Sunday
@@ -1378,7 +1516,7 @@ Subscribe! -->
 
 <h2 id="signature-dish">Signature Dish</h2>
 
-<p class="minipic"><img src="http://louisrli.github.io/images/travel/zpkrf/signature.jpg" alt="Signature dish: barbecue pork rice (zhao pai kao rou fan)" /></p>
+<p class="minipic"><img src="/images/travel/zpkrf/signature.jpg" alt="Signature dish: barbecue pork rice (zhao pai kao rou fan)" /></p>
 
 <p>For 79 NT (less than 3 USD), the barbecue pork rice contains:</p>
 
@@ -1391,7 +1529,7 @@ Subscribe! -->
   <li>yummy sauce</li>
 </ul>
 
-<p class="minipic"><img src="http://louisrli.github.io/images/travel/zpkrf/with-chicken.jpg" alt="Barbecue pork rice with fried chicken" /></p>
+<p class="minipic"><img src="/images/travel/zpkrf/with-chicken.jpg" alt="Barbecue pork rice with fried chicken" /></p>
 
 <p>For an extra 6 NT (around 20 cents USD), they will add fried chicken cutlet.</p>
 
@@ -1400,7 +1538,7 @@ Subscribe! -->
 <p>The closest subway exit is Taipei Main Station exit M6 (Caesar Park Hotel). The store is located on
 Xuchang Street past the Paris Shop.</p>
 
-<p class="minipic"><img src="http://louisrli.github.io/images/travel/zpkrf/signpost.jpg" alt="This sign hangs near the entrance" /></p>
+<p class="minipic"><img src="/images/travel/zpkrf/signpost.jpg" alt="This sign hangs near the entrance" /></p>
 
 <p>It may be helpful to see the <a href="https://goo.gl/maps/uceKr">Google Maps street view</a>.</p>
 
@@ -1410,14 +1548,14 @@ Xuchang Street past the Paris Shop.</p>
 
 <h2 id="menu">Menu</h2>
 
-<p class="minipic"><img src="http://louisrli.github.io/images/travel/zpkrf/menu.jpg" alt="Menu" /></p>
+<p class="minipic"><img src="/images/travel/zpkrf/menu.jpg" alt="Menu" /></p>
 
 <h3 id="translation">Translation</h3>
 
 <ol>
   <li>Frog rice (<em>pen shui ji rou fan</em>)</li>
   <li>Pickled vegetables chicken rice (<em>pao cai ji rou fan</em>)</li>
-  <li>Soy sauce chicken leg rice (<em>jiang lu ji tui fan</em>) </li>
+  <li>Soy sauce chicken leg rice (<em>jiang lu ji tui fan</em>)</li>
   <li>Ka la (cracking?) chicken cutlet rice (<em>ka la ji pai fan</em>)</li>
   <li>Osaka pork cutlet rice (<em>da ban zhu pai fan</em>)</li>
   <li>Thai chicken cutlet rice (<em>tai shi ji pai fan</em>)</li>
@@ -1486,7 +1624,7 @@ Subscribe! -->
     <id>http://louisrli.github.io/blog/2015/07/10/sun-moon-lake</id>
     <content type="html"><![CDATA[<p>This is a guide to transportation, food, activities, and lodging for a Sun Moon Lake trip, based on
 my own experiences. My friend and I traveled from Taipei to Sun Moon Lake in July 2015, staying one
-night by the lake. </p>
+night by the lake.</p>
 
 <!-- I have a [travel-related YouTube
 channel](https://www.youtube.com/playlist?list=PLtD-FIua473Cf6Ylh3PeoEmoq3c6BJH0S) on life in Taiwan.
@@ -1521,12 +1659,12 @@ includes:</p>
 <strong>Price:</strong> 570 NT for package deal (see <a href="http://www.ntbus.com.tw/en-p-1.html">Nantou site</a> for other
 options)<br />
 <strong>Location:</strong> Across from Gancheng station (sells packages), Taichung HSR station (sells packages),
-or Taichung TRA station. It stops at Shuishe Pier, the main hub of Sun Moon Lake.  </p>
+or Taichung TRA station. It stops at Shuishe Pier, the main hub of Sun Moon Lake.</p>
 
 <h2 id="from-taipei">From Taipei</h2>
 <p>I didn’t travel from Taipei, but the <a href="http://www.sunmoonlake.gov.tw/English/TravelInfoEng/BusInfo/TaipeiToSML.htm">King Bus
 timetable</a> lists bus
-times from Taipei Main Station.  </p>
+times from Taipei Main Station.</p>
 
 <p><strong>Type:</strong> Bus<br />
 <strong>Duration:</strong> 4 hours<br />
@@ -1537,18 +1675,18 @@ times from Taipei Main Station.  </p>
 Hotel</a> (11 USD per
 night). It is less than a kilometer away from the train station.</p>
 
-<p><strong>Type:</strong> Bus  </p>
+<p><strong>Type:</strong> Bus</p>
 
 <h2 id="getting-around">Getting Around</h2>
 
 <h3 id="ferry">Ferry</h3>
 
-<p>The ferry is the most convenient way to cover a lot of ground and hit the main destinations. It has three stops, forming a triangle along the lake. </p>
+<p>The ferry is the most convenient way to cover a lot of ground and hit the main destinations. It has three stops, forming a triangle along the lake.</p>
 
 <ul>
-  <li>The first pier is <strong>Shuishe</strong>, the main pier. </li>
+  <li>The first pier is <strong>Shuishe</strong>, the main pier.</li>
   <li>The second pier is <strong>Xuanzang Pier</strong>, and it has a legendary tea egg store that has been run by the same
-woman for about fifty years (13 NT per egg). </li>
+woman for about fifty years (13 NT per egg).</li>
   <li>The last pier is <strong>Ita Thao</strong>, which has many food stands.</li>
 </ul>
 
@@ -1590,7 +1728,7 @@ otherwise.</p>
     <p><strong>Ci’en Pagoda</strong>, a tall building commissioned by Chiang-Kai Shek, has a sweeping view of the lake. 
 Sun Moon Lake has hiking trails, but many of them don’t have a nice view of the lake. 
 To reach the pagoda, take the round-the-lake bus. Although Ci’en Pagoda is not listed as a stop, it <strong>is</strong>
-the second-to-last stop before (I think) Xuanzang Temple. </p>
+the second-to-last stop before (I think) Xuanzang Temple.</p>
   </li>
   <li>
     <p><strong>Ita Thao</strong>, an area with many food stands. Because food.</p>
@@ -1630,7 +1768,7 @@ other activities in the area:</p>
 
 <h2 id="lodging">Lodging</h2>
 
-<p>Because Sun Moon Lake is a popular tourist destination, lodging is relatively expensive. </p>
+<p>Because Sun Moon Lake is a popular tourist destination, lodging is relatively expensive.</p>
 
 <p>Super secret hacker budget stay: <strong>Naluisland House</strong>. This place is so secret that it doesn’t show up
 on <a href="http://kayak.com">Kayak</a> or have reviews on
@@ -1640,13 +1778,13 @@ You can book through Agoda or Ctrip.</p>
 <p>We shared a room with two queen sized beds between four people, and it came out to about <strong>450 NT
 per person</strong> (15
 USD in July 2015). Our room was sufficient for a one night stay. There are rooms with four beds for
-a little more. Some rooms also have private bathrooms, which costs a little more as well. </p>
+a little more. Some rooms also have private bathrooms, which costs a little more as well.</p>
 
 <p>To get to Naluisland House, take the ferry or bus to Ita Thao, which is one of the major destinations of Sun Moon
 Lake. However, buses and ferries close around 5:30 PM – be very careful to get to Ita Thao before
 then. We learned that a taxi from Shuishe, the main port, costs about 500 NT (try negotiating).</p>
 
-<p>I’m not sure if the owner speaks English, but she was very helpful. </p>
+<p>I’m not sure if the owner speaks English, but she was very helpful.</p>
 
 <!-- I have a [travel-related YouTube
 channel](https://www.youtube.com/playlist?list=PLtD-FIua473Cf6Ylh3PeoEmoq3c6BJH0S) on life in Taiwan.
@@ -1682,27 +1820,27 @@ feasibility of the system in detecting certain types of web application vulnerab
 injection and cross-site scripting.</p>
 </blockquote>
 
-<p><a href="http://louisrli.github.io/downloads/louisli-thesis.pdf">Download the PDF</a> or view it below. </p>
+<p><a href="/downloads/louisli-thesis.pdf">Download the PDF</a> or view it below.</p>
 
-<embed src="http://louisrli.github.io/downloads/louisli-thesis.pdf" type="application/pdf" width="100%" height="600" />
+<embed src="/downloads/louisli-thesis.pdf" type="application/pdf" width="100%" height="600" />
 
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Being a Better Teaching Assistant: Five Concrete Tips]]></title>
-    <link href="http://louisrli.github.io/blog/2015/01/27/five-tips-for-being-an-effective-teaching-fellow/"/>
-    <updated>2015-01-27T23:13:28-05:00</updated>
-    <id>http://louisrli.github.io/blog/2015/01/27/five-tips-for-being-an-effective-teaching-fellow</id>
+    <link href="http://louisrli.github.io/blog/2015/01/28/five-tips-for-being-an-effective-teaching-fellow/"/>
+    <updated>2015-01-28T06:13:28+02:00</updated>
+    <id>http://louisrli.github.io/blog/2015/01/28/five-tips-for-being-an-effective-teaching-fellow</id>
     <content type="html"><![CDATA[<p>The purpose of this post is to provide concrete pointers to becoming a better undergraduate teaching
-fellow (Harvard lingo for student instructor, course assistant, etc.). </p>
+fellow (Harvard lingo for student instructor, course assistant, etc.).</p>
 
-<p>Being an undergraduate instructor can be tricky. First, the students are the same age as you. Second, it can be hard to know how to improve. In my experience as both a student writing feedback and an instructor receiving feedback, students usually won’t write more than two sentences of feedback. </p>
+<p>Being an undergraduate instructor can be tricky. First, the students are the same age as you. Second, it can be hard to know how to improve. In my experience as both a student writing feedback and an instructor receiving feedback, students usually won’t write more than two sentences of feedback.</p>
 
 <p>The word “teaching” usually evokes an image of an instructor at a whiteboard. While effective
 communication skills are important, the environment and perceptions that an instructor
 fosters among students is equally important. For that reason, I’m choosing to focus on aspects outside of
-teaching classroom material. </p>
+teaching classroom material.</p>
 
 <!-- more -->
 
@@ -1710,7 +1848,7 @@ teaching classroom material. </p>
 
 <p>I’m still an undergraduate with a fraction of the teaching experience of a
 professor – but the advantage of youth is that I can still remember the most basic and glaring
-mistakes that student instructors make. </p>
+mistakes that student instructors make.</p>
 
 <p>These tips are derived from three sources:</p>
 
@@ -1720,7 +1858,7 @@ mistakes that student instructors make. </p>
   <li>My observations of other student instructors</li>
 </ol>
 
-<h1 id="explicitly-emphasize-your-accessibility">1. Explicitly emphasize your accessibility.</h1>
+<h1 id="1-explicitly-emphasize-your-accessibility">1. Explicitly emphasize your accessibility.</h1>
 <p><strong>Concrete action</strong>: At the beginning of every section (or every section for the first half of the
 semester), tell the students to email you any questions that they have about the course or problem
 sets – no matter how trivial.</p>
@@ -1735,7 +1873,7 @@ know that they <em>can</em> approach you for questions, but they may be worried 
 coming off as annoying. Explicitly emphasizing your accessibility fosters an environment that allows
 you to help struggling students.</p>
 
-<h1 id="avoid-saying-that-things-are-easy">2. Avoid saying that things are easy.</h1>
+<h1 id="2-avoid-saying-that-things-are-easy">2. Avoid saying that things are easy.</h1>
 <p><strong>Concrete action</strong>: Try to catch yourself before using any of these phrases or their variants:
 “this problem is easy”, “this problem is really simple”, “this is not too hard”, etc.</p>
 
@@ -1752,20 +1890,20 @@ is easy. However, note that it’s also a bad <em>preface</em> to an example pro
 mentions confusion. Deeming the problem “easy” beforehand will make potentially confused
 students feel worse.</p>
 
-<h1 id="admit-when-you-dont-know-the-answer----then-find-it">3. Admit when you don’t know the answer – then find it.</h1>
+<h1 id="3-admit-when-you-dont-know-the-answer--then-find-it">3. Admit when you don’t know the answer – then find it.</h1>
 <p><strong>Concrete action</strong>: If a student puts you on the spot with a question, and you can’t figure out the
 answer, admit it, but <em>make sure</em> to follow up with the student later.</p>
 
 <p>An appropriate response – one I’ve used many times – is along the lines of: “I’m sorry, I don’t
-know off the top of my head. I’ll find out and send you an email.” (Of course, you should always first <em>try</em> to answer the question) </p>
+know off the top of my head. I’ll find out and send you an email.” (Of course, you should always first <em>try</em> to answer the question)</p>
 
 <p>Most of the time, the student doesn’t urgently need the answer. As much as it might ring the ego,
 it’s better to send the student a well thought-out answer than stalling (wasting everyone’s time) or
-giving a copout answer (hurting the student’s learning). </p>
+giving a copout answer (hurting the student’s learning).</p>
 
-<h1 id="dont-rely-on-the-solutions-key">4. Don’t rely on the solutions key.</h1>
+<h1 id="4-dont-rely-on-the-solutions-key">4. Don’t rely on the solutions key.</h1>
 <p><strong>Concrete action</strong>: Fully solve any solution that you’re responsible for explaining
-(example problem in section, homework problem, etc.). </p>
+(example problem in section, homework problem, etc.).</p>
 
 <p>In my experience, failing to do this will, with nontrivial probability, result in trying to parse
 the solutions under high pressure. <strong>Having the solutions key is not the same as having the
@@ -1773,18 +1911,18 @@ ability to explain the steps of a solution</strong> (I know of a few other instr
 procuring explanations quickly – I am not one of them). Working through the solutions beforehand
 ensures that you can maximize your helpfulness to students.</p>
 
-<h1 id="follow-the-course-materials-with-the-students">5. Follow the course materials with the students.</h1>
+<h1 id="5-follow-the-course-materials-with-the-students">5. Follow the course materials with the students.</h1>
 <p><strong>Concrete action</strong>: Read any potential source of questions – textbook
 chapters, slides, notes – in step with the timeline of the course.</p>
 
 <p>Familiarize yourself with the students’ readings. Even if you know the course concepts, students often have fairly specific
 questions about certain examples in the readings. The ideal response is to explain
 an example after rereading it once, having already reviewed the students’
-readings. </p>
+readings.</p>
 
 <p>The wrong response to a question – which, I guiltily admit, has happened to me on occasion –
 is to ask the student to wait, spending substantially longer to read, parse, and understand the
-example in question. </p>
+example in question.</p>
 
 <h1 id="conclusion">Conclusion</h1>
 <p>A good way to improve as an instructor is to consider the qualities that you appreciate in
@@ -1810,18 +1948,18 @@ teaching as an undergraduate.</em></p>
     <updated>2014-11-07T00:00:00+02:00</updated>
     <id>http://louisrli.github.io/blog/2014/11/07/bolzano-weierstrass-without-sequences</id>
     <content type="html"><![CDATA[<p>The <a href="http://en.wikipedia.org/wiki/Bolzano%E2%80%93Weierstrass_theorem">Bolzano-Weierstrass theorem</a>
-is a common theorem taught in introductory real analysis and topology courses. </p>
+is a common theorem taught in introductory real analysis and topology courses.</p>
 
 <p>All of the proofs that I’ve read for the Bolzano-Weierstrass theorem involve constructing sequences.
 In my introductory topology course, I wanted to see if I could write a simple proof of the theorem
 <em>without</em> having to explicitly construct any sequences.</p>
 
-<p>(It’s worth noting that the proof for compact <script type="math/tex">\implies</script> sequentially compact requires constructing
+<p>(It’s worth noting that the proof for compact \(\implies\) sequentially compact requires constructing
 sequences. If we take this as given, then we get to avoid sequences.)</p>
 
 <h2 id="theorem-bolzano-weierstrass">Theorem (Bolzano-Weierstrass)</h2>
 <blockquote>
-  <p>Any bounded sequence in <script type="math/tex">\mathbb{R}^n</script> has a convergent subsequence.</p>
+  <p>Any bounded sequence in \(\mathbb{R}^n\) has a convergent subsequence.</p>
 </blockquote>
 
 <!-- more -->
@@ -1829,7 +1967,7 @@ sequences. If we take this as given, then we get to avoid sequences.)</p>
 <h2 id="proof">Proof</h2>
 
 <p>We will make use of the following propositions, which I will assume to be previously proved. The
-proofs of these are in a standard topology textbook (I’m reading from Munkres, 2nd edition). </p>
+proofs of these are in a standard topology textbook (I’m reading from Munkres, 2nd edition).</p>
 
 <p>I’ll redefine various notions of compactness below, since there exists some ambiguity in the
 different forms of compactness.</p>
@@ -1840,7 +1978,7 @@ infinite sequence has a convergent subsequence.</p>
 </blockquote>
 
 <blockquote>
-  <p><strong>Proposition 1.</strong> The interval <script type="math/tex"> [a, b] \subset \mathbb{R} </script> is compact.</p>
+  <p><strong>Proposition 1.</strong> The interval \([a, b] \subset \mathbb{R}\) is compact.</p>
 </blockquote>
 
 <blockquote>
@@ -1851,407 +1989,29 @@ infinite sequence has a convergent subsequence.</p>
 theorem</a>) and the finite case.</p>
 
 <blockquote>
-  <p><strong>Proposition 3.</strong> (Munkres, Theorem 28.2) <script type="math/tex"> X </script> is compact <script type="math/tex"> \implies </script> <script type="math/tex"> X </script> is
+  <p><strong>Proposition 3.</strong> (Munkres, Theorem 28.2) \(X\) is compact \(\implies\) \(X\) is
 sequentially compact.</p>
 </blockquote>
 
 <p>We now prove Bolzano-Weierstrass.</p>
 
-<p>Let <script type="math/tex"> \{ x_i \} </script> be a bounded sequence in <script type="math/tex"> \mathbb{R}^n </script>. We need to show that <script type="math/tex"> \{ x_i \}
-</script> has a convergent subsequence.</p>
+<p>Let \(\{ x_i \}\) be a bounded sequence in \(\mathbb{R}^n\). We need to show that \(\{ x_i \}\) has a convergent subsequence.</p>
 
-<p>Since the sequence is bounded in <script type="math/tex"> \mathbb{R}^n </script>, by definition of bounded, every element of
-the sequence is contained in some closed interval of <script type="math/tex"> \mathbb{R}^n </script>:</p>
+<p>Since the sequence is bounded in \(\mathbb{R}^n\), by definition of bounded, every element of
+the sequence is contained in some closed interval of \(\mathbb{R}^n\):</p>
 
-<script type="math/tex; mode=display"> A = [m, M]^n </script>
+\[A = [m, M]^n\]
 
-<p>where <script type="math/tex"> m, M </script> denote the “minimum” and “maximum” of our bounded interval. </p>
+<p>where \(m, M\) denote the “minimum” and “maximum” of our bounded interval.</p>
 
-<p>Note that <script type="math/tex">[m, M] </script> is compact (Proposition 1). </p>
+<p>Note that \([m, M]\) is compact (Proposition 1).</p>
 
-<p>It follows that <script type="math/tex"> A </script> is compact – it is the product of compact spaces (Proposition 2). </p>
+<p>It follows that \(A\) is compact – it is the product of compact spaces (Proposition 2).</p>
 
-<p>Because <script type="math/tex"> A </script> is compact, <script type="math/tex"> A </script> is sequentially compact (Proposition 3). </p>
+<p>Because \(A\) is compact, \(A\) is sequentially compact (Proposition 3).</p>
 
-<p>In a sequentially compact space, any sequence of points has a convergent subsequence. Note that <script type="math/tex">
-\{ x_i \} </script> is one such sequence contained in the sequentially compact space <script type="math/tex"> A </script>, and it
-follows that <script type="math/tex"> \{ x_i \} </script> must have a convergent subsequence.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[det(-A) = -det(A) for Odd Square Matrix]]></title>
-    <link href="http://louisrli.github.io/blog/2014/11/06/negative-determinant-odd-even-matrix/"/>
-    <updated>2014-11-06T00:00:00+02:00</updated>
-    <id>http://louisrli.github.io/blog/2014/11/06/negative-determinant-odd-even-matrix</id>
-    <content type="html"><![CDATA[<p>The proof for this is straightforward, but I didn’t find it explicitly stated elsewhere on the web
-– it may just be one of those propositions that’s hard to phrase as a search query. In words:
-the negative determinant of an odd square matrix is the determinant of the negative matrix.</p>
-
-<h2 id="proposition">Proposition</h2>
-<blockquote>
-  <p>If <script type="math/tex">A</script> is an <script type="math/tex"> n \times n </script> square matrix and <script type="math/tex"> n </script> is odd, then <script type="math/tex"> \det(-A) =
--\det(A) </script>.</p>
-</blockquote>
-
-<!-- more -->
-
-<h2 id="proof">Proof</h2>
-
-<p>Negating all elements of a row of the matrix <script type="math/tex">A</script> negates the determinant of the matrix
-(<a href="https://proofwiki.org/wiki/Effect_of_Sequence_of_Elementary_Row_Operations_on_Determinant">proof</a>
-– think about it as multiplying a row by the scalar <script type="math/tex">-1</script>). </p>
-
-<p><script type="math/tex">-A</script> is equivalent to <script type="math/tex"> A </script> with each of its rows negated. Because <script type="math/tex"> n </script> is
-odd:</p>
-
-<script type="math/tex; mode=display"> \det(-A) = (-1)^n \det(A) = -\det(A) </script>
-
-<h2 id="context">Context</h2>
-<p>This fact was needed to prove that if <script type="math/tex"> A </script> is a <a href="http://en.wikipedia.org/wiki/Orthogonal_group">special orthogonal
-matrix</a> and <script type="math/tex"> n </script>
-is odd, then <script type="math/tex"> A </script> has at least one eigenvector with eigenvalue <script type="math/tex"> 1 </script>.</p>
-
-<p>Note that if <script type="math/tex">n</script> is even, we can prove that <script type="math/tex">\det(A) = \det(-A)</script> using the same technique.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Tips for Computer Science Internship Interviews]]></title>
-    <link href="http://louisrli.github.io/blog/2014/01/18/tips-for-computer-science-internship-interviews/"/>
-    <updated>2014-01-18T00:00:00+02:00</updated>
-    <id>http://louisrli.github.io/blog/2014/01/18/tips-for-computer-science-internship-interviews</id>
-    <content type="html"><![CDATA[<p>This post is meant to help computer science undergraduates looking for a software engineering internship in the summer. Applying to internships can be daunting, and this post will hopefully address some of the commonly asked questions that I see on Reddit’s <a href="http://www.reddit.com/r/cscareerquestions">cscareerquestions</a>.
-Along with some other miscellanea regarding applications, this post covers two things: </p>
-
-<ol>
-  <li>What are most internship interviews like?</li>
-  <li>How should I prepare for them?</li>
-</ol>
-
-<h2 id="background">Background</h2>
-<p>I did <a href="http://louisrli.github.io/blog/2013/06/28/researchtips/">research</a> last summer, and this summer was my first time seriously looking for an internship. From the beginning of September 2013 to the beginning of January 2014 (around 16 weeks), I did a lot of interviewing: 20 technical interviews, four recruiter interviews, two coding challenges, one product manager interview, and one trader interview (involuntarily moved from software engineering). 
-One of the reasons that I did so many interviews was that I did poorly on many of my interviews for the first month. 
-Despite having read about interviewing on the internet, I wish I had known more <em>concretely</em> how to prepare.</p>
-
-<!-- more -->
-
-<p>Finally, note that I mostly interviewed with medium to large companies in Silicon Valley: your mileage may vary with local companies or smaller startups.
-Out of respect for the companies that I interviewed with, I won’t be linking specific companies to specific interview questions.</p>
-
-<h1 id="the-three-types-of-internship-interviews">The three types of internship interviews</h1>
-
-<p>I would categorize my internship interviews as falling into one of three categories:</p>
-
-<ol>
-  <li><strong>The programming interview:</strong> algorithms, data structures, coding</li>
-  <li><strong>The “what you’ve done interview”:</strong> you and your projects</li>
-  <li><strong>The language-specific interview:</strong> quizzed about a language you claim to know</li>
-</ol>
-
-<p>I’ll explain these in more depth below, adding details on how to prepare for each category. Note
-that not every interview falls precisely into one of the three categories, and some interviews
-are a mix of multiple categories.</p>
-
-<ol>
-  <li>
-    <h2 id="the-programming-interview">The programming interview</h2>
-  </li>
-</ol>
-
-<p>The <strong>programming interview</strong> is the most common type of interview, especially if you’re not interviewing for a specific team.
-This is how most people envision computer science interviews: you’re asked one or more programming questions, 
-and you implement solutions on a collaborative editor like <a href="http://stypi.com">Stypi</a> or <a href="http://collabedit.com">Collabedit</a>. </p>
-
-<p>I would further divide these interviews into two topics:</p>
-
-<ol>
-  <li>Questions involving loops, lists, or strings (easier)</li>
-  <li>Questions involving specific data structures (harder)</li>
-</ol>
-
-<p>I think the first category is easier, and it includes questions like: <em>Remove duplicates from a list</em> or <em>Generate all of the permutations of a string</em>. Even if you don’t immediately know the answer, there’s a chance that you can figure it out without requiring knowledge of a specific algorithm or data structure.</p>
-
-<p>I find the second category trickier, and sometimes the question will be hard 
-or near impossible if you don’t know about a specific data structure or algorithm.
-For example, if you’ve never done breadth-first tree traversal, 
-and you’re asked: <em>Print the values in this tree level-by-level</em> 
-(a question that I received from two different companies),
-the question will be much harder.<br />
-In one interview, I did poorly when we delved 
-deeply into variations of hash tables, but I was only familiar 
-with basic linked list hash tables.</p>
-
-<p>At the end of every question, you will almost always be asked to 
-discuss the Big-O complexity of your implementation. </p>
-
-<h3 id="checklist">Checklist</h3>
-
-<p>Here’s what I didn’t realize at first: instead of just walking
-in, <strong>you should study for interviews</strong>.
-Unless you do algorithmic challenges on a regular basis, it’s worth the time
-to read and practice.</p>
-
-<ul>
-  <li><strong>Read <em><a href="http://www.amazon.com/Programming-Interviews-Exposed-Secrets-Programmer/dp/047012167X">Programming Interviews Exposed</a></em>:</strong> 
-Focus on these topics: string manipulation, linked lists, doubly linked lists, hash tables, 
-trees, queues, stacks, depth-first search, breadth-first-search, basic graphs,
-basic complexity.</li>
-  <li><strong>Check Glassdoor</strong>: Many companies have interview questions on Glassdoor. Your goal isn’t
-to study the interview questions in advance, but you can get a good idea of the general difficulty
-of the programming questions.</li>
-  <li><strong>Practice at least once</strong>: I’ll let the interview books cover
-this process in more detail, but if this is your first interview, 
-I highly recommend practicing an interview question from start to finish with a friend.</li>
-</ul>
-
-<p>I would take books like <em>Programming Interviews Exposed</em> with a grain of salt. Except for some of the very big companies, like Facebook,
-the interview questions for internships are generally much easier than those for senior developers. You won’t be asked to write
-a red-black tree from scratch. From my experience, the list above comprehensively covers the topics from my interview experience
-(suggestions welcome).</p>
-
-<p>Depth- and breadth-first search (DFS and BFS, respectively) were extremely popular, and I would estimate <strong>over half of my algorithms interviews 
-were best solved with DFS or BFS</strong>. Know them!</p>
-
-<ol>
-  <li>
-    <h2 id="the-what-youve-done-interview">The “what you’ve done” interview</h2>
-  </li>
-</ol>
-
-<p>The <strong>“what you’ve done” interview</strong> is a non-technical, pleasant conversation with your interviewer,
-where you get the opportunity to talk about your resume and projects. I found that this
-type of interview was more common in small and medium sized companies.</p>
-
-<p>Empirically, I did better on these interviews than on algorithmic interviews, because
-it was an opportunity to pitch myself as a passionate developer.
-I usually talked about my research, my past internship, 
-and/or my experience at <a href="https://www.meteor.com/blog/2013/07/09/congratulations-to-the-meteor-summer-hackathon-2013-teams">the Meteor Summer Hackathon</a>.</p>
-
-<p>Note that I’m a junior (third year undergraduate student). 
-If you’re a freshman or sophomore, don’t panic if you don’t have a lot to
-talk about yet. Without sideprojects and/or past internships, however,
-this interview can be tough. 
-You can use course projects, but I think people know that most course projects
-are a few files that are hacked together in a few days (varies by school, of course).</p>
-
-<h3 id="checklist-1">Checklist</h3>
-
-<p>Be prepared to talk in-depth about any jobs and projects on your resume. 
-For each project, you’ll want to be ready to answer these questions:</p>
-
-<blockquote>
-  <p>What was the project?</p>
-</blockquote>
-
-<p><a></a> <!-- break the blockquote --></p>
-
-<blockquote>
-  <p>What was the scope of the project? (i.e., how much time, how big was it)</p>
-</blockquote>
-
-<p><a></a> <!-- break the blockquote --></p>
-
-<blockquote>
-  <p>What was your role in the project?</p>
-</blockquote>
-
-<p><a></a> <!-- break the blockquote --></p>
-
-<blockquote>
-  <p>What did you learn?</p>
-</blockquote>
-
-<p><a></a> <!-- break the blockquote --></p>
-
-<blockquote>
-  <p>What were some of the challenges in the project?</p>
-</blockquote>
-
-<p>If you prepare these answers, you’ll be ready to answer a more general question that frequently shows up in interviews:</p>
-
-<blockquote>
-  <p>Tell me about a technical challenge that you had.</p>
-</blockquote>
-
-<ol>
-  <li>
-    <h2 id="the-language-specific-interview">The language-specific interview</h2>
-  </li>
-</ol>
-
-<p>The language-specific interview tests your knowledge about a specific language that you
-claim to know on your resume. This interview often shows up if you’ve been placed to interview 
-with a specific team (e.g., iOS Safari team at Apple, YUI team at Yahoo).</p>
-
-<p>I was never asked coding questions in these interviews, but the interviewers
-expected me to show my knowledge through my answers to quiz questions,
-my discussion of relevant projects, and my opinions on language features.</p>
-
-<h3 id="checklist-2">Checklist</h3>
-
-<p>If you are placed to interview with a team that uses a specific
-language (or framework), you should prepare for the following questions.
-I was asked each of these on multiple occasions:</p>
-
-<blockquote>
-  <p>What makes {language} different from other languages?</p>
-</blockquote>
-
-<p><a></a> <!-- break the blockquote --></p>
-
-<blockquote>
-  <p>If you had to change something in {language}, what would you change?</p>
-</blockquote>
-
-<p><a></a> <!-- break the blockquote --></p>
-
-<blockquote>
-  <p>Tell me about a technical challenge that you had when you were working on a project in {language}.</p>
-</blockquote>
-
-<h3 id="javascript-specific-questions">JavaScript specific questions</h3>
-
-<p>In addition to the above questions, I was also asked the following question 
-on three different occasions for JavaScript-related internships:</p>
-
-<blockquote>
-  <p>Tell me about closures in JavaScript.</p>
-</blockquote>
-
-<p>I usually answered with an explanation of 1. callbacks 2. function scope in JavaScript. 
-Closures allow for more traditional object-oriented programming (e.g., objects in Backbone.js are just closures).</p>
-
-<p>One question that I was <em>not</em> asked in any interview was to recite the value of <code>this</code> in various contexts
-(not that this means it isn’t fair game).</p>
-
-<h2 id="odds-and-ends">Odds and ends</h2>
-
-<p>Again, not every interview will fall into one of these three categories. I encountered a couple of weird interview styles:</p>
-
-<ul>
-  <li><em>Straight quizzing:</em> One first round interview a recruiter who read quiz questions about databases, Unix systems, and web requests.
-The recruiter had a list of answers, and I suspect one important metric, in addition to correctness, was how confidently you answered.</li>
-  <li><em>Coursework:</em> I interviewed with a very cool stealth startup working on something that has it roots in security research. Correspondingly,
-the whole interview was about my coursework in compilers and theory of computation – no technical questions.</li>
-</ul>
-
-<h1 id="beginning-the-interview">Beginning the interview</h1>
-
-<p>Some bigger companies dive straight into the technical part of interviews, but your interviewer will <strong>almost always</strong> ask you a very important question (or some variant) that you should prepare:</p>
-
-<blockquote>
-  <p>Tell me about yourself.</p>
-</blockquote>
-
-<p>Keep it succinct! I would say it should be a minute long at most. Hit the important points about your interests and experience, and spare your interviewer the life story. I’m saying this because I made the mistake of having a long pitch in the first few interviews, and I could tell that the interviewer ended up getting bored.</p>
-
-<h1 id="ending-the-interview">Ending the interview</h1>
-
-<p>Even when the interview runs over the allocated time, your interviewer will ask:</p>
-
-<blockquote>
-  <p>Do you have any questions for me?</p>
-</blockquote>
-
-<p>I used to have a lot of trouble with this, but after I started treating it as
-an opportunity for conversation, it became much easier. This is a chance to connect on a personal level with the interviewer.
-If your performance was borderline, having an insightful conversation
-with the interviewer can’t hurt.</p>
-
-<p>If the interviewer hadn’t described himself or herself yet, the first thing I asked was:</p>
-
-<blockquote>
-  <p>Can you tell me more about what you do?</p>
-</blockquote>
-
-<p>I let the conversation flow from there. If there’s not much to follow up on, I’ll
-ask about how they test their product or choose to target new features. There’s <a href="http://programmers.stackexchange.com/questions/16436/do-you-have-any-questions-for-us-in-an-interview">a very good list</a> on Programmers Stack Exchange, although not all of them are suitable for potential interns to ask.</p>
-
-<h1 id="miscellaneous-faq">Miscellaneous: FAQ</h1>
-
-<p>These are my answers to questions that either I was asking at the beginning of the application process or I see 
-frequently asked. Most of these don’t have black-or-white answers.</p>
-
-<blockquote>
-  <p>How long should my resume be?</p>
-</blockquote>
-
-<p>For companies based in the US, your resume should not be longer than one page. Personally,
-I don’t like reading resumes longer than one page. From what I’ve read from various
-recruiters and managers on the internet, they don’t either, although it doesn’t mean
-automatic rejection.</p>
-
-<p>Make sure your resume looks professional – spacing, font, structure. Use a serif font!</p>
-
-<p>If your resume is too long, consider cutting out parts that are not tech related – clubs, extracurriculars, experience in a different field.</p>
-
-<p>Finally, don’t include things like your high school GPA, because they don’t matter to the people reading your resume.</p>
-
-<blockquote>
-  <p>When should I start applying?</p>
-</blockquote>
-
-<p>Most internship applications started popping up in October and November.
-I think it doesn’t hurt to apply earlier, although one friend told me that
-intern candidates at his company usually fared better in spring than in fall.</p>
-
-<p>Before last summer, after I had already decided to do research, I did receive
-a few emails for interviews as late as March. If you didn’t jump on it in October,
-don’t panic.</p>
-
-<blockquote>
-  <p>How important are sideprojects? </p>
-</blockquote>
-
-<p>It depends on the company, but if you’re a freshman (first year) or 
-a sophomore (second year), it’s important. 
-When I applied to my first internship in freshman spring, 
-the recruiter emailed me back saying that the manager 
-wanted to know if I had any sideprojects. In addition
-to spicing up your resume, it gives you
-something substantive to talk about in the “what you’ve done” interviews.</p>
-
-<blockquote>
-  <p>How long can it take to hear back after an interview?</p>
-</blockquote>
-
-<p>It varies by company. 
-From small to medium sized companies, I heard back anywhere from a day to a week.
-Without exception, after a final round interview, it took every big company two weeks to a month 
-to respond with either an offer or rejection.</p>
-
-<blockquote>
-  <p>How can I overcome nervousness during interviews?</p>
-</blockquote>
-
-<p>In some of the algorithmic interviews, when I started doing poorly, I would just freeze and ramble – especially if I hadn’t slept much the previous night because of schoolwork.
-Eventually, the interviewer would (pretty much) tell me the answer, which almost always led to rejection after the interview. </p>
-
-<p>If this happens to you, my advice is to tell the interviewer, “Let me consolidate my thoughts for a moment.” Take a few deep breaths, don’t think about anything, and then tackle the question again.</p>
-
-<p>If you feel nervous from the very beginning, try to persuade yourself that it’s only a friendly conversation. </p>
-
-<blockquote>
-  <p>How can I know how well my interview went?</p>
-</blockquote>
-
-<p>In my experience, if the interviewer starts talking about how much responsibility interns 
-have <em>and</em> you didn’t explicitly ask about it – the interview probably went well.  This is not a guarantee by any means.</p>
-
-<p>I’ve read a few things on the internet about asking your interviewer how they felt the interview went. 
-I haven’t tried this before, but feel free to let me know if you have. 
-I think it would be a useful source of feedback.</p>
-
-<p>Hope this helps.</p>
-
-<p><em>Any specific questions or insights? Feel free to to comment or ping me at <code>pong [at] outlook.com</code></em></p>
-
-<p><strong>UPDATE</strong>: Before publishing this article, I asked one person – Kevin Gong, a senior at UC
-Berkeley – to edit this article. This was the last time that I talked to him. 
-In March 2014, Kevin passed away in a car accident. He was
-incredibly passionate about applying technology to the world and helping younger students kickstart
-their careers. If this article helped you, please consider donating to the <a href="https://www.facebook.com/events/1562918887253164/">Kevin K. Gong Memorial Scholarship for Bright Minds and Big Hearts</a>.</p>
+<p>In a sequentially compact space, any sequence of points has a convergent subsequence. Note that \(\{ x_i \}\) is one such sequence contained in the sequentially compact space \(A\), and it
+follows that \(\{ x_i \}\) must have a convergent subsequence.</p>
 ]]></content>
   </entry>
   

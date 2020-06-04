@@ -7,7 +7,15 @@
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="Enabling VirtualBox SSH on IPv6 (Linux Host, Linux Guest) This is a quick article describing how to SSH to a VirtualBox machine from the host &hellip;">
+	<meta name="description" content="
+
+
+
+
+
+	Enabling VirtualBox SSH on IPv6 (Linux host, Linux guest)
+        
+	This is a quick article describing how to SSH to a VirtualBox machine fr...">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -103,63 +111,65 @@
 </script>
 
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-	<h1 class="title" itemprop="name">Enabling VirtualBox SSH on IPv6 (Linux Host, Linux Guest)</h1>
+	<h1 class="title" itemprop="name">Enabling VirtualBox SSH on IPv6 (Linux host, Linux guest)</h1>
         <h3 class="subtitle" itemprop="subtitle"></h3>
 	<div class="entry-content" itemprop="articleBody"><p>This is a quick article describing how to SSH to a VirtualBox machine from the host machine, written for VirtualBox 4.1.18 Fedora. The standard choice – bridged networking – doesn’t work when the host has an IPv6 address.</p>
 
 <!-- more -->
 
-<p>According to the help page for <strong>bridged networking</strong> (the standard choice):
-&gt; On Linux hosts … for other protocols such as IPv6 and IPX, you must choose a wired interface.</p>
+<p>According to the help page for <strong>bridged networking</strong> (the standard choice):</p>
+<blockquote>
+  <p>On Linux hosts … for other protocols such as IPv6 and IPX, you must choose a wired interface.</p>
+</blockquote>
 
 <p>I moved into the dorms yesterday, where I was hit by an IPv6 address and found that I couldn’t SSH to one of my VMs. After playing around and finding the solution, I thought I’d write a guide since I hadn’t found one immediately on the internet.</p>
 
-<h2 id="install-openssh-guest">0. Install OpenSSH (Guest)</h2>
+<h2 id="0-install-openssh-guest">0. Install OpenSSH (Guest)</h2>
 <p>Make sure the SSH server is installed:</p>
 
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> sudo apt-get install openssh-server  <span class="c"># Ubuntu, Debian</span>
-<span class="gp">$</span> sudo yum install openssh-server   <span class="c"># Fedora</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>openssh-server  <span class="c"># Ubuntu, Debian</span>
+<span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>yum <span class="nb">install </span>openssh-server   <span class="c"># Fedora</span></code></pre></figure>
 
-<h2 id="create-a-host-only-network-host">1. Create a host-only network (Host)</h2>
-<p>Navigate to <strong>File -&gt; Preferences -&gt; Network</strong>, and click the icon with a plus sign. By default, it will create a host network named <code>vboxnet0</code>.</p>
+<h2 id="1-create-a-host-only-network-host">1. Create a host-only network (Host)</h2>
+<p>Navigate to <strong>File -&gt; Preferences -&gt; Network</strong>, and click the icon with a plus sign. By default, it will create a host network named <code class="language-plaintext highlighter-rouge">vboxnet0</code>.</p>
 
 <p><img src="/images/vbox-ssh-hostnetwork.png" alt="File -&gt; Preferences -&gt; Network -&gt; Add Host Network" /></p>
 
-<h2 id="add-a-network-adapter-host">2. Add a network adapter (Host)</h2>
+<h2 id="2-add-a-network-adapter-host">2. Add a network adapter (Host)</h2>
 <p>On the host, first shut off the guest VM. Next, right-click the VM in the library and open the settings. We’ll create a second adapter (“Adapter 2”) attached to a <strong>Host-only Adapter</strong>, as shown in the picture below.</p>
 
 <p><img src="/images/vbox-ssh-networkadapter.png" alt="Settings -&gt; Network -&gt; Adapter 2 -&gt; Host-only Adapter" /></p>
 
-<h2 id="add-a-network-interface-guest">3. Add a network interface (Guest)</h2>
-<p>On the Linux guest, add the following lines to <code>/etc/network/interfaces</code>:</p>
+<h2 id="3-add-a-network-interface-guest">3. Add a network interface (Guest)</h2>
+<p>On the Linux guest, add the following lines to <code class="language-plaintext highlighter-rouge">/etc/network/interfaces</code>:</p>
 
-<div class="highlight"><pre><code class="language-text" data-lang="text">auto eth1
-iface eth1 inet dhcp</code></pre></div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">auto eth1
+iface eth1 inet dhcp</code></pre></figure>
 
 <p>Start the network interface:</p>
 
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> sudo ifup eth1</code></pre></div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>ifup eth1</code></pre></figure>
 
-<h2 id="find-the-ip-address-guest">4. Find the IP address (Guest)</h2>
-<p>On the Linux guest, run the <code>ifconfig</code> command and search for the <code>inet addr</code>. In the output below, the address that we need is <strong>192.168.56.101</strong>.</p>
+<h2 id="4-find-the-ip-address-guest">4. Find the IP address (Guest)</h2>
+<p>On the Linux guest, run the <code class="language-plaintext highlighter-rouge">ifconfig</code> command and search for the <code class="language-plaintext highlighter-rouge">inet addr</code>. In the output below, the address that we need is <strong>192.168.56.101</strong>.</p>
 
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> ifconfig <span class="p">|</span> grep eth1 -C 5
-<span class="go">RX packets:25 errors:0 dropped:0 overruns:0 frame:0</span>
-<span class="go">TX packets:33 errors:0 dropped:0 overruns:0 carrier:0</span>
-<span class="go">collisions:0 txqueuelen:1000</span>
-<span class="go">RX bytes:3700 (3.6 KiB)  TX bytes:2867 (2.7 KiB)</span>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ifconfig | <span class="nb">grep </span>eth1 <span class="nt">-C</span> 5
+<span class="go">RX packets:25 errors:0 dropped:0 overruns:0 frame:0
+TX packets:33 errors:0 dropped:0 overruns:0 carrier:0
+collisions:0 txqueuelen:1000
+RX bytes:3700 (3.6 KiB)  TX bytes:2867 (2.7 KiB)
 
-<span class="go">eth1      Link encap:Ethernet  HWaddr 08:00:27:32:ac:fd</span>
-<span class="go">inet addr:192.168.56.101  Bcast:192.168.56.255  Mask:255.255.255.0</span>
-<span class="go">inet6 addr: fe80::a00:27ff:fe32:acfd/64 Scope:Link</span>
-<span class="go">UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1</span>
-<span class="go">RX packets:7963 errors:0 dropped:0 overruns:0 frame:0</span>
-<span class="go">TX packets:4691 errors:0 dropped:0 overruns:0 carrier:0</span></code></pre></div>
+eth1      Link encap:Ethernet  HWaddr 08:00:27:32:ac:fd
+inet addr:192.168.56.101  Bcast:192.168.56.255  Mask:255.255.255.0
+inet6 addr: fe80::a00:27ff:fe32:acfd/64 Scope:Link
+UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+RX packets:7963 errors:0 dropped:0 overruns:0 frame:0
+TX packets:4691 errors:0 dropped:0 overruns:0 carrier:0</span></code></pre></figure>
 
-<h2 id="ssh-to-the-virtual-machine-host">5. SSH to the virtual machine (Host)</h2>
+<h2 id="5-ssh-to-the-virtual-machine-host">5. SSH to the virtual machine (Host)</h2>
 <p>Finally, we can SSH to the virtual machine.</p>
 
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> ssh user@192.168.56.101</code></pre></div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ssh user@192.168.56.101</code></pre></figure>
 
 </div>
 
@@ -205,11 +215,11 @@ iface eth1 inet dhcp</code></pre></div>
 </div>
 			</div>
 			<footer id="footer" class="inner"><p>
-  Copyright &copy; 2020 - Louis Li -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  Copyright &copy; 2020 - Louis Li
 </p>
 
-Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+Theme originally by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+</footer>
 			<script src="/javascripts/slash.js"></script>
 <script src="/javascripts/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">

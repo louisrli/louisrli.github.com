@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: react | Louis Li]]></title>
+  <link href="http://louisrli.github.io/blog/categories/react/atom.xml" rel="self"/>
+  <link href="http://louisrli.github.io/"/>
+  <updated>2020-06-05T01:42:58+03:00</updated>
+  <id>http://louisrli.github.io/</id>
+  <author>
+    <name><![CDATA[Louis Li]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Using MathJax with React]]></title>
+    <link href="http://louisrli.github.io/blog/2020/06/04/react-mathjax/"/>
+    <updated>2020-06-04 00:00:00 +0300</updated>
+    <id>http://louisrli.github.io/blog/2020/06/04/react-mathjax</id>
+    <content type="html"><![CDATA[<p>This post describes how to use React (Typescript) and MathJax.</p>
+
+<!-- more -->
+
+<p>There are a few performance optimizations:</p>
+
+<ul>
+  <li><a href="https://reactjs.org/docs/react-api.html#reactmemo">React.memo</a> makes it so
+that even if the parent rerenders but the Latex does not change, the component
+does not rerender
+(<a href="reference">https://stackoverflow.com/questions/54015086/how-to-prevent-child-component-from-re-rendering-when-using-react-hooks-and-memo</a>).</li>
+  <li>The MathJax <code class="language-plaintext highlighter-rouge">typeset()</code> is only called when <code class="language-plaintext highlighter-rouge">rawLatex</code> changes. Technically,
+this is unnecessary, as the <code class="language-plaintext highlighter-rouge">React.memo</code> should mean that it only rerenders
+when the prop changes.</li>
+</ul>
+
+<p>You can either load MathJax in the head or load it dynamically in other ways.
+With Next.js, I was running into issues with using the <code class="language-plaintext highlighter-rouge">&lt;Head&gt;</code> tag; see <a href="./2020-06-04-react-dynamic-script-hook">how to
+dynamically load scripts in React</a>.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Combined with dynamic script loading, this component allows us to render
+ * MathJax. Uses MathJax 3.0. It takes an approach similar to the article below:
+ *
+ * https://engineering.classpro.in/render-latex-in-react-using-mathjax-f9742504678
+ *
+ * but then adapts based on MathJax 3.0:
+ *
+ * http://docs.mathjax.org/en/latest/web/typeset.html#handling-asynchronous-typesetting
+ */</span>
+
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">getMathJax</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nb">window</span> <span class="k">as</span> <span class="nx">any</span><span class="p">).</span><span class="nx">MathJax</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">typeset</span> <span class="o">=</span> <span class="p">(</span><span class="nx">selector</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">HTMLElement</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">mathJax</span> <span class="o">=</span> <span class="nx">getMathJax</span><span class="p">();</span>
+  <span class="c1">// If MathJax script hasn't been loaded yet, then do nothing.</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">mathJax</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">mathJax</span><span class="p">.</span><span class="nx">startup</span><span class="p">.</span><span class="nx">promise</span> <span class="o">=</span> <span class="nx">mathJax</span><span class="p">.</span><span class="nx">startup</span><span class="p">.</span><span class="nx">promise</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">selector</span><span class="p">();</span>
+      <span class="k">return</span> <span class="nx">mathJax</span><span class="p">.</span><span class="nx">typesetPromise</span><span class="p">();</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="na">err</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">`Typeset failed: </span><span class="p">${</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span><span class="s2">`</span><span class="p">));</span>
+  <span class="k">return</span> <span class="nx">mathJax</span><span class="p">.</span><span class="nx">startup</span><span class="p">.</span><span class="nx">promise</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kr">interface</span> <span class="nx">LatexProps</span> <span class="p">{</span>
+  <span class="na">rawLatex</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="na">Latex</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">FC</span><span class="o">&lt;</span><span class="nx">LatexProps</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">rawLatex</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">ref</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createRef</span><span class="o">&lt;</span><span class="nx">HTMLSpanElement</span><span class="o">&gt;</span><span class="p">();</span>
+  <span class="nx">React</span><span class="p">.</span><span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">typeset</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">ref</span><span class="p">.</span><span class="nx">current</span><span class="o">!</span><span class="p">);</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">rawLatex</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">ref</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">rawLatex</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/span&gt;</span><span class="err">;
+</span><span class="p">};</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">React</span><span class="p">.</span><span class="nx">memo</span><span class="p">(</span><span class="nx">Latex</span><span class="p">);</span>
+</code></pre></div></div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Dynamic Script Loading in React with Hooks]]></title>
+    <link href="http://louisrli.github.io/blog/2020/06/04/react-dynamic-script-hook/"/>
+    <updated>2020-06-04 00:00:00 +0300</updated>
+    <id>http://louisrli.github.io/blog/2020/06/04/react-dynamic-script-hook</id>
+    <content type="html"><![CDATA[<p>This post describes how to dynamically load a script by adding a script tag to
+your document using React Hooks.</p>
+
+<!-- more -->
+
+<p>This is a modification on the code presented in <a href="https://cleverbeagle.com/blog/articles/tutorial-how-to-load-third-party-scripts-dynamically-in-javascript">this
+article</a>.
+The script adds a script tag to the page and optionally calls a callback. It
+will not add the script again if it is already loaded. If a callback was
+provided, then it removes the script from the page when the component unmounts
+(so that the callback can be called again).</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Dynamic script loading hook.
+ */</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="c1">// If no callback is provided, the script will not be removed on unmount. This</span>
+<span class="c1">// kinda matters if the script loading is not idempotent (for some reason</span>
+<span class="c1">// MathJax is not, which is one of the scripts I was using this for) or</span>
+<span class="c1">// if you need the callback to happen again.</span>
+<span class="kd">const</span> <span class="nx">useScript</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="nx">scriptUrl</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+  <span class="nx">scriptId</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+  <span class="nx">callback</span><span class="p">?:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">void</span>
+<span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">React</span><span class="p">.</span><span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">existingScript</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">scriptId</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">existingScript</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">script</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">'</span><span class="s1">script</span><span class="dl">'</span><span class="p">);</span>
+      <span class="nx">script</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">scriptUrl</span><span class="p">;</span>
+      <span class="nx">script</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">scriptId</span><span class="p">;</span>
+      <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span>
+
+      <span class="nx">script</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">callback</span><span class="p">();</span>
+        <span class="p">}</span>
+      <span class="p">};</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">existingScript</span> <span class="o">&amp;&amp;</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">callback</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">existingScript</span> <span class="o">&amp;&amp;</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">existingScript</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+      <span class="p">}</span>
+    <span class="p">};</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">scriptUrl</span><span class="p">,</span> <span class="nx">scriptId</span><span class="p">]);</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">useScript</span><span class="p">;</span>
+
+</code></pre></div></div>
+]]></content>
+  </entry>
+  
+</feed>

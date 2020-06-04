@@ -7,7 +7,15 @@
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="A Rational Approximation of Pi Using the Pigeonhole Principle Below is a short Python script that finds a fractional approximation of \(\pi\) using &hellip;">
+	<meta name="description" content="
+
+
+
+
+
+	A Rational Approximation of Pi Using the Pigeonhole Principle
+        
+	Below is a short Python script that finds a fractional approximation...">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -131,7 +139,7 @@
 
 <p>Let \(m \pi, n \pi, m &gt; n \) be two multiples sharing the three numbers to the right of the decimal place. Then:</p>
 
-<script type="math/tex; mode=display"> m\pi - n\pi = (m - n) \pi \implies \pi = \frac{m \pi - n \pi}{m - n} </script>
+\[m\pi - n\pi = (m - n) \pi \implies \pi = \frac{m \pi - n \pi}{m - n}\]
 
 <p>Because \( m\pi - n\pi \) has a difference to the right of the decimal place that is less than 0.001, it approximates some integer. Therefore, we can use \( \frac{m \pi - n \pi}{m - n} \) as a rational approximation of \pi.</p>
 
@@ -139,94 +147,53 @@
 
 <p>For 11 multiples of \( \pi \), the problem is trivial to do by hand. For 1001 multiples, I’ve written a Python script to solve the problem. You can play around with the code <a href="http://codepad.org/HCmovMEd">here</a>.</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-<span class="line-number">19</span>
-<span class="line-number">20</span>
-<span class="line-number">21</span>
-<span class="line-number">22</span>
-<span class="line-number">23</span>
-<span class="line-number">24</span>
-<span class="line-number">25</span>
-<span class="line-number">26</span>
-<span class="line-number">27</span>
-<span class="line-number">28</span>
-<span class="line-number">29</span>
-<span class="line-number">30</span>
-<span class="line-number">31</span>
-<span class="line-number">32</span>
-<span class="line-number">33</span>
-<span class="line-number">34</span>
-<span class="line-number">35</span>
-<span class="line-number">36</span>
-<span class="line-number">37</span>
-</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="sd">&quot;&quot;&quot;</span>
-</span><span class="line"><span class="sd">pi.py</span>
-</span><span class="line"><span class="sd">Calculates an approximation of pi given the multiples 0pi - 1000pi using</span>
-</span><span class="line"><span class="sd">the Pigeonhole Principle. Outputs the first approximation found.</span>
-</span><span class="line">
-</span><span class="line"><span class="sd">Author: Louis Li</span>
-</span><span class="line"><span class="sd">&quot;&quot;&quot;</span>
-</span><span class="line">
-</span><span class="line"><span class="kn">import</span> <span class="nn">math</span>
-</span><span class="line">
-</span><span class="line">
-</span><span class="line"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-</span><span class="line">    <span class="c"># Store the decimals we&#39;ve found in a dictionary with its multiple of pi</span>
-</span><span class="line">    <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-</span><span class="line">
-</span><span class="line">    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1001</span><span class="p">):</span>
-</span><span class="line">        <span class="n">n_pi</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
-</span><span class="line">
-</span><span class="line">        <span class="n">first_three_dec</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">n_pi</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000</span><span class="p">))</span>
-</span><span class="line">
-</span><span class="line">        <span class="k">if</span> <span class="ow">not</span> <span class="n">first_three_dec</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
-</span><span class="line">            <span class="n">d</span><span class="p">[</span><span class="n">first_three_dec</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>
-</span><span class="line">        <span class="k">else</span><span class="p">:</span>
-</span><span class="line">            <span class="c"># Calculate an approximation, having found two numbers</span>
-</span><span class="line">            <span class="c"># with the same first three decimal places</span>
-</span><span class="line">            <span class="n">m</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">first_three_dec</span><span class="p">]</span>
-</span><span class="line">            <span class="n">m_pi</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
-</span><span class="line">
-</span><span class="line">            <span class="k">print</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">n_pi</span> <span class="o">-</span> <span class="n">m_pi</span><span class="p">))</span>
-</span><span class="line">            <span class="k">print</span> <span class="s">&quot;----- = &quot;</span><span class="p">,</span> <span class="p">((</span><span class="n">n_pi</span> <span class="o">-</span> <span class="n">m_pi</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">)),</span> \
-</span><span class="line">                <span class="s">&quot;(m = </span><span class="si">%d</span><span class="s">, n = </span><span class="si">%d</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-</span><span class="line">            <span class="k">print</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">)</span>
-</span><span class="line">            <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">Actual value, pi: &quot;</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
-</span><span class="line">            <span class="k">break</span>
-</span><span class="line">
-</span><span class="line"><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-</span><span class="line">    <span class="n">main</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"""
+pi.py
+Calculates an approximation of pi given the multiples 0pi - 1000pi using
+the Pigeonhole Principle. Outputs the first approximation found.
+
+Author: Louis Li
+"""</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># Store the decimals we've found in a dictionary with its multiple of pi
+</span>    <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1001</span><span class="p">):</span>
+        <span class="n">n_pi</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">math</span><span class="p">.</span><span class="n">pi</span>
+
+        <span class="n">first_three_dec</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="p">.</span><span class="n">floor</span><span class="p">((</span><span class="n">n_pi</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">first_three_dec</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">first_three_dec</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Calculate an approximation, having found two numbers
+</span>            <span class="c1"># with the same first three decimal places
+</span>            <span class="n">m</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">first_three_dec</span><span class="p">]</span>
+            <span class="n">m_pi</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="n">math</span><span class="p">.</span><span class="n">pi</span>
+
+            <span class="k">print</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">n_pi</span> <span class="o">-</span> <span class="n">m_pi</span><span class="p">))</span>
+            <span class="k">print</span> <span class="s">"----- = "</span><span class="p">,</span> <span class="p">((</span><span class="n">n_pi</span> <span class="o">-</span> <span class="n">m_pi</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">)),</span> \
+                <span class="s">"(m = %d, n = %d)"</span> <span class="o">%</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+            <span class="k">print</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">)</span>
+            <span class="k">print</span> <span class="s">"</span><span class="se">\n</span><span class="s">Actual value, pi: "</span><span class="p">,</span> <span class="n">math</span><span class="p">.</span><span class="n">pi</span>
+            <span class="k">break</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div></div>
 
 <p>This will output the first solution found:</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">355
-</span><span class="line">----- =  3.14159265359 (m = 1, n = 114)
-</span><span class="line">113
-</span><span class="line">
-</span><span class="line">Actual value, pi:  3.14159265359</span></code></pre></td></tr></table></div></figure></notextile></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>355
+----- =  3.14159265359 (m = 1, n = 114)
+113
+
+Actual value, pi:  3.14159265359
+</code></pre></div></div>
 
 </div>
 
@@ -272,11 +239,11 @@
 </div>
 			</div>
 			<footer id="footer" class="inner"><p>
-  Copyright &copy; 2020 - Louis Li -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  Copyright &copy; 2020 - Louis Li
 </p>
 
-Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+Theme originally by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+</footer>
 			<script src="/javascripts/slash.js"></script>
 <script src="/javascripts/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">

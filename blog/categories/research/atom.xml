@@ -4,7 +4,7 @@
   <title><![CDATA[Category: research | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/research/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2020-04-24T15:07:16+03:00</updated>
+  <updated>2020-06-05T01:42:58+03:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -26,7 +26,7 @@
 
 <p><strong>I have no doubt that grad students and experienced researchers know these already – these are for first-time lead researchers.</strong> Or, if you’re a grad student or Ph.D that disagrees with anything below, feel free to impart your wisdom by correcting or qualifying it (I place a lot of weight on the wisdom of the ancients – not that you’re ancient…).</p>
 
-<h3 id="design-and-analysis-find-answers-in-the-results-and-methods-sections">1. Design and analysis: Find answers in the results and methods sections</h3>
+<h3 id="1-design-and-analysis-find-answers-in-the-results-and-methods-sections">1. Design and analysis: Find answers in the results and methods sections</h3>
 
 <p>Research papers aren’t only valuable for their graphs and conclusions. Chances are, there are similarly designed experiments floating around on Google Scholar (what papers are in your literature review?).</p>
 
@@ -41,7 +41,7 @@
 
 <p>And many more. I still discussed my various approaches with other people before moving forward to make sure that I wasn’t misinterpreting the papers, but if you’re ever feeling <em>clueless</em> about anything, check the literature first.</p>
 
-<h3 id="data-collection-if-your-data-is-simple-just-store-it-as-csv">2. Data Collection: If your data is simple, just store it as CSV</h3>
+<h3 id="2-data-collection-if-your-data-is-simple-just-store-it-as-csv">2. Data Collection: If your data is simple, just store it as CSV</h3>
 
 <p>Really, just store it as CSV. <strong>Every data analysis application accepts CSV</strong>, and it saves time from parsing to store the raw results as CSV.</p>
 
@@ -53,13 +53,13 @@
 
 <p>The caveat is that CSV isn’t too good at handling more complex data with parent-child relationships (though you could stringify lists into a cell).</p>
 
-<h3 id="communication-make-it-easy-for-your-pi">3. Communication: Make it easy for your PI</h3>
+<h3 id="3-communication-make-it-easy-for-your-pi">3. Communication: Make it easy for your PI</h3>
 
 <p>Professors have a reputation for being busy, though my PI (research advisor) is receptive to meeting if I need it. One thing that I quickly learned is that meetings go much more smoothly if I make it easy for him. More concretely: <strong>when possible, I should generate ideas and present them to him for feedback, rather than having him do the heavy lifting.</strong></p>
 
 <p>After all, your PI is helping <em>you</em>, so he or she deserves your best effort to make the process less painful. These include things like being ready for meetings. At first, our meetings were pretty disorganized, but I learned that it’s a good idea to write up a very specific list of topics beforehand. This ensured that the meetings ran smoothly: demo, receive feedback, iterate through questions and discussion points, talk about next steps.</p>
 
-<h3 id="data-analysis-dont-use-matlab-for-statistical-analysis">4. Data Analysis: Don’t use MATLAB for statistical analysis</h3>
+<h3 id="4-data-analysis-dont-use-matlab-for-statistical-analysis">4. Data Analysis: Don’t use MATLAB for statistical analysis</h3>
 
 <p>For some reason (the reason being that I was only familiar with MATLAB and Excel for analysis), I thought it was a good idea to use MATLAB for doing statistical analysis and making graphs. While MATLAB has a statistics toolbox and graphing functionality, it’s not great for playing around with data and generating graphs quickly.</p>
 
@@ -69,13 +69,13 @@
 
 <p>An auxiliary lesson is that it’s worth asking a grad student, postdoc, or PI about their workflow before beginning an endeavor. Unfortunately, the ones in my group work in a different office and weren’t immediately accessible, but I’ll definitely ask if I find myself in a new situation.</p>
 
-<h3 id="graphing-for-papers-excel-is-a-good-option">5. Graphing for papers: Excel is a good option</h3>
+<h3 id="5-graphing-for-papers-excel-is-a-good-option">5. Graphing for papers: Excel is a good option</h3>
 
 <p>There’s graphing for the purpose of playing with data, then there’s graphing for the purpose of producing a good looking PDF.</p>
 
 <p>For the latter, I found that neither JMP nor MATLAB would let me style my graphs with the flexibility and speed that I wanted. One of the postdocs said that she used R or Excel. Excel was actually a very good option, since I just wanted to change the fonts, size, and bar labels. Lesson: with all the fancy tools, don’t forget about Excel.</p>
 
-<p>I suspect Python might have some good graphing libraries, although the only one that I’ve used is <code>matplotlib</code>, which was basically MATLAB. It’s also possible to create graphs directly in TeX, although I would guess that it’s harder to iterate on the styling.</p>
+<p>I suspect Python might have some good graphing libraries, although the only one that I’ve used is <code class="language-plaintext highlighter-rouge">matplotlib</code>, which was basically MATLAB. It’s also possible to create graphs directly in TeX, although I would guess that it’s harder to iterate on the styling.</p>
 ]]></content>
   </entry>
   
