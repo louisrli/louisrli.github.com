@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2020-06-05T01:55:33+03:00</updated>
+  <updated>2020-07-01T20:08:26+03:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,6 +12,56 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Traveling from Istanbul to Şile by Bus]]></title>
+    <link href="http://louisrli.github.io/blog/2020/07/01/istanbul-to-sile/"/>
+    <updated>2020-07-01T00:00:00+03:00</updated>
+    <id>http://louisrli.github.io/blog/2020/07/01/istanbul-to-sile</id>
+    <content type="html"><![CDATA[<p>The intention of this post is to document how to travel from Istanbul to Şile by
+bus. At the time of writing, there do not appear to be any English resources for
+this route. The official IETT app and Google Maps both document this incorrectly.</p>
+
+<!-- more -->
+
+<p>Şile is a popular place for the residents of Istanbul to escape for a day trip.
+Technically, Şile is part of Istanbul, although it’s quite remote. The bus ride
+is about two hours away; by car, it is about 45 minutes.</p>
+
+<h2 id="bus-line">Bus Line</h2>
+<p>Taking any bus that is prefixed with <strong>139</strong> is okay, all of them stop at Şile
+first but their continuing routes after Şile may differ.</p>
+
+<p>The
+<a href="https://www.iett.istanbul/en/main/hatlar/139/%C3%9CSK%C3%9CDAR%20-%20%C5%9E%C4%B0LE-%C4%B0ETT-Otob%C3%BCs-Sefer-Saatleri-ve-Duraklar%C4%B1">IETT</a>
+site gives a description of the stops; however, as explained below, the bus stop
+location is incorrect on the site. Also note that this link only shows the 139
+bus, but the 139A, 139T, etc. also run, meaning that there is approximately one
+bus to Şile every hour.</p>
+
+<p>The bus has various stops in the Şile area, though the bus terminal is a safe
+bet for a place to get off.</p>
+
+<h2 id="bus-stop-location">Bus Stop Location</h2>
+<p><strong>Do not wait at the Üsküdar Marmaray bus station.</strong> The correct location for
+this intercity bus is the Şemsipaşa stop (<a href="https://goo.gl/maps/3YyADTwU8gENbKk98">Google Maps
+link</a>), which is about a block west.
+There, you will see a paper with times for the bus to Şile.</p>
+
+<p>A ticket is required for this bus. The place to purchase the tickets is about a
+two minute walk from the bus stop (<a href="https://goo.gl/maps/R4AqwriFRpaxxnDp8">Google Maps
+link</a>). At the time of writing (July
+2020), a one way ticket was 14.50 lira. If you don’t speak Turkish, you probably
+can’t get on the bus without a ticket, although I’ve been told it’s possible to
+sit on the floor if the bus is full.</p>
+
+<p>If you try to buy too close to the departure time, it’s possible that the bus
+may be full.</p>
+
+<p>It may be possible to buy online, but the author of this article doesn’t know
+how.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Using MathJax with React]]></title>
@@ -28,7 +78,7 @@
   <li><a href="https://reactjs.org/docs/react-api.html#reactmemo">React.memo</a> makes it so
 that even if the parent rerenders but the Latex does not change, the component
 does not rerender
-(<a href="reference">https://stackoverflow.com/questions/54015086/how-to-prevent-child-component-from-re-rendering-when-using-react-hooks-and-memo</a>).</li>
+(<a href="https://stackoverflow.com/questions/54015086/how-to-prevent-child-component-from-re-rendering-when-using-react-hooks-and-memo">reference</a>).</li>
   <li>The MathJax <code class="language-plaintext highlighter-rouge">typeset()</code> is only called when <code class="language-plaintext highlighter-rouge">rawLatex</code> changes. Technically,
 this is unnecessary, as the <code class="language-plaintext highlighter-rouge">React.memo</code> should mean that it only rerenders
 when the prop changes.</li>
@@ -1939,79 +1989,6 @@ opportunity.</p>
 opportunities to teach during my college years. I am especially indebted to Paul for propelling me into
 teaching as an undergraduate.</em></p>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Topological Proof of Bolzano-Weierstrass Without Constructing Sequences]]></title>
-    <link href="http://louisrli.github.io/blog/2014/11/07/bolzano-weierstrass-without-sequences/"/>
-    <updated>2014-11-07T00:00:00+02:00</updated>
-    <id>http://louisrli.github.io/blog/2014/11/07/bolzano-weierstrass-without-sequences</id>
-    <content type="html"><![CDATA[<p>The <a href="http://en.wikipedia.org/wiki/Bolzano%E2%80%93Weierstrass_theorem">Bolzano-Weierstrass theorem</a>
-is a common theorem taught in introductory real analysis and topology courses.</p>
-
-<p>All of the proofs that I’ve read for the Bolzano-Weierstrass theorem involve constructing sequences.
-In my introductory topology course, I wanted to see if I could write a simple proof of the theorem
-<em>without</em> having to explicitly construct any sequences.</p>
-
-<p>(It’s worth noting that the proof for compact \(\implies\) sequentially compact requires constructing
-sequences. If we take this as given, then we get to avoid sequences.)</p>
-
-<h2 id="theorem-bolzano-weierstrass">Theorem (Bolzano-Weierstrass)</h2>
-<blockquote>
-  <p>Any bounded sequence in \(\mathbb{R}^n\) has a convergent subsequence.</p>
-</blockquote>
-
-<!-- more -->
-
-<h2 id="proof">Proof</h2>
-
-<p>We will make use of the following propositions, which I will assume to be previously proved. The
-proofs of these are in a standard topology textbook (I’m reading from Munkres, 2nd edition).</p>
-
-<p>I’ll redefine various notions of compactness below, since there exists some ambiguity in the
-different forms of compactness.</p>
-
-<blockquote>
-  <p><strong>Definition.</strong> A topological space is <strong>sequentially compact</strong> if every
-infinite sequence has a convergent subsequence.</p>
-</blockquote>
-
-<blockquote>
-  <p><strong>Proposition 1.</strong> The interval \([a, b] \subset \mathbb{R}\) is compact.</p>
-</blockquote>
-
-<blockquote>
-  <p><strong>Proposition 2.</strong> The product of compact spaces is compact.</p>
-</blockquote>
-
-<p>In fact, this proposition true in both the infinite case (<a href="http://en.wikipedia.org/wiki/Tychonoff's_theorem">Tychonoff’s
-theorem</a>) and the finite case.</p>
-
-<blockquote>
-  <p><strong>Proposition 3.</strong> (Munkres, Theorem 28.2) \(X\) is compact \(\implies\) \(X\) is
-sequentially compact.</p>
-</blockquote>
-
-<p>We now prove Bolzano-Weierstrass.</p>
-
-<p>Let \(\{ x_i \}\) be a bounded sequence in \(\mathbb{R}^n\). We need to show that \(\{ x_i \}\) has a convergent subsequence.</p>
-
-<p>Since the sequence is bounded in \(\mathbb{R}^n\), by definition of bounded, every element of
-the sequence is contained in some closed interval of \(\mathbb{R}^n\):</p>
-
-\[A = [m, M]^n\]
-
-<p>where \(m, M\) denote the “minimum” and “maximum” of our bounded interval.</p>
-
-<p>Note that \([m, M]\) is compact (Proposition 1).</p>
-
-<p>It follows that \(A\) is compact – it is the product of compact spaces (Proposition 2).</p>
-
-<p>Because \(A\) is compact, \(A\) is sequentially compact (Proposition 3).</p>
-
-<p>In a sequentially compact space, any sequence of points has a convergent subsequence. Note that \(\{ x_i \}\) is one such sequence contained in the sequentially compact space \(A\), and it
-follows that \(\{ x_i \}\) must have a convergent subsequence.</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: travel | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/travel/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2020-06-05T01:55:33+03:00</updated>
+  <updated>2020-07-01T20:08:26+03:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,6 +12,56 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Traveling from Istanbul to Şile by Bus]]></title>
+    <link href="http://louisrli.github.io/blog/2020/07/01/istanbul-to-sile/"/>
+    <updated>2020-07-01 00:00:00 +0300</updated>
+    <id>http://louisrli.github.io/blog/2020/07/01/istanbul-to-sile</id>
+    <content type="html"><![CDATA[<p>The intention of this post is to document how to travel from Istanbul to Şile by
+bus. At the time of writing, there do not appear to be any English resources for
+this route. The official IETT app and Google Maps both document this incorrectly.</p>
+
+<!-- more -->
+
+<p>Şile is a popular place for the residents of Istanbul to escape for a day trip.
+Technically, Şile is part of Istanbul, although it’s quite remote. The bus ride
+is about two hours away; by car, it is about 45 minutes.</p>
+
+<h2 id="bus-line">Bus Line</h2>
+<p>Taking any bus that is prefixed with <strong>139</strong> is okay, all of them stop at Şile
+first but their continuing routes after Şile may differ.</p>
+
+<p>The
+<a href="https://www.iett.istanbul/en/main/hatlar/139/%C3%9CSK%C3%9CDAR%20-%20%C5%9E%C4%B0LE-%C4%B0ETT-Otob%C3%BCs-Sefer-Saatleri-ve-Duraklar%C4%B1">IETT</a>
+site gives a description of the stops; however, as explained below, the bus stop
+location is incorrect on the site. Also note that this link only shows the 139
+bus, but the 139A, 139T, etc. also run, meaning that there is approximately one
+bus to Şile every hour.</p>
+
+<p>The bus has various stops in the Şile area, though the bus terminal is a safe
+bet for a place to get off.</p>
+
+<h2 id="bus-stop-location">Bus Stop Location</h2>
+<p><strong>Do not wait at the Üsküdar Marmaray bus station.</strong> The correct location for
+this intercity bus is the Şemsipaşa stop (<a href="https://goo.gl/maps/3YyADTwU8gENbKk98">Google Maps
+link</a>), which is about a block west.
+There, you will see a paper with times for the bus to Şile.</p>
+
+<p>A ticket is required for this bus. The place to purchase the tickets is about a
+two minute walk from the bus stop (<a href="https://goo.gl/maps/R4AqwriFRpaxxnDp8">Google Maps
+link</a>). At the time of writing (July
+2020), a one way ticket was 14.50 lira. If you don’t speak Turkish, you probably
+can’t get on the bus without a ticket, although I’ve been told it’s possible to
+sit on the floor if the bus is full.</p>
+
+<p>If you try to buy too close to the departure time, it’s possible that the bus
+may be full.</p>
+
+<p>It may be possible to buy online, but the author of this article doesn’t know
+how.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Sim Card Price in Turkey in February 2020]]></title>
@@ -394,25 +444,6 @@ creative to find a place to sleep during the day.</li>
 more experienced individuals, such as the power hosts who have hosted over one hundred guests.</p>
 
 <p>If you have any other questions about Couchsurfing, feel free to leave them in the comments below.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Transportation from Dharamshala Airport to McLeod Ganj]]></title>
-    <link href="http://louisrli.github.io/blog/2018/06/22/transportation-from-dharamshala-airport-to-mcleod-ganj/"/>
-    <updated>2018-06-22 00:00:00 +0300</updated>
-    <id>http://louisrli.github.io/blog/2018/06/22/transportation-from-dharamshala-airport-to-mcleod-ganj</id>
-    <content type="html"><![CDATA[<p><em>Last updated: June 2018</em></p>
-
-<p>This post describes what to expect when going from the Dharamshala Airport to MacLeod Ganj,
-Dharamshala, India – the central tourist area of Dharamshala.</p>
-
-<!-- more -->
-
-<p>We took a taxi from the airport to McLeod Ganj for 800 rupees, though the exact price depends on the
-location of your residence. Go to the prepaid taxi booth and talk to the booth. There will be a number of drivers and a clerk outside of the stand. The drivers may try to
-circumvent you from speaking to the booth, ignore them temporarily and get the slip signed off. In
-our case, we ended up getting a lower price confirmed by the booth.</p>
 ]]></content>
   </entry>
   
