@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2020-07-03T17:44:01+03:00</updated>
+  <updated>2020-07-03T23:01:24+03:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -18,7 +18,7 @@
     <link href="http://louisrli.github.io/blog/2020/07/02/teaching-thoughts/"/>
     <updated>2020-07-02T00:00:00+03:00</updated>
     <id>http://louisrli.github.io/blog/2020/07/02/teaching-thoughts</id>
-    <content type="html"><![CDATA[<p>This post is a compendium of my thoughts on working as an instructor for a
+    <content type="html"><![CDATA[<p>This post is a compendium of my thoughts an instructor for a
 non-profit coding bootcamp teaching frontend web development (JavaScript and
 React). It first establishes the context, then explores the best ways to
 maximize teaching impact based on the constraints of the context.</p>
@@ -37,8 +37,8 @@ coding?</li>
 <h1 id="differences-from-traditional-bootcamps">Differences from traditional bootcamps</h1>
 <p>In this section, I set the context for this bootcamp and discuss some
 important differences to keep in mind between this bootcamp and other
-programming class settings, primarily relating to time and money investment. The
-purpose of this background is to start the reader thinking about how this might
+coding class settings, primarily with respect to time and money investment. The
+purpose of this background is to start the reader thinking about how these might
 affect the students’ mentality.</p>
 
 <h2 id="the-istanbul-bootcamp">The Istanbul Bootcamp</h2>
@@ -49,12 +49,12 @@ Turkish and Syrian in nationality. The class size is approximately 24. The
 male-female ratio is approximately 60-40.</p>
 
 <p>During the application process, the students are asked to do an HTML/CSS
-exercise, but otherwise no previous coding experience is required. However, some
-students certainly have more existing experience than others, which has the
+exercise, but otherwise, no previous coding experience is required. However,
+some students certainly have more existing experience than others, which has the
 potential to demoralize students.</p>
 
-<h2 id="from-university">From university</h2>
-<p>Compared to university, there are two primary differences in the bootcamp:</p>
+<h2 id="from-universities">From universities</h2>
+<p>Compared to universities, there are two primary differences in the bootcamp:</p>
 <ol>
   <li>Students do not pay for the bootcamp</li>
   <li>Students are not graded in the bootcamp</li>
@@ -72,17 +72,17 @@ The tuition of HackReactor is $18,000. That’s quite an investment.</p>
 similar venues of teaching coding. Next, let’s consider some 
 consequences of these discrepancies.</p>
 
-<p>In this section, I won’t discuss solutions. I will simply posit some of the main
+<p>In this section, I won’t discuss solutions. I will simply posit some salient
 problems.</p>
 
 <h3 id="ease-of-quitting">Ease of quitting</h3>
 <p>In this context, the threshold for quitting is much lower than in university or
-in paid bootcamps.</p>
+paid bootcamps.</p>
 
 <p>Our bootcamp students frequently broach the idea of quitting during stressful
 times, likely because the sunk cost is low. In contrast, in university or
 paid bootcamps, the threshold is higher, because the student doesn’t want to
-lose three years of money and time invested or ten thousands US dollars,
+lose three years of money/time invested or ten thousand US dollars,
 respectively.</p>
 
 <h3 id="lack-of-motivation-to-do-assignments">Lack of motivation to do assignments</h3>
@@ -92,7 +92,7 @@ students would do the assignments as compared to a university that had these?</p
 <p>Even in considering this hypothetical, one can see the problem. There is no
 external motivator or metric for our bootcamps’ students. Students should only
 be removed from the bootcamp for particularly egregious behavior, but it is
-certainly not taken lightly, as part of our ethical responsibility is to
+certainly not taken lightly – part of our ethical responsibility is to
 encourage them psychologically.</p>
 
 <p>One of my favorite phrases, for all parts of life: “you can’t make anyone do
@@ -100,23 +100,22 @@ anything in this world” (barring duress and so on).</p>
 
 <h3 id="propensity-to-complain">Propensity to complain</h3>
 <p>In general, students in our bootcamps like to gripe about various parts of the
-bootcamp: homework, projects, process, class, etc.. Whether this is due to a
+bootcamp: homework, projects, process, class, etc. Whether this is due to a
 cultural or a venue difference, I can’t say.</p>
 
-<p>However, I do
-believe that one reason for this propensity for complaining is the
+<p>However, I do believe that one reason for this propensity for complaining is the
 aforementioned lack of investment, which emboldens the students. While
-complaining is not inherently dangerous, a cycle of complaining can cause
-students to demotivate each other and consequently increases the risk of
+complaining is not inherently dangerous, a cycle of complaining potentially
+causes students to demotivate each other and consequently increases the risk of
 quitting.</p>
 
 <p>Note that there is a nuance between feedback and complaining, and instructors
 should still objectively evaluate complaints for genuine feedback.</p>
 
 <h3 id="summary-of-differences">Summary of differences</h3>
-<p>The summary of these differences is this: for our bootcamps, the student has invested
-neither money nor time. The only way to motivate these students is to <strong>foster
-an intrinsic interest in participating in the bootcamp</strong>.</p>
+<p>The summary of these differences is this: for our bootcamps, the student has
+invested neither money nor time. The only way to motivate these students is to
+<strong>foster an intrinsic interest in participating in the bootcamp</strong>.</p>
 
 <p>The definition of “fostering intrinsic interest” will be expounded at length
 below.</p>
@@ -139,7 +138,7 @@ person looking for? How can I provide these things?</p>
 particular coding bootcamp only slightly depends on how you teach the material,
 <strong>it depends almost completely on how loved and motivated you make your students
 feel</strong>. In this particular context, when the emotional environment is correct,
-the hard work and enthusiasm of the students will follow.</p>
+the students’ hard work and enthusiasm will follow.</p>
 
 <p>This is not to say that coherent instruction does not make a difference – it
 does. But in an art that requires self-research and emotional discipline from
@@ -148,16 +147,16 @@ impactful than an emotionally-neutered instructor with excellent teaching
 skills.</p>
 
 <h2 id="maximizing-impact-for-time">Maximizing impact for time</h2>
-<p>The second driving philosophy: find time-cheap but
-psychologically-impactful ways to treat students.</p>
+<p>The second driving philosophy: find time-cheap but psychologically-impactful
+ways to treat students.</p>
 
 <p>Consider this question:
 <strong>given that I have N students, how can I make them all feel loved and motivated
 while minimizing the average amount of time I spend on an individual student?</strong></p>
 
-<p>The things that I will describe below, for the most part, will not eat up your
+<p>The things that I describe below, for the most part, will not eat up your
 time. I wouldn’t do them if they did. But with this “one weird trick”, five
-minutes to fifteen minutes of your time can make all the difference in the world.</p>
+to fifteen minutes of your time can make all the difference in the world.</p>
 
 <p>For what it’s worth, this graph represents all aspects of my life, not just
 teaching. It makes life a bit easier, in my humble opinion, to hunt for these
@@ -174,7 +173,7 @@ non-exhaustive list of where intrinsic interest comes from:</p>
   <li>The student feels cared for by the instructors</li>
   <li>The student feels pride in their work</li>
   <li>The student respects the instructors as people</li>
-  <li>The student wants to continue despite hardships in the course</li>
+  <li>The student wants to continue despite hardships in coursework</li>
 </ul>
 
 <p>In the absence of any other external motivators, our bootcamps have no choice
@@ -197,7 +196,7 @@ individual attention to every student.</p>
 find that most students are very understanding of the fact that the instructors
 are trying to juggle between the students.</p>
 
-<p>Surprisingly, the students’ understanding of this is actually something that you
+<p>Surprisingly, the students’ understanding of this is something that you
 can capitalize on. When you <em>do</em> show a student individual attention, their
 awareness of the resource constraints causes them to appreciate your efforts
 even more, consequently inspiring them.</p>
@@ -276,15 +275,15 @@ continued in the classroom.</p>
 
 <p><strong>Concrete actions</strong></p>
 <ul>
-  <li><strong>Professional content:</strong> All slides, assignments, and course material should be formatted professionally and
-flawlessly. Minimize typos.</li>
-  <li><strong>Agenda slides:</strong> Show an agenda slide at the beginning of each class. It provides a sense of
-official-ness, like university.</li>
+  <li><strong>Professional content:</strong> All slides, assignments, and course material should
+be formatted professionally and flawlessly. Minimize typos.</li>
+  <li><strong>Agenda slides:</strong> Show an agenda slide at the beginning of each class. It
+provides a sense of official-ness, like university.</li>
 </ul>
 
 <h3 id="personalization">Personalization</h3>
 <p>Students like the idea that the organization is doing something for them. <em>Just</em> for
-them. This doesn’t mean that you have to have written the assignment yourself
+them. This doesn’t mean that you have write the assignment
 from scratch, but it should at least be presented in a manner that suggests that
 you’re thinking of the student. Recall the goal: <strong>make the student feel cared
 for</strong>.</p>
@@ -321,7 +320,7 @@ them.</li>
 <h2 id="projects-that-express-self-identity">Projects that express self-identity</h2>
 <p>In the absence of grades, one of the best motivators for effort is to allow
 students to express themselves through their work. Humans like expressing
-themselves. Humans like to build things, look at it, and say, “This is me. I did
+themselves. Humans like to build things, look at them, and say, “This is me. I did
 this.” This is a fact, and we can capitalize on this fact in order to
 incentivize students.</p>
 
@@ -345,11 +344,11 @@ functionality).</p>
 argue that some non-zero amount is necessary for every project.</p>
 
 <p>For example, the final project of our course was “the board
-project”, which required only the very general concept of boards and items that could be put on
-boards. The ultimate result was a wide array of projects with a personal
-touch: to-do lists, cookbooks, course project trackers, and the students
-ultimately invested much more time than if we had assigned a “to-do list
-project.”</p>
+project”, which required only the very general concept of boards and items that
+could be put on boards. The ultimate result was a wide array of projects with a
+personal touch: to-do lists, cookbooks, course project trackers, and the
+students ultimately invested much more time than if we had assigned a “to-do
+list project.”</p>
 
 <h2 id="social-cohesion">Social cohesion</h2>
 <p>When the social aspect of the class is strong, students try harder. Part of it
@@ -473,9 +472,9 @@ unpunished. The best football players leave no misstep unexploited. Capitalizing
 on small edges differentiates one who is the best at something and one who is
 average.</p>
 
-<p>Finally, achieving anything in our lives is a function of our goals, and sometimes it’s
-good to recall our broader goals. In whatever context you teach in, I encourage
-you to refresh your goals. For Re:Coded, they would be this:</p>
+<p>Finally, achieving anything in our lives is a function of our goals, and
+it’s good to recall our broader goals. In whatever context you teach
+in, I encourage you to refresh your goals. For Re:Coded, they would be this:</p>
 
 <ul>
   <li>To teach students the programmer mindset</li>
@@ -486,16 +485,15 @@ you to refresh your goals. For Re:Coded, they would be this:</p>
 students React and JavaScript. The question is not where can we take the
 students, but <em>how far</em> can we take them?</p>
 
-<p>And for that reason, I urge you to
-never be complacent with your students.</p>
+<p>And for that reason, I urge you to never be complacent with your students.</p>
 
-<p>One hour of your time a week could be the difference between some of your
-student hating or loving the course.</p>
+<p>One hour of your time per week could be the difference between your student hating
+or loving the course.</p>
 
-<p>Two hours of your time a week could be the difference between your student
+<p>Two hours of your time per week could be the difference between your student
 landing a frontend job or not.</p>
 
-<p>Three hours of your time a week could be the difference between your student
+<p>Three hours of your time per week could be the difference between your student
 landing a job on a weak currency or a strong one.</p>
 
 <p>Calculate the margins, and remember the graph.</p>
