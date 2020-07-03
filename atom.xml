@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2020-07-01T20:08:26+03:00</updated>
+  <updated>2020-07-03T16:24:33+03:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,6 +12,495 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Istanbul Frontend Bootcamp Retrospective]]></title>
+    <link href="http://louisrli.github.io/blog/2020/07/02/teaching-thoughts/"/>
+    <updated>2020-07-02T00:00:00+03:00</updated>
+    <id>http://louisrli.github.io/blog/2020/07/02/teaching-thoughts</id>
+    <content type="html"><![CDATA[<p>This post is a compendium of my thoughts on working as an instructor for a
+non-profit coding bootcamp teaching frontend web development (JavaScript and
+React). It first establishes the context, then explores the best ways to
+maximize teaching impact based on the constraints of the context.</p>
+
+<p>This post has four parts:</p>
+<ol>
+  <li>Why is this bootcamp different from other ways people learn
+coding?</li>
+  <li>Two teaching philosophies</li>
+  <li>Concrete strategies for practitioners</li>
+  <li>Miscellaneous thoughts</li>
+</ol>
+
+<!-- more -->
+
+<h1 id="differences-from-traditional-bootcamps">Differences from traditional bootcamps</h1>
+<p>In this section, I set the context for this bootcamp and discuss some
+important differences to keep in mind between this bootcamp and other
+programming class settings, primarily relating to time and money investment. The
+purpose of this background is to start the reader thinking about how this might
+affect the students’ mentality.</p>
+
+<h2 id="the-istanbul-bootcamp">The Istanbul Bootcamp</h2>
+
+<p>The bootcamp is approximately five months, with three months of classes and
+approximately two months of a final project. The students are mostly
+Turkish and Syrian in nationality. The class size is approximately 24. The male
+female ratio is approximately 60-40.</p>
+
+<p>During the application process, the students are asked to do an HTML/CSS
+exercise, but otherwise no previous coding experience is required. However, some
+students certainly have more existing experience than others, which has the
+potential to demoralize students.</p>
+
+<h2 id="from-university">From university</h2>
+<p>Compared to university, there are two primary differences in the bootcamp:</p>
+<ol>
+  <li>Students do not pay for the bootcamp</li>
+  <li>Students are not graded in the bootcamp</li>
+</ol>
+
+<p>I encourage the reader to consider this question: “why do students in
+university make an effort?”</p>
+
+<h2 id="from-paid-bootcamps">From paid bootcamps</h2>
+<p>Compared to paid bootcamps, the students are not paying a large sum of money.
+The tuition of HackReactor is $18,000. That’s quite an investment.</p>
+
+<h2 id="ramifications">Ramifications</h2>
+<p>We’ve established some of the differences between this bootcamp and other
+similar venues of teaching coding. Next, let’s consider some 
+consequences of these discrepancies.</p>
+
+<p>In this section, I won’t discuss solutions. I will simply posit some of the main
+problems.</p>
+
+<h3 id="ease-of-quitting">Ease of quitting</h3>
+<p>In this context, threshold for quitting is much lower than in university or in
+paid bootcamps.</p>
+
+<p>Our bootcamp students frequently broach the idea of quitting during stressful
+times, likely because the sunk cost is low. In contrast, in university or
+paid bootcamps, the threshold is higher, because the student doesn’t want to
+lose three years of money and time invested or ten thousands US dollars,
+respectively.</p>
+
+<h3 id="lack-of-motivation-to-do-assignments">Lack of motivation to do assignments</h3>
+<p>Consider this hypothetical: if a university had no grades and no exams, how many
+students would do the assignments as compared to a university that had these?</p>
+
+<p>Even in considering this hypothetical, one can see the problem. There is no
+external motivator or metric for our bootcamps’ students. Students should only
+be removed from the bootcamp for particularly egregious behavior, but it is
+certainly not taken lightly, as part of our ethical responsibility is to
+encourage them psychologically.</p>
+
+<p>One of my favorite phrases, for all parts of life: “you can’t make anyone do
+anything in this world” (barring duress and so on).</p>
+
+<h3 id="propensity-to-complain">Propensity to complain</h3>
+<p>In general, students in our bootcamps like to gripe about various parts of the
+bootcamp: homework, projects, process, class, etc.. Whether this is due to a
+cultural or a venue difference, I can’t say.</p>
+
+<p>However, I do
+believe that one reason for this propensity for complaining is the
+aforementioned lack of investment, which emboldens the students. While
+complaining is not inherently dangerous, a cycle of complaining can cause
+students to demotivate each other and consequently increases the risk of
+quitting.</p>
+
+<p>Note that there is a nuance between feedback and complaining, and instructors
+should still objectively dig for the feedback that lives within any complaining.</p>
+
+<h3 id="summary-of-differences">Summary of differences</h3>
+<p>The summary of these differences is this: for our bootcamps, the student has invested
+neither money nor time. The only way to motivate these students is to <strong>foster
+an intrinstic interest in participating in the bootcamp</strong>.</p>
+
+<p>The definition of fostering intrinsic interest” will be expounded at length
+below.</p>
+
+<p>Outside the scope of this post: the filtering qualities of interviews are also
+important in influencing student motivation.</p>
+
+<h1 id="precursors-on-philosophy">Precursors on philosophy</h1>
+<p>Before we continue into more concrete strategies, I want
+to discuss two of my driving philosophies for teaching.</p>
+
+<h2 id="treating-students-as-relationships">Treating students as relationships</h2>
+<p>The first driving philosophy: <strong>the skills that I apply for teaching are
+no different from those that I apply for a significant other or close friends</strong>.
+That means understanding another individuals needs, desires, life state, past
+experiences in the class, etc. What will make this person happy? What is this
+person looking for? How can I provide these things?</p>
+
+<p>I truly believe the following statement to be true: the success of this
+particular coding bootcamp only slightly depends on how you teach the material,
+<strong>it depends almost completely on how loved and motivated you make your students
+feel</strong>. In this particular context, when the emotional environment is correct,
+the hard work and enthusiasm of the students will follow.</p>
+
+<p>This is not to say that coherent instruction does not make a difference – it
+does. But in an art that requires self-research and emotional discipline from
+students, a caring instructor with mediocre teaching skills will be far more
+impactful than an emotionally-neutered instructor with excellent teaching
+skills.</p>
+
+<h2 id="maximizing-impact-for-time">Maximizing impact for time</h2>
+<p>The second driving philosophy: find time-cheap but
+psychologically-impactful ways to treat students.</p>
+
+<p>Consider this question:
+<strong>given that I have N students, how can I make them all feel loved and motivated
+while minimizing the average amount of time I spent on an individual student?</strong></p>
+
+<p>The things that I will describe below, for the most part, will not eat up your
+time. I wouldn’t do them if they did. But with this “one weird trick”, five
+minutes to fifteen minutes of your time can make all the difference in the world.</p>
+
+<p>For what it’s worth, this graph represents all aspects of my life, not just
+teaching. It makes life a bit easier, in my humble opinion, to hunt for these
+optimizations.</p>
+
+<p><img src="/images/graph.jpg" alt="" /></p>
+
+<h1 id="fostering-intrinsic-interest">Fostering intrinsic interest</h1>
+<p>Intrinsic interest means that the student cares, in their heart, about doing
+well in the course, completing the assignments, and learning the material. A
+non-exhaustive list of where intrinsic interest comes from:</p>
+
+<ul>
+  <li>The student feels cared for by the instructors</li>
+  <li>The student feels pride in their work</li>
+  <li>The student respects the instructors as people</li>
+  <li>The student wants to continue despite hardships in the course</li>
+</ul>
+
+<p>In the absence of any other external motivators, our bootcamps have no choice
+but to rely on intrinsic interest. This section focuses on
+providing <strong>concrete strategies</strong> for intrinstically motivating students. Each
+section simultaneously posits a principle and pairs it with a description of a
+real, implementable strategy.</p>
+
+<p>This post is not meant to be a solely theoretical
+exploration of what motivates students; these actions are intended to be
+executed by practitioners.</p>
+
+<h2 id="the-illusion-of-individual-attention">The illusion of individual attention</h2>
+<p>I call this the illusion of individual attention, because in a class of 24, it’s
+not possible for you to truly give individual attention to every student.
+However, you can perpetuate the idea that you are trying your best to get
+individual attention to every student.</p>
+
+<p>In a class of this size, students don’t expect individual attention. In fact, I
+find that most students are very understanding of the fact that the instructors
+are trying to juggle between the students.</p>
+
+<p>Surprisingly, the students’ understanding of this is actually something that you
+can capitalize on. When you <em>do</em> show a student individual attention, their
+awareness of the resource constraints causes them to appreciate your efforts
+even more, consequently inspiring them.</p>
+
+<p>The ultimate cost of the actions below are very low, but they mean the world to
+the students. Recall our efforts to maximize impact for minimal time.</p>
+
+<p><strong>Concrete actions</strong></p>
+
+<ul>
+  <li><strong>Initial one-on-ones:</strong> Have a one-on-one with each student at the beginning of the course.</li>
+  <li><strong>Availability for one-on-ones:</strong> Allocate one to two hours each week for 20 minute one-on-ones with students.
+Even if they never capitalize on it, they appreciate the fact that it’s
+possible.</li>
+  <li><strong>Occasional check-ins:</strong> Occasionally message students randomly to ask how they’re doing or what their
+thoughts are. It takes less than two minutes of time to message ten students.</li>
+</ul>
+
+<h2 id="constructing-a-serious-environment">Constructing a serious environment</h2>
+<p>The environment and tone that the teaching staff sets is by far one of the most
+important things to do. If you seem to be lax about their performance, they will
+certainly be lax about their performance.</p>
+
+<p>I’ll cover this section with an anecdote.</p>
+
+<p>The way I came to understand this is a bit amusing, in my opinion. After a few
+strict lectures to the class, a number of students approached me concerned
+about their performance or actions in the course. (Slightly unrelated note: when
+you give strict talks to your whole class about assignments and such, I realized
+that every student thinks you’re talking directly about them, even if they’re
+doing completely fine).</p>
+
+<p>While my external self had always taken the class very seriously – and my
+internal self, of course, to a certain extent – I was truly surprised by how
+worried these students were about their performance in the class. My initial
+reaction was: “It was just a prank bro. I’m just a kid that likes to
+breakdance (not a strict teacher trying to berate you).”</p>
+
+<p>The reason that this surprised me so much was that previously, I did feel like I
+had trouble motivating my students to do their work. After all, recall the
+differences that we established in the beginning. There are no grades. There is
+no invested money. That’s not to say my students wouldn’t take it seriously, but
+why are they taking it <em>this</em> seriously?</p>
+
+<p>But then I realized, that I had unintentionally stumbled upon something that
+I’ve always known in my relationships and friendships: <strong>If you are proactive
+about taking something seriously, the other person will be much more likely to
+take it seriously.</strong> Don’t sit around waiting for the other person to be the one
+to do so.</p>
+
+<p><strong>Concrete actions</strong></p>
+<ul>
+  <li><strong>Communicate your investment:</strong> “I take your education very seriously, and I
+expect you to take it seriously too.”</li>
+  <li><strong>Show with your actions:</strong> Words only mean so much in this world. Show your
+students you take it seriously in the quality of your teaching and your
+interactions with your students (see all the other sections).</li>
+</ul>
+
+<h2 id="professionalism-and-personalization">Professionalism and personalization</h2>
+
+<h3 id="professionalism">Professionalism</h3>
+<p>The more professional your content is, the more it reinforces students’ belief
+in the authority and legitimacy of the classroom.</p>
+
+<p>Suppose the contrasting hypothetical: your slides are poorly written; your
+assignment instructions have no consistent formatting; your in-class activities
+are full of typos. Inevitably, your students will start learning from other
+content on the internet, and they’ll come to the following realization: “Wow,
+the teaching materials that our teacher is giving us are shit quality.”</p>
+
+<p>Among my students in particular, I have noticed how captivated they are by the
+professional and formal aspects presented by the organization’s onboarding and
+branding. To capitalize on that captivation, this professionalism needs to be
+continued in the classroom.</p>
+
+<p><strong>Concrete actions</strong></p>
+<ul>
+  <li><strong>Professional content:</strong> All slides, assignments, and course material should be formatted professionally and
+flawlessly. Minimize typos.</li>
+  <li><strong>Agenda slides:</strong> Show an agenda slide at the beginning of each class. It provides a sense of
+official-ness, like university.</li>
+</ul>
+
+<h3 id="personalization">Personalization</h3>
+<p>Students like the idea that the organization is doing something for them. <em>Just</em> for
+them. This doesn’t mean that you have to have written the assignment yourself
+from scratch, but it should at least be presented in a manner that suggests that
+you’re thinking of the student. Recall the goal: <strong>make the student feel cared
+for</strong>.</p>
+
+<p>Compare the following two situations:</p>
+
+<p><strong>Positive impact</strong></p>
+<blockquote>
+  <p>Teacher: We thought about where the class currently is, and the teaching staff
+designed this activity for you all based on the your feedback and struggles.
+Please do this activity.</p>
+
+  <p>Student: Wow, the teacher put in so much effort for us!</p>
+</blockquote>
+
+<p><strong>Neutral impact</strong> (but probably negative if chronic)</p>
+<blockquote>
+  <p>Teacher: Here’s a link to this site, please do this activity.</p>
+
+  <p>Student: Sure.</p>
+</blockquote>
+
+<p><strong>Concrete actions</strong></p>
+<ul>
+  <li><strong>Revamp outside resources:</strong> Avoid chronically linking to other resources for
+activities. Either put them in your own document or write your own, giving
+proper attribution as needed.  Even the act of putting it in your own document
+pushes this edge.</li>
+  <li><strong>Emphasizes your effort:</strong> Mention to your students how the material was made
+by your organization on their behalf. Let them know you made an effort for
+them.</li>
+</ul>
+
+<h2 id="projects-that-express-self-identity">Projects that express self-identity</h2>
+<p>In the absence of grades, one of the best motivators for effort is to allow
+students to express themselves through their work. Humans like expressing
+themselves. Humans like to build things, look at it, and say “This is me. I did
+this.” This is a fact, and we can capitalize on this fact in order to
+incentivize students to do good work.</p>
+
+<p>When ten groups of students do assignments that all look almost exactly the
+same, the student does not think, “This is me. I did this.”</p>
+
+<p>My own students have constantly surprised me with how much effort they put into
+projects. When they come into office hours and talk about the hours working on
+something (styling, a special feature they came up, etc.) that was outside
+the stated project requirements. Part of this is because I personally would
+never do anything beyond the minimal requirements, but part of it is because,
+until I was blown away repeatedly by this phenomenon, I had never realized the
+power of allowing students to invest their identity in their work.</p>
+
+<p><strong>Concrete actions</strong></p>
+
+<p>Devise coding projects with open-ended interpretations (in styling or
+functionality).</p>
+
+<p>For example, the final project of our course was “the board
+project”, which required only the very general concept of boards and items that could be put on
+boards. The ultimate result was a wide array of projects with a personal
+touch: to-do lists, cookbooks, course project trackers, and the students
+ultimately invested much more time than if they had to do a project where they
+simply all had the same product.</p>
+
+<h2 id="social-cohesion">Social cohesion</h2>
+<p>When the social aspect of the class is strong, students try harder. Part of it
+is that they enjoy the class, but part of it is that most people wants to be
+known by their friends as the student who doesn’t try.</p>
+
+<p>So the question is this: how do you encourage people to like each other? To be
+honest, as instructors, we don’t have much agency here; you can’t make people
+form bonds. However, you can try your best to facilitate situations where it can
+happen.</p>
+
+<p><strong>Concrete actions</strong></p>
+
+<ul>
+  <li><strong>Project partners:</strong> Select project partners with the intent of forming bonds between students of
+similar levels</li>
+  <li><strong>Promoting thought:</strong> Ask students who their favorite people to work with are (not for any
+particular reason other than for them to ponder this question)</li>
+  <li><strong>Allocate time for small socialization</strong>: Encourage socializing and jokes in class, allocate “empty time”</li>
+  <li><strong>Use office hours:</strong> Leave time in office hours for students to chat with each other</li>
+</ul>
+
+<h2 id="expression-of-belief">Expression of belief</h2>
+<p>Coding bootcamps can be quite intense for some of the students. There will come
+a time when some students don’t believe in themselves or their ability to
+understand the content. And when that time comes,
+it’s not important whether or not you believed in them, it’s important whether
+or not you <strong>communicated that you believed in them</strong>.</p>
+
+<p>As usual, I again emphasize the importance of creating the illusion of
+individual attention.</p>
+
+<p><strong>Concrete actions</strong></p>
+
+<ul>
+  <li><strong>Individual messaging:</strong> Identifying students that are struggling, and telling them, directly to their
+face (via Zoom, this is 2020), that you believe in them. Offer them the option
+to meet one-on-one.</li>
+  <li><strong>Humbling your journey:</strong> Show that you, too, come from humble beginnings. Whether that means you
+went through a bootcamp yourself, or that you struggled a lot when you started
+coding, show the students that their struggle is normal. For example, I showed
+my students emails from my first two months in coding where I sent emails to
+my friend raging about bugs in my code. I had multiple students tell me that
+this humanized my journey despite the pedigree.</li>
+  <li><strong>Inspirational speeches:</strong> Be liberal with the inspirational speeches in
+class. They never stop feeling weird to me, but it matters.</li>
+  <li><strong>Emphasize first exposure:</strong> Tell your students that when you show them
+something for the first time, they’re not expected to understand it. A phrase
+my students are familiar with: “This is just a first exposure”</li>
+</ul>
+
+<h1 id="other-takeaways">Other takeaways</h1>
+<p>These are miscellaneous addenda that don’t belong in the categories above, but
+these are points I would tell myself if I could travel back in time. In the end,
+these happened naturally, but I didn’t codify them into thoughts until the
+middle of the course.</p>
+
+<h2 id="teaching-a-way-of-thinking">Teaching a way of thinking</h2>
+<p>I encourage you to ask yourself this question: “at the end of the course, who do
+I hope my students to be?”</p>
+
+<p>It’s not my place to say what the right or wrong answer is. If you’re a teacher,
+you set the goals. But by the way, there is a wrong answer, and that wrong
+answer is: “a student that knows JavaScript and React.”</p>
+
+<p>The right answer is that the student:</p>
+<ul>
+  <li>is no longer scared to learn a new technology or tool</li>
+  <li>never compares himself or herself to other people again</li>
+  <li>is unfazed by setbacks, even when a small bug costs five hours of time
+(instead of thinking, “programming is not for me”)</li>
+</ul>
+
+<p>I’m certain this is not a novel idea I’m proposing; most successful introductory
+computer science courses, such as CS50, operate along the same mentality.</p>
+
+<p>But I’d like to note something interesting here. None of the things above have
+to do with specific knowledge of a subject; <strong>they all pertain to how the
+students think as people</strong>.</p>
+
+<p>With these goals in mind, here are some modes of operation:</p>
+<ul>
+  <li><strong>Constantly introduce new things:</strong> Spend the course bombarding students with
+new things. Just as they start to feel comfortable with something, you
+introduce something (perhaps only slightly) new on top of it.</li>
+  <li><strong>Demo your thought process:</strong> When feasible, walk the student how you thought
+about the problem. “You see, I just Googled this thing.” “I worked backwards
+from this variable to find the issue.”</li>
+  <li><strong>Comfort your students:</strong> When your students finally fix a bug that took them
+forever, comfort them psychologically. Tell them it’s normal. Emphasize your
+belief in them.</li>
+</ul>
+
+<h2 id="trust-the-process">Trust the process</h2>
+<p>The students will learn the material eventually – trust the process. I’ll admit
+that even I wasn’t sure whether my students were learning anything at some
+point. There were times in the course when almost all of the students seemed
+completely lost in all of the in-class activities (to be fair, I was also
+pushing the pace very quickly).</p>
+
+<p>Luckily, I had my trusty teaching partner Ammar, who informed me that
+these struggles were normal. In the same way that I tell my students, “Hey, this
+is normal,” Ammar’s evaluation sealed away any concerns I had. In the end, I
+trust Ammar’s judgment completely, given that he’d experienced two bootcamps
+before me.</p>
+
+<p>I’ll also say this: in-class activities are a very short amount of time to exercise
+real exploration beyond basics. The core of the learning will come from the
+multi-week projects that students do. That’s the real shit, pardon my French.
+And if the students are invested in completing projects, the learning will
+follow.</p>
+
+<h1 id="conclusions">Conclusions</h1>
+<p>At this point, I’d like to reiterate one thing about this post: <strong>none of these
+actions take much time</strong>, they are simply small flourishes to the
+interactions with students.</p>
+
+<p>But if you’ve ever played any skill-based game, then you’ll be familiar with
+this concept: the people who are the best at anything in life are those that
+push all the smallest advantages. The best chess players leave no tradeoff
+unpunished. The best football players leave no misstep unexploited. Capitalizing
+on small edges differentiates one who is the best at something and one who is
+average.</p>
+
+<p>Finally, achieving anything in our lives is a function of our goals, and sometimes it’s
+good to recall our broader goals. In whatever context you teach in, I encourage
+you to refresh your goals. For Re:Coded, they would be this:</p>
+
+<ul>
+  <li>To teach students the programmer mindset</li>
+  <li>To empower students to obtain and excel at a development job</li>
+</ul>
+
+<p>And to achieve these goals, we should not simply be settling at teaching our
+students React and JavaScript. The question is not where can we take the
+students, but <em>how far</em> can we take them?</p>
+
+<p>And for that reason, I urge you to
+never be complacent with your students.</p>
+
+<p>One hour of
+your time a week could be the difference between some of your students landing a
+job or not.</p>
+
+<p>Two hours of your time a week could be the difference between your
+student landing a frontend job or not.</p>
+
+<p>Three hours of your time a week could be
+the difference between your students landing a job on a weak currency or a
+strong one.</p>
+
+<p>Calculate the margins, and remember the graph.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Traveling from Istanbul to Şile by Bus]]></title>
@@ -60,6 +549,109 @@ may be full.</p>
 
 <p>It may be possible to buy online, but the author of this article doesn’t know
 how.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Simple Present Tense in Turkish]]></title>
+    <link href="http://louisrli.github.io/blog/2020/07/01/wide-present-turkish/"/>
+    <updated>2020-07-01T00:00:00+03:00</updated>
+    <id>http://louisrli.github.io/blog/2020/07/01/wide-present-turkish</id>
+    <content type="html"><![CDATA[<style>
+blockquote {
+  font-style: unset;
+}
+
+blockquote hr {
+  margin: 0.3em 0;
+}
+
+blockquote p:first-child {
+  font-size: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* In case we want to bold the example headers later. */
+blockquote p:first-child strong {
+  font-weight: unset;
+}
+
+blockquote p {
+  margin-top: 0.3em !important;
+  margin-bottom: 0.3em !important;
+}
+
+</style>
+
+<p>This post talks about the simple present tense in Turkish (also known as the
+wide present tense or aorist). The purpose of this article is not precisely to
+explain the tense itself, but to explain when you would use the wide present
+versus other similar tenses. While there are a number of <a href="https://elon.io/learn-turkish/lesson/the-positive-regular-aorist">English
+resources</a>
+that explain the basics of the tense, as far as I can see, there are none that
+delve into various scenarios where using one tense over the other could be
+ambiguous for English speakers.</p>
+
+<!-- more -->
+
+<p>As a disclaimer, I’m an ongoing student of Turkish, but this is by no means
+meant to be a definitive guide for when to use one tense versus another.
+However, I do hope to provide and document a few heuristics.</p>
+
+<p>Note: In my opinion, the “simple present” is a bit misleading of a name. Wide present
+(the literal translation of its Turkish designation, <em>geniş zaman</em>) 
+is more reflective of the wide span of time that this tense can take.</p>
+
+<p>Thanks to the <a href="https://discord.me/turkceogrenelim">Türkçe Öğrenelim
+Discord</a>. Feel free to join the community
+and support them on <a href="https://www.patreon.com/letslearnturkish">Patreon</a>.</p>
+
+<h1 id="prerequisites">Prerequisites</h1>
+<p>This post assumes basic knowledge of all tenses covered in the post. As
+mentioned before, the main purpose of this post is to contrast nuanced
+situations.</p>
+
+<h1 id="versus-continuous-present">Versus continuous present</h1>
+
+<h1 id="versus-future-tense">Versus future tense</h1>
+
+<h1 id="question-form">Question form</h1>
+
+<blockquote>
+  <p><strong>Example</strong></p>
+
+  <p>Öksürüp duruyor.<br />
+He’s constantly coughing.</p>
+</blockquote>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unit Testing GraphQL Resolvers and Middleware in TypeScript]]></title>
+    <link href="http://louisrli.github.io/blog/2020/07/01/unit-testing-graphql-resolvers-typescript/"/>
+    <updated>2020-07-01T00:00:00+03:00</updated>
+    <id>http://louisrli.github.io/blog/2020/07/01/unit-testing-graphql-resolvers-typescript</id>
+    <content type="html"><![CDATA[<p>This post describes to unit test GraphQL resolvers, potentially with middleware,
+in TypeScript.</p>
+
+<p>Specifically, it uses the stack</p>
+
+<!-- more -->
+
+<h2 id="simple-resolver">Simple Resolver</h2>
+
+<h3 id="setting-up-graphql-codegen">Setting up GraphQL Codegen</h3>
+
+<h2 id="middleware-resolver">Middleware Resolver</h2>
+<p>In this example, I use an external Express GraphQL middleware resolver:
+<a href="https://github.com/maticzav/graphql-shield">graphql-shield</a>, a permissions
+layer for GraphQL.</p>
+
+<p>In this case, we will need to somehow run the full request along with the
+middleware. Note that it’s possible to individually unit test any rules that you
+use in the permissions as well.</p>
+
 ]]></content>
   </entry>
   
@@ -860,16 +1452,18 @@ actually looks a lot worse in person.</li>
 accept international cards, but some of them will try to extract more money from
 you via service fee or dynamic currency conversion (DCC).</p>
 
-<p>The best ATM is <strong>QNB</strong>.</p>
+<p>The best ATM is <strong>HSBC</strong> (only 1000 lira at a time, mixed denominations).</p>
 
 <!-- more -->
 
-<h2 id="the-best-atm-qnb">The Best ATM: QNB</h2>
-<p>The best ATM is by far QNB. It has no extra fees and serves 100 TL bills. In my
-case, I needed to withdraw a lot of money to pay for a housing deposit, so small
-bills weren’t an option.</p>
+<h2 id="the-best-atm-hsbc">The Best ATM: HSBC</h2>
+<p>At the moment, HSBC has no extra fees and serves mostly 100 TL bills with some
+50 and 20 TL.</p>
 
-<p>The particular QNB ATM I used did not have English, so when the DCC menu comes
+<p>In February 2020, QNB used to allow large transactions, no fees, and serving
+only 100 TL bills, but this is no longer the case as of June 2020.</p>
+
+<p>Depending on the ATM, they may try to apply DCC, so when the DCC menu comes
 up, make sure to click <strong>Istemiyorum</strong> (it was on the left side), which means:
 “I do not want.” Make sure you say no to DCC. DCC is very bad (Google it).</p>
 
@@ -894,14 +1488,9 @@ about five ATMs in central Sisli.</p>
   </thead>
   <tbody>
     <tr>
-      <td>QNB Finansbank</td>
-      <td>None</td>
-      <td> </td>
-    </tr>
-    <tr>
       <td>HSBC</td>
       <td>None</td>
-      <td>Only 20 TL bills</td>
+      <td>Mixed bills</td>
     </tr>
     <tr>
       <td>AKBANK</td>
@@ -922,6 +1511,11 @@ about five ATMs in central Sisli.</p>
       <td>VakifBank</td>
       <td>Flat 10 lira fee</td>
       <td>I went to one and it was 4%.</td>
+    </tr>
+    <tr>
+      <td>QNB Finansbank</td>
+      <td>Yes</td>
+      <td> </td>
     </tr>
     <tr>
       <td>Garanti</td>
@@ -1558,10 +2152,6 @@ that’s the correct translation) is a meat and rice joint in Taipei near Taipei
 three to four days a week – for lunch <em>and</em> dinner on some days. It’s extremely cheap and very
 tasty for meat and rice (and egg and vegetable) lovers.</p>
 
-<!-- I have a [travel-related YouTube
-channel](https://www.youtube.com/playlist?list=PLtD-FIua473Cf6Ylh3PeoEmoq3c6BJH0S) on life in Taiwan.
-Subscribe! -->
-
 <!-- more -->
 
 <h2 id="signature-dish">Signature Dish</h2>
@@ -1617,10 +2207,6 @@ Xuchang Street past the Paris Shop.</p>
 
 <p>I’ve only had the barbecue pork and the combo (but I’ve tried it many times).</p>
 
-<!-- I have a [travel-related YouTube
-channel](https://www.youtube.com/playlist?list=PLtD-FIua473Cf6Ylh3PeoEmoq3c6BJH0S) on life in Taiwan.
-Subscribe! -->
-
 <p><em>Last updated: August 2015</em></p>
 
 ]]></content>
@@ -1635,10 +2221,6 @@ Subscribe! -->
 (阳明山)</a>, a national park north of Taipei, Taiwan. 
 Yangmingshan is a popular destination for locals and tourists, containing numerous hiking trails and
 hot springs.</p>
-
-<!-- I have a [travel-related YouTube
-channel](https://www.youtube.com/playlist?list=PLtD-FIua473Cf6Ylh3PeoEmoq3c6BJH0S) on life in Taiwan.
-Subscribe! -->
 
 <!-- more -->
 
@@ -1658,336 +2240,7 @@ bus stop along this road rather than going to Taipei Main Station.</p>
 <p>The internal 108 bus runs on stops within Yangmingshan. This small bus makes stops around the whole
 park.</p>
 
-<!-- I have a [travel-related YouTube
-channel](https://www.youtube.com/playlist?list=PLtD-FIua473Cf6Ylh3PeoEmoq3c6BJH0S) on life in Taiwan.
-Subscribe! -->
-
 <p><em>Last updated: August 2015</em></p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[English Guide to Sun Moon Lake 日月潭 (Taiwan)]]></title>
-    <link href="http://louisrli.github.io/blog/2015/07/10/sun-moon-lake/"/>
-    <updated>2015-07-10T00:00:00+03:00</updated>
-    <id>http://louisrli.github.io/blog/2015/07/10/sun-moon-lake</id>
-    <content type="html"><![CDATA[<p>This is a guide to transportation, food, activities, and lodging for a Sun Moon Lake trip, based on
-my own experiences. My friend and I traveled from Taipei to Sun Moon Lake in July 2015, staying one
-night by the lake.</p>
-
-<!-- I have a [travel-related YouTube
-channel](https://www.youtube.com/playlist?list=PLtD-FIua473Cf6Ylh3PeoEmoq3c6BJH0S) on life in Taiwan.
-Subscribe! -->
-
-<!-- more -->
-
-<h2 id="traveling-to-sun-moon-lake">Traveling to Sun Moon Lake</h2>
-
-<h3 id="from-taichung">From Taichung</h3>
-
-<p>We traveled from Taichung (台中), since we wanted to explore the city the night before.
-Taipei to Taichung is one hour by high speed rail (HSR), two hours by train (TRA), four hours by
-bus.</p>
-
-<p>We purchased a package deal for Sun Moon Lake from Nantou Bus Company across from Gancheng station,
-which is near the train station. Packages can also be purchased from the Taichung HSR station.</p>
-
-<p>There are <a href="http://www.ntbus.com.tw/en-p-1.html">many options for packages</a>, but the 570 NT package
-includes:</p>
-
-<ul>
-  <li>Round trip bus tickets between Taichung and Sun Moon Lake (383 NT)</li>
-  <li>Ferry rides for one day (200 NT)</li>
-  <li>Bike rental for two hours from Merida Bikes or one hour from GIANT (200 NT)</li>
-  <li>Round trip bus tickets between Shuishe and Xiangshan, two stops at Sun Moon Lake (48 NT)</li>
-</ul>
-
-<p>According to my computationally intense calculations, this <strong>saves you 261 NT.</strong> It’s a good deal.</p>
-
-<p><strong>Duration:</strong> 1.5 hours<br />
-<strong>Price:</strong> 570 NT for package deal (see <a href="http://www.ntbus.com.tw/en-p-1.html">Nantou site</a> for other
-options)<br />
-<strong>Location:</strong> Across from Gancheng station (sells packages), Taichung HSR station (sells packages),
-or Taichung TRA station. It stops at Shuishe Pier, the main hub of Sun Moon Lake.</p>
-
-<h2 id="from-taipei">From Taipei</h2>
-<p>I didn’t travel from Taipei, but the <a href="http://www.sunmoonlake.gov.tw/English/TravelInfoEng/BusInfo/TaipeiToSML.htm">King Bus
-timetable</a> lists bus
-times from Taipei Main Station.</p>
-
-<p><strong>Type:</strong> Bus<br />
-<strong>Duration:</strong> 4 hours<br />
-<strong>Price:</strong> 460 NT each way<br />
-<strong>Location:</strong> Taipei Bus Station</p>
-
-<p>Miscellaneous: We stayed at a nice and cheap hotel in Taichung, the <a href="https://www.kayak.com/Taichung-Hotels-Moon-Lake-Hotel.2070096.ksp">Moon Lake
-Hotel</a> (11 USD per
-night). It is less than a kilometer away from the train station.</p>
-
-<p><strong>Type:</strong> Bus</p>
-
-<h2 id="getting-around">Getting Around</h2>
-
-<h3 id="ferry">Ferry</h3>
-
-<p>The ferry is the most convenient way to cover a lot of ground and hit the main destinations. It has three stops, forming a triangle along the lake.</p>
-
-<ul>
-  <li>The first pier is <strong>Shuishe</strong>, the main pier.</li>
-  <li>The second pier is <strong>Xuanzang Pier</strong>, and it has a legendary tea egg store that has been run by the same
-woman for about fifty years (13 NT per egg).</li>
-  <li>The last pier is <strong>Ita Thao</strong>, which has many food stands.</li>
-</ul>
-
-<h3 id="bike">Bike</h3>
-
-<p>Biking is a scenic way to get around the lake. Details on bike shops can be found
-<a href="http://www.sunmoonlake.gov.tw/English/TravelInfoEng/LakeTour/BikeRental.htm">here</a>. See the <strong>Activities</strong> section for more information
-about the bikes in the package deal.</p>
-
-<h3 id="bus">Bus</h3>
-
-<p>The Round-the-Lake bus, which goes ‘round the lake, is the main bus. A trip on the bus is more or less 20 NT. An unlimited trip ticket is 80 NT. You can use your EasyCard.</p>
-
-<p><strong>Advice:</strong> Wave down the bus drivers as they approach, because they probably won’t stop for you
-otherwise.</p>
-
-<h2 id="things-to-try">Things To Try</h2>
-
-<h3 id="food">Food</h3>
-
-<p>Ita Thao has all the good food. Edibles to try:</p>
-
-<ul>
-  <li><strong>Pork buns (Ita Thao):</strong> I recommend the stand that has pumpkin pork buns.</li>
-  <li><strong>Assam tea (Ita Thao):</strong> Stands advertising Assam tea are everywhere. It’s a type of tea imported
-  from India or Japan. It tastes like tea. For some reason (I don’t know because I’m Chinese
-  illiterate), it’s famous in the area.</li>
-  <li><strong>Chicken stuffed with rice (Ita Thao):</strong> I have no idea what this is called. Look for a stand with deer horns.
-  Also, if you don’t like spicy, ask for “no spicy” because even “small spicy” was super spicy.</li>
-  <li><strong>Old woman tea eggs (Xuanguan Pier):</strong> These were mentioned above. They’re at the first ferry stop after Shuishe.</li>
-</ul>
-
-<h3 id="places">Places</h3>
-
-<p>There are many destinations at Sun Moon Lake, but I recommend:</p>
-
-<ul>
-  <li>
-    <p><strong>Ci’en Pagoda</strong>, a tall building commissioned by Chiang-Kai Shek, has a sweeping view of the lake. 
-Sun Moon Lake has hiking trails, but many of them don’t have a nice view of the lake. 
-To reach the pagoda, take the round-the-lake bus. Although Ci’en Pagoda is not listed as a stop, it <strong>is</strong>
-the second-to-last stop before (I think) Xuanzang Temple.</p>
-  </li>
-  <li>
-    <p><strong>Ita Thao</strong>, an area with many food stands. Because food.</p>
-  </li>
-</ul>
-
-<p><strong>Advice:</strong> The bus does not stop at Ci’en Pagoda between 1 and 3 PM, and none of the main
-piers are within short walking distance (around 5 km). We tried leaving at 1:30 PM.  Not wanting to
-wait around for 1.5 hours, we hitchhiked our way back.</p>
-
-<p><strong>Advice:</strong> Bug your bus driver to stop. Our bus driver was not-too-nice and chose not to stop Ci’en
-Pagoda– despite knowing that it was
-our destination. You might notice a pattern here involving interactions with bus drivers.</p>
-
-<h3 id="activities">Activities</h3>
-
-<ul>
-  <li><strong>Walking</strong>: Self explanatory.</li>
-  <li><strong>Biking</strong>: The best activity by far. The package that we did gave us bikes for two hours from Merida Bike, which was enough time to bike
-about a third of the lake (going out and coming back to the bike rental shop). Renting bikes for
-longer (i.e., to go around the whole lake) costs more, but I’m unsure how much more. Bike shops want bikes back by around 6:30 PM.</li>
-  <li><strong>Cable car:</strong> It exists, but I didn’t do it.</li>
-  <li><strong>Being ignored by bus drivers:</strong> It exists, and I did do it.</li>
-</ul>
-
-<h3 id="miscellaneous">Miscellaneous</h3>
-
-<p>None of these were that interesting to us, but if you have more time, this is an incomplete list of
-other activities in the area:</p>
-
-<ul>
-  <li><strong>Aboriginal Culture Village (<a href="http://www.nine.com.tw/webe/html/information/">link</a>):</strong> This sounds like a village for cultural edification, but it turns
-  out it’s actually an amusement park.</li>
-  <li><strong>Puli:</strong> It’s a town.</li>
-  <li><strong>Cingjing Farm (<a href="http://www.cingjing.gov.tw/en/about/">link</a>):</strong> It’s a farm. It’s about 40 minutes from Sun Moon Lake.</li>
-</ul>
-
-<h2 id="lodging">Lodging</h2>
-
-<p>Because Sun Moon Lake is a popular tourist destination, lodging is relatively expensive.</p>
-
-<p>Super secret hacker budget stay: <strong>Naluisland House</strong>. This place is so secret that it doesn’t show up
-on <a href="http://kayak.com">Kayak</a> or have reviews on
-<a href="http://www.tripadvisor.com/Hotel_Review-g304160-d6453391-Reviews-Naluisland_House-Nantou.html">TripAdvisor</a>. 
-You can book through Agoda or Ctrip.</p>
-
-<p>We shared a room with two queen sized beds between four people, and it came out to about <strong>450 NT
-per person</strong> (15
-USD in July 2015). Our room was sufficient for a one night stay. There are rooms with four beds for
-a little more. Some rooms also have private bathrooms, which costs a little more as well.</p>
-
-<p>To get to Naluisland House, take the ferry or bus to Ita Thao, which is one of the major destinations of Sun Moon
-Lake. However, buses and ferries close around 5:30 PM – be very careful to get to Ita Thao before
-then. We learned that a taxi from Shuishe, the main port, costs about 500 NT (try negotiating).</p>
-
-<p>I’m not sure if the owner speaks English, but she was very helpful.</p>
-
-<!-- I have a [travel-related YouTube
-channel](https://www.youtube.com/playlist?list=PLtD-FIua473Cf6Ylh3PeoEmoq3c6BJH0S) on life in Taiwan.
-Subscribe! -->
-
-<p><em>Last updated: July 2015</em></p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Senior Thesis: Security Analysis of Java Web Applications Using String Constraint Analysis]]></title>
-    <link href="http://louisrli.github.io/blog/2015/05/03/senior-thesis/"/>
-    <updated>2015-05-03T00:00:00+03:00</updated>
-    <id>http://louisrli.github.io/blog/2015/05/03/senior-thesis</id>
-    <content type="html"><![CDATA[<p>I submitted my undergraduate thesis at the beginning of April, titled “Security Analysis of Java Web
-Applications Using String Constraint Analysis.” I was advised by Professor Stephen Chong.</p>
-
-<!-- more -->
-
-<p>Here’s the abstract:</p>
-
-<blockquote>
-
-  <p>Web applications are exposed to myriad security vulnerabilities related to malicious user string
-input. In order to detect such vulnerabilities in Java web applications, this project employs string
-constraint analysis, which approximates the values that a string variable in a program can take on.
-In string constraint analysis, program analysis generates string constraints – assertions about the
-relationships between string variables. We design and implement a dataflow analysis for Java
-programs that generates string constraints and passes those constraints to the CVC4 SMT solver to
-find a satisfying assignment of string variables. Using example programs, we illustrate the
-feasibility of the system in detecting certain types of web application vulnerabilities, such as SQL
-injection and cross-site scripting.</p>
-</blockquote>
-
-<p><a href="/downloads/louisli-thesis.pdf">Download the PDF</a> or view it below.</p>
-
-<embed src="/downloads/louisli-thesis.pdf" type="application/pdf" width="100%" height="600" />
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Being a Better Teaching Assistant: Five Concrete Tips]]></title>
-    <link href="http://louisrli.github.io/blog/2015/01/28/five-tips-for-being-an-effective-teaching-fellow/"/>
-    <updated>2015-01-28T06:13:28+02:00</updated>
-    <id>http://louisrli.github.io/blog/2015/01/28/five-tips-for-being-an-effective-teaching-fellow</id>
-    <content type="html"><![CDATA[<p>The purpose of this post is to provide concrete pointers to becoming a better undergraduate teaching
-fellow (Harvard lingo for student instructor, course assistant, etc.).</p>
-
-<p>Being an undergraduate instructor can be tricky. First, the students are the same age as you. Second, it can be hard to know how to improve. In my experience as both a student writing feedback and an instructor receiving feedback, students usually won’t write more than two sentences of feedback.</p>
-
-<p>The word “teaching” usually evokes an image of an instructor at a whiteboard. While effective
-communication skills are important, the environment and perceptions that an instructor
-fosters among students is equally important. For that reason, I’m choosing to focus on aspects outside of
-teaching classroom material.</p>
-
-<!-- more -->
-
-<h2 id="disclaimer">Disclaimer</h2>
-
-<p>I’m still an undergraduate with a fraction of the teaching experience of a
-professor – but the advantage of youth is that I can still remember the most basic and glaring
-mistakes that student instructors make.</p>
-
-<p>These tips are derived from three sources:</p>
-
-<ol>
-  <li>My own mistakes as a teaching fellow</li>
-  <li>My own experience as a student</li>
-  <li>My observations of other student instructors</li>
-</ol>
-
-<h1 id="1-explicitly-emphasize-your-accessibility">1. Explicitly emphasize your accessibility.</h1>
-<p><strong>Concrete action</strong>: At the beginning of every section (or every section for the first half of the
-semester), tell the students to email you any questions that they have about the course or problem
-sets – no matter how trivial.</p>
-
-<p><strong>Phrasing is important.</strong> As an instructor, I particularly emphasized my willingness to look at the
-rigor of proofs,
-a common concern in introductory mathematics courses – telling students that I would avoid saying
-whether their answer was correct but would instead give feedback on the rigor of their proofs.</p>
-
-<p>Consider the result of being passively open to questions. In the back of their heads, students
-know that they <em>can</em> approach you for questions, but they may be worried about looking “dumb” or
-coming off as annoying. Explicitly emphasizing your accessibility fosters an environment that allows
-you to help struggling students.</p>
-
-<h1 id="2-avoid-saying-that-things-are-easy">2. Avoid saying that things are easy.</h1>
-<p><strong>Concrete action</strong>: Try to catch yourself before using any of these phrases or their variants:
-“this problem is easy”, “this problem is really simple”, “this is not too hard”, etc.</p>
-
-<p>Here’s a real story (identifying details omitted). A student in a course (that I was teaching) told
-me that another instructor thought that the course was easy when the
-instructor, who had a strong mathematics background, had taken it. The student, who was struggling
-in the course, was clearly bothered by this.</p>
-
-<p>Ultimately, telling a student that the course was “supposed to be” easy
-achieved nothing positive. It only served to foster the student’s apprehension about the course.</p>
-
-<p>Many people would find it obvious that an instructor shouldn’t tell a struggling student that a task
-is easy. However, note that it’s also a bad <em>preface</em> to an example problem – before anybody
-mentions confusion. Deeming the problem “easy” beforehand will make potentially confused
-students feel worse.</p>
-
-<h1 id="3-admit-when-you-dont-know-the-answer--then-find-it">3. Admit when you don’t know the answer – then find it.</h1>
-<p><strong>Concrete action</strong>: If a student puts you on the spot with a question, and you can’t figure out the
-answer, admit it, but <em>make sure</em> to follow up with the student later.</p>
-
-<p>An appropriate response – one I’ve used many times – is along the lines of: “I’m sorry, I don’t
-know off the top of my head. I’ll find out and send you an email.” (Of course, you should always first <em>try</em> to answer the question)</p>
-
-<p>Most of the time, the student doesn’t urgently need the answer. As much as it might ring the ego,
-it’s better to send the student a well thought-out answer than stalling (wasting everyone’s time) or
-giving a copout answer (hurting the student’s learning).</p>
-
-<h1 id="4-dont-rely-on-the-solutions-key">4. Don’t rely on the solutions key.</h1>
-<p><strong>Concrete action</strong>: Fully solve any solution that you’re responsible for explaining
-(example problem in section, homework problem, etc.).</p>
-
-<p>In my experience, failing to do this will, with nontrivial probability, result in trying to parse
-the solutions under high pressure. <strong>Having the solutions key is not the same as having the
-ability to explain the steps of a solution</strong> (I know of a few other instructors that were capable of
-procuring explanations quickly – I am not one of them). Working through the solutions beforehand
-ensures that you can maximize your helpfulness to students.</p>
-
-<h1 id="5-follow-the-course-materials-with-the-students">5. Follow the course materials with the students.</h1>
-<p><strong>Concrete action</strong>: Read any potential source of questions – textbook
-chapters, slides, notes – in step with the timeline of the course.</p>
-
-<p>Familiarize yourself with the students’ readings. Even if you know the course concepts, students often have fairly specific
-questions about certain examples in the readings. The ideal response is to explain
-an example after rereading it once, having already reviewed the students’
-readings.</p>
-
-<p>The wrong response to a question – which, I guiltily admit, has happened to me on occasion –
-is to ask the student to wait, spending substantially longer to read, parse, and understand the
-example in question.</p>
-
-<h1 id="conclusion">Conclusion</h1>
-<p>A good way to improve as an instructor is to consider the qualities that you appreciate in
-instructors (or more saliently, the qualities that you dislike).</p>
-
-<p>If you haven’t considered teaching as an undergraduate, I strongly encourage you to think about it. Teaching as an
-undergrad is a unique (and sometimes
-<a href="http://harvardpolitics.com/harvard/harvard-undergraduates-teaching-harvard-doesnt-want-talk/">controversial</a>)
-opportunity.</p>
-
-<p><em>Thank you to Ruth Fong for contributing to this article.</em></p>
-
-<p><em>Thank you to Paul Bamberg, Stephen Chong, Harry Lewis, Emily Riehl, and Salil Vadhan for providing me valuable
-opportunities to teach during my college years. I am especially indebted to Paul for propelling me into
-teaching as an undergraduate.</em></p>
 
 ]]></content>
   </entry>

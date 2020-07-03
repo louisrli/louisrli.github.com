@@ -4,7 +4,7 @@
   <title><![CDATA[Category: react | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/react/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2020-07-01T20:08:26+03:00</updated>
+  <updated>2020-07-03T16:24:33+03:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,6 +12,34 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Unit Testing GraphQL Resolvers and Middleware in TypeScript]]></title>
+    <link href="http://louisrli.github.io/blog/2020/07/01/unit-testing-graphql-resolvers-typescript/"/>
+    <updated>2020-07-01 00:00:00 +0300</updated>
+    <id>http://louisrli.github.io/blog/2020/07/01/unit-testing-graphql-resolvers-typescript</id>
+    <content type="html"><![CDATA[<p>This post describes to unit test GraphQL resolvers, potentially with middleware,
+in TypeScript.</p>
+
+<p>Specifically, it uses the stack</p>
+
+<!-- more -->
+
+<h2 id="simple-resolver">Simple Resolver</h2>
+
+<h3 id="setting-up-graphql-codegen">Setting up GraphQL Codegen</h3>
+
+<h2 id="middleware-resolver">Middleware Resolver</h2>
+<p>In this example, I use an external Express GraphQL middleware resolver:
+<a href="https://github.com/maticzav/graphql-shield">graphql-shield</a>, a permissions
+layer for GraphQL.</p>
+
+<p>In this case, we will need to somehow run the full request along with the
+middleware. Note that it’s possible to individually unit test any rules that you
+use in the permissions as well.</p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Using MathJax with React]]></title>

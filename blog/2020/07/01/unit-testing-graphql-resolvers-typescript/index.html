@@ -3,11 +3,19 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Category: turkish - Louis Li</title>
+	<title>Unit Testing GraphQL Resolvers and Middleware in TypeScript - Louis Li</title>
 	<meta name="author" content="Louis Li">
 
 	
-	<meta name="description" content="Category: turkish">
+	<meta name="description" content="
+
+
+
+
+
+	Unit Testing GraphQL Resolvers and Middleware in TypeScript
+        
+	This post describes to unit test GraphQL resolvers, potentially with m...">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +26,7 @@
 
 	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
 	
-	<link rel="canonical" href="http://louisrli.github.io/blog/categories/turkish/">
+	<link rel="canonical" href="http://louisrli.github.io/blog/2020/07/01/unit-testing-graphql-resolvers-typescript/">
 	<link href="/favicon.png" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -90,48 +98,81 @@
 		</div>	
 		<div class="mid-col">
 			<div class="mid-col-container">
-				<div id="content" class="inner">
-	
+				<div id="content" class="inner"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Github top leaderboard -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5225926150102880"
+     data-ad-slot="1340213627"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Unit Testing GraphQL Resolvers and Middleware in TypeScript</h1>
+        <h3 class="subtitle" itemprop="subtitle"></h3>
+	<div class="entry-content" itemprop="articleBody"><p>This post describes to unit test GraphQL resolvers, potentially with middleware,
+in TypeScript.</p>
 
-	
-	
-	<section class="archives"><h1 class="year">2020</h1>
+<p>Specifically, it uses the stack</p>
 
-<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<span class="date"><time datetime="2020-07-01T00:00:00+03:00" itemprop="datePublished">Jul  1</time></span>
-		<br>
-		<span class="tags">
+<!-- more -->
 
+<h2 id="simple-resolver">Simple Resolver</h2>
 
-	<a class='category' href='/blog/categories/turkish/'>turkish</a>
+<h3 id="setting-up-graphql-codegen">Setting up GraphQL Codegen</h3>
 
+<h2 id="middleware-resolver">Middleware Resolver</h2>
+<p>In this example, I use an external Express GraphQL middleware resolver:
+<a href="https://github.com/maticzav/graphql-shield">graphql-shield</a>, a permissions
+layer for GraphQL.</p>
 
-</span>
-	    
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2020/07/01/wide-present-turkish/">Simple Present Tense in Turkish</a></h1>
+<p>In this case, we will need to somehow run the full request along with the
+middleware. Note that it’s possible to individually unit test any rules that you
+use in the permissions as well.</p>
+
+</div>
+
 </article>
 
-	
+	<div class="share">
+  <!--AddThis Button BEGIN -->
+  <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+    <a class="addthis_button_preferred_1"></a>
+    <a class="addthis_button_preferred_2"></a>
+    <a class="addthis_button_preferred_3"></a>
+    <a class="addthis_button_preferred_4"></a>
+    <a class="addthis_button_compact"></a>
+    <a class="addthis_counter addthis_bubble_style"></a>
+  </div>
+  <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51e5a5762f46bbe9"></script>
+  <!-- AddThis Button END -->
+</div>
 
 
-<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<span class="date"><time datetime="2020-04-20T00:00:00+03:00" itemprop="datePublished">Apr 20</time></span>
-		<br>
-		<span class="tags">
+
+<script async
+  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Github bottom leaderboard -->
+<ins class="adsbygoogle"
+       style="display:block"
+            data-ad-client="ca-pub-5225926150102880"
+                 data-ad-slot="1968553857"
+                      data-ad-format="auto"
+                           data-full-width-responsive="true"></ins>
+  <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
 
 
-	<a class='category' href='/blog/categories/turkish/'>turkish</a>
-
-
-</span>
-	    
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives/">Fiilimsi: Turkish Verbal Nouns, Adjectives, and Adverbs</a></h1>
-</article>
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
 
 </div>
 			</div>
@@ -154,7 +195,10 @@ Theme originally by <a href="http://shashankmehta.in/archive/2012/greyshade.html
       var disqus_shortname = 'llgithub';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://louisrli.github.io/blog/2020/07/01/unit-testing-graphql-resolvers-typescript/';
+        var disqus_url = 'http://louisrli.github.io/blog/2020/07/01/unit-testing-graphql-resolvers-typescript/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
