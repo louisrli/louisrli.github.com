@@ -4,7 +4,7 @@
   <title><![CDATA[Category: turkish | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/turkish/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2020-07-03T16:52:19+03:00</updated>
+  <updated>2020-07-03T16:57:47+03:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,81 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Simple Present Tense in Turkish]]></title>
-    <link href="http://louisrli.github.io/blog/2020/07/01/wide-present-turkish/"/>
-    <updated>2020-07-01 00:00:00 +0300</updated>
-    <id>http://louisrli.github.io/blog/2020/07/01/wide-present-turkish</id>
-    <content type="html"><![CDATA[<style>
-blockquote {
-  font-style: unset;
-}
-
-blockquote hr {
-  margin: 0.3em 0;
-}
-
-blockquote p:first-child {
-  font-size: 12px;
-  border-bottom: 1px solid #ddd;
-}
-
-/* In case we want to bold the example headers later. */
-blockquote p:first-child strong {
-  font-weight: unset;
-}
-
-blockquote p {
-  margin-top: 0.3em !important;
-  margin-bottom: 0.3em !important;
-}
-
-</style>
-
-<p>This post talks about the simple present tense in Turkish (also known as the
-wide present tense or aorist). The purpose of this article is not precisely to
-explain the tense itself, but to explain when you would use the wide present
-versus other similar tenses. While there are a number of <a href="https://elon.io/learn-turkish/lesson/the-positive-regular-aorist">English
-resources</a>
-that explain the basics of the tense, as far as I can see, there are none that
-delve into various scenarios where using one tense over the other could be
-ambiguous for English speakers.</p>
-
-<!-- more -->
-
-<p>As a disclaimer, I’m an ongoing student of Turkish, but this is by no means
-meant to be a definitive guide for when to use one tense versus another.
-However, I do hope to provide and document a few heuristics.</p>
-
-<p>Note: In my opinion, the “simple present” is a bit misleading of a name. Wide present
-(the literal translation of its Turkish designation, <em>geniş zaman</em>) 
-is more reflective of the wide span of time that this tense can take.</p>
-
-<p>Thanks to the <a href="https://discord.me/turkceogrenelim">Türkçe Öğrenelim
-Discord</a>. Feel free to join the community
-and support them on <a href="https://www.patreon.com/letslearnturkish">Patreon</a>.</p>
-
-<h1 id="prerequisites">Prerequisites</h1>
-<p>This post assumes basic knowledge of all tenses covered in the post. As
-mentioned before, the main purpose of this post is to contrast nuanced
-situations.</p>
-
-<h1 id="versus-continuous-present">Versus continuous present</h1>
-
-<h1 id="versus-future-tense">Versus future tense</h1>
-
-<h1 id="question-form">Question form</h1>
-
-<blockquote>
-  <p><strong>Example</strong></p>
-
-  <p>Öksürüp duruyor.<br />
-He’s constantly coughing.</p>
-</blockquote>
-
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Fiilimsi: Turkish Verbal Nouns, Adjectives, and Adverbs]]></title>

