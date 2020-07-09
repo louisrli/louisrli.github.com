@@ -4,7 +4,7 @@
   <title><![CDATA[Category: istanbul | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/istanbul/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2020-07-03T23:01:24+03:00</updated>
+  <updated>2020-07-09T14:09:27+03:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -18,7 +18,7 @@
     <link href="http://louisrli.github.io/blog/2020/07/02/teaching-thoughts/"/>
     <updated>2020-07-02 00:00:00 +0300</updated>
     <id>http://louisrli.github.io/blog/2020/07/02/teaching-thoughts</id>
-    <content type="html"><![CDATA[<p>This post is a compendium of my thoughts an instructor for a
+    <content type="html"><![CDATA[<p>This post is a compendium of my thoughts as an instructor for a
 non-profit coding bootcamp teaching frontend web development (JavaScript and
 React). It first establishes the context, then explores the best ways to
 maximize teaching impact based on the constraints of the context.</p>
@@ -283,7 +283,7 @@ provides a sense of official-ness, like university.</li>
 
 <h3 id="personalization">Personalization</h3>
 <p>Students like the idea that the organization is doing something for them. <em>Just</em> for
-them. This doesn’t mean that you have write the assignment
+them. This doesn’t mean that you have to write the assignment
 from scratch, but it should at least be presented in a manner that suggests that
 you’re thinking of the student. Recall the goal: <strong>make the student feel cared
 for</strong>.</p>
