@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2020-07-09T14:09:27+03:00</updated>
+  <updated>2020-07-09T14:10:08+03:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -477,7 +477,7 @@ it’s good to recall our broader goals. In whatever context you teach
 in, I encourage you to refresh your goals. For Re:Coded, they would be this:</p>
 
 <ul>
-  <li>To teach students the programmer mindset</li>
+  <li>To teach students the programmer mindset (how to learn, debug, etc.)</li>
   <li>To empower students to obtain and excel at a development job</li>
 </ul>
 
