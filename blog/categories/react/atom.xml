@@ -4,7 +4,7 @@
   <title><![CDATA[Category: react | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/react/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2020-10-09T18:20:37+01:00</updated>
+  <updated>2020-10-09T20:20:45+01:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -18,9 +18,9 @@
     <link href="http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript/"/>
     <updated>2020-10-09 00:00:00 +0100</updated>
     <id>http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript</id>
-    <content type="html"><![CDATA[<p>This post gives a code example on how to unit test a GraphQL resolver in
-TypeScript. In order to make the testing typesafe, we use
-<a href="https://graphql-code-generator.com/">GraphQL Code Generator</a>.</p>
+    <content type="html"><![CDATA[<p>This post gives a code example on how to unit test a GraphQL resolver with Jest
+in TypeScript. In order to make the testing typesafe, we use <a href="https://graphql-code-generator.com/">GraphQL Code
+Generator</a>.</p>
 
 <!-- more -->
 
@@ -54,8 +54,8 @@ off what was written in <a href="https://github.com/dotansimha/graphql-code-gene
     <updated>2020-10-09 00:00:00 +0100</updated>
     <id>http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-middleware-typescript</id>
     <content type="html"><![CDATA[<p>This post gives a code example on how to unit test a GraphQL middleware in
-TypeScript using the Express GraphQL middleware resolver
-<a href="https://github.com/maticzav/graphql-shield">graphql-shield</a>. It
+TypeScript with Jest, using the Express GraphQL middleware resolver
+<a href="https://github.com/maticzav/graphql-shield">graphql-shield</a> as an example. It
 should generalize to other middlewares.</p>
 
 <!-- more -->
