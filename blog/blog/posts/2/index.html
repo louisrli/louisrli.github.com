@@ -30,18 +30,16 @@
 		
 
 
-	travel
+	react
 
 
 
 		
 	
-	Transportation from Agra to Delhi Airport
+	Staging and production cookies in Next.js
 	
 
-          Last updated: June 2018
-
-...">
+          This article describes how...">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -143,7 +141,794 @@
 
 
 
-<time datetime="2018-06-21T00:00:00+03:00" data-updated="true" itemprop="datePublished"></time></div>
+<time datetime="2019-11-20T00:00:00+00:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/react/'>react</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2019/11/20/staging-and-production-cookies-in-next-js/" itemprop="url">Staging and production cookies in Next.js</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+
+          <p>This article describes how add authentication to your
+<a href="https://nextjs.org">Next.js</a> app using cookies and JWT. In this example, we
+use cookies to authenticate against a GraphQL Yoga backend. Additionally, we
+pass parameters based on the deployment stage (local, staging ,or production) of
+our app.</p>
+
+<!--more-->
+
+<h2 id="deploy-stage-environmental-variable">Deploy stage environmental variable</h2>
+<p>In this example, we are using <a href="TODO">Apex Up</a>, which automatically generates an
+environmental variable <code class="language-plaintext highlighter-rouge">UP_STAGE</code>. Depending on your deployment process, you can
+pass in the stage in a similar way.</p>
+
+<p>We also pass in the following environmental variables:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">BACKEND_URI_STAGING</code>: The expected domain of the GraphQL backend in staging</li>
+  <li><code class="language-plaintext highlighter-rouge">BACKEND_URI_PROD</code>: The expected domain of the GraphQL backend in prod</li>
+</ul>
+
+<p>In <code class="language-plaintext highlighter-rouge">next.config.js</code> in the root directory of your Next application:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Set up environmental variables for deployment. </span>
+<span class="c1">// UP_STAGE comes with UP (https://github.com/apex/up-examples/tree/master/pro/env-static)</span>
+<span class="kd">let</span> <span class="nx">backendUri</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">http://localhost:4000</span><span class="dl">'</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">cookieDomain</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">localhost</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">staging</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">backendUri</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">BACKEND_URI_STAGING</span><span class="p">;</span>
+  <span class="c1">// Using a domain like foo.com includes all subdomains of foo.com.</span>
+  <span class="nx">cookieDomain</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">stage.foo.com</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">production</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">backendUri</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">BACKEND_URI_PROD</span><span class="p">;</span>
+  <span class="nx">cookieDomain</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">stage.foo.com</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">backendUri</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">'</span><span class="s1">No backend URI found for : </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Using backend URI: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">backendUri</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">withCss</span><span class="p">({</span>
+  <span class="c1">// target: 'serverless',</span>
+  <span class="na">env</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">upStage</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span><span class="p">,</span>
+    <span class="nx">backendUri</span><span class="p">,</span>
+    <span class="nx">cookieDomain</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+		<a href="/blog/2019/11/20/staging-and-production-cookies-in-next-js/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+
+      
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+
+<time datetime="2019-11-17T00:00:00+00:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/react/'>react</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2019/11/17/next-js-with-antd/" itemprop="url">Next.js Typescript Integration with Ant Design (antd)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+
+          <p>This article describes how to add the <a href="antd.design">Antd</a> library to
+<a href="https://nextjs.org">Next.js</a>.</p>
+
+<p>This is based off the
+<a href="https://github.com/zeit/next.js/tree/canary/examples/with-ant-design">with-ant-design</a>
+example in Next.js.</p>
+
+<!--more-->
+
+<h2 id="next-configuration">Next configuration</h2>
+<p>In <code class="language-plaintext highlighter-rouge">next.config.js</code> in the root directory of your Next application, add the
+following:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/** See https://github.com/zeit/next.js/tree/canary/examples/with-ant-design */</span>
+<span class="kd">const</span> <span class="nx">withCss</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">@zeit/next-css</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">withCss</span><span class="p">({</span>
+    <span class="na">webpack</span><span class="p">:</span> <span class="p">(</span><span class="nx">config</span><span class="p">,</span> <span class="p">{</span> <span class="nx">isServer</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">isServer</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">antStyles</span> <span class="o">=</span> <span class="sr">/antd</span><span class="se">\/</span><span class="sr">.*</span><span class="se">?\/</span><span class="sr">style</span><span class="se">\/</span><span class="sr">css.*</span><span class="se">?</span><span class="sr">/</span>
+      <span class="kd">const</span> <span class="nx">origExternals</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">config</span><span class="p">.</span><span class="nx">externals</span><span class="p">]</span>
+      <span class="nx">config</span><span class="p">.</span><span class="nx">externals</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">request</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">antStyles</span><span class="p">))</span> <span class="k">return</span> <span class="nx">callback</span><span class="p">()</span>
+          <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">origExternals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">function</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">origExternals</span><span class="p">[</span><span class="mi">0</span><span class="p">](</span><span class="nx">context</span><span class="p">,</span> <span class="nx">request</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">callback</span><span class="p">()</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">...(</span><span class="k">typeof</span> <span class="nx">origExternals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">function</span><span class="dl">'</span> <span class="p">?</span> <span class="p">[]</span> <span class="p">:</span> <span class="nx">origExternals</span><span class="p">),</span>
+      <span class="p">]</span>
+
+      <span class="nx">config</span><span class="p">.</span><span class="nx">module</span><span class="p">.</span><span class="nx">rules</span><span class="p">.</span><span class="nx">unshift</span><span class="p">({</span>
+        <span class="na">test</span><span class="p">:</span> <span class="nx">antStyles</span><span class="p">,</span>
+        <span class="na">use</span><span class="p">:</span> <span class="dl">'</span><span class="s1">null-loader</span><span class="dl">'</span><span class="p">,</span>
+      <span class="p">})</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">config</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+</code></pre></div></div>
+
+<p>In <code class="language-plaintext highlighter-rouge">babel.config.js</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">api</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">presets</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">next/babel</span><span class="dl">'</span><span class="p">],</span>
+    <span class="na">plugins</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">[</span>
+        <span class="dl">"</span><span class="s2">import</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+          <span class="na">libraryName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">antd</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">style</span><span class="p">:</span> <span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span>
+        <span class="p">}</span>
+      <span class="p">]],</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+
+</code></pre></div></div>
+
+<h2 id="example-usage">Example usage</h2>
+
+<p>We are able to import from both <code class="language-plaintext highlighter-rouge">antd</code> and <code class="language-plaintext highlighter-rouge">antd/lib/&lt;component&gt;</code>.</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+ * An example that imports top-level components from 'antd' and also imports
+ * from files under 'antd/lib'.
+ */</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">TreeSelect</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">antd</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">TreeNode</span><span class="p">,</span> <span class="nx">TreeSelectProps</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">antd/lib/tree-select</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">TreeSelectView</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">FC</span><span class="o">&lt;</span><span class="nx">TreeSelectProps</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">[]</span><span class="o">&gt;&gt;</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="nx">ref</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">TreeSelect</span>
+      <span class="si">{</span><span class="p">...</span><span class="nx">props</span><span class="si">}</span>
+      <span class="na">treeCheckable</span>
+      <span class="na">treeData</span><span class="p">=</span><span class="si">{</span><span class="p">{}</span><span class="si">}</span>
+      <span class="na">treeDefaultExpandAll</span>
+      <span class="na">style</span><span class="p">=</span><span class="si">{</span><span class="p">{</span> <span class="na">width</span><span class="p">:</span> <span class="mi">300</span> <span class="p">}</span><span class="si">}</span>
+      <span class="na">showCheckedStrategy</span><span class="p">=</span><span class="s">"SHOW_PARENT"</span>
+      <span class="na">ref</span><span class="p">=</span><span class="si">{</span><span class="nx">ref</span><span class="si">}</span>
+    <span class="p">/&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">React</span><span class="p">.</span><span class="nx">forwardRef</span><span class="p">(</span><span class="nx">TreeSelectView</span><span class="p">);</span>
+
+</code></pre></div></div>
+
+		<a href="/blog/2019/11/17/next-js-with-antd/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+
+      
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+
+<time datetime="2019-11-17T00:00:00+00:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/react/'>react</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2019/11/17/auth-redirect-next-js/" itemprop="url">HOC Authentication Redirects with Next.js, GraphQL, and Typescript</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+
+          <p>This article describes how to redirect the user in
+<a href="https://nextjs.org">Next.js</a> based on whether the user is authenticated
+(logged in) using a properly typed Typescript React <a href="https://reactjs.org/docs/higher-order-components.html">higher-order
+component</a> (HOC).</p>
+
+<p>This can extend to arbitrary conditions on the queried user, such as redirecting
+if the user does not have an active subscription.</p>
+
+<!--more-->
+
+<p>The following Typescript module implements a general HOC that redirects based on
+authentication state by querying the user from the GraphQL backend. It then
+includes two examples:</p>
+<ul>
+  <li>If the user is not logged in, redirect to <code class="language-plaintext highlighter-rouge">/login</code></li>
+  <li>If the user is logged in, redirect to <code class="language-plaintext highlighter-rouge">/dashboard</code></li>
+</ul>
+
+<h2 id="example-hoc-usage">Example HOC Usage</h2>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">NextPage</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">next</span><span class="dl">'</span><span class="p">;</span>
+<span class="c1">// CHANGE THIS: Export to the appropriate path.</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">withLoginRedirect</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../lib/auth</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">RequiresLoginPage</span><span class="p">:</span> <span class="nx">NextPage</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>You're logged in<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;;</span>
+<span class="p">};</span>
+
+<span class="c1">// If the user isn't logged in, this will redirect to `/login`.</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">withLoginRedirect</span><span class="p">(</span><span class="nx">RequiresLoginPage</span><span class="p">);</span>
+
+</code></pre></div></div>
+
+<h2 id="implementation">Implementation</h2>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">NextComponentType</span><span class="p">,</span> <span class="nx">NextPageContext</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">next</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">Router</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">next/router</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">gql</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">graphql-tag</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="cm">/**
+ * YOU DEFINE THESE.
+ *
+ * These variables should be set by you to query for the user and the types
+ * appropriately. I recommend using GraphQL codegen
+ * (https://graphql-code-generator.com/) to generate types from your schema and
+ * queries from other files so that they can be used like so:
+ *
+ * import { User } from '../generated/apollo-client-types';
+ * import {
+ *   LoggedInUserDocument,
+ * } from '../generated/apollo-client-types';
+ *
+ */</span>
+<span class="kr">interface</span> <span class="nx">User</span> <span class="p">{}</span>
+<span class="kd">const</span> <span class="nx">LoggedInUserDocument</span> <span class="o">=</span> <span class="nx">gql</span><span class="s2">`&lt;YOUR QUERY FOR USER OBJECT&gt;`</span><span class="p">;</span>
+
+<span class="cm">/**
+ * A function that queries for the logged in user before rendering the page.
+ * Should be called in getInitialProps. It redirects as desired.
+ *
+ * It allows for redirecting both if the user is not logged in (e.g., redirect
+ * to login page) or redirecting if the user is logged in.
+ *
+ * If not logged in, redirects to the desired route.
+ *
+ * The return value indicates whether logic should continue or not after the
+ * call.
+ */</span>
+<span class="kd">const</span> <span class="nx">redirectBasedOnLogin</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span>
+  <span class="nx">ctx</span><span class="p">:</span> <span class="nx">NextPageContext</span><span class="p">,</span>
+  <span class="nx">route</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span>
+  <span class="nx">redirectIfAuthed</span><span class="p">:</span> <span class="nx">boolean</span>
+<span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">boolean</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">isLoggedIn</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">apolloClient</span>
+    <span class="p">.</span><span class="nx">query</span><span class="p">({</span>
+      <span class="na">query</span><span class="p">:</span> <span class="nx">LoggedInUserDocument</span><span class="p">,</span>
+      <span class="c1">// Prevent caching issues when logging in/out without refresh.</span>
+      <span class="na">fetchPolicy</span><span class="p">:</span> <span class="dl">'</span><span class="s1">network-only</span><span class="dl">'</span><span class="p">,</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(({</span> <span class="nx">data</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">data</span> <span class="o">||</span> <span class="o">!</span><span class="nx">data</span><span class="p">.</span><span class="nx">loggedInUser</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nb">Boolean</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">loggedInUser</span><span class="p">);</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">});</span>
+
+  <span class="kd">const</span> <span class="nx">shouldRedirect</span> <span class="o">=</span> <span class="nx">redirectIfAuthed</span> <span class="p">?</span> <span class="nx">isLoggedIn</span> <span class="p">:</span> <span class="o">!</span><span class="nx">isLoggedIn</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">shouldRedirect</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// https://github.com/zeit/next.js/wiki/Redirecting-in-%60getInitialProps%60</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">ctx</span><span class="p">.</span><span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">302</span><span class="p">,</span> <span class="p">{</span>
+        <span class="na">Location</span><span class="p">:</span> <span class="nx">route</span><span class="p">,</span>
+      <span class="p">});</span>
+      <span class="nx">ctx</span><span class="p">.</span><span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">Router</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">route</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="cm">/**
+ * General HOC that allows redirection based on authentication. We should not
+ * expose this: instead export specific routes and redirect combinations.
+ */</span>
+<span class="kd">const</span> <span class="nx">withAuthRedirect</span> <span class="o">=</span> <span class="p">(</span><span class="nx">route</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">redirectIfAuthed</span><span class="p">:</span> <span class="nx">boolean</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">&lt;</span><span class="nx">P</span><span class="p">,</span><span class="o">&gt;</span><span class="p">(</span>
+  <span class="nx">Page</span><span class="p">:</span> <span class="nx">NextComponentType</span><span class="o">&lt;</span><span class="nx">NextPageContext</span><span class="p">,</span> <span class="p">{},</span> <span class="nx">P</span><span class="o">&gt;</span>
+<span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kd">class</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="o">&lt;</span><span class="nx">P</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">static</span> <span class="k">async</span> <span class="nx">getInitialProps</span><span class="p">(</span><span class="na">ctx</span><span class="p">:</span> <span class="nx">NextPageContext</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">shouldContinue</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">redirectBasedOnLogin</span><span class="p">(</span>
+        <span class="nx">ctx</span><span class="p">,</span>
+        <span class="nx">route</span><span class="p">,</span>
+        <span class="nx">redirectIfAuthed</span>
+      <span class="p">);</span>
+      <span class="c1">// Only continue if we're logged in. Otherwise, it might cause an</span>
+      <span class="c1">// unnecessary call to a downstream getInitialProps that requires</span>
+      <span class="c1">// authentication.</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">shouldContinue</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{};</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">Page</span><span class="p">.</span><span class="nx">getInitialProps</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">Page</span><span class="p">.</span><span class="nx">getInitialProps</span><span class="p">(</span><span class="nx">ctx</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">&lt;</span><span class="nc">Page</span> <span class="si">{</span><span class="p">...</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="si">}</span> <span class="p">/&gt;;</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="cm">/**
+ * HOC that redirects to login page if the user is not logged in.
+ */</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">withLoginRedirect</span> <span class="o">=</span> <span class="nx">withAuthRedirect</span><span class="p">(</span><span class="dl">'</span><span class="s1">/login</span><span class="dl">'</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+
+<span class="cm">/**
+ * HOC that redirects to the dashboard if the user is logged in.
+ */</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">withDashboardRedirect</span> <span class="o">=</span> <span class="nx">withAuthRedirect</span><span class="p">(</span><span class="dl">'</span><span class="s1">/dashboard</span><span class="dl">'</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+</code></pre></div></div>
+
+<p>Found this helpful or have suggestions? Leave them in the comments below.</p>
+
+<p>Typing Next.js <code class="language-plaintext highlighter-rouge">getInitialProps</code> HOCs is tricky, and I had trouble finding an
+example online.</p>
+
+<h2 id="versions">Versions</h2>
+<p>At the time of writing, this was using Next 9.</p>
+
+		<a href="/blog/2019/11/17/auth-redirect-next-js/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+
+      
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+
+<time datetime="2019-11-16T00:00:00+00:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/react/'>react</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2019/11/16/jest-with-react-ga/" itemprop="url">Unit testing React Google Analytics (react-ga) with Jest</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+
+          <p>This article describes how to unit test a React component using
+<a href="https://github.com/react-ga/react-ga/">react-ga</a>, including globally setting up
+the Jest config to initialize test mode each time.</p>
+
+<!--more-->
+
+<h2 id="initializing-reactga">Initializing ReactGA</h2>
+<p>In your production code, you will initialize react-ga once: most likely whenever
+your page layout is mounted.</p>
+
+<p>In unit tests, you will receive a warning if ReactGA is not initialized:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ReactGA.initialize must be called first or GoogleAnalytics should be loaded
+manually
+</code></pre></div></div>
+
+<p>Instead of initializing manually in each test, we can initialize for all Jest
+tests globally for our frontend by</p>
+
+<p>In <code class="language-plaintext highlighter-rouge">jest.config.js</code> in the root level (note that <code class="language-plaintext highlighter-rouge">&lt;rootDir&gt;</code> is intentional;
+it’s a keyword in the Jest config):</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">setupFiles</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">&lt;rootDir&gt;/lib/testutil/setup-jest.js</span><span class="dl">'</span><span class="p">],</span>
+<span class="p">};</span>
+
+</code></pre></div></div>
+
+<p>Next, we have <code class="language-plaintext highlighter-rouge">lib/setup-jest.js</code> (or whatever path you prefer). Per the
+<a href="https://jestjs.io/docs/en/configuration.html#setupfiles-array">setupFiles
+documentation</a>,
+this should run exactly once before each test file:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Run once before every jest test file.
+ *
+ * Suppresses warnings related to ReactGA.
+ */</span>
+<span class="k">import</span> <span class="nx">ReactGA</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-ga</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="nx">ReactGA</span><span class="p">.</span><span class="nx">initialize</span><span class="p">(</span><span class="dl">'</span><span class="s1">dummy</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span> <span class="na">testMode</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
+
+
+</code></pre></div></div>
+
+<h2 id="test-example">Test example</h2>
+<p>Note that we reset the apiCalls before each test still (perhaps there is a clean
+way to get a global <code class="language-plaintext highlighter-rouge">beforeEach</code>, but I didn’t see one that didn’t require some
+level of hackery).</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * An example of a Jest test in Typescript.
+ */</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">fireEvent</span><span class="p">,</span> <span class="nx">render</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@testing-library/react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactGA</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-ga</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">analytics</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">ReactGA</span><span class="p">.</span><span class="nx">testModeAPI</span><span class="p">.</span><span class="nx">resetCalls</span><span class="p">();</span>
+  <span class="p">});</span>
+
+  <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">correctly sends timing analytics</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">getByText</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">render</span><span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">MyView</span> <span class="o">/&gt;</span>
+    <span class="p">);</span>
+
+    <span class="nx">fireEvent</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="nx">getByText</span><span class="p">(</span><span class="sr">/somebutton/</span><span class="p">));</span>
+
+    <span class="c1">// An example of testing the timing call.</span>
+    <span class="kd">const</span> <span class="na">timings</span><span class="p">:</span> <span class="nx">number</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">const</span> <span class="nx">call</span> <span class="k">of</span> <span class="nx">ReactGA</span><span class="p">.</span><span class="nx">testModeAPI</span><span class="p">.</span><span class="nx">calls</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">call</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">send</span><span class="dl">'</span> <span class="o">&amp;&amp;</span> <span class="nx">call</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">hitType</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">timing</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">timings</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">call</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">timingValue</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">timings</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">]);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+
+</code></pre></div></div>
+
+		<a href="/blog/2019/11/16/jest-with-react-ga/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+
+      
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+
+<time datetime="2019-11-16T00:00:00+00:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/react/'>react</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2019/11/16/apollo-mockedprovider-unit-test/" itemprop="url">Unit testing Apollo React hooks with MockedProvider</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+
+          <p>This article describes how to unit test a React component with Apollo queries
+using React Hooks, Jest, the Apollo-provided 
+<a href="https://www.apollographql.com/docs/react/development-testing/testing/#mockedprovider">MockedProvider</a>, and <a href="https://testing-library.com/docs/react-testing-library/api">React Testing Library</a>.</p>
+
+<!--more-->
+
+<p>When set up, <code class="language-plaintext highlighter-rouge">MockedProvider</code> asserts that any requests that are passed in its
+setup are called. That is, if you pass in that certain queries are going to be
+called with certain variables, the test will fail if it’s not called in exactly
+the same way.</p>
+
+<h2 id="wrapper-library-without-redux">Wrapper library (without Redux)</h2>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">MockedProvider</span><span class="p">,</span> <span class="nx">MockedResponse</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@apollo/react-testing</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kr">interface</span> <span class="nx">TestConfig</span> <span class="p">{</span>
+  <span class="nl">apolloMocks</span><span class="p">?:</span> <span class="nx">MockedResponse</span><span class="p">[];</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">ApolloWrapper</span> <span class="o">=</span> <span class="p">({</span>
+  <span class="nx">apolloMocks</span> <span class="o">=</span> <span class="p">[],</span>
+<span class="p">}:</span> <span class="nx">TestConfig</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="nx">children</span> <span class="p">}:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">MockedProvider</span> <span class="na">mocks</span><span class="p">=</span><span class="si">{</span><span class="nx">apolloMocks</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">children</span><span class="si">}</span><span class="p">&lt;/</span><span class="nc">MockedProvider</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+</code></pre></div></div>
+
+<h2 id="wrapper-library-with-redux">Wrapper library (with Redux)</h2>
+<p><a href="redux.js.org">Redux</a> is commonly used with react, and one can also set up a
+provider with a store. Note that we use
+<a href="https://github.com/piotrwitek/typesafe-actions">typesafe-actions</a> in this
+example.</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+ * These Redux functions should probably be in a different, production library,
+ * but they're included here for illustration.
+ */</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">combineReducers</span><span class="p">,</span> <span class="nx">createStore</span><span class="p">,</span> <span class="nx">Store</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">redux</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">StateType</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">typesafe-actions</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">myReducer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">path/to/my/reducer</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">rootReducer</span> <span class="o">=</span> <span class="nx">combineReducers</span><span class="p">({</span>
+  <span class="na">reducer</span><span class="p">:</span> <span class="nx">myReducer</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="k">export</span> <span class="kd">type</span> <span class="nx">RootState</span> <span class="o">=</span> <span class="nx">StateType</span><span class="o">&lt;</span><span class="k">typeof</span> <span class="nx">rootReducer</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">makeStore</span> <span class="o">=</span> <span class="p">(</span><span class="nx">initialState</span> <span class="o">=</span> <span class="p">{}):</span> <span class="nx">Store</span><span class="o">&lt;</span><span class="nx">RootState</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">createStore</span><span class="p">(</span><span class="nx">rootReducer</span><span class="p">,</span> <span class="nx">initialState</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// Test wrapper code.</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">MockedProvider</span><span class="p">,</span> <span class="nx">MockedResponse</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@apollo/react-testing</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Provider</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-redux</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Store</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">redux</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">makeStore</span><span class="p">,</span> <span class="p">{</span> <span class="nx">RootState</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./store</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kr">interface</span> <span class="nx">TestConfig</span> <span class="p">{</span>
+  <span class="nl">initialState</span><span class="p">?:</span> <span class="nb">Partial</span><span class="o">&lt;</span><span class="nx">RootState</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nl">store</span><span class="p">?:</span> <span class="nx">Store</span><span class="o">&lt;</span><span class="nx">RootState</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nl">apolloMocks</span><span class="p">?:</span> <span class="nx">MockedResponse</span><span class="p">[];</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">ReduxApolloWrapper</span> <span class="o">=</span> <span class="p">({</span>
+  <span class="nx">initialState</span> <span class="o">=</span> <span class="p">{},</span>
+  <span class="nx">store</span> <span class="o">=</span> <span class="nx">makeStore</span><span class="p">(</span><span class="nx">initialState</span><span class="p">),</span>
+  <span class="nx">apolloMocks</span> <span class="o">=</span> <span class="p">[],</span>
+<span class="p">}:</span> <span class="nx">TestConfig</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="nx">children</span> <span class="p">}:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">Provider</span> <span class="na">store</span><span class="p">=</span><span class="si">{</span><span class="nx">store</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nc">MockedProvider</span> <span class="na">mocks</span><span class="p">=</span><span class="si">{</span><span class="nx">apolloMocks</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">children</span><span class="si">}</span><span class="p">&lt;/</span><span class="nc">MockedProvider</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">Provider</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+</code></pre></div></div>
+
+<h2 id="test-example">Test example</h2>
+<p>This is an example of a test written using <a href="jestjs.io">Jest</a>.</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">gql</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">graphql-tag</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="nx">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">does what it should</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">mocks</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="na">request</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">query</span><span class="p">:</span> <span class="nx">gql</span><span class="s2">`&lt;your expected query here&gt;`</span><span class="p">,</span>
+        <span class="na">variables</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">myVariable</span><span class="p">:</span> <span class="dl">'</span><span class="s1">foo</span><span class="dl">'</span><span class="p">,</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="na">result</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+          <span class="c1">// Mock out the return response here. You can also have `result`</span>
+          <span class="c1">// return a function if you want to do more complicated things.</span>
+        <span class="p">},</span>
+      <span class="p">},</span>
+    <span class="p">},</span>
+  <span class="p">];</span>
+
+
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">getByText</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">render</span><span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">MyComponentWithApolloQuery</span>  <span class="p">/&gt;,</span>
+    <span class="p">{</span>
+      <span class="na">wrapper</span><span class="p">:</span> <span class="nx">ReduxApolloWrapper</span><span class="p">({</span> <span class="na">apolloMocks</span><span class="p">:</span> <span class="nx">MOCKS</span> <span class="p">}),</span>
+    <span class="p">}</span>
+  <span class="p">);</span>
+
+  <span class="nx">expect</span><span class="p">(</span><span class="nx">getByText</span><span class="p">(</span><span class="sr">/someSubstringRegex/</span><span class="p">)).</span><span class="nx">not</span><span class="p">.</span><span class="nx">toBeVisible</span><span class="p">();</span>
+
+  <span class="c1">// This test will implicitly fail here if Apollo is called, for example, with</span>
+  <span class="c1">// a variable value for `myVariable` other than `foo`.</span>
+<span class="p">});</span>
+
+
+
+</code></pre></div></div>
+
+<h2 id="errors-and-warnings">Errors and warnings</h2>
+
+<h3 id="client-not-in-context">Client not in context</h3>
+<p>For some reason, <code class="language-plaintext highlighter-rouge">MockedProvider</code> would not work properly for me in React
+Testing Library the way that was suggested by the documentation. I kept getting
+this error:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Invariant Violation: Could not find "client" in the context or passed in as an
+option. Wrap the root component in an &lt;ApolloProvider&gt;, or pass an ApolloClient
+instance in via options.
+</code></pre></div></div>
+
+<p>In the end, <a href="https://spectrum.chat/apollo/apollo-client/mockedprovider-doesnt-inject-client-in-context~a17546fa-d73c-4b4b-8237-c81680799ebb">this Spectrum
+thread</a>
+helped me to resolve the issue.</p>
+
+<h3 id="add-typename-warnings">Add typename warnings</h3>
+<p>I never really figured out how to solve these when I was using <a href="https://graphql-code-generator.com/">GraphQL
+codegen</a>, as the fragments that are
+generated don’t contain typenames. You’ll likely see warning below, for which
+I’ve currently not solved this issue (though there are some solutions <a href="https://github.com/apollographql/react-apollo/issues/1747">proposed here</a>).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>You're using fragments in your queries, but either don't have the addTypename:
+        true option set in Apollo Client, or you are trying to write a fragment to the store without the __typename.
+         Please turn on the addTypename option and include __typename when writing fragments so that Apollo Client
+         can accurately match fragments.
+</code></pre></div></div>
+
+		<a href="/blog/2019/11/16/apollo-mockedprovider-unit-test/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+
+      
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+
+<time datetime="2018-06-24T00:00:00+01:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/travel/'>travel</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2018/06/24/is-couchsurfing-safe-and-other-common-questions/" itemprop="url">Is Couchsurfing Safe? (and other common questions)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+
+          <p><a href="http://couchsurfing.com">Couchsurfing</a> is a site that connects travelers to local hosts in a city.
+As long as both the traveler and host agree, the traveler stays with the host free of charge. 
+Although the traveler stays for free, experienced couchsurfers don’t view the site as a way to find
+free lodging but instead as an opportunity to spend time with a local.</p>
+
+<p>I usually try to Couchsurf when I travel, though it’s not always possible depending on the popularity of the destination. At the time of writing, I’ve stayed with about ten hosts through my travels.</p>
+
+<p>This post is targeted towards people who are curious about using Couchsurfing as a guest but unsure
+what to expect from the experience.</p>
+
+
+		<a href="/blog/2018/06/24/is-couchsurfing-safe-and-other-common-questions/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+
+      
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+
+<time datetime="2018-06-22T00:00:00+01:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/travel/'>travel</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2018/06/22/transportation-from-dharamshala-airport-to-mcleod-ganj/" itemprop="url">Transportation from Dharamshala Airport to McLeod Ganj</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+
+          <p><em>Last updated: June 2018</em></p>
+
+<p>This post describes what to expect when going from the Dharamshala Airport to MacLeod Ganj,
+Dharamshala, India – the central tourist area of Dharamshala.</p>
+
+
+		<a href="/blog/2018/06/22/transportation-from-dharamshala-airport-to-mcleod-ganj/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+
+      
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+
+<time datetime="2018-06-21T00:00:00+01:00" data-updated="true" itemprop="datePublished"></time></div>
 		<div class="tags">
 
 
@@ -190,7 +975,7 @@ is a summary of my research that will hopefully help other travelers evaluate th
 
 
 
-<time datetime="2015-09-02T22:15:33+03:00" data-updated="true" itemprop="datePublished"></time></div>
+<time datetime="2015-09-02T20:15:33+01:00" data-updated="true" itemprop="datePublished"></time></div>
 		<div class="tags">
 
 
@@ -232,7 +1017,7 @@ show!).</p>
 
 
 
-<time datetime="2015-09-02T22:15:33+03:00" data-updated="true" itemprop="datePublished"></time></div>
+<time datetime="2015-09-02T20:15:33+01:00" data-updated="true" itemprop="datePublished"></time></div>
 		<div class="tags">
 
 
@@ -253,297 +1038,6 @@ show!).</p>
 
 
 		<a href="/blog/2015/09/02/dubrovnik-best-currency-exchange/" class="more-link">Read more</a>
-	</div>
-
-
-    </article>
-  
-
-      
-  
-    <article>
-      
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-
-<time datetime="2015-09-01T00:00:00+03:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/albania/'>albania</a>, <a class='category' href='/blog/categories/montenegro/'>montenegro</a>, <a class='category' href='/blog/categories/travel/'>travel</a>
-
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/09/01/tirana-kotor/" itemprop="url">Transportation from Tirana to Ulcinj / Budva / Kotor</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-
-          <p>This article describes directions from Tirana, Albania to Ulcinj / Budva / Kotor, Montenegro by bus,
-based on my travels in August 2015. It is possible
-to start early and arrive in Kotor by the afternoon, but be prepared to wake up early to ride four
-buses.</p>
-
-<p>I caught the
-first bus at 7:00 and arrived in Kotor around 14:00.</p>
-
-
-		<a href="/blog/2015/09/01/tirana-kotor/" class="more-link">Read more</a>
-	</div>
-
-
-    </article>
-  
-
-      
-  
-    <article>
-      
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-
-<time datetime="2015-08-31T00:00:00+03:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/albania/'>albania</a>, <a class='category' href='/blog/categories/travel/'>travel</a>
-
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/08/31/tirana-durres-schkoder-albania/" itemprop="url">Transportation from Tirana to Durres / Schkoder (Albania)</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-
-          <p>This article contains bus directions based on my travels in Albania in August 2015. 
-Durres is a coastal city around thirty minutes away, containing
-ferries to Italy and beaches.</p>
-
-<p>Schkoder is a historical city around 1.25 to 1.75 hours away,
-depending on traffic. It is a northern border city with bus transfers to Ulcinj, Montenegro.</p>
-
-
-		<a href="/blog/2015/08/31/tirana-durres-schkoder-albania/" class="more-link">Read more</a>
-	</div>
-
-
-    </article>
-  
-
-      
-  
-    <article>
-      
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-
-<time datetime="2015-08-30T00:00:00+03:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/travel/'>travel</a>
-
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/08/30/mt-dajt-tirana-albania/" itemprop="url">Transportation to Mount Dajti (Tirana, Albania)</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-
-          <p><a href="http://www.tripadvisor.com/Attraction_Review-g294446-d606455-Reviews-Mount_Dajti-Tirana.html">Mount
-Dajti</a> is a mountain near Tirana, the capital of Albania. It is a popular picnic
-and hiking spot. This article includes directions and information from Tirana
-city center to Mount Dajti.</p>
-
-
-		<a href="/blog/2015/08/30/mt-dajt-tirana-albania/" class="more-link">Read more</a>
-	</div>
-
-
-    </article>
-  
-
-      
-  
-    <article>
-      
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-
-<time datetime="2015-08-17T00:00:00+03:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/taiwan/'>taiwan</a>, <a class='category' href='/blog/categories/travel/'>travel</a>
-
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/08/17/meat-and-rice-zhaopaikaoroufan/" itemprop="url">Best Meat and Rice in Taipei: Barbecue Pork Rice 御狀元烤肉飯 (Taipei, Taiwan)</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-
-          <p>御狀元烤肉飯 (<em>yu zhuang yuan kao rou fan</em>) (“Emperor’s Best Barbecue Pork and Rice” – not sure if
-that’s the correct translation) is a meat and rice joint in Taipei near Taipei Main Station.</p>
-
-<p>This was my favorite place to eat in Taiwan. I worked near Taipei Main Station and would eat here
-three to four days a week – for lunch <em>and</em> dinner on some days. It’s extremely cheap and very
-tasty for meat and rice (and egg and vegetable) lovers.</p>
-
-
-		<a href="/blog/2015/08/17/meat-and-rice-zhaopaikaoroufan/" class="more-link">Read more</a>
-	</div>
-
-
-    </article>
-  
-
-      
-  
-    <article>
-      
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-
-<time datetime="2015-08-11T00:00:00+03:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/taiwan/'>taiwan</a>, <a class='category' href='/blog/categories/travel/'>travel</a>
-
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/08/11/yangmingshan/" itemprop="url">Yangmingshan Transportation 阳明山 (Taipei, Taiwan)</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-
-          <p>This is an English guide for transportation to <a href="http://en.wikipedia.org/wiki/Yangmingshan">Yangmingshan
-(阳明山)</a>, a national park north of Taipei, Taiwan. 
-Yangmingshan is a popular destination for locals and tourists, containing numerous hiking trails and
-hot springs.</p>
-
-
-		<a href="/blog/2015/08/11/yangmingshan/" class="more-link">Read more</a>
-	</div>
-
-
-    </article>
-  
-
-      
-  
-    <article>
-      
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-
-<time datetime="2015-07-10T00:00:00+03:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/taiwan/'>taiwan</a>, <a class='category' href='/blog/categories/travel/'>travel</a>
-
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/07/10/sun-moon-lake/" itemprop="url">English Guide to Sun Moon Lake 日月潭 (Taiwan)</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-
-          <p>This is a guide to transportation, food, activities, and lodging for a Sun Moon Lake trip, based on
-my own experiences. My friend and I traveled from Taipei to Sun Moon Lake in July 2015, staying one
-night by the lake.</p>
-
-
-		<a href="/blog/2015/07/10/sun-moon-lake/" class="more-link">Read more</a>
-	</div>
-
-
-    </article>
-  
-
-      
-  
-    <article>
-      
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-
-<time datetime="2015-05-03T00:00:00+03:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/projects/'>projects</a>
-
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/05/03/senior-thesis/" itemprop="url">Senior Thesis: Security Analysis of Java Web Applications Using String Constraint Analysis</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-
-          <p>I submitted my undergraduate thesis at the beginning of April, titled “Security Analysis of Java Web
-Applications Using String Constraint Analysis.” I was advised by Professor Stephen Chong.</p>
-
-
-		<a href="/blog/2015/05/03/senior-thesis/" class="more-link">Read more</a>
 	</div>
 
 

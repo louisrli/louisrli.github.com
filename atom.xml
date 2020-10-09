@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2020-07-09T14:10:08+03:00</updated>
+  <updated>2020-10-09T18:20:37+01:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -14,9 +14,257 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Typesafe Unit Testing of GraphQL Resolvers in TypeScript]]></title>
+    <link href="http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript/"/>
+    <updated>2020-10-09T00:00:00+01:00</updated>
+    <id>http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript</id>
+    <content type="html"><![CDATA[<p>This post gives a code example on how to unit test a GraphQL resolver in
+TypeScript. In order to make the testing typesafe, we use
+<a href="https://graphql-code-generator.com/">GraphQL Code Generator</a>.</p>
+
+<!-- more -->
+
+<h2 id="description">Description</h2>
+
+<p>Unit testing GraphQL resolvers in TypeScript can be quite tricky to get right
+with the correct typing. This posts illustrates some example code of setting up
+calls directly to the resolvers.</p>
+
+<p>The code below here works with <a href="https://graphql-code-generator.com/">GraphQL Code
+Generator</a> to generate types for your
+resolvers. This article does not cover how to set up GraphQL Code Generator; it
+assumes that you have a working setup with your resolvers.</p>
+
+<p>Instead of writing raw GraphQL queries (which can be seen in <a href="./2020-10-09-unit-testing-graphql-middleware-typescript.md">my post about
+testing
+middlewares</a>), we
+show a typesafe way to unit test GraphQL resolvers. Much of this code is based
+off what was written in <a href="https://github.com/dotansimha/graphql-code-generator/issues/1763">graphql-code-generator issue #1763</a> by <a href="https://github.com/kamilkisiela">kamilkisiela</a>.</p>
+
+<h2 id="code">Code</h2>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// You need to set up your resolvers using GraphQL Code Generator types. This</span>
+<span class="c1">// isn't in the scope of this article, so you'll have to check its</span>
+<span class="c1">// documentation.</span>
+
+<span class="c1">// You probably want to put these helpers in a common file such as testutils.ts</span>
+<span class="c1">// in order to use them between different test suites. You don't really need to</span>
+<span class="c1">// read the code below.</span>
+<span class="c1">//</span>
+<span class="c1">// The types below help us properly type mockedResolvers so we can write unit</span>
+<span class="c1">// tests that directly call resolvers from graphql-codegen. I took it from this</span>
+<span class="c1">// link below.</span>
+<span class="c1">// https://github.com/dotansimha/graphql-code-generator/issues/1763</span>
+<span class="kd">type</span> <span class="nx">MockResolverFn</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TArgs</span><span class="p">,</span> <span class="nx">TCtx</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="nx">parent</span><span class="p">?:</span> <span class="nx">TParent</span><span class="p">,</span>
+  <span class="nx">args</span><span class="p">?:</span> <span class="nx">TArgs</span><span class="p">,</span>
+  <span class="nx">context</span><span class="p">?:</span> <span class="nx">TCtx</span><span class="p">,</span>
+  <span class="nx">info</span><span class="p">?:</span> <span class="kr">any</span>
+<span class="p">)</span> <span class="o">=&gt;</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span> <span class="o">|</span> <span class="nx">TResult</span><span class="p">;</span>
+
+<span class="kd">type</span> <span class="nx">MockStitchingResolver</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TArgs</span><span class="p">,</span> <span class="nx">TCtx</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">fragment</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">resolve</span><span class="p">:</span> <span class="nx">MockResolverFn</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TArgs</span><span class="p">,</span> <span class="nx">TCtx</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">mockResolver</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TContext</span><span class="p">,</span> <span class="nx">TArgs</span><span class="o">&gt;</span><span class="p">(</span>
+  <span class="nx">resolver</span><span class="p">:</span> <span class="nx">Resolver</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TContext</span><span class="p">,</span> <span class="nx">TArgs</span><span class="o">&gt;</span>
+<span class="p">):</span> <span class="nx">MockResolverFn</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TArgs</span><span class="p">,</span> <span class="nx">TContext</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">mockResolver</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TContext</span><span class="p">,</span> <span class="nx">TArgs</span><span class="o">&gt;</span><span class="p">(</span>
+  <span class="nx">resolver</span><span class="p">:</span> <span class="nx">Resolver</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TContext</span><span class="p">,</span> <span class="nx">TArgs</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="nx">isStitching</span><span class="p">:</span> <span class="nx">boolean</span>
+<span class="p">):</span> <span class="nx">MockStitchingResolver</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TArgs</span><span class="p">,</span> <span class="nx">TContext</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">mockResolver</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TContext</span><span class="p">,</span> <span class="nx">TArgs</span><span class="o">&gt;</span><span class="p">(</span>
+  <span class="nx">resolver</span><span class="p">:</span> <span class="nx">Resolver</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TContext</span><span class="p">,</span> <span class="nx">TArgs</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="nx">useStitching</span><span class="p">?:</span> <span class="nx">boolean</span>
+<span class="p">):</span>
+  <span class="o">|</span> <span class="nx">MockResolverFn</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TArgs</span><span class="p">,</span> <span class="nx">TContext</span><span class="o">&gt;</span>
+  <span class="o">|</span> <span class="nx">MockStitchingResolver</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TArgs</span><span class="p">,</span> <span class="nx">TContext</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span>
+    <span class="nx">isStitching</span><span class="o">&lt;</span><span class="nx">StitchingResolver</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TContext</span><span class="p">,</span> <span class="nx">TArgs</span><span class="o">&gt;&gt;</span><span class="p">(</span>
+      <span class="nx">resolver</span><span class="p">,</span>
+      <span class="nx">useStitching</span> <span class="o">||</span> <span class="kc">false</span>
+    <span class="p">)</span>
+  <span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">fragment</span><span class="p">:</span> <span class="nx">resolver</span><span class="p">.</span><span class="nx">fragment</span><span class="p">,</span>
+      <span class="na">resolve</span><span class="p">:</span> <span class="p">(</span><span class="nx">parent</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">info</span><span class="p">)</span> <span class="o">=&gt;</span>
+        <span class="nx">resolver</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">parent</span><span class="o">!</span><span class="p">,</span> <span class="nx">args</span><span class="o">!</span><span class="p">,</span> <span class="nx">context</span><span class="o">!</span><span class="p">,</span> <span class="nx">info</span><span class="o">!</span><span class="p">),</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="p">(</span><span class="nx">parent</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">info</span><span class="p">)</span> <span class="o">=&gt;</span>
+    <span class="nx">resolver</span><span class="p">(</span><span class="nx">parent</span><span class="o">!</span><span class="p">,</span> <span class="nx">args</span><span class="o">!</span><span class="p">,</span> <span class="nx">context</span><span class="o">!</span><span class="p">,</span> <span class="nx">info</span><span class="o">!</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">isStitching</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">resolver</span><span class="p">:</span> <span class="kr">any</span><span class="p">,</span> <span class="nx">useStitching</span><span class="p">:</span> <span class="nx">boolean</span><span class="p">):</span> <span class="nx">resolver</span> <span class="k">is</span> <span class="nx">T</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">useStitching</span> <span class="o">===</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="cm">/**
+ * In this example, we have an object called `signup` that has the
+ * `MutationResolvers` type from graphql-codegen.
+ */</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">signup</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./signup</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="c1">// Set up the parent and context args to your resolvers as appropriate, either</span>
+<span class="c1">// at the top or on a test-by-test basis.</span>
+<span class="kd">const</span> <span class="nx">RESOLVER_PARENT</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">const</span> <span class="nx">MOCK_CONTEXT</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">cancel signup works</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">tests for an exception case</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">expectToThrow</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">mockResolver</span><span class="p">(</span><span class="nx">signup</span><span class="p">.</span><span class="nx">cancelSignup</span><span class="o">!</span><span class="p">)(</span>
+        <span class="nx">RESOLVER_PARENT</span><span class="p">,</span>
+        <span class="p">{</span>
+          <span class="na">reason</span><span class="p">:</span> <span class="dl">'</span><span class="s1">foo</span><span class="dl">'</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="nx">MOCK_CONTEXT</span>
+      <span class="p">);</span>
+    <span class="p">};</span>
+    <span class="nx">expect</span><span class="p">.</span><span class="nx">assertions</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">expectToThrow</span><span class="p">().</span><span class="k">catch</span><span class="p">((</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">e</span><span class="p">).</span><span class="nx">toBeDefined</span><span class="p">();</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+
+  <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">tests the return value of the resolver</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// You can also set up other mocks as needed, then assert that they were</span>
+    <span class="c1">// called later on.</span>
+    <span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">mockResolver</span><span class="p">(</span><span class="nx">signup</span><span class="p">.</span><span class="nx">cancelSignup</span><span class="o">!</span><span class="p">)(</span>
+      <span class="nx">RESOLVER_PARENT</span><span class="p">,</span>
+      <span class="p">{</span>
+        <span class="na">reason</span><span class="p">:</span> <span class="dl">'</span><span class="s1">foo</span><span class="dl">'</span><span class="p">,</span>
+      <span class="p">},</span>
+      <span class="nx">MOCK_CONTEXT</span>
+    <span class="p">);</span>
+
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">someFieldOnReturnResult</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="dl">"</span><span class="s2">some test assertion</span><span class="dl">"</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+</code></pre></div></div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unit Testing of GraphQL Middleware in TypeScript]]></title>
+    <link href="http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-middleware-typescript/"/>
+    <updated>2020-10-09T00:00:00+01:00</updated>
+    <id>http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-middleware-typescript</id>
+    <content type="html"><![CDATA[<p>This post gives a code example on how to unit test a GraphQL middleware in
+TypeScript using the Express GraphQL middleware resolver
+<a href="https://github.com/maticzav/graphql-shield">graphql-shield</a>. It
+should generalize to other middlewares.</p>
+
+<!-- more -->
+
+<h2 id="description">Description</h2>
+
+<p>In this test, we essentially set up a new set of resolvers from scratch using
+the schema by loading all GraphQL schema files from a directory. By using
+<code class="language-plaintext highlighter-rouge">makeExecutableSchema</code> to create a schema and
+<a href="https://www.apollographql.com/docs/apollo-server/api/graphql-tools/#addmockfunctionstoschemaoptions"><code class="language-plaintext highlighter-rouge">addMockFunctionsToSchema</code></a>,
+we mock out the endpoints.</p>
+
+<p>My application is using <a href="https://github.com/prisma-labs/graphql-yoga/">graphql-yoga</a>, although this is actually irrelevant to the test environment (you’ll notice no references to it here).</p>
+
+<p>In this example, I use an external Express GraphQL middleware resolver:
+<a href="https://github.com/maticzav/graphql-shield">graphql-shield</a>, a permissions
+layer for GraphQL.</p>
+
+<h2 id="drawbacks">Drawbacks</h2>
+<p>A huge drawback of this approach is that we need to type out GraphQL queries as
+strings without having them typechecked. I didn’t find a good way to have
+typechecked queries here, although it may be possible somehow with <a href="https://graphql-code-generator.com/">GraphQL Code
+Generator</a> (if you find a way, please
+comment below).</p>
+
+<p>Note that it’s possible to individually unit test any rules that you
+use in the permissions as well (independent of GraphQL).</p>
+
+<h2 id="code">Code</h2>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * An example of testing a GraphQL middleware. In this test, the resolvers
+ * themselves have no actual implementation.
+ */</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">makeExecutableSchema</span><span class="p">,</span> <span class="nx">addMockFunctionsToSchema</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">graphql-tools</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">graphql</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">graphql</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">applyMiddleware</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">graphql-middleware</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">mergeTypeDefs</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@graphql-tools/merge</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">loadFilesSync</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@graphql-tools/load-files</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">permissions</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./permissions</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">SCHEMA_DIRECTORY</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">./src/schema</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">let</span> <span class="nx">schemaWithMiddleware</span><span class="p">:</span> <span class="nx">ReturnType</span><span class="o">&lt;</span><span class="k">typeof</span> <span class="nx">applyMiddleware</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="nx">beforeAll</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">typesArray</span> <span class="o">=</span> <span class="nx">loadFilesSync</span><span class="p">(</span><span class="nx">SCHEMA_DIRECTORY</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">extensions</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">graphql</span><span class="dl">'</span><span class="p">],</span>
+  <span class="p">});</span>
+  <span class="kd">const</span> <span class="nx">typeDefs</span> <span class="o">=</span> <span class="nx">mergeTypeDefs</span><span class="p">(</span><span class="nx">typesArray</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">schema</span> <span class="o">=</span> <span class="nx">makeExecutableSchema</span><span class="p">({</span> <span class="nx">typeDefs</span> <span class="p">});</span>
+  <span class="nx">addMockFunctionsToSchema</span><span class="p">({</span> <span class="nx">schema</span> <span class="p">});</span>
+  <span class="c1">// `permissions` here is the call shield() in GraphQL shield. Its type should</span>
+  <span class="c1">// be compatible with applyMiddleware for graphql-middleware.</span>
+  <span class="nx">schemaWithMiddleware</span> <span class="o">=</span> <span class="nx">applyMiddleware</span><span class="p">(</span><span class="nx">schema</span><span class="p">,</span> <span class="nx">permissions</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="kd">const</span> <span class="nx">Queries</span><span class="p">:</span> <span class="nb">Record</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">,</span> <span class="kr">string</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="c1">// An example of a GraphQL query you can write here. As mentioned in the</span>
+  <span class="c1">// article, the inability to get static typing here is unideal.</span>
+  <span class="na">INITIALIZE_CARD_SESSION</span><span class="p">:</span> <span class="s2">`
+    mutation {
+      initializeCardSession(selector: { scheduleDayId: "foo" }) {
+        session {
+          id
+        }
+      }
+    }
+    `</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">test suite</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">tests a single aspect</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Set up mocks etc here for the implementation of the middleware if needed.</span>
+    <span class="kd">const</span> <span class="nx">mockContext</span> <span class="o">=</span> <span class="p">{};</span>
+
+    <span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">graphql</span><span class="p">(</span>
+      <span class="nx">schemaWithMiddleware</span><span class="p">,</span>
+      <span class="c1">// You can inline the query here or declare it at the top of the test if</span>
+      <span class="c1">// you wish.</span>
+      <span class="nx">Queries</span><span class="p">.</span><span class="nx">INITIALIZE_CARD_SESSION</span><span class="p">,</span>
+      <span class="kc">null</span><span class="p">,</span>
+      <span class="nx">mockContext</span><span class="p">,</span>
+    <span class="p">);</span>
+
+    <span class="c1">// You can access the result of the resolver like so.</span>
+    <span class="c1">// Note that we are simply testing the middleware here; the actual resolver</span>
+    <span class="c1">// has no implementation since we used addMockFunctionsToSchema().</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
+
+    <span class="c1">// In this example test, we are testing our permissions middleware in</span>
+    <span class="c1">// properly returning an error.</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">errors</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">errors</span><span class="o">!</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">errors</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">!</span><span class="p">.</span><span class="nx">message</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span>
+      <span class="nx">expect</span><span class="p">.</span><span class="nx">stringContaining</span><span class="p">(</span><span class="dl">'</span><span class="s1">You need to be an admin</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+</code></pre></div></div>
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Istanbul Frontend Bootcamp Retrospective]]></title>
     <link href="http://louisrli.github.io/blog/2020/07/02/teaching-thoughts/"/>
-    <updated>2020-07-02T00:00:00+03:00</updated>
+    <updated>2020-07-02T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2020/07/02/teaching-thoughts</id>
     <content type="html"><![CDATA[<p>This post is a compendium of my thoughts as an instructor for a
 non-profit coding bootcamp teaching frontend web development (JavaScript and
@@ -503,7 +751,7 @@ landing a job on a weak currency or a strong one.</p>
   <entry>
     <title type="html"><![CDATA[Traveling from Istanbul to Şile by Bus]]></title>
     <link href="http://louisrli.github.io/blog/2020/07/01/istanbul-to-sile/"/>
-    <updated>2020-07-01T00:00:00+03:00</updated>
+    <updated>2020-07-01T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2020/07/01/istanbul-to-sile</id>
     <content type="html"><![CDATA[<p>The intention of this post is to document how to travel from Istanbul to Şile by
 bus. At the time of writing, there do not appear to be any English resources for
@@ -553,7 +801,7 @@ how.</p>
   <entry>
     <title type="html"><![CDATA[Using MathJax with React]]></title>
     <link href="http://louisrli.github.io/blog/2020/06/04/react-mathjax/"/>
-    <updated>2020-06-04T00:00:00+03:00</updated>
+    <updated>2020-06-04T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2020/06/04/react-mathjax</id>
     <content type="html"><![CDATA[<p>This post describes how to use React (Typescript) and MathJax.</p>
 
@@ -588,7 +836,7 @@ dynamically load scripts in React</a>.</p>
 
 <span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="kd">const</span> <span class="nx">getMathJax</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nb">window</span> <span class="k">as</span> <span class="nx">any</span><span class="p">).</span><span class="nx">MathJax</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">getMathJax</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nb">window</span> <span class="k">as</span> <span class="kr">any</span><span class="p">).</span><span class="nx">MathJax</span><span class="p">;</span>
 
 <span class="kd">const</span> <span class="nx">typeset</span> <span class="o">=</span> <span class="p">(</span><span class="nx">selector</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">HTMLElement</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="kd">const</span> <span class="nx">mathJax</span> <span class="o">=</span> <span class="nx">getMathJax</span><span class="p">();</span>
@@ -601,15 +849,15 @@ dynamically load scripts in React</a>.</p>
       <span class="nx">selector</span><span class="p">();</span>
       <span class="k">return</span> <span class="nx">mathJax</span><span class="p">.</span><span class="nx">typesetPromise</span><span class="p">();</span>
     <span class="p">})</span>
-    <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="na">err</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">`Typeset failed: </span><span class="p">${</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span><span class="s2">`</span><span class="p">));</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="na">err</span><span class="p">:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">`Typeset failed: </span><span class="p">${</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span><span class="s2">`</span><span class="p">));</span>
   <span class="k">return</span> <span class="nx">mathJax</span><span class="p">.</span><span class="nx">startup</span><span class="p">.</span><span class="nx">promise</span><span class="p">;</span>
 <span class="p">};</span>
 
 <span class="kr">interface</span> <span class="nx">LatexProps</span> <span class="p">{</span>
-  <span class="na">rawLatex</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">rawLatex</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kd">const</span> <span class="na">Latex</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">FC</span><span class="o">&lt;</span><span class="nx">LatexProps</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">rawLatex</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="kd">const</span> <span class="nx">Latex</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">FC</span><span class="o">&lt;</span><span class="nx">LatexProps</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">rawLatex</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="kd">const</span> <span class="nx">ref</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createRef</span><span class="o">&lt;</span><span class="nx">HTMLSpanElement</span><span class="o">&gt;</span><span class="p">();</span>
   <span class="nx">React</span><span class="p">.</span><span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="nx">typeset</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">ref</span><span class="p">.</span><span class="nx">current</span><span class="o">!</span><span class="p">);</span>
@@ -626,7 +874,7 @@ dynamically load scripts in React</a>.</p>
   <entry>
     <title type="html"><![CDATA[Dynamic Script Loading in React with Hooks]]></title>
     <link href="http://louisrli.github.io/blog/2020/06/04/react-dynamic-script-hook/"/>
-    <updated>2020-06-04T00:00:00+03:00</updated>
+    <updated>2020-06-04T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2020/06/04/react-dynamic-script-hook</id>
     <content type="html"><![CDATA[<p>This post describes how to dynamically load a script by adding a script tag to
 your document using React Hooks.</p>
@@ -650,8 +898,8 @@ provided, then it removes the script from the page when the component unmounts
 <span class="c1">// MathJax is not, which is one of the scripts I was using this for) or</span>
 <span class="c1">// if you need the callback to happen again.</span>
 <span class="kd">const</span> <span class="nx">useScript</span> <span class="o">=</span> <span class="p">(</span>
-  <span class="nx">scriptUrl</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
-  <span class="nx">scriptId</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+  <span class="nx">scriptUrl</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span>
+  <span class="nx">scriptId</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span>
   <span class="nx">callback</span><span class="p">?:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">void</span>
 <span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="nx">React</span><span class="p">.</span><span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -691,7 +939,7 @@ provided, then it removes the script from the page when the component unmounts
   <entry>
     <title type="html"><![CDATA[Fiilimsi: Turkish Verbal Nouns, Adjectives, and Adverbs]]></title>
     <link href="http://louisrli.github.io/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives/"/>
-    <updated>2020-04-20T00:00:00+03:00</updated>
+    <updated>2020-04-20T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives</id>
     <content type="html"><![CDATA[<style>
 blockquote {
@@ -1239,7 +1487,7 @@ language resource for these verbal adverbs.</p>
   <entry>
     <title type="html"><![CDATA[Sim Card Price in Turkey in February 2020]]></title>
     <link href="http://louisrli.github.io/blog/2020/02/21/sim-card/"/>
-    <updated>2020-02-21T00:00:00+03:00</updated>
+    <updated>2020-02-21T00:00:00+00:00</updated>
     <id>http://louisrli.github.io/blog/2020/02/21/sim-card</id>
     <content type="html"><![CDATA[<p>Getting a SIM card in Turkey for short to medium term stays in Turkey is
 straightforward. In this article, I describe my experience with prices in
@@ -1281,7 +1529,7 @@ registering everything.</p>
   <entry>
     <title type="html"><![CDATA[Sahibinden: The Craigslist of Turkey]]></title>
     <link href="http://louisrli.github.io/blog/2020/02/21/sahibinden/"/>
-    <updated>2020-02-21T00:00:00+03:00</updated>
+    <updated>2020-02-21T00:00:00+00:00</updated>
     <id>http://louisrli.github.io/blog/2020/02/21/sahibinden</id>
     <content type="html"><![CDATA[<p><strong>Sahibinden</strong> (literally, “owners”) is the Craigslist equivalent of Turkey.</p>
 
@@ -1341,7 +1589,7 @@ actually looks a lot worse in person.</li>
   <entry>
     <title type="html"><![CDATA[The Best ATM (No-Fee) in Istanbul, Turkey]]></title>
     <link href="http://louisrli.github.io/blog/2020/02/21/best-atm-in-istanbul-turkey/"/>
-    <updated>2020-02-21T00:00:00+03:00</updated>
+    <updated>2020-02-21T00:00:00+00:00</updated>
     <id>http://louisrli.github.io/blog/2020/02/21/best-atm-in-istanbul-turkey</id>
     <content type="html"><![CDATA[<p>The best ATM in Istanbul, Turkey is a coveted title. There’s a lot of banks that
 accept international cards, but some of them will try to extract more money from
@@ -1453,9 +1701,569 @@ link</a>.</p>
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[Staging and production cookies in Next.js]]></title>
+    <link href="http://louisrli.github.io/blog/2019/11/20/staging-and-production-cookies-in-next-js/"/>
+    <updated>2019-11-20T00:00:00+00:00</updated>
+    <id>http://louisrli.github.io/blog/2019/11/20/staging-and-production-cookies-in-next-js</id>
+    <content type="html"><![CDATA[<p>This article describes how add authentication to your
+<a href="https://nextjs.org">Next.js</a> app using cookies and JWT. In this example, we
+use cookies to authenticate against a GraphQL Yoga backend. Additionally, we
+pass parameters based on the deployment stage (local, staging ,or production) of
+our app.</p>
+
+<!--more-->
+
+<h2 id="deploy-stage-environmental-variable">Deploy stage environmental variable</h2>
+<p>In this example, we are using <a href="TODO">Apex Up</a>, which automatically generates an
+environmental variable <code class="language-plaintext highlighter-rouge">UP_STAGE</code>. Depending on your deployment process, you can
+pass in the stage in a similar way.</p>
+
+<p>We also pass in the following environmental variables:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">BACKEND_URI_STAGING</code>: The expected domain of the GraphQL backend in staging</li>
+  <li><code class="language-plaintext highlighter-rouge">BACKEND_URI_PROD</code>: The expected domain of the GraphQL backend in prod</li>
+</ul>
+
+<p>In <code class="language-plaintext highlighter-rouge">next.config.js</code> in the root directory of your Next application:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Set up environmental variables for deployment. </span>
+<span class="c1">// UP_STAGE comes with UP (https://github.com/apex/up-examples/tree/master/pro/env-static)</span>
+<span class="kd">let</span> <span class="nx">backendUri</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">http://localhost:4000</span><span class="dl">'</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">cookieDomain</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">localhost</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">staging</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">backendUri</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">BACKEND_URI_STAGING</span><span class="p">;</span>
+  <span class="c1">// Using a domain like foo.com includes all subdomains of foo.com.</span>
+  <span class="nx">cookieDomain</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">stage.foo.com</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">production</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">backendUri</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">BACKEND_URI_PROD</span><span class="p">;</span>
+  <span class="nx">cookieDomain</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">stage.foo.com</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">backendUri</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">'</span><span class="s1">No backend URI found for : </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Using backend URI: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">backendUri</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">withCss</span><span class="p">({</span>
+  <span class="c1">// target: 'serverless',</span>
+  <span class="na">env</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">upStage</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span><span class="p">,</span>
+    <span class="nx">backendUri</span><span class="p">,</span>
+    <span class="nx">cookieDomain</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">})</span>
+</code></pre></div></div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Next.js Typescript Integration with Ant Design (antd)]]></title>
+    <link href="http://louisrli.github.io/blog/2019/11/17/next-js-with-antd/"/>
+    <updated>2019-11-17T00:00:00+00:00</updated>
+    <id>http://louisrli.github.io/blog/2019/11/17/next-js-with-antd</id>
+    <content type="html"><![CDATA[<p>This article describes how to add the <a href="antd.design">Antd</a> library to
+<a href="https://nextjs.org">Next.js</a>.</p>
+
+<p>This is based off the
+<a href="https://github.com/zeit/next.js/tree/canary/examples/with-ant-design">with-ant-design</a>
+example in Next.js.</p>
+
+<!--more-->
+
+<h2 id="next-configuration">Next configuration</h2>
+<p>In <code class="language-plaintext highlighter-rouge">next.config.js</code> in the root directory of your Next application, add the
+following:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/** See https://github.com/zeit/next.js/tree/canary/examples/with-ant-design */</span>
+<span class="kd">const</span> <span class="nx">withCss</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">@zeit/next-css</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">withCss</span><span class="p">({</span>
+    <span class="na">webpack</span><span class="p">:</span> <span class="p">(</span><span class="nx">config</span><span class="p">,</span> <span class="p">{</span> <span class="nx">isServer</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">isServer</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">antStyles</span> <span class="o">=</span> <span class="sr">/antd</span><span class="se">\/</span><span class="sr">.*</span><span class="se">?\/</span><span class="sr">style</span><span class="se">\/</span><span class="sr">css.*</span><span class="se">?</span><span class="sr">/</span>
+      <span class="kd">const</span> <span class="nx">origExternals</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">config</span><span class="p">.</span><span class="nx">externals</span><span class="p">]</span>
+      <span class="nx">config</span><span class="p">.</span><span class="nx">externals</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">request</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">antStyles</span><span class="p">))</span> <span class="k">return</span> <span class="nx">callback</span><span class="p">()</span>
+          <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">origExternals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">function</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">origExternals</span><span class="p">[</span><span class="mi">0</span><span class="p">](</span><span class="nx">context</span><span class="p">,</span> <span class="nx">request</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">callback</span><span class="p">()</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">...(</span><span class="k">typeof</span> <span class="nx">origExternals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">function</span><span class="dl">'</span> <span class="p">?</span> <span class="p">[]</span> <span class="p">:</span> <span class="nx">origExternals</span><span class="p">),</span>
+      <span class="p">]</span>
+
+      <span class="nx">config</span><span class="p">.</span><span class="nx">module</span><span class="p">.</span><span class="nx">rules</span><span class="p">.</span><span class="nx">unshift</span><span class="p">({</span>
+        <span class="na">test</span><span class="p">:</span> <span class="nx">antStyles</span><span class="p">,</span>
+        <span class="na">use</span><span class="p">:</span> <span class="dl">'</span><span class="s1">null-loader</span><span class="dl">'</span><span class="p">,</span>
+      <span class="p">})</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">config</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+</code></pre></div></div>
+
+<p>In <code class="language-plaintext highlighter-rouge">babel.config.js</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">api</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">presets</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">next/babel</span><span class="dl">'</span><span class="p">],</span>
+    <span class="na">plugins</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">[</span>
+        <span class="dl">"</span><span class="s2">import</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+          <span class="na">libraryName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">antd</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">style</span><span class="p">:</span> <span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span>
+        <span class="p">}</span>
+      <span class="p">]],</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+
+</code></pre></div></div>
+
+<h2 id="example-usage">Example usage</h2>
+
+<p>We are able to import from both <code class="language-plaintext highlighter-rouge">antd</code> and <code class="language-plaintext highlighter-rouge">antd/lib/&lt;component&gt;</code>.</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+ * An example that imports top-level components from 'antd' and also imports
+ * from files under 'antd/lib'.
+ */</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">TreeSelect</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">antd</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">TreeNode</span><span class="p">,</span> <span class="nx">TreeSelectProps</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">antd/lib/tree-select</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">TreeSelectView</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">FC</span><span class="o">&lt;</span><span class="nx">TreeSelectProps</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">[]</span><span class="o">&gt;&gt;</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="nx">ref</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">TreeSelect</span>
+      <span class="si">{</span><span class="p">...</span><span class="nx">props</span><span class="si">}</span>
+      <span class="na">treeCheckable</span>
+      <span class="na">treeData</span><span class="p">=</span><span class="si">{</span><span class="p">{}</span><span class="si">}</span>
+      <span class="na">treeDefaultExpandAll</span>
+      <span class="na">style</span><span class="p">=</span><span class="si">{</span><span class="p">{</span> <span class="na">width</span><span class="p">:</span> <span class="mi">300</span> <span class="p">}</span><span class="si">}</span>
+      <span class="na">showCheckedStrategy</span><span class="p">=</span><span class="s">"SHOW_PARENT"</span>
+      <span class="na">ref</span><span class="p">=</span><span class="si">{</span><span class="nx">ref</span><span class="si">}</span>
+    <span class="p">/&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">React</span><span class="p">.</span><span class="nx">forwardRef</span><span class="p">(</span><span class="nx">TreeSelectView</span><span class="p">);</span>
+
+</code></pre></div></div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[HOC Authentication Redirects with Next.js, GraphQL, and Typescript]]></title>
+    <link href="http://louisrli.github.io/blog/2019/11/17/auth-redirect-next-js/"/>
+    <updated>2019-11-17T00:00:00+00:00</updated>
+    <id>http://louisrli.github.io/blog/2019/11/17/auth-redirect-next-js</id>
+    <content type="html"><![CDATA[<p>This article describes how to redirect the user in
+<a href="https://nextjs.org">Next.js</a> based on whether the user is authenticated
+(logged in) using a properly typed Typescript React <a href="https://reactjs.org/docs/higher-order-components.html">higher-order
+component</a> (HOC).</p>
+
+<p>This can extend to arbitrary conditions on the queried user, such as redirecting
+if the user does not have an active subscription.</p>
+
+<!--more-->
+
+<p>The following Typescript module implements a general HOC that redirects based on
+authentication state by querying the user from the GraphQL backend. It then
+includes two examples:</p>
+<ul>
+  <li>If the user is not logged in, redirect to <code class="language-plaintext highlighter-rouge">/login</code></li>
+  <li>If the user is logged in, redirect to <code class="language-plaintext highlighter-rouge">/dashboard</code></li>
+</ul>
+
+<h2 id="example-hoc-usage">Example HOC Usage</h2>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">NextPage</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">next</span><span class="dl">'</span><span class="p">;</span>
+<span class="c1">// CHANGE THIS: Export to the appropriate path.</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">withLoginRedirect</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../lib/auth</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">RequiresLoginPage</span><span class="p">:</span> <span class="nx">NextPage</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>You're logged in<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;;</span>
+<span class="p">};</span>
+
+<span class="c1">// If the user isn't logged in, this will redirect to `/login`.</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">withLoginRedirect</span><span class="p">(</span><span class="nx">RequiresLoginPage</span><span class="p">);</span>
+
+</code></pre></div></div>
+
+<h2 id="implementation">Implementation</h2>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">NextComponentType</span><span class="p">,</span> <span class="nx">NextPageContext</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">next</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">Router</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">next/router</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">gql</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">graphql-tag</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="cm">/**
+ * YOU DEFINE THESE.
+ *
+ * These variables should be set by you to query for the user and the types
+ * appropriately. I recommend using GraphQL codegen
+ * (https://graphql-code-generator.com/) to generate types from your schema and
+ * queries from other files so that they can be used like so:
+ *
+ * import { User } from '../generated/apollo-client-types';
+ * import {
+ *   LoggedInUserDocument,
+ * } from '../generated/apollo-client-types';
+ *
+ */</span>
+<span class="kr">interface</span> <span class="nx">User</span> <span class="p">{}</span>
+<span class="kd">const</span> <span class="nx">LoggedInUserDocument</span> <span class="o">=</span> <span class="nx">gql</span><span class="s2">`&lt;YOUR QUERY FOR USER OBJECT&gt;`</span><span class="p">;</span>
+
+<span class="cm">/**
+ * A function that queries for the logged in user before rendering the page.
+ * Should be called in getInitialProps. It redirects as desired.
+ *
+ * It allows for redirecting both if the user is not logged in (e.g., redirect
+ * to login page) or redirecting if the user is logged in.
+ *
+ * If not logged in, redirects to the desired route.
+ *
+ * The return value indicates whether logic should continue or not after the
+ * call.
+ */</span>
+<span class="kd">const</span> <span class="nx">redirectBasedOnLogin</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span>
+  <span class="nx">ctx</span><span class="p">:</span> <span class="nx">NextPageContext</span><span class="p">,</span>
+  <span class="nx">route</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span>
+  <span class="nx">redirectIfAuthed</span><span class="p">:</span> <span class="nx">boolean</span>
+<span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">boolean</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">isLoggedIn</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">apolloClient</span>
+    <span class="p">.</span><span class="nx">query</span><span class="p">({</span>
+      <span class="na">query</span><span class="p">:</span> <span class="nx">LoggedInUserDocument</span><span class="p">,</span>
+      <span class="c1">// Prevent caching issues when logging in/out without refresh.</span>
+      <span class="na">fetchPolicy</span><span class="p">:</span> <span class="dl">'</span><span class="s1">network-only</span><span class="dl">'</span><span class="p">,</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(({</span> <span class="nx">data</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">data</span> <span class="o">||</span> <span class="o">!</span><span class="nx">data</span><span class="p">.</span><span class="nx">loggedInUser</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nb">Boolean</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">loggedInUser</span><span class="p">);</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">});</span>
+
+  <span class="kd">const</span> <span class="nx">shouldRedirect</span> <span class="o">=</span> <span class="nx">redirectIfAuthed</span> <span class="p">?</span> <span class="nx">isLoggedIn</span> <span class="p">:</span> <span class="o">!</span><span class="nx">isLoggedIn</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">shouldRedirect</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// https://github.com/zeit/next.js/wiki/Redirecting-in-%60getInitialProps%60</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">ctx</span><span class="p">.</span><span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">302</span><span class="p">,</span> <span class="p">{</span>
+        <span class="na">Location</span><span class="p">:</span> <span class="nx">route</span><span class="p">,</span>
+      <span class="p">});</span>
+      <span class="nx">ctx</span><span class="p">.</span><span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">Router</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">route</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="cm">/**
+ * General HOC that allows redirection based on authentication. We should not
+ * expose this: instead export specific routes and redirect combinations.
+ */</span>
+<span class="kd">const</span> <span class="nx">withAuthRedirect</span> <span class="o">=</span> <span class="p">(</span><span class="nx">route</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">redirectIfAuthed</span><span class="p">:</span> <span class="nx">boolean</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">&lt;</span><span class="nx">P</span><span class="p">,</span><span class="o">&gt;</span><span class="p">(</span>
+  <span class="nx">Page</span><span class="p">:</span> <span class="nx">NextComponentType</span><span class="o">&lt;</span><span class="nx">NextPageContext</span><span class="p">,</span> <span class="p">{},</span> <span class="nx">P</span><span class="o">&gt;</span>
+<span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kd">class</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="o">&lt;</span><span class="nx">P</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">static</span> <span class="k">async</span> <span class="nx">getInitialProps</span><span class="p">(</span><span class="na">ctx</span><span class="p">:</span> <span class="nx">NextPageContext</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">shouldContinue</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">redirectBasedOnLogin</span><span class="p">(</span>
+        <span class="nx">ctx</span><span class="p">,</span>
+        <span class="nx">route</span><span class="p">,</span>
+        <span class="nx">redirectIfAuthed</span>
+      <span class="p">);</span>
+      <span class="c1">// Only continue if we're logged in. Otherwise, it might cause an</span>
+      <span class="c1">// unnecessary call to a downstream getInitialProps that requires</span>
+      <span class="c1">// authentication.</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">shouldContinue</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{};</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">Page</span><span class="p">.</span><span class="nx">getInitialProps</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">Page</span><span class="p">.</span><span class="nx">getInitialProps</span><span class="p">(</span><span class="nx">ctx</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">&lt;</span><span class="nc">Page</span> <span class="si">{</span><span class="p">...</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="si">}</span> <span class="p">/&gt;;</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="cm">/**
+ * HOC that redirects to login page if the user is not logged in.
+ */</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">withLoginRedirect</span> <span class="o">=</span> <span class="nx">withAuthRedirect</span><span class="p">(</span><span class="dl">'</span><span class="s1">/login</span><span class="dl">'</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+
+<span class="cm">/**
+ * HOC that redirects to the dashboard if the user is logged in.
+ */</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">withDashboardRedirect</span> <span class="o">=</span> <span class="nx">withAuthRedirect</span><span class="p">(</span><span class="dl">'</span><span class="s1">/dashboard</span><span class="dl">'</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+</code></pre></div></div>
+
+<p>Found this helpful or have suggestions? Leave them in the comments below.</p>
+
+<p>Typing Next.js <code class="language-plaintext highlighter-rouge">getInitialProps</code> HOCs is tricky, and I had trouble finding an
+example online.</p>
+
+<h2 id="versions">Versions</h2>
+<p>At the time of writing, this was using Next 9.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unit testing React Google Analytics (react-ga) with Jest]]></title>
+    <link href="http://louisrli.github.io/blog/2019/11/16/jest-with-react-ga/"/>
+    <updated>2019-11-16T00:00:00+00:00</updated>
+    <id>http://louisrli.github.io/blog/2019/11/16/jest-with-react-ga</id>
+    <content type="html"><![CDATA[<p>This article describes how to unit test a React component using
+<a href="https://github.com/react-ga/react-ga/">react-ga</a>, including globally setting up
+the Jest config to initialize test mode each time.</p>
+
+<!--more-->
+
+<h2 id="initializing-reactga">Initializing ReactGA</h2>
+<p>In your production code, you will initialize react-ga once: most likely whenever
+your page layout is mounted.</p>
+
+<p>In unit tests, you will receive a warning if ReactGA is not initialized:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ReactGA.initialize must be called first or GoogleAnalytics should be loaded
+manually
+</code></pre></div></div>
+
+<p>Instead of initializing manually in each test, we can initialize for all Jest
+tests globally for our frontend by</p>
+
+<p>In <code class="language-plaintext highlighter-rouge">jest.config.js</code> in the root level (note that <code class="language-plaintext highlighter-rouge">&lt;rootDir&gt;</code> is intentional;
+it’s a keyword in the Jest config):</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">setupFiles</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">&lt;rootDir&gt;/lib/testutil/setup-jest.js</span><span class="dl">'</span><span class="p">],</span>
+<span class="p">};</span>
+
+</code></pre></div></div>
+
+<p>Next, we have <code class="language-plaintext highlighter-rouge">lib/setup-jest.js</code> (or whatever path you prefer). Per the
+<a href="https://jestjs.io/docs/en/configuration.html#setupfiles-array">setupFiles
+documentation</a>,
+this should run exactly once before each test file:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Run once before every jest test file.
+ *
+ * Suppresses warnings related to ReactGA.
+ */</span>
+<span class="k">import</span> <span class="nx">ReactGA</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-ga</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="nx">ReactGA</span><span class="p">.</span><span class="nx">initialize</span><span class="p">(</span><span class="dl">'</span><span class="s1">dummy</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span> <span class="na">testMode</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
+
+
+</code></pre></div></div>
+
+<h2 id="test-example">Test example</h2>
+<p>Note that we reset the apiCalls before each test still (perhaps there is a clean
+way to get a global <code class="language-plaintext highlighter-rouge">beforeEach</code>, but I didn’t see one that didn’t require some
+level of hackery).</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * An example of a Jest test in Typescript.
+ */</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">fireEvent</span><span class="p">,</span> <span class="nx">render</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@testing-library/react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactGA</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-ga</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">analytics</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">ReactGA</span><span class="p">.</span><span class="nx">testModeAPI</span><span class="p">.</span><span class="nx">resetCalls</span><span class="p">();</span>
+  <span class="p">});</span>
+
+  <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">correctly sends timing analytics</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">getByText</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">render</span><span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">MyView</span> <span class="o">/&gt;</span>
+    <span class="p">);</span>
+
+    <span class="nx">fireEvent</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="nx">getByText</span><span class="p">(</span><span class="sr">/somebutton/</span><span class="p">));</span>
+
+    <span class="c1">// An example of testing the timing call.</span>
+    <span class="kd">const</span> <span class="na">timings</span><span class="p">:</span> <span class="nx">number</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">const</span> <span class="nx">call</span> <span class="k">of</span> <span class="nx">ReactGA</span><span class="p">.</span><span class="nx">testModeAPI</span><span class="p">.</span><span class="nx">calls</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">call</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">send</span><span class="dl">'</span> <span class="o">&amp;&amp;</span> <span class="nx">call</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">hitType</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">timing</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">timings</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">call</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">timingValue</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">timings</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">]);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+
+</code></pre></div></div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unit testing Apollo React hooks with MockedProvider]]></title>
+    <link href="http://louisrli.github.io/blog/2019/11/16/apollo-mockedprovider-unit-test/"/>
+    <updated>2019-11-16T00:00:00+00:00</updated>
+    <id>http://louisrli.github.io/blog/2019/11/16/apollo-mockedprovider-unit-test</id>
+    <content type="html"><![CDATA[<p>This article describes how to unit test a React component with Apollo queries
+using React Hooks, Jest, the Apollo-provided 
+<a href="https://www.apollographql.com/docs/react/development-testing/testing/#mockedprovider">MockedProvider</a>, and <a href="https://testing-library.com/docs/react-testing-library/api">React Testing Library</a>.</p>
+
+<!--more-->
+
+<p>When set up, <code class="language-plaintext highlighter-rouge">MockedProvider</code> asserts that any requests that are passed in its
+setup are called. That is, if you pass in that certain queries are going to be
+called with certain variables, the test will fail if it’s not called in exactly
+the same way.</p>
+
+<h2 id="wrapper-library-without-redux">Wrapper library (without Redux)</h2>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">MockedProvider</span><span class="p">,</span> <span class="nx">MockedResponse</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@apollo/react-testing</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kr">interface</span> <span class="nx">TestConfig</span> <span class="p">{</span>
+  <span class="nl">apolloMocks</span><span class="p">?:</span> <span class="nx">MockedResponse</span><span class="p">[];</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">ApolloWrapper</span> <span class="o">=</span> <span class="p">({</span>
+  <span class="nx">apolloMocks</span> <span class="o">=</span> <span class="p">[],</span>
+<span class="p">}:</span> <span class="nx">TestConfig</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="nx">children</span> <span class="p">}:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">MockedProvider</span> <span class="na">mocks</span><span class="p">=</span><span class="si">{</span><span class="nx">apolloMocks</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">children</span><span class="si">}</span><span class="p">&lt;/</span><span class="nc">MockedProvider</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+</code></pre></div></div>
+
+<h2 id="wrapper-library-with-redux">Wrapper library (with Redux)</h2>
+<p><a href="redux.js.org">Redux</a> is commonly used with react, and one can also set up a
+provider with a store. Note that we use
+<a href="https://github.com/piotrwitek/typesafe-actions">typesafe-actions</a> in this
+example.</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+ * These Redux functions should probably be in a different, production library,
+ * but they're included here for illustration.
+ */</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">combineReducers</span><span class="p">,</span> <span class="nx">createStore</span><span class="p">,</span> <span class="nx">Store</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">redux</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">StateType</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">typesafe-actions</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">myReducer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">path/to/my/reducer</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">rootReducer</span> <span class="o">=</span> <span class="nx">combineReducers</span><span class="p">({</span>
+  <span class="na">reducer</span><span class="p">:</span> <span class="nx">myReducer</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="k">export</span> <span class="kd">type</span> <span class="nx">RootState</span> <span class="o">=</span> <span class="nx">StateType</span><span class="o">&lt;</span><span class="k">typeof</span> <span class="nx">rootReducer</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">makeStore</span> <span class="o">=</span> <span class="p">(</span><span class="nx">initialState</span> <span class="o">=</span> <span class="p">{}):</span> <span class="nx">Store</span><span class="o">&lt;</span><span class="nx">RootState</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">createStore</span><span class="p">(</span><span class="nx">rootReducer</span><span class="p">,</span> <span class="nx">initialState</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// Test wrapper code.</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">MockedProvider</span><span class="p">,</span> <span class="nx">MockedResponse</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@apollo/react-testing</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Provider</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-redux</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Store</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">redux</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">makeStore</span><span class="p">,</span> <span class="p">{</span> <span class="nx">RootState</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./store</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kr">interface</span> <span class="nx">TestConfig</span> <span class="p">{</span>
+  <span class="nl">initialState</span><span class="p">?:</span> <span class="nb">Partial</span><span class="o">&lt;</span><span class="nx">RootState</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nl">store</span><span class="p">?:</span> <span class="nx">Store</span><span class="o">&lt;</span><span class="nx">RootState</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nl">apolloMocks</span><span class="p">?:</span> <span class="nx">MockedResponse</span><span class="p">[];</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">ReduxApolloWrapper</span> <span class="o">=</span> <span class="p">({</span>
+  <span class="nx">initialState</span> <span class="o">=</span> <span class="p">{},</span>
+  <span class="nx">store</span> <span class="o">=</span> <span class="nx">makeStore</span><span class="p">(</span><span class="nx">initialState</span><span class="p">),</span>
+  <span class="nx">apolloMocks</span> <span class="o">=</span> <span class="p">[],</span>
+<span class="p">}:</span> <span class="nx">TestConfig</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="nx">children</span> <span class="p">}:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">Provider</span> <span class="na">store</span><span class="p">=</span><span class="si">{</span><span class="nx">store</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nc">MockedProvider</span> <span class="na">mocks</span><span class="p">=</span><span class="si">{</span><span class="nx">apolloMocks</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">children</span><span class="si">}</span><span class="p">&lt;/</span><span class="nc">MockedProvider</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">Provider</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+</code></pre></div></div>
+
+<h2 id="test-example">Test example</h2>
+<p>This is an example of a test written using <a href="jestjs.io">Jest</a>.</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">gql</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">graphql-tag</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="nx">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">does what it should</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">mocks</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="na">request</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">query</span><span class="p">:</span> <span class="nx">gql</span><span class="s2">`&lt;your expected query here&gt;`</span><span class="p">,</span>
+        <span class="na">variables</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">myVariable</span><span class="p">:</span> <span class="dl">'</span><span class="s1">foo</span><span class="dl">'</span><span class="p">,</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="na">result</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+          <span class="c1">// Mock out the return response here. You can also have `result`</span>
+          <span class="c1">// return a function if you want to do more complicated things.</span>
+        <span class="p">},</span>
+      <span class="p">},</span>
+    <span class="p">},</span>
+  <span class="p">];</span>
+
+
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">getByText</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">render</span><span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">MyComponentWithApolloQuery</span>  <span class="p">/&gt;,</span>
+    <span class="p">{</span>
+      <span class="na">wrapper</span><span class="p">:</span> <span class="nx">ReduxApolloWrapper</span><span class="p">({</span> <span class="na">apolloMocks</span><span class="p">:</span> <span class="nx">MOCKS</span> <span class="p">}),</span>
+    <span class="p">}</span>
+  <span class="p">);</span>
+
+  <span class="nx">expect</span><span class="p">(</span><span class="nx">getByText</span><span class="p">(</span><span class="sr">/someSubstringRegex/</span><span class="p">)).</span><span class="nx">not</span><span class="p">.</span><span class="nx">toBeVisible</span><span class="p">();</span>
+
+  <span class="c1">// This test will implicitly fail here if Apollo is called, for example, with</span>
+  <span class="c1">// a variable value for `myVariable` other than `foo`.</span>
+<span class="p">});</span>
+
+
+
+</code></pre></div></div>
+
+<h2 id="errors-and-warnings">Errors and warnings</h2>
+
+<h3 id="client-not-in-context">Client not in context</h3>
+<p>For some reason, <code class="language-plaintext highlighter-rouge">MockedProvider</code> would not work properly for me in React
+Testing Library the way that was suggested by the documentation. I kept getting
+this error:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Invariant Violation: Could not find "client" in the context or passed in as an
+option. Wrap the root component in an &lt;ApolloProvider&gt;, or pass an ApolloClient
+instance in via options.
+</code></pre></div></div>
+
+<p>In the end, <a href="https://spectrum.chat/apollo/apollo-client/mockedprovider-doesnt-inject-client-in-context~a17546fa-d73c-4b4b-8237-c81680799ebb">this Spectrum
+thread</a>
+helped me to resolve the issue.</p>
+
+<h3 id="add-typename-warnings">Add typename warnings</h3>
+<p>I never really figured out how to solve these when I was using <a href="https://graphql-code-generator.com/">GraphQL
+codegen</a>, as the fragments that are
+generated don’t contain typenames. You’ll likely see warning below, for which
+I’ve currently not solved this issue (though there are some solutions <a href="https://github.com/apollographql/react-apollo/issues/1747">proposed here</a>).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>You're using fragments in your queries, but either don't have the addTypename:
+        true option set in Apollo Client, or you are trying to write a fragment to the store without the __typename.
+         Please turn on the addTypename option and include __typename when writing fragments so that Apollo Client
+         can accurately match fragments.
+</code></pre></div></div>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Is Couchsurfing Safe? (and other common questions)]]></title>
     <link href="http://louisrli.github.io/blog/2018/06/24/is-couchsurfing-safe-and-other-common-questions/"/>
-    <updated>2018-06-24T00:00:00+03:00</updated>
+    <updated>2018-06-24T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2018/06/24/is-couchsurfing-safe-and-other-common-questions</id>
     <content type="html"><![CDATA[<p><a href="http://couchsurfing.com">Couchsurfing</a> is a site that connects travelers to local hosts in a city.
 As long as both the traveler and host agree, the traveler stays with the host free of charge. 
@@ -1625,7 +2433,7 @@ more experienced individuals, such as the power hosts who have hosted over one h
   <entry>
     <title type="html"><![CDATA[Transportation from Dharamshala Airport to McLeod Ganj]]></title>
     <link href="http://louisrli.github.io/blog/2018/06/22/transportation-from-dharamshala-airport-to-mcleod-ganj/"/>
-    <updated>2018-06-22T00:00:00+03:00</updated>
+    <updated>2018-06-22T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2018/06/22/transportation-from-dharamshala-airport-to-mcleod-ganj</id>
     <content type="html"><![CDATA[<p><em>Last updated: June 2018</em></p>
 
@@ -1644,7 +2452,7 @@ our case, we ended up getting a lower price confirmed by the booth.</p>
   <entry>
     <title type="html"><![CDATA[Transportation from Agra to Delhi Airport]]></title>
     <link href="http://louisrli.github.io/blog/2018/06/21/transportation-from-agra-to-delhi-airport/"/>
-    <updated>2018-06-21T00:00:00+03:00</updated>
+    <updated>2018-06-21T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2018/06/21/transportation-from-agra-to-delhi-airport</id>
     <content type="html"><![CDATA[<p><em>Last updated: June 2018</em></p>
 
@@ -1723,7 +2531,7 @@ price per person.</p>
   <entry>
     <title type="html"><![CDATA[Dubrovnik Bus Departure Schedule (Croatia)]]></title>
     <link href="http://louisrli.github.io/blog/2015/09/02/dubrovnik-bus-departure-schedule/"/>
-    <updated>2015-09-02T22:15:33+03:00</updated>
+    <updated>2015-09-02T20:15:33+01:00</updated>
     <id>http://louisrli.github.io/blog/2015/09/02/dubrovnik-bus-departure-schedule</id>
     <content type="html"><![CDATA[<p>This article contains the bus schedule for departures from Dubrovonik, Croatia. Dubrovonik is a
 popular coastal destination (and the filming site of King’s Landing for the <em>Game of Thrones</em> TV
@@ -1797,7 +2605,7 @@ other travelers.</p>
   <entry>
     <title type="html"><![CDATA[Dubrovnik's Best Currency Exchange (Croatia)]]></title>
     <link href="http://louisrli.github.io/blog/2015/09/02/dubrovnik-best-currency-exchange/"/>
-    <updated>2015-09-02T22:15:33+03:00</updated>
+    <updated>2015-09-02T20:15:33+01:00</updated>
     <id>http://louisrli.github.io/blog/2015/09/02/dubrovnik-best-currency-exchange</id>
     <content type="html"><![CDATA[<p>This article contains information about the best place to exchange currency in Dubrovnik, Croatia:
 <strong>OK Travel Agency</strong>.</p>
@@ -1833,511 +2641,6 @@ the midmarket rate</strong> (the rate from internet searches). There was <strong
 received 7.49 kuna to the euro. \((1 - 7.49 / 7.55 = 0.079)\)</p>
 
 <p><em>Last updated: 2 September 2015</em></p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Transportation from Tirana to Ulcinj / Budva / Kotor]]></title>
-    <link href="http://louisrli.github.io/blog/2015/09/01/tirana-kotor/"/>
-    <updated>2015-09-01T00:00:00+03:00</updated>
-    <id>http://louisrli.github.io/blog/2015/09/01/tirana-kotor</id>
-    <content type="html"><![CDATA[<p>This article describes directions from Tirana, Albania to Ulcinj / Budva / Kotor, Montenegro by bus,
-based on my travels in August 2015. It is possible
-to start early and arrive in Kotor by the afternoon, but be prepared to wake up early to ride four
-buses.</p>
-
-<p>I caught the
-first bus at 7:00 and arrived in Kotor around 14:00.</p>
-
-<!-- more -->
-
-<h2 id="leg-1-tirana-to-schkoder">Leg 1: Tirana to Schkoder</h2>
-
-<p><strong>Duration:</strong> about 1.25 hrs to 1.75 hrs, depending on traffic</p>
-
-<p><strong>Fare:</strong> 500 lek (about €2)</p>
-
-<p>See the <a href="/blog/2015/08/31/tirana-durres-schkoder-albania/">Tirana to Schkoder article</a>.</p>
-
-<h2 id="leg-2-schkoder-to-ulcinj">Leg 2: Schkoder to Ulcinj</h2>
-
-<p><strong>Duration:</strong> About 1.25 hours, depending on border control</p>
-
-<p><strong>Fare:</strong> €5</p>
-
-<p>The buses (vans) are near the fountain at the city center. Ask around for
-Schkoder if nobody is shouting, or ask the driver from Tirana. I asked the driver from Tirana, who
-showed me to the next van.
-The driver leaves at 9:00, sitting at a cafe and chatting with his friends before then.</p>
-
-<p>Ask the Schkoder-Ulcinj driver to drop you off at the bus stop. The rest is easy –
-Montenegro has much more signage for its bus system than Albania does.</p>
-
-<p><strong>Don’t forget to have your passport ready for border control!</strong></p>
-
-<p>Below is the location of the buses in Schkoder.</p>
-
-<div style="text-align: center;">
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2961.8742367571995!2d19.513413874485096!3d42.06731499235399!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x134e00fb86c50699%3A0xb04ce3e5ed35f40f!2sRruga+Teuta%2C+Shkod%C3%ABr%2C+Albania!5e0!3m2!1sen!2s!4v1441188846897" width="400" height="300" frameborder="0" style="border:0" allowfullscreen=""></iframe>
-</div>
-
-<h2 id="leg-3-ulcinj-to-budva">Leg 3: Ulcinj to Budva</h2>
-
-<p><strong>Duration:</strong> 1.25 hours</p>
-
-<p><strong>Fare:</strong> €7</p>
-
-<p>According to possibly-outdated information from the internet, there are only two buses direct from
-Ulcinj to Kotor in a day. It may be possible to catch a bus directly to Kotor; otherwise, head to
-Budva.</p>
-
-<p>An alternative option is to go from Ulcinj to Bar, but buses from Bar to Kotor are less frequent.</p>
-
-<p>I’m not sure about the precise schedule, but buses from Ulcinj to Budva should be fairly frequent. 
-I arrived from Ulcinj five minutes before a bus was leaving for Budva.</p>
-
-<h2 id="leg-4-budva-to-kotor">Leg 4: Budva to Kotor</h2>
-
-<p><strong>Duration:</strong> 1.25 hours</p>
-
-<p><strong>Fare:</strong> €3</p>
-
-<p>From Budva, buses leave to Kotor every thirty minutes.</p>
-
-<h2 id="fare">Fare</h2>
-
-<p>500 lek + €5 + €7 + €3 = <strong>€18</strong></p>
-
-<p>This is much cheaper than the “direct transfer service” offered by Montenegro Hostel from Tirana to
-Kotor (€35).</p>
-
-<p><em>Last updated: August 2015</em></p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Transportation from Tirana to Durres / Schkoder (Albania)]]></title>
-    <link href="http://louisrli.github.io/blog/2015/08/31/tirana-durres-schkoder-albania/"/>
-    <updated>2015-08-31T00:00:00+03:00</updated>
-    <id>http://louisrli.github.io/blog/2015/08/31/tirana-durres-schkoder-albania</id>
-    <content type="html"><![CDATA[<p>This article contains bus directions based on my travels in Albania in August 2015. 
-Durres is a coastal city around thirty minutes away, containing
-ferries to Italy and beaches.</p>
-
-<p>Schkoder is a historical city around 1.25 to 1.75 hours away,
-depending on traffic. It is a northern border city with bus transfers to Ulcinj, Montenegro.</p>
-
-<!-- more -->
-
-<p>Confirm these
-directions. Two years ago, the bus to Schkoder was at a different location, and some of the
-directions that I found were outdated.</p>
-
-<h2 id="directions-to-the-bus-stop">Directions to the bus stop</h2>
-
-<p>The Google Maps diagram below shows the bus stop, which is in the roundabout of Karl Topia Square.
-It shouldn’t be too hard to find the correct bus: each bus has a person shouting its destination.</p>
-
-<div style="text-align: center;">
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2995.868120776664!2d19.804230999999994!3d41.333481!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDIwJzAwLjUiTiAxOcKwNDgnMTUuMiJF!5e0!3m2!1sen!2sus!4v1441137271939" width="400" height="300" frameborder="0" style="border:0" allowfullscreen=""></iframe>
-</div>
-
-<h2 id="bus">Bus</h2>
-
-<p>The buses, known as <em>furgons</em>, are more akin to vans or cars. For an afternoon bus to Durres, I took
-a van that fit approximately 15 people. For a 7 AM bus to Schkoder, the vehicle was someone’s
-five-seat Volkswagen. Don’t be worried if it just seems like you’re getting in someone’s car (you
-are).</p>
-
-<p>The buses don’t leave until they are full or almost full. For Durres, this seems to be approximately
-every thirty minutes. For Schkoder, this seems to be approximately every hour.</p>
-
-<p class="minipic"><img src="/images/travel/tiranabus/bus.jpg" alt="Vans that will take you through beautiful Albania" /></p>
-
-<h2 id="fare">Fare</h2>
-
-<p>In August 2015, the fare for each direction was:</p>
-
-<ul>
-  <li>150 lek to Durres</li>
-  <li>500 lek to Schkoder</li>
-</ul>
-
-<p>The drivers take euro. If you want to get rid of some remaining lek, they also take euro-lek mix.</p>
-
-<p>Enjoy the Albanian music on the drive!</p>
-
-<p><em>Last updated: August 2015</em></p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Transportation to Mount Dajti (Tirana, Albania)]]></title>
-    <link href="http://louisrli.github.io/blog/2015/08/30/mt-dajt-tirana-albania/"/>
-    <updated>2015-08-30T00:00:00+03:00</updated>
-    <id>http://louisrli.github.io/blog/2015/08/30/mt-dajt-tirana-albania</id>
-    <content type="html"><![CDATA[<p><a href="http://www.tripadvisor.com/Attraction_Review-g294446-d606455-Reviews-Mount_Dajti-Tirana.html">Mount
-Dajti</a> is a mountain near Tirana, the capital of Albania. It is a popular picnic
-and hiking spot. This article includes directions and information from Tirana
-city center to Mount Dajti.</p>
-
-<!-- more -->
-
-<h2 id="directions-to-the-cable-car-station">Directions to the cable car station</h2>
-<p>The <a href="www.dajtiekspres.com/">Dajti Express</a> cable car is the preferred method of going up. The site does not say its hours of operation, but as of August 2015 it
-operates from 9:00 - 22:00.</p>
-
-<p>The cable car station is about 5 km from Skanderbeg Square, the city center.</p>
-
-<p class="minipic"><img src="/images/travel/dajti/view.jpg" alt="View from the cable car, scratched glass and all" /></p>
-
-<h3 id="by-public-bus">By public bus</h3>
-<p>The bus waits outside the clock tower near Skanderbeg Square, dropping you off a short, uphill walk from the
-cable car station. The bus should say Porcelani on it. It
-costs about 100 lek.</p>
-
-<h3 id="by-dajti-express-van">By Dajti Express van</h3>
-
-<p>I couldn’t find information about this on the internet (I suspect nothing has been updated), but on my return trip, there was a <strong>free
-van</strong> that
-stopped directly at the cable car station at the base of the mountain.</p>
-
-<p>The Google Maps link below shows where it dropped me off outside the cafes near Skanderbeg Square, which is likely where it picks up for a free trip to the cable car
-station. If you don’t mind waiting, then you can wait there for a potential free trip by looking for
-the van pictured below (and let me know if you’re successful!).  People in Tirana are also very
-friendly, and it doesn’t hurt to ask around.</p>
-
-<div style="text-align:center;">
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.102796304338!2d19.818874999999995!3d41.328378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDE5JzQyLjIiTiAxOcKwNDknMDguMCJF!5e0!3m2!1sen!2sus!4v1440968571219" width="400" height="300" frameborder="0" style="border:0" allowfullscreen=""></iframe>
-</div>
-
-<p class="minipic"><img src="/images/travel/dajti/van.jpg" alt="The mystery van operated by Dajti Express" /></p>
-
-<h3 id="by-foot-or-bike">By foot or bike</h3>
-<p>Since the station is 5 km away from Skanderbeg, running or biking to the station are viable options.</p>
-
-<p>There is some information on the internet about hiking trails from the base of the mountain to the
-summit, but I’m not familiar with these routes.</p>
-
-<h2 id="trail-map">Trail Map</h2>
-
-<p class="minipic"><img src="/images/travel/dajti/trails.jpg" alt="Trail map" /></p>
-
-<p>I didn’t find this map very useful, and online reviews say that the trails are not well marked (I
-had this impression as well, though I didn’t actually end up hiking – I crashed an Albanian Sunday
-barbecue instead).</p>
-
-<p><em>Last updated: August 2015</em></p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Best Meat and Rice in Taipei: Barbecue Pork Rice 御狀元烤肉飯 (Taipei, Taiwan)]]></title>
-    <link href="http://louisrli.github.io/blog/2015/08/17/meat-and-rice-zhaopaikaoroufan/"/>
-    <updated>2015-08-17T00:00:00+03:00</updated>
-    <id>http://louisrli.github.io/blog/2015/08/17/meat-and-rice-zhaopaikaoroufan</id>
-    <content type="html"><![CDATA[<p>御狀元烤肉飯 (<em>yu zhuang yuan kao rou fan</em>) (“Emperor’s Best Barbecue Pork and Rice” – not sure if
-that’s the correct translation) is a meat and rice joint in Taipei near Taipei Main Station.</p>
-
-<p>This was my favorite place to eat in Taiwan. I worked near Taipei Main Station and would eat here
-three to four days a week – for lunch <em>and</em> dinner on some days. It’s extremely cheap and very
-tasty for meat and rice (and egg and vegetable) lovers.</p>
-
-<!-- more -->
-
-<h2 id="signature-dish">Signature Dish</h2>
-
-<p class="minipic"><img src="/images/travel/zpkrf/signature.jpg" alt="Signature dish: barbecue pork rice (zhao pai kao rou fan)" /></p>
-
-<p>For 79 NT (less than 3 USD), the barbecue pork rice contains:</p>
-
-<ul>
-  <li>rice</li>
-  <li>fried egg</li>
-  <li>garlic cabbage</li>
-  <li>pickled vegetables</li>
-  <li>barbecue pork</li>
-  <li>yummy sauce</li>
-</ul>
-
-<p class="minipic"><img src="/images/travel/zpkrf/with-chicken.jpg" alt="Barbecue pork rice with fried chicken" /></p>
-
-<p>For an extra 6 NT (around 20 cents USD), they will add fried chicken cutlet.</p>
-
-<h2 id="directions">Directions</h2>
-
-<p>The closest subway exit is Taipei Main Station exit M6 (Caesar Park Hotel). The store is located on
-Xuchang Street past the Paris Shop.</p>
-
-<p class="minipic"><img src="/images/travel/zpkrf/signpost.jpg" alt="This sign hangs near the entrance" /></p>
-
-<p>It may be helpful to see the <a href="https://goo.gl/maps/uceKr">Google Maps street view</a>.</p>
-
-<div style="text-align: center;">
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.6629865749737!2d121.51611240000001!3d25.045508700000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a9731d0f5025%3A0x8ee7ca88ac8492f9!2sXuchang+St%2C+Zhongzheng+District%2C+Taipei+City%2C+Taiwan+100!5e0!3m2!1sen!2s!4v1440960795318" width="400" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
-</div>
-
-<h2 id="menu">Menu</h2>
-
-<p class="minipic"><img src="/images/travel/zpkrf/menu.jpg" alt="Menu" /></p>
-
-<h3 id="translation">Translation</h3>
-
-<ol>
-  <li>Frog rice (<em>pen shui ji rou fan</em>)</li>
-  <li>Pickled vegetables chicken rice (<em>pao cai ji rou fan</em>)</li>
-  <li>Soy sauce chicken leg rice (<em>jiang lu ji tui fan</em>)</li>
-  <li>Ka la (cracking?) chicken cutlet rice (<em>ka la ji pai fan</em>)</li>
-  <li>Osaka pork cutlet rice (<em>da ban zhu pai fan</em>)</li>
-  <li>Thai chicken cutlet rice (<em>tai shi ji pai fan</em>)</li>
-  <li>Thai pork cutlet rice (<em>tai shi zhu pai fan</em>)</li>
-  <li><strong>Barbecue pork rice (signature dish)</strong> (<em>zhao pai kao rou fan</em>)</li>
-  <li>Pickled vegetables barbecue pork rice (<em>pao cai kao rou fan</em>)</li>
-  <li>Combo chicken and pork rice (<em>shuang pin kao rou fan</em>)</li>
-</ol>
-
-<p>I’ve only had the barbecue pork and the combo (but I’ve tried it many times).</p>
-
-<p><em>Last updated: August 2015</em></p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Yangmingshan Transportation 阳明山 (Taipei, Taiwan)]]></title>
-    <link href="http://louisrli.github.io/blog/2015/08/11/yangmingshan/"/>
-    <updated>2015-08-11T00:00:00+03:00</updated>
-    <id>http://louisrli.github.io/blog/2015/08/11/yangmingshan</id>
-    <content type="html"><![CDATA[<p>This is an English guide for transportation to <a href="http://en.wikipedia.org/wiki/Yangmingshan">Yangmingshan
-(阳明山)</a>, a national park north of Taipei, Taiwan. 
-Yangmingshan is a popular destination for locals and tourists, containing numerous hiking trails and
-hot springs.</p>
-
-<!-- more -->
-
-<h2 id="travel-to-yangmingshan">Travel to Yangmingshan</h2>
-
-<p>The easiest way to reach Yangmingshan is by taking the <strong>260 bus from Taipei Main Station</strong>
-to the very last stop. <strong>The bus stops outside exit M1.</strong> The second-to-last stop also contains the phrase “Yangmingshan” – make
-sure to get off at the final stop.</p>
-
-<p>The 260 bus also runs along North Zhongshan Road (中山北路). It may be more convenient to find a 260
-bus stop along this road rather than going to Taipei Main Station.</p>
-
-<p><strong>The fare is about 30 NTD</strong>. If using an Easy Card, swipe the card when going both on and off the bus.</p>
-
-<h2 id="travel-within-yangmingshan">Travel within Yangmingshan</h2>
-
-<p>The internal 108 bus runs on stops within Yangmingshan. This small bus makes stops around the whole
-park.</p>
-
-<p><em>Last updated: August 2015</em></p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[English Guide to Sun Moon Lake 日月潭 (Taiwan)]]></title>
-    <link href="http://louisrli.github.io/blog/2015/07/10/sun-moon-lake/"/>
-    <updated>2015-07-10T00:00:00+03:00</updated>
-    <id>http://louisrli.github.io/blog/2015/07/10/sun-moon-lake</id>
-    <content type="html"><![CDATA[<p>This is a guide to transportation, food, activities, and lodging for a Sun Moon Lake trip, based on
-my own experiences. My friend and I traveled from Taipei to Sun Moon Lake in July 2015, staying one
-night by the lake.</p>
-
-<!-- more -->
-
-<h2 id="traveling-to-sun-moon-lake">Traveling to Sun Moon Lake</h2>
-
-<h3 id="from-taichung">From Taichung</h3>
-
-<p>We traveled from Taichung (台中), since we wanted to explore the city the night before.
-Taipei to Taichung is one hour by high speed rail (HSR), two hours by train (TRA), four hours by
-bus.</p>
-
-<p>We purchased a package deal for Sun Moon Lake from Nantou Bus Company across from Gancheng station,
-which is near the train station. Packages can also be purchased from the Taichung HSR station.</p>
-
-<p>There are <a href="http://www.ntbus.com.tw/en-p-1.html">many options for packages</a>, but the 570 NT package
-includes:</p>
-
-<ul>
-  <li>Round trip bus tickets between Taichung and Sun Moon Lake (383 NT)</li>
-  <li>Ferry rides for one day (200 NT)</li>
-  <li>Bike rental for two hours from Merida Bikes or one hour from GIANT (200 NT)</li>
-  <li>Round trip bus tickets between Shuishe and Xiangshan, two stops at Sun Moon Lake (48 NT)</li>
-</ul>
-
-<p>According to my computationally intense calculations, this <strong>saves you 261 NT.</strong> It’s a good deal.</p>
-
-<p><strong>Duration:</strong> 1.5 hours<br />
-<strong>Price:</strong> 570 NT for package deal (see <a href="http://www.ntbus.com.tw/en-p-1.html">Nantou site</a> for other
-options)<br />
-<strong>Location:</strong> Across from Gancheng station (sells packages), Taichung HSR station (sells packages),
-or Taichung TRA station. It stops at Shuishe Pier, the main hub of Sun Moon Lake.</p>
-
-<h2 id="from-taipei">From Taipei</h2>
-<p>I didn’t travel from Taipei, but the <a href="http://www.sunmoonlake.gov.tw/English/TravelInfoEng/BusInfo/TaipeiToSML.htm">King Bus
-timetable</a> lists bus
-times from Taipei Main Station.</p>
-
-<p><strong>Type:</strong> Bus<br />
-<strong>Duration:</strong> 4 hours<br />
-<strong>Price:</strong> 460 NT each way<br />
-<strong>Location:</strong> Taipei Bus Station</p>
-
-<p>Miscellaneous: We stayed at a nice and cheap hotel in Taichung, the <a href="https://www.kayak.com/Taichung-Hotels-Moon-Lake-Hotel.2070096.ksp">Moon Lake
-Hotel</a> (11 USD per
-night). It is less than a kilometer away from the train station.</p>
-
-<p><strong>Type:</strong> Bus</p>
-
-<h2 id="getting-around">Getting Around</h2>
-
-<h3 id="ferry">Ferry</h3>
-
-<p>The ferry is the most convenient way to cover a lot of ground and hit the main destinations. It has three stops, forming a triangle along the lake.</p>
-
-<ul>
-  <li>The first pier is <strong>Shuishe</strong>, the main pier.</li>
-  <li>The second pier is <strong>Xuanzang Pier</strong>, and it has a legendary tea egg store that has been run by the same
-woman for about fifty years (13 NT per egg).</li>
-  <li>The last pier is <strong>Ita Thao</strong>, which has many food stands.</li>
-</ul>
-
-<h3 id="bike">Bike</h3>
-
-<p>Biking is a scenic way to get around the lake. Details on bike shops can be found
-<a href="http://www.sunmoonlake.gov.tw/English/TravelInfoEng/LakeTour/BikeRental.htm">here</a>. See the <strong>Activities</strong> section for more information
-about the bikes in the package deal.</p>
-
-<h3 id="bus">Bus</h3>
-
-<p>The Round-the-Lake bus, which goes ‘round the lake, is the main bus. A trip on the bus is more or less 20 NT. An unlimited trip ticket is 80 NT. You can use your EasyCard.</p>
-
-<p><strong>Advice:</strong> Wave down the bus drivers as they approach, because they probably won’t stop for you
-otherwise.</p>
-
-<h2 id="things-to-try">Things To Try</h2>
-
-<h3 id="food">Food</h3>
-
-<p>Ita Thao has all the good food. Edibles to try:</p>
-
-<ul>
-  <li><strong>Pork buns (Ita Thao):</strong> I recommend the stand that has pumpkin pork buns.</li>
-  <li><strong>Assam tea (Ita Thao):</strong> Stands advertising Assam tea are everywhere. It’s a type of tea imported
-  from India or Japan. It tastes like tea. For some reason (I don’t know because I’m Chinese
-  illiterate), it’s famous in the area.</li>
-  <li><strong>Chicken stuffed with rice (Ita Thao):</strong> I have no idea what this is called. Look for a stand with deer horns.
-  Also, if you don’t like spicy, ask for “no spicy” because even “small spicy” was super spicy.</li>
-  <li><strong>Old woman tea eggs (Xuanguan Pier):</strong> These were mentioned above. They’re at the first ferry stop after Shuishe.</li>
-</ul>
-
-<h3 id="places">Places</h3>
-
-<p>There are many destinations at Sun Moon Lake, but I recommend:</p>
-
-<ul>
-  <li>
-    <p><strong>Ci’en Pagoda</strong>, a tall building commissioned by Chiang-Kai Shek, has a sweeping view of the lake. 
-Sun Moon Lake has hiking trails, but many of them don’t have a nice view of the lake. 
-To reach the pagoda, take the round-the-lake bus. Although Ci’en Pagoda is not listed as a stop, it <strong>is</strong>
-the second-to-last stop before (I think) Xuanzang Temple.</p>
-  </li>
-  <li>
-    <p><strong>Ita Thao</strong>, an area with many food stands. Because food.</p>
-  </li>
-</ul>
-
-<p><strong>Advice:</strong> The bus does not stop at Ci’en Pagoda between 1 and 3 PM, and none of the main
-piers are within short walking distance (around 5 km). We tried leaving at 1:30 PM.  Not wanting to
-wait around for 1.5 hours, we hitchhiked our way back.</p>
-
-<p><strong>Advice:</strong> Bug your bus driver to stop. Our bus driver was not-too-nice and chose not to stop Ci’en
-Pagoda– despite knowing that it was
-our destination. You might notice a pattern here involving interactions with bus drivers.</p>
-
-<h3 id="activities">Activities</h3>
-
-<ul>
-  <li><strong>Walking</strong>: Self explanatory.</li>
-  <li><strong>Biking</strong>: The best activity by far. The package that we did gave us bikes for two hours from Merida Bike, which was enough time to bike
-about a third of the lake (going out and coming back to the bike rental shop). Renting bikes for
-longer (i.e., to go around the whole lake) costs more, but I’m unsure how much more. Bike shops want bikes back by around 6:30 PM.</li>
-  <li><strong>Cable car:</strong> It exists, but I didn’t do it.</li>
-  <li><strong>Being ignored by bus drivers:</strong> It exists, and I did do it.</li>
-</ul>
-
-<h3 id="miscellaneous">Miscellaneous</h3>
-
-<p>None of these were that interesting to us, but if you have more time, this is an incomplete list of
-other activities in the area:</p>
-
-<ul>
-  <li><strong>Aboriginal Culture Village (<a href="http://www.nine.com.tw/webe/html/information/">link</a>):</strong> This sounds like a village for cultural edification, but it turns
-  out it’s actually an amusement park.</li>
-  <li><strong>Puli:</strong> It’s a town.</li>
-  <li><strong>Cingjing Farm (<a href="http://www.cingjing.gov.tw/en/about/">link</a>):</strong> It’s a farm. It’s about 40 minutes from Sun Moon Lake.</li>
-</ul>
-
-<h2 id="lodging">Lodging</h2>
-
-<p>Because Sun Moon Lake is a popular tourist destination, lodging is relatively expensive.</p>
-
-<p>Super secret hacker budget stay: <strong>Naluisland House</strong>. This place is so secret that it doesn’t show up
-on <a href="http://kayak.com">Kayak</a> or have reviews on
-<a href="http://www.tripadvisor.com/Hotel_Review-g304160-d6453391-Reviews-Naluisland_House-Nantou.html">TripAdvisor</a>. 
-You can book through Agoda or Ctrip.</p>
-
-<p>We shared a room with two queen sized beds between four people, and it came out to about <strong>450 NT
-per person</strong> (15
-USD in July 2015). Our room was sufficient for a one night stay. There are rooms with four beds for
-a little more. Some rooms also have private bathrooms, which costs a little more as well.</p>
-
-<p>To get to Naluisland House, take the ferry or bus to Ita Thao, which is one of the major destinations of Sun Moon
-Lake. However, buses and ferries close around 5:30 PM – be very careful to get to Ita Thao before
-then. We learned that a taxi from Shuishe, the main port, costs about 500 NT (try negotiating).</p>
-
-<p>I’m not sure if the owner speaks English, but she was very helpful.</p>
-
-<p><em>Last updated: July 2015</em></p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Senior Thesis: Security Analysis of Java Web Applications Using String Constraint Analysis]]></title>
-    <link href="http://louisrli.github.io/blog/2015/05/03/senior-thesis/"/>
-    <updated>2015-05-03T00:00:00+03:00</updated>
-    <id>http://louisrli.github.io/blog/2015/05/03/senior-thesis</id>
-    <content type="html"><![CDATA[<p>I submitted my undergraduate thesis at the beginning of April, titled “Security Analysis of Java Web
-Applications Using String Constraint Analysis.” I was advised by Professor Stephen Chong.</p>
-
-<!-- more -->
-
-<p>Here’s the abstract:</p>
-
-<blockquote>
-
-  <p>Web applications are exposed to myriad security vulnerabilities related to malicious user string
-input. In order to detect such vulnerabilities in Java web applications, this project employs string
-constraint analysis, which approximates the values that a string variable in a program can take on.
-In string constraint analysis, program analysis generates string constraints – assertions about the
-relationships between string variables. We design and implement a dataflow analysis for Java
-programs that generates string constraints and passes those constraints to the CVC4 SMT solver to
-find a satisfying assignment of string variables. Using example programs, we illustrate the
-feasibility of the system in detecting certain types of web application vulnerabilities, such as SQL
-injection and cross-site scripting.</p>
-</blockquote>
-
-<p><a href="/downloads/louisli-thesis.pdf">Download the PDF</a> or view it below.</p>
-
-<embed src="/downloads/louisli-thesis.pdf" type="application/pdf" width="100%" height="600" />
 
 ]]></content>
   </entry>

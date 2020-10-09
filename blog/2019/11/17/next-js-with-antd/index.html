@@ -1,0 +1,303 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Next.js Typescript Integration with Ant Design (antd) - Louis Li</title>
+	<meta name="author" content="Louis Li">
+
+	
+	<meta name="description" content="
+
+
+
+
+
+	Next.js Typescript Integration with Ant Design (antd)
+        
+	This article describes how to add the Antd library to
+Next.js.
+
+This is base...">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="fb:admins" content="100001696373537" />
+
+	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://louisrli.github.io/blog/2019/11/17/next-js-with-antd/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+          </script>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-5225926150102880",
+          enable_page_level_ads: true
+     });
+</script>
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	<script type="text/javascript">
+		$(function(){
+                    $('.profilepic').append("<img src='https://www.gravatar.com/avatar/" + "9f050cf96c6cc933141f0242e5b723fd" + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<hgroup>
+  <h1><a href="/">Louis Li</a></h1>
+  
+</hgroup>
+
+<p class="subtitle"></p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/categories/projects">Sideprojects</a></li>
+  <li><a href="/publications">Publications</a></li>
+  <li><a href="http://github.com/louisrli">Github</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="mailto:pong@outlook.com">Contact</a></li>
+</ul>
+
+
+<section class="aboutme">
+  <p>
+    Harvard student and developer.
+  </p>
+</section>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		<a class="github" href="https://github.com/louisrli" title="GitHub">GitHub</a>
+		
+		
+		<a class="rss" href="http://feeds.feedburner.com/louisligithub" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container">
+				<div id="content" class="inner"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Github top leaderboard -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5225926150102880"
+     data-ad-slot="1340213627"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Next.js Typescript Integration with Ant Design (antd)</h1>
+        <h3 class="subtitle" itemprop="subtitle"></h3>
+	<div class="entry-content" itemprop="articleBody"><p>This article describes how to add the <a href="antd.design">Antd</a> library to
+<a href="https://nextjs.org">Next.js</a>.</p>
+
+<p>This is based off the
+<a href="https://github.com/zeit/next.js/tree/canary/examples/with-ant-design">with-ant-design</a>
+example in Next.js.</p>
+
+<!--more-->
+
+<h2 id="next-configuration">Next configuration</h2>
+<p>In <code class="language-plaintext highlighter-rouge">next.config.js</code> in the root directory of your Next application, add the
+following:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/** See https://github.com/zeit/next.js/tree/canary/examples/with-ant-design */</span>
+<span class="kd">const</span> <span class="nx">withCss</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">@zeit/next-css</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">withCss</span><span class="p">({</span>
+    <span class="na">webpack</span><span class="p">:</span> <span class="p">(</span><span class="nx">config</span><span class="p">,</span> <span class="p">{</span> <span class="nx">isServer</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">isServer</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">antStyles</span> <span class="o">=</span> <span class="sr">/antd</span><span class="se">\/</span><span class="sr">.*</span><span class="se">?\/</span><span class="sr">style</span><span class="se">\/</span><span class="sr">css.*</span><span class="se">?</span><span class="sr">/</span>
+      <span class="kd">const</span> <span class="nx">origExternals</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">config</span><span class="p">.</span><span class="nx">externals</span><span class="p">]</span>
+      <span class="nx">config</span><span class="p">.</span><span class="nx">externals</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">request</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">antStyles</span><span class="p">))</span> <span class="k">return</span> <span class="nx">callback</span><span class="p">()</span>
+          <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">origExternals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">function</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">origExternals</span><span class="p">[</span><span class="mi">0</span><span class="p">](</span><span class="nx">context</span><span class="p">,</span> <span class="nx">request</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">callback</span><span class="p">()</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">...(</span><span class="k">typeof</span> <span class="nx">origExternals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">function</span><span class="dl">'</span> <span class="p">?</span> <span class="p">[]</span> <span class="p">:</span> <span class="nx">origExternals</span><span class="p">),</span>
+      <span class="p">]</span>
+
+      <span class="nx">config</span><span class="p">.</span><span class="nx">module</span><span class="p">.</span><span class="nx">rules</span><span class="p">.</span><span class="nx">unshift</span><span class="p">({</span>
+        <span class="na">test</span><span class="p">:</span> <span class="nx">antStyles</span><span class="p">,</span>
+        <span class="na">use</span><span class="p">:</span> <span class="dl">'</span><span class="s1">null-loader</span><span class="dl">'</span><span class="p">,</span>
+      <span class="p">})</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">config</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+</code></pre></div></div>
+
+<p>In <code class="language-plaintext highlighter-rouge">babel.config.js</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">api</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">presets</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">next/babel</span><span class="dl">'</span><span class="p">],</span>
+    <span class="na">plugins</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">[</span>
+        <span class="dl">"</span><span class="s2">import</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+          <span class="na">libraryName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">antd</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">style</span><span class="p">:</span> <span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span>
+        <span class="p">}</span>
+      <span class="p">]],</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+
+</code></pre></div></div>
+
+<h2 id="example-usage">Example usage</h2>
+
+<p>We are able to import from both <code class="language-plaintext highlighter-rouge">antd</code> and <code class="language-plaintext highlighter-rouge">antd/lib/&lt;component&gt;</code>.</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+ * An example that imports top-level components from 'antd' and also imports
+ * from files under 'antd/lib'.
+ */</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">TreeSelect</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">antd</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">TreeNode</span><span class="p">,</span> <span class="nx">TreeSelectProps</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">antd/lib/tree-select</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">TreeSelectView</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">FC</span><span class="o">&lt;</span><span class="nx">TreeSelectProps</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">[]</span><span class="o">&gt;&gt;</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="nx">ref</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">TreeSelect</span>
+      <span class="si">{</span><span class="p">...</span><span class="nx">props</span><span class="si">}</span>
+      <span class="na">treeCheckable</span>
+      <span class="na">treeData</span><span class="p">=</span><span class="si">{</span><span class="p">{}</span><span class="si">}</span>
+      <span class="na">treeDefaultExpandAll</span>
+      <span class="na">style</span><span class="p">=</span><span class="si">{</span><span class="p">{</span> <span class="na">width</span><span class="p">:</span> <span class="mi">300</span> <span class="p">}</span><span class="si">}</span>
+      <span class="na">showCheckedStrategy</span><span class="p">=</span><span class="s">"SHOW_PARENT"</span>
+      <span class="na">ref</span><span class="p">=</span><span class="si">{</span><span class="nx">ref</span><span class="si">}</span>
+    <span class="p">/&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">React</span><span class="p">.</span><span class="nx">forwardRef</span><span class="p">(</span><span class="nx">TreeSelectView</span><span class="p">);</span>
+
+</code></pre></div></div>
+</div>
+
+</article>
+
+	<div class="share">
+  <!--AddThis Button BEGIN -->
+  <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+    <a class="addthis_button_preferred_1"></a>
+    <a class="addthis_button_preferred_2"></a>
+    <a class="addthis_button_preferred_3"></a>
+    <a class="addthis_button_preferred_4"></a>
+    <a class="addthis_button_compact"></a>
+    <a class="addthis_counter addthis_bubble_style"></a>
+  </div>
+  <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51e5a5762f46bbe9"></script>
+  <!-- AddThis Button END -->
+</div>
+
+
+
+<script async
+  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Github bottom leaderboard -->
+<ins class="adsbygoogle"
+       style="display:block"
+            data-ad-client="ca-pub-5225926150102880"
+                 data-ad-slot="1968553857"
+                      data-ad-format="auto"
+                           data-full-width-responsive="true"></ins>
+  <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2020 - Louis Li
+</p>
+
+Theme originally by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+</footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'llgithub';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://louisrli.github.io/blog/2019/11/17/next-js-with-antd/';
+        var disqus_url = 'http://louisrli.github.io/blog/2019/11/17/next-js-with-antd/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32823730-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>

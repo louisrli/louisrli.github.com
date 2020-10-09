@@ -4,7 +4,7 @@
   <title><![CDATA[Category: react | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/react/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2020-07-09T14:10:08+03:00</updated>
+  <updated>2020-10-09T18:20:37+01:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -14,9 +14,87 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Typesafe Unit Testing of GraphQL Resolvers in TypeScript]]></title>
+    <link href="http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript/"/>
+    <updated>2020-10-09 00:00:00 +0100</updated>
+    <id>http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript</id>
+    <content type="html"><![CDATA[<p>This post gives a code example on how to unit test a GraphQL resolver in
+TypeScript. In order to make the testing typesafe, we use
+<a href="https://graphql-code-generator.com/">GraphQL Code Generator</a>.</p>
+
+<!-- more -->
+
+<h2 id="description">Description</h2>
+
+<p>Unit testing GraphQL resolvers in TypeScript can be quite tricky to get right
+with the correct typing. This posts illustrates some example code of setting up
+calls directly to the resolvers.</p>
+
+<p>The code below here works with <a href="https://graphql-code-generator.com/">GraphQL Code
+Generator</a> to generate types for your
+resolvers. This article does not cover how to set up GraphQL Code Generator; it
+assumes that you have a working setup with your resolvers.</p>
+
+<p>Instead of writing raw GraphQL queries (which can be seen in <a href="./2020-10-09-unit-testing-graphql-middleware-typescript.md">my post about
+testing
+middlewares</a>), we
+show a typesafe way to unit test GraphQL resolvers. Much of this code is based
+off what was written in <a href="https://github.com/dotansimha/graphql-code-generator/issues/1763">graphql-code-generator issue #1763</a> by <a href="https://github.com/kamilkisiela">kamilkisiela</a>.</p>
+
+<h2 id="code">Code</h2>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="o">%</span> <span class="nx">include</span> <span class="nx">code</span><span class="o">/</span><span class="nx">mocked</span><span class="o">-</span><span class="nx">resolver</span><span class="o">-</span><span class="nx">unit</span><span class="o">-</span><span class="nx">test</span><span class="p">.</span><span class="nx">ts</span> <span class="o">%</span><span class="p">}</span>
+</code></pre></div></div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unit Testing of GraphQL Middleware in TypeScript]]></title>
+    <link href="http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-middleware-typescript/"/>
+    <updated>2020-10-09 00:00:00 +0100</updated>
+    <id>http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-middleware-typescript</id>
+    <content type="html"><![CDATA[<p>This post gives a code example on how to unit test a GraphQL middleware in
+TypeScript using the Express GraphQL middleware resolver
+<a href="https://github.com/maticzav/graphql-shield">graphql-shield</a>. It
+should generalize to other middlewares.</p>
+
+<!-- more -->
+
+<h2 id="description">Description</h2>
+
+<p>In this test, we essentially set up a new set of resolvers from scratch using
+the schema by loading all GraphQL schema files from a directory. By using
+<code class="language-plaintext highlighter-rouge">makeExecutableSchema</code> to create a schema and
+<a href="https://www.apollographql.com/docs/apollo-server/api/graphql-tools/#addmockfunctionstoschemaoptions"><code class="language-plaintext highlighter-rouge">addMockFunctionsToSchema</code></a>,
+we mock out the endpoints.</p>
+
+<p>My application is using <a href="https://github.com/prisma-labs/graphql-yoga/">graphql-yoga</a>, although this is actually irrelevant to the test environment (you’ll notice no references to it here).</p>
+
+<p>In this example, I use an external Express GraphQL middleware resolver:
+<a href="https://github.com/maticzav/graphql-shield">graphql-shield</a>, a permissions
+layer for GraphQL.</p>
+
+<h2 id="drawbacks">Drawbacks</h2>
+<p>A huge drawback of this approach is that we need to type out GraphQL queries as
+strings without having them typechecked. I didn’t find a good way to have
+typechecked queries here, although it may be possible somehow with <a href="https://graphql-code-generator.com/">GraphQL Code
+Generator</a> (if you find a way, please
+comment below).</p>
+
+<p>Note that it’s possible to individually unit test any rules that you
+use in the permissions as well (independent of GraphQL).</p>
+
+<h2 id="code">Code</h2>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="o">%</span> <span class="nx">include</span> <span class="nx">code</span><span class="o">/</span><span class="nx">middleware</span><span class="o">-</span><span class="nx">unit</span><span class="o">-</span><span class="nx">test</span><span class="p">.</span><span class="nx">ts</span> <span class="o">%</span><span class="p">}</span>
+</code></pre></div></div>
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Using MathJax with React]]></title>
     <link href="http://louisrli.github.io/blog/2020/06/04/react-mathjax/"/>
-    <updated>2020-06-04 00:00:00 +0300</updated>
+    <updated>2020-06-04 00:00:00 +0100</updated>
     <id>http://louisrli.github.io/blog/2020/06/04/react-mathjax</id>
     <content type="html"><![CDATA[<p>This post describes how to use React (Typescript) and MathJax.</p>
 
@@ -51,7 +129,7 @@ dynamically load scripts in React</a>.</p>
 
 <span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="kd">const</span> <span class="nx">getMathJax</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nb">window</span> <span class="k">as</span> <span class="nx">any</span><span class="p">).</span><span class="nx">MathJax</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">getMathJax</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nb">window</span> <span class="k">as</span> <span class="kr">any</span><span class="p">).</span><span class="nx">MathJax</span><span class="p">;</span>
 
 <span class="kd">const</span> <span class="nx">typeset</span> <span class="o">=</span> <span class="p">(</span><span class="nx">selector</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">HTMLElement</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="kd">const</span> <span class="nx">mathJax</span> <span class="o">=</span> <span class="nx">getMathJax</span><span class="p">();</span>
@@ -64,15 +142,15 @@ dynamically load scripts in React</a>.</p>
       <span class="nx">selector</span><span class="p">();</span>
       <span class="k">return</span> <span class="nx">mathJax</span><span class="p">.</span><span class="nx">typesetPromise</span><span class="p">();</span>
     <span class="p">})</span>
-    <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="na">err</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">`Typeset failed: </span><span class="p">${</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span><span class="s2">`</span><span class="p">));</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="na">err</span><span class="p">:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">`Typeset failed: </span><span class="p">${</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span><span class="s2">`</span><span class="p">));</span>
   <span class="k">return</span> <span class="nx">mathJax</span><span class="p">.</span><span class="nx">startup</span><span class="p">.</span><span class="nx">promise</span><span class="p">;</span>
 <span class="p">};</span>
 
 <span class="kr">interface</span> <span class="nx">LatexProps</span> <span class="p">{</span>
-  <span class="na">rawLatex</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">rawLatex</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kd">const</span> <span class="na">Latex</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">FC</span><span class="o">&lt;</span><span class="nx">LatexProps</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">rawLatex</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="kd">const</span> <span class="nx">Latex</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">FC</span><span class="o">&lt;</span><span class="nx">LatexProps</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">rawLatex</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="kd">const</span> <span class="nx">ref</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createRef</span><span class="o">&lt;</span><span class="nx">HTMLSpanElement</span><span class="o">&gt;</span><span class="p">();</span>
   <span class="nx">React</span><span class="p">.</span><span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="nx">typeset</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">ref</span><span class="p">.</span><span class="nx">current</span><span class="o">!</span><span class="p">);</span>
@@ -89,7 +167,7 @@ dynamically load scripts in React</a>.</p>
   <entry>
     <title type="html"><![CDATA[Dynamic Script Loading in React with Hooks]]></title>
     <link href="http://louisrli.github.io/blog/2020/06/04/react-dynamic-script-hook/"/>
-    <updated>2020-06-04 00:00:00 +0300</updated>
+    <updated>2020-06-04 00:00:00 +0100</updated>
     <id>http://louisrli.github.io/blog/2020/06/04/react-dynamic-script-hook</id>
     <content type="html"><![CDATA[<p>This post describes how to dynamically load a script by adding a script tag to
 your document using React Hooks.</p>
@@ -113,8 +191,8 @@ provided, then it removes the script from the page when the component unmounts
 <span class="c1">// MathJax is not, which is one of the scripts I was using this for) or</span>
 <span class="c1">// if you need the callback to happen again.</span>
 <span class="kd">const</span> <span class="nx">useScript</span> <span class="o">=</span> <span class="p">(</span>
-  <span class="nx">scriptUrl</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
-  <span class="nx">scriptId</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+  <span class="nx">scriptUrl</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span>
+  <span class="nx">scriptId</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span>
   <span class="nx">callback</span><span class="p">?:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">void</span>
 <span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="nx">React</span><span class="p">.</span><span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -147,6 +225,62 @@ provided, then it removes the script from the page when the component unmounts
 
 <span class="k">export</span> <span class="k">default</span> <span class="nx">useScript</span><span class="p">;</span>
 
+</code></pre></div></div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Staging and production cookies in Next.js]]></title>
+    <link href="http://louisrli.github.io/blog/2019/11/20/staging-and-production-cookies-in-next-js/"/>
+    <updated>2019-11-20 00:00:00 +0000</updated>
+    <id>http://louisrli.github.io/blog/2019/11/20/staging-and-production-cookies-in-next-js</id>
+    <content type="html"><![CDATA[<p>This article describes how add authentication to your
+<a href="https://nextjs.org">Next.js</a> app using cookies and JWT. In this example, we
+use cookies to authenticate against a GraphQL Yoga backend. Additionally, we
+pass parameters based on the deployment stage (local, staging ,or production) of
+our app.</p>
+
+<!--more-->
+
+<h2 id="deploy-stage-environmental-variable">Deploy stage environmental variable</h2>
+<p>In this example, we are using <a href="TODO">Apex Up</a>, which automatically generates an
+environmental variable <code class="language-plaintext highlighter-rouge">UP_STAGE</code>. Depending on your deployment process, you can
+pass in the stage in a similar way.</p>
+
+<p>We also pass in the following environmental variables:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">BACKEND_URI_STAGING</code>: The expected domain of the GraphQL backend in staging</li>
+  <li><code class="language-plaintext highlighter-rouge">BACKEND_URI_PROD</code>: The expected domain of the GraphQL backend in prod</li>
+</ul>
+
+<p>In <code class="language-plaintext highlighter-rouge">next.config.js</code> in the root directory of your Next application:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Set up environmental variables for deployment. </span>
+<span class="c1">// UP_STAGE comes with UP (https://github.com/apex/up-examples/tree/master/pro/env-static)</span>
+<span class="kd">let</span> <span class="nx">backendUri</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">http://localhost:4000</span><span class="dl">'</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">cookieDomain</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">localhost</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">staging</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">backendUri</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">BACKEND_URI_STAGING</span><span class="p">;</span>
+  <span class="c1">// Using a domain like foo.com includes all subdomains of foo.com.</span>
+  <span class="nx">cookieDomain</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">stage.foo.com</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">production</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">backendUri</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">BACKEND_URI_PROD</span><span class="p">;</span>
+  <span class="nx">cookieDomain</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">stage.foo.com</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">backendUri</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">'</span><span class="s1">No backend URI found for : </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Using backend URI: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">backendUri</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">withCss</span><span class="p">({</span>
+  <span class="c1">// target: 'serverless',</span>
+  <span class="na">env</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">upStage</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span><span class="p">,</span>
+    <span class="nx">backendUri</span><span class="p">,</span>
+    <span class="nx">cookieDomain</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">})</span>
 </code></pre></div></div>
 ]]></content>
   </entry>

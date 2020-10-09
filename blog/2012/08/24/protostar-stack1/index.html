@@ -182,7 +182,7 @@ Segmentation fault</span></code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="c1">#!/usr/bin/perl</span>
 <span class="c1"># Prints argv[0] number of NOP instructions to stdout</span>
-<span class="k">print</span> <span class="p">"</span><span class="err">\</span><span class="s2">x90</span><span class="p">"</span><span class="nv">x$ARGV</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></code></pre></figure>
+<span class="k">print</span> <span class="p">"</span><span class="se">\x90</span><span class="p">"</span><span class="nv">x$ARGV</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></code></pre></figure>
 
 <p><code class="language-plaintext highlighter-rouge">~/envaddr.c</code>:</p>
 

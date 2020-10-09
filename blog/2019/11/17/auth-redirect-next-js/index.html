@@ -1,0 +1,365 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>HOC Authentication Redirects with Next.js, GraphQL, and Typescript - Louis Li</title>
+	<meta name="author" content="Louis Li">
+
+	
+	<meta name="description" content="
+
+
+
+
+
+	HOC Authentication Redirects with Next.js, GraphQL, and Typescript
+        
+	This article describes how to redirect the user in
+Next.js base...">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="fb:admins" content="100001696373537" />
+
+	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://louisrli.github.io/blog/2019/11/17/auth-redirect-next-js/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+          </script>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-5225926150102880",
+          enable_page_level_ads: true
+     });
+</script>
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	<script type="text/javascript">
+		$(function(){
+                    $('.profilepic').append("<img src='https://www.gravatar.com/avatar/" + "9f050cf96c6cc933141f0242e5b723fd" + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<hgroup>
+  <h1><a href="/">Louis Li</a></h1>
+  
+</hgroup>
+
+<p class="subtitle"></p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/categories/projects">Sideprojects</a></li>
+  <li><a href="/publications">Publications</a></li>
+  <li><a href="http://github.com/louisrli">Github</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="mailto:pong@outlook.com">Contact</a></li>
+</ul>
+
+
+<section class="aboutme">
+  <p>
+    Harvard student and developer.
+  </p>
+</section>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		<a class="github" href="https://github.com/louisrli" title="GitHub">GitHub</a>
+		
+		
+		<a class="rss" href="http://feeds.feedburner.com/louisligithub" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container">
+				<div id="content" class="inner"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Github top leaderboard -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5225926150102880"
+     data-ad-slot="1340213627"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">HOC Authentication Redirects with Next.js, GraphQL, and Typescript</h1>
+        <h3 class="subtitle" itemprop="subtitle"></h3>
+	<div class="entry-content" itemprop="articleBody"><p>This article describes how to redirect the user in
+<a href="https://nextjs.org">Next.js</a> based on whether the user is authenticated
+(logged in) using a properly typed Typescript React <a href="https://reactjs.org/docs/higher-order-components.html">higher-order
+component</a> (HOC).</p>
+
+<p>This can extend to arbitrary conditions on the queried user, such as redirecting
+if the user does not have an active subscription.</p>
+
+<!--more-->
+
+<p>The following Typescript module implements a general HOC that redirects based on
+authentication state by querying the user from the GraphQL backend. It then
+includes two examples:</p>
+<ul>
+  <li>If the user is not logged in, redirect to <code class="language-plaintext highlighter-rouge">/login</code></li>
+  <li>If the user is logged in, redirect to <code class="language-plaintext highlighter-rouge">/dashboard</code></li>
+</ul>
+
+<h2 id="example-hoc-usage">Example HOC Usage</h2>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">NextPage</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">next</span><span class="dl">'</span><span class="p">;</span>
+<span class="c1">// CHANGE THIS: Export to the appropriate path.</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">withLoginRedirect</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../lib/auth</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">RequiresLoginPage</span><span class="p">:</span> <span class="nx">NextPage</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>You're logged in<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;;</span>
+<span class="p">};</span>
+
+<span class="c1">// If the user isn't logged in, this will redirect to `/login`.</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">withLoginRedirect</span><span class="p">(</span><span class="nx">RequiresLoginPage</span><span class="p">);</span>
+
+</code></pre></div></div>
+
+<h2 id="implementation">Implementation</h2>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">NextComponentType</span><span class="p">,</span> <span class="nx">NextPageContext</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">next</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">Router</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">next/router</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">gql</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">graphql-tag</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="cm">/**
+ * YOU DEFINE THESE.
+ *
+ * These variables should be set by you to query for the user and the types
+ * appropriately. I recommend using GraphQL codegen
+ * (https://graphql-code-generator.com/) to generate types from your schema and
+ * queries from other files so that they can be used like so:
+ *
+ * import { User } from '../generated/apollo-client-types';
+ * import {
+ *   LoggedInUserDocument,
+ * } from '../generated/apollo-client-types';
+ *
+ */</span>
+<span class="kr">interface</span> <span class="nx">User</span> <span class="p">{}</span>
+<span class="kd">const</span> <span class="nx">LoggedInUserDocument</span> <span class="o">=</span> <span class="nx">gql</span><span class="s2">`&lt;YOUR QUERY FOR USER OBJECT&gt;`</span><span class="p">;</span>
+
+<span class="cm">/**
+ * A function that queries for the logged in user before rendering the page.
+ * Should be called in getInitialProps. It redirects as desired.
+ *
+ * It allows for redirecting both if the user is not logged in (e.g., redirect
+ * to login page) or redirecting if the user is logged in.
+ *
+ * If not logged in, redirects to the desired route.
+ *
+ * The return value indicates whether logic should continue or not after the
+ * call.
+ */</span>
+<span class="kd">const</span> <span class="nx">redirectBasedOnLogin</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span>
+  <span class="nx">ctx</span><span class="p">:</span> <span class="nx">NextPageContext</span><span class="p">,</span>
+  <span class="nx">route</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span>
+  <span class="nx">redirectIfAuthed</span><span class="p">:</span> <span class="nx">boolean</span>
+<span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">boolean</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">isLoggedIn</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">apolloClient</span>
+    <span class="p">.</span><span class="nx">query</span><span class="p">({</span>
+      <span class="na">query</span><span class="p">:</span> <span class="nx">LoggedInUserDocument</span><span class="p">,</span>
+      <span class="c1">// Prevent caching issues when logging in/out without refresh.</span>
+      <span class="na">fetchPolicy</span><span class="p">:</span> <span class="dl">'</span><span class="s1">network-only</span><span class="dl">'</span><span class="p">,</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(({</span> <span class="nx">data</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">data</span> <span class="o">||</span> <span class="o">!</span><span class="nx">data</span><span class="p">.</span><span class="nx">loggedInUser</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nb">Boolean</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">loggedInUser</span><span class="p">);</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">});</span>
+
+  <span class="kd">const</span> <span class="nx">shouldRedirect</span> <span class="o">=</span> <span class="nx">redirectIfAuthed</span> <span class="p">?</span> <span class="nx">isLoggedIn</span> <span class="p">:</span> <span class="o">!</span><span class="nx">isLoggedIn</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">shouldRedirect</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// https://github.com/zeit/next.js/wiki/Redirecting-in-%60getInitialProps%60</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">ctx</span><span class="p">.</span><span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">302</span><span class="p">,</span> <span class="p">{</span>
+        <span class="na">Location</span><span class="p">:</span> <span class="nx">route</span><span class="p">,</span>
+      <span class="p">});</span>
+      <span class="nx">ctx</span><span class="p">.</span><span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">Router</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">route</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="cm">/**
+ * General HOC that allows redirection based on authentication. We should not
+ * expose this: instead export specific routes and redirect combinations.
+ */</span>
+<span class="kd">const</span> <span class="nx">withAuthRedirect</span> <span class="o">=</span> <span class="p">(</span><span class="nx">route</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">redirectIfAuthed</span><span class="p">:</span> <span class="nx">boolean</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">&lt;</span><span class="nx">P</span><span class="p">,</span><span class="o">&gt;</span><span class="p">(</span>
+  <span class="nx">Page</span><span class="p">:</span> <span class="nx">NextComponentType</span><span class="o">&lt;</span><span class="nx">NextPageContext</span><span class="p">,</span> <span class="p">{},</span> <span class="nx">P</span><span class="o">&gt;</span>
+<span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kd">class</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="o">&lt;</span><span class="nx">P</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">static</span> <span class="k">async</span> <span class="nx">getInitialProps</span><span class="p">(</span><span class="na">ctx</span><span class="p">:</span> <span class="nx">NextPageContext</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">shouldContinue</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">redirectBasedOnLogin</span><span class="p">(</span>
+        <span class="nx">ctx</span><span class="p">,</span>
+        <span class="nx">route</span><span class="p">,</span>
+        <span class="nx">redirectIfAuthed</span>
+      <span class="p">);</span>
+      <span class="c1">// Only continue if we're logged in. Otherwise, it might cause an</span>
+      <span class="c1">// unnecessary call to a downstream getInitialProps that requires</span>
+      <span class="c1">// authentication.</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">shouldContinue</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{};</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">Page</span><span class="p">.</span><span class="nx">getInitialProps</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">Page</span><span class="p">.</span><span class="nx">getInitialProps</span><span class="p">(</span><span class="nx">ctx</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">&lt;</span><span class="nc">Page</span> <span class="si">{</span><span class="p">...</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="si">}</span> <span class="p">/&gt;;</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="cm">/**
+ * HOC that redirects to login page if the user is not logged in.
+ */</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">withLoginRedirect</span> <span class="o">=</span> <span class="nx">withAuthRedirect</span><span class="p">(</span><span class="dl">'</span><span class="s1">/login</span><span class="dl">'</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+
+<span class="cm">/**
+ * HOC that redirects to the dashboard if the user is logged in.
+ */</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">withDashboardRedirect</span> <span class="o">=</span> <span class="nx">withAuthRedirect</span><span class="p">(</span><span class="dl">'</span><span class="s1">/dashboard</span><span class="dl">'</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+</code></pre></div></div>
+
+<p>Found this helpful or have suggestions? Leave them in the comments below.</p>
+
+<p>Typing Next.js <code class="language-plaintext highlighter-rouge">getInitialProps</code> HOCs is tricky, and I had trouble finding an
+example online.</p>
+
+<h2 id="versions">Versions</h2>
+<p>At the time of writing, this was using Next 9.</p>
+</div>
+
+</article>
+
+	<div class="share">
+  <!--AddThis Button BEGIN -->
+  <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+    <a class="addthis_button_preferred_1"></a>
+    <a class="addthis_button_preferred_2"></a>
+    <a class="addthis_button_preferred_3"></a>
+    <a class="addthis_button_preferred_4"></a>
+    <a class="addthis_button_compact"></a>
+    <a class="addthis_counter addthis_bubble_style"></a>
+  </div>
+  <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51e5a5762f46bbe9"></script>
+  <!-- AddThis Button END -->
+</div>
+
+
+
+<script async
+  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Github bottom leaderboard -->
+<ins class="adsbygoogle"
+       style="display:block"
+            data-ad-client="ca-pub-5225926150102880"
+                 data-ad-slot="1968553857"
+                      data-ad-format="auto"
+                           data-full-width-responsive="true"></ins>
+  <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2020 - Louis Li
+</p>
+
+Theme originally by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+</footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'llgithub';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://louisrli.github.io/blog/2019/11/17/auth-redirect-next-js/';
+        var disqus_url = 'http://louisrli.github.io/blog/2019/11/17/auth-redirect-next-js/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32823730-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,359 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Unit testing Apollo React hooks with MockedProvider - Louis Li</title>
+	<meta name="author" content="Louis Li">
+
+	
+	<meta name="description" content="
+
+
+
+
+
+	Unit testing Apollo React hooks with MockedProvider
+        
+	This article describes how to unit test a React component with Apollo queries
+...">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="fb:admins" content="100001696373537" />
+
+	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://louisrli.github.io/blog/2019/11/16/apollo-mockedprovider-unit-test/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+          </script>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-5225926150102880",
+          enable_page_level_ads: true
+     });
+</script>
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	<script type="text/javascript">
+		$(function(){
+                    $('.profilepic').append("<img src='https://www.gravatar.com/avatar/" + "9f050cf96c6cc933141f0242e5b723fd" + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<hgroup>
+  <h1><a href="/">Louis Li</a></h1>
+  
+</hgroup>
+
+<p class="subtitle"></p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/categories/projects">Sideprojects</a></li>
+  <li><a href="/publications">Publications</a></li>
+  <li><a href="http://github.com/louisrli">Github</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="mailto:pong@outlook.com">Contact</a></li>
+</ul>
+
+
+<section class="aboutme">
+  <p>
+    Harvard student and developer.
+  </p>
+</section>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		<a class="github" href="https://github.com/louisrli" title="GitHub">GitHub</a>
+		
+		
+		<a class="rss" href="http://feeds.feedburner.com/louisligithub" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container">
+				<div id="content" class="inner"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Github top leaderboard -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5225926150102880"
+     data-ad-slot="1340213627"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Unit testing Apollo React hooks with MockedProvider</h1>
+        <h3 class="subtitle" itemprop="subtitle"></h3>
+	<div class="entry-content" itemprop="articleBody"><p>This article describes how to unit test a React component with Apollo queries
+using React Hooks, Jest, the Apollo-provided 
+<a href="https://www.apollographql.com/docs/react/development-testing/testing/#mockedprovider">MockedProvider</a>, and <a href="https://testing-library.com/docs/react-testing-library/api">React Testing Library</a>.</p>
+
+<!--more-->
+
+<p>When set up, <code class="language-plaintext highlighter-rouge">MockedProvider</code> asserts that any requests that are passed in its
+setup are called. That is, if you pass in that certain queries are going to be
+called with certain variables, the test will fail if it’s not called in exactly
+the same way.</p>
+
+<h2 id="wrapper-library-without-redux">Wrapper library (without Redux)</h2>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">MockedProvider</span><span class="p">,</span> <span class="nx">MockedResponse</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@apollo/react-testing</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kr">interface</span> <span class="nx">TestConfig</span> <span class="p">{</span>
+  <span class="nl">apolloMocks</span><span class="p">?:</span> <span class="nx">MockedResponse</span><span class="p">[];</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">ApolloWrapper</span> <span class="o">=</span> <span class="p">({</span>
+  <span class="nx">apolloMocks</span> <span class="o">=</span> <span class="p">[],</span>
+<span class="p">}:</span> <span class="nx">TestConfig</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="nx">children</span> <span class="p">}:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">MockedProvider</span> <span class="na">mocks</span><span class="p">=</span><span class="si">{</span><span class="nx">apolloMocks</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">children</span><span class="si">}</span><span class="p">&lt;/</span><span class="nc">MockedProvider</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+</code></pre></div></div>
+
+<h2 id="wrapper-library-with-redux">Wrapper library (with Redux)</h2>
+<p><a href="redux.js.org">Redux</a> is commonly used with react, and one can also set up a
+provider with a store. Note that we use
+<a href="https://github.com/piotrwitek/typesafe-actions">typesafe-actions</a> in this
+example.</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+ * These Redux functions should probably be in a different, production library,
+ * but they're included here for illustration.
+ */</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">combineReducers</span><span class="p">,</span> <span class="nx">createStore</span><span class="p">,</span> <span class="nx">Store</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">redux</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">StateType</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">typesafe-actions</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">myReducer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">path/to/my/reducer</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">rootReducer</span> <span class="o">=</span> <span class="nx">combineReducers</span><span class="p">({</span>
+  <span class="na">reducer</span><span class="p">:</span> <span class="nx">myReducer</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="k">export</span> <span class="kd">type</span> <span class="nx">RootState</span> <span class="o">=</span> <span class="nx">StateType</span><span class="o">&lt;</span><span class="k">typeof</span> <span class="nx">rootReducer</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">makeStore</span> <span class="o">=</span> <span class="p">(</span><span class="nx">initialState</span> <span class="o">=</span> <span class="p">{}):</span> <span class="nx">Store</span><span class="o">&lt;</span><span class="nx">RootState</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">createStore</span><span class="p">(</span><span class="nx">rootReducer</span><span class="p">,</span> <span class="nx">initialState</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// Test wrapper code.</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">MockedProvider</span><span class="p">,</span> <span class="nx">MockedResponse</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@apollo/react-testing</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Provider</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-redux</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Store</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">redux</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">makeStore</span><span class="p">,</span> <span class="p">{</span> <span class="nx">RootState</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./store</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kr">interface</span> <span class="nx">TestConfig</span> <span class="p">{</span>
+  <span class="nl">initialState</span><span class="p">?:</span> <span class="nb">Partial</span><span class="o">&lt;</span><span class="nx">RootState</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nl">store</span><span class="p">?:</span> <span class="nx">Store</span><span class="o">&lt;</span><span class="nx">RootState</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nl">apolloMocks</span><span class="p">?:</span> <span class="nx">MockedResponse</span><span class="p">[];</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">ReduxApolloWrapper</span> <span class="o">=</span> <span class="p">({</span>
+  <span class="nx">initialState</span> <span class="o">=</span> <span class="p">{},</span>
+  <span class="nx">store</span> <span class="o">=</span> <span class="nx">makeStore</span><span class="p">(</span><span class="nx">initialState</span><span class="p">),</span>
+  <span class="nx">apolloMocks</span> <span class="o">=</span> <span class="p">[],</span>
+<span class="p">}:</span> <span class="nx">TestConfig</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="nx">children</span> <span class="p">}:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">Provider</span> <span class="na">store</span><span class="p">=</span><span class="si">{</span><span class="nx">store</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nc">MockedProvider</span> <span class="na">mocks</span><span class="p">=</span><span class="si">{</span><span class="nx">apolloMocks</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">children</span><span class="si">}</span><span class="p">&lt;/</span><span class="nc">MockedProvider</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">Provider</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+</code></pre></div></div>
+
+<h2 id="test-example">Test example</h2>
+<p>This is an example of a test written using <a href="jestjs.io">Jest</a>.</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">gql</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">graphql-tag</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="nx">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">does what it should</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">mocks</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="na">request</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">query</span><span class="p">:</span> <span class="nx">gql</span><span class="s2">`&lt;your expected query here&gt;`</span><span class="p">,</span>
+        <span class="na">variables</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">myVariable</span><span class="p">:</span> <span class="dl">'</span><span class="s1">foo</span><span class="dl">'</span><span class="p">,</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="na">result</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+          <span class="c1">// Mock out the return response here. You can also have `result`</span>
+          <span class="c1">// return a function if you want to do more complicated things.</span>
+        <span class="p">},</span>
+      <span class="p">},</span>
+    <span class="p">},</span>
+  <span class="p">];</span>
+
+
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">getByText</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">render</span><span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">MyComponentWithApolloQuery</span>  <span class="p">/&gt;,</span>
+    <span class="p">{</span>
+      <span class="na">wrapper</span><span class="p">:</span> <span class="nx">ReduxApolloWrapper</span><span class="p">({</span> <span class="na">apolloMocks</span><span class="p">:</span> <span class="nx">MOCKS</span> <span class="p">}),</span>
+    <span class="p">}</span>
+  <span class="p">);</span>
+
+  <span class="nx">expect</span><span class="p">(</span><span class="nx">getByText</span><span class="p">(</span><span class="sr">/someSubstringRegex/</span><span class="p">)).</span><span class="nx">not</span><span class="p">.</span><span class="nx">toBeVisible</span><span class="p">();</span>
+
+  <span class="c1">// This test will implicitly fail here if Apollo is called, for example, with</span>
+  <span class="c1">// a variable value for `myVariable` other than `foo`.</span>
+<span class="p">});</span>
+
+
+
+</code></pre></div></div>
+
+<h2 id="errors-and-warnings">Errors and warnings</h2>
+
+<h3 id="client-not-in-context">Client not in context</h3>
+<p>For some reason, <code class="language-plaintext highlighter-rouge">MockedProvider</code> would not work properly for me in React
+Testing Library the way that was suggested by the documentation. I kept getting
+this error:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Invariant Violation: Could not find "client" in the context or passed in as an
+option. Wrap the root component in an &lt;ApolloProvider&gt;, or pass an ApolloClient
+instance in via options.
+</code></pre></div></div>
+
+<p>In the end, <a href="https://spectrum.chat/apollo/apollo-client/mockedprovider-doesnt-inject-client-in-context~a17546fa-d73c-4b4b-8237-c81680799ebb">this Spectrum
+thread</a>
+helped me to resolve the issue.</p>
+
+<h3 id="add-typename-warnings">Add typename warnings</h3>
+<p>I never really figured out how to solve these when I was using <a href="https://graphql-code-generator.com/">GraphQL
+codegen</a>, as the fragments that are
+generated don’t contain typenames. You’ll likely see warning below, for which
+I’ve currently not solved this issue (though there are some solutions <a href="https://github.com/apollographql/react-apollo/issues/1747">proposed here</a>).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>You're using fragments in your queries, but either don't have the addTypename:
+        true option set in Apollo Client, or you are trying to write a fragment to the store without the __typename.
+         Please turn on the addTypename option and include __typename when writing fragments so that Apollo Client
+         can accurately match fragments.
+</code></pre></div></div>
+</div>
+
+</article>
+
+	<div class="share">
+  <!--AddThis Button BEGIN -->
+  <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+    <a class="addthis_button_preferred_1"></a>
+    <a class="addthis_button_preferred_2"></a>
+    <a class="addthis_button_preferred_3"></a>
+    <a class="addthis_button_preferred_4"></a>
+    <a class="addthis_button_compact"></a>
+    <a class="addthis_counter addthis_bubble_style"></a>
+  </div>
+  <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51e5a5762f46bbe9"></script>
+  <!-- AddThis Button END -->
+</div>
+
+
+
+<script async
+  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Github bottom leaderboard -->
+<ins class="adsbygoogle"
+       style="display:block"
+            data-ad-client="ca-pub-5225926150102880"
+                 data-ad-slot="1968553857"
+                      data-ad-format="auto"
+                           data-full-width-responsive="true"></ins>
+  <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2020 - Louis Li
+</p>
+
+Theme originally by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+</footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'llgithub';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://louisrli.github.io/blog/2019/11/16/apollo-mockedprovider-unit-test/';
+        var disqus_url = 'http://louisrli.github.io/blog/2019/11/16/apollo-mockedprovider-unit-test/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32823730-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>

@@ -150,7 +150,7 @@ dynamically load scripts in React</a>.</p>
 
 <span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="kd">const</span> <span class="nx">getMathJax</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nb">window</span> <span class="k">as</span> <span class="nx">any</span><span class="p">).</span><span class="nx">MathJax</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">getMathJax</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nb">window</span> <span class="k">as</span> <span class="kr">any</span><span class="p">).</span><span class="nx">MathJax</span><span class="p">;</span>
 
 <span class="kd">const</span> <span class="nx">typeset</span> <span class="o">=</span> <span class="p">(</span><span class="nx">selector</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">HTMLElement</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="kd">const</span> <span class="nx">mathJax</span> <span class="o">=</span> <span class="nx">getMathJax</span><span class="p">();</span>
@@ -163,15 +163,15 @@ dynamically load scripts in React</a>.</p>
       <span class="nx">selector</span><span class="p">();</span>
       <span class="k">return</span> <span class="nx">mathJax</span><span class="p">.</span><span class="nx">typesetPromise</span><span class="p">();</span>
     <span class="p">})</span>
-    <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="na">err</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">`Typeset failed: </span><span class="p">${</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span><span class="s2">`</span><span class="p">));</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="na">err</span><span class="p">:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">`Typeset failed: </span><span class="p">${</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span><span class="s2">`</span><span class="p">));</span>
   <span class="k">return</span> <span class="nx">mathJax</span><span class="p">.</span><span class="nx">startup</span><span class="p">.</span><span class="nx">promise</span><span class="p">;</span>
 <span class="p">};</span>
 
 <span class="kr">interface</span> <span class="nx">LatexProps</span> <span class="p">{</span>
-  <span class="na">rawLatex</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">rawLatex</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kd">const</span> <span class="na">Latex</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">FC</span><span class="o">&lt;</span><span class="nx">LatexProps</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">rawLatex</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="kd">const</span> <span class="nx">Latex</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">FC</span><span class="o">&lt;</span><span class="nx">LatexProps</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">rawLatex</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="kd">const</span> <span class="nx">ref</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createRef</span><span class="o">&lt;</span><span class="nx">HTMLSpanElement</span><span class="o">&gt;</span><span class="p">();</span>
   <span class="nx">React</span><span class="p">.</span><span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="nx">typeset</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">ref</span><span class="p">.</span><span class="nx">current</span><span class="o">!</span><span class="p">);</span>

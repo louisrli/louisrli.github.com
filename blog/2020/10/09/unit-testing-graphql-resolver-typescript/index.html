@@ -1,0 +1,339 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Typesafe Unit Testing of GraphQL Resolvers in TypeScript - Louis Li</title>
+	<meta name="author" content="Louis Li">
+
+	
+	<meta name="description" content="
+
+
+
+
+
+	Typesafe Unit Testing of GraphQL Resolvers in TypeScript
+        
+	This post gives a code example on how to unit test a GraphQL resolver in
+...">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="fb:admins" content="100001696373537" />
+
+	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+          </script>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-5225926150102880",
+          enable_page_level_ads: true
+     });
+</script>
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	<script type="text/javascript">
+		$(function(){
+                    $('.profilepic').append("<img src='https://www.gravatar.com/avatar/" + "9f050cf96c6cc933141f0242e5b723fd" + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<hgroup>
+  <h1><a href="/">Louis Li</a></h1>
+  
+</hgroup>
+
+<p class="subtitle"></p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/categories/projects">Sideprojects</a></li>
+  <li><a href="/publications">Publications</a></li>
+  <li><a href="http://github.com/louisrli">Github</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="mailto:pong@outlook.com">Contact</a></li>
+</ul>
+
+
+<section class="aboutme">
+  <p>
+    Harvard student and developer.
+  </p>
+</section>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		<a class="github" href="https://github.com/louisrli" title="GitHub">GitHub</a>
+		
+		
+		<a class="rss" href="http://feeds.feedburner.com/louisligithub" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container">
+				<div id="content" class="inner"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Github top leaderboard -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5225926150102880"
+     data-ad-slot="1340213627"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Typesafe Unit Testing of GraphQL Resolvers in TypeScript</h1>
+        <h3 class="subtitle" itemprop="subtitle"></h3>
+	<div class="entry-content" itemprop="articleBody"><p>This post gives a code example on how to unit test a GraphQL resolver in
+TypeScript. In order to make the testing typesafe, we use
+<a href="https://graphql-code-generator.com/">GraphQL Code Generator</a>.</p>
+
+<!-- more -->
+
+<h2 id="description">Description</h2>
+
+<p>Unit testing GraphQL resolvers in TypeScript can be quite tricky to get right
+with the correct typing. This posts illustrates some example code of setting up
+calls directly to the resolvers.</p>
+
+<p>The code below here works with <a href="https://graphql-code-generator.com/">GraphQL Code
+Generator</a> to generate types for your
+resolvers. This article does not cover how to set up GraphQL Code Generator; it
+assumes that you have a working setup with your resolvers.</p>
+
+<p>Instead of writing raw GraphQL queries (which can be seen in <a href="./2020-10-09-unit-testing-graphql-middleware-typescript.md">my post about
+testing
+middlewares</a>), we
+show a typesafe way to unit test GraphQL resolvers. Much of this code is based
+off what was written in <a href="https://github.com/dotansimha/graphql-code-generator/issues/1763">graphql-code-generator issue #1763</a> by <a href="https://github.com/kamilkisiela">kamilkisiela</a>.</p>
+
+<h2 id="code">Code</h2>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// You need to set up your resolvers using GraphQL Code Generator types. This</span>
+<span class="c1">// isn't in the scope of this article, so you'll have to check its</span>
+<span class="c1">// documentation.</span>
+
+<span class="c1">// You probably want to put these helpers in a common file such as testutils.ts</span>
+<span class="c1">// in order to use them between different test suites. You don't really need to</span>
+<span class="c1">// read the code below.</span>
+<span class="c1">//</span>
+<span class="c1">// The types below help us properly type mockedResolvers so we can write unit</span>
+<span class="c1">// tests that directly call resolvers from graphql-codegen. I took it from this</span>
+<span class="c1">// link below.</span>
+<span class="c1">// https://github.com/dotansimha/graphql-code-generator/issues/1763</span>
+<span class="kd">type</span> <span class="nx">MockResolverFn</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TArgs</span><span class="p">,</span> <span class="nx">TCtx</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="nx">parent</span><span class="p">?:</span> <span class="nx">TParent</span><span class="p">,</span>
+  <span class="nx">args</span><span class="p">?:</span> <span class="nx">TArgs</span><span class="p">,</span>
+  <span class="nx">context</span><span class="p">?:</span> <span class="nx">TCtx</span><span class="p">,</span>
+  <span class="nx">info</span><span class="p">?:</span> <span class="kr">any</span>
+<span class="p">)</span> <span class="o">=&gt;</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="o">&gt;</span> <span class="o">|</span> <span class="nx">TResult</span><span class="p">;</span>
+
+<span class="kd">type</span> <span class="nx">MockStitchingResolver</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TArgs</span><span class="p">,</span> <span class="nx">TCtx</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">fragment</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">resolve</span><span class="p">:</span> <span class="nx">MockResolverFn</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TArgs</span><span class="p">,</span> <span class="nx">TCtx</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">mockResolver</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TContext</span><span class="p">,</span> <span class="nx">TArgs</span><span class="o">&gt;</span><span class="p">(</span>
+  <span class="nx">resolver</span><span class="p">:</span> <span class="nx">Resolver</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TContext</span><span class="p">,</span> <span class="nx">TArgs</span><span class="o">&gt;</span>
+<span class="p">):</span> <span class="nx">MockResolverFn</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TArgs</span><span class="p">,</span> <span class="nx">TContext</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">mockResolver</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TContext</span><span class="p">,</span> <span class="nx">TArgs</span><span class="o">&gt;</span><span class="p">(</span>
+  <span class="nx">resolver</span><span class="p">:</span> <span class="nx">Resolver</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TContext</span><span class="p">,</span> <span class="nx">TArgs</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="nx">isStitching</span><span class="p">:</span> <span class="nx">boolean</span>
+<span class="p">):</span> <span class="nx">MockStitchingResolver</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TArgs</span><span class="p">,</span> <span class="nx">TContext</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">mockResolver</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TContext</span><span class="p">,</span> <span class="nx">TArgs</span><span class="o">&gt;</span><span class="p">(</span>
+  <span class="nx">resolver</span><span class="p">:</span> <span class="nx">Resolver</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TContext</span><span class="p">,</span> <span class="nx">TArgs</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="nx">useStitching</span><span class="p">?:</span> <span class="nx">boolean</span>
+<span class="p">):</span>
+  <span class="o">|</span> <span class="nx">MockResolverFn</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TArgs</span><span class="p">,</span> <span class="nx">TContext</span><span class="o">&gt;</span>
+  <span class="o">|</span> <span class="nx">MockStitchingResolver</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TArgs</span><span class="p">,</span> <span class="nx">TContext</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span>
+    <span class="nx">isStitching</span><span class="o">&lt;</span><span class="nx">StitchingResolver</span><span class="o">&lt;</span><span class="nx">TResult</span><span class="p">,</span> <span class="nx">TParent</span><span class="p">,</span> <span class="nx">TContext</span><span class="p">,</span> <span class="nx">TArgs</span><span class="o">&gt;&gt;</span><span class="p">(</span>
+      <span class="nx">resolver</span><span class="p">,</span>
+      <span class="nx">useStitching</span> <span class="o">||</span> <span class="kc">false</span>
+    <span class="p">)</span>
+  <span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">fragment</span><span class="p">:</span> <span class="nx">resolver</span><span class="p">.</span><span class="nx">fragment</span><span class="p">,</span>
+      <span class="na">resolve</span><span class="p">:</span> <span class="p">(</span><span class="nx">parent</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">info</span><span class="p">)</span> <span class="o">=&gt;</span>
+        <span class="nx">resolver</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">parent</span><span class="o">!</span><span class="p">,</span> <span class="nx">args</span><span class="o">!</span><span class="p">,</span> <span class="nx">context</span><span class="o">!</span><span class="p">,</span> <span class="nx">info</span><span class="o">!</span><span class="p">),</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="p">(</span><span class="nx">parent</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">info</span><span class="p">)</span> <span class="o">=&gt;</span>
+    <span class="nx">resolver</span><span class="p">(</span><span class="nx">parent</span><span class="o">!</span><span class="p">,</span> <span class="nx">args</span><span class="o">!</span><span class="p">,</span> <span class="nx">context</span><span class="o">!</span><span class="p">,</span> <span class="nx">info</span><span class="o">!</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">isStitching</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">resolver</span><span class="p">:</span> <span class="kr">any</span><span class="p">,</span> <span class="nx">useStitching</span><span class="p">:</span> <span class="nx">boolean</span><span class="p">):</span> <span class="nx">resolver</span> <span class="k">is</span> <span class="nx">T</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">useStitching</span> <span class="o">===</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="cm">/**
+ * In this example, we have an object called `signup` that has the
+ * `MutationResolvers` type from graphql-codegen.
+ */</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">signup</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./signup</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="c1">// Set up the parent and context args to your resolvers as appropriate, either</span>
+<span class="c1">// at the top or on a test-by-test basis.</span>
+<span class="kd">const</span> <span class="nx">RESOLVER_PARENT</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">const</span> <span class="nx">MOCK_CONTEXT</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">cancel signup works</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">tests for an exception case</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">expectToThrow</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">mockResolver</span><span class="p">(</span><span class="nx">signup</span><span class="p">.</span><span class="nx">cancelSignup</span><span class="o">!</span><span class="p">)(</span>
+        <span class="nx">RESOLVER_PARENT</span><span class="p">,</span>
+        <span class="p">{</span>
+          <span class="na">reason</span><span class="p">:</span> <span class="dl">'</span><span class="s1">foo</span><span class="dl">'</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="nx">MOCK_CONTEXT</span>
+      <span class="p">);</span>
+    <span class="p">};</span>
+    <span class="nx">expect</span><span class="p">.</span><span class="nx">assertions</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">expectToThrow</span><span class="p">().</span><span class="k">catch</span><span class="p">((</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">e</span><span class="p">).</span><span class="nx">toBeDefined</span><span class="p">();</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+
+  <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">tests the return value of the resolver</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// You can also set up other mocks as needed, then assert that they were</span>
+    <span class="c1">// called later on.</span>
+    <span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">mockResolver</span><span class="p">(</span><span class="nx">signup</span><span class="p">.</span><span class="nx">cancelSignup</span><span class="o">!</span><span class="p">)(</span>
+      <span class="nx">RESOLVER_PARENT</span><span class="p">,</span>
+      <span class="p">{</span>
+        <span class="na">reason</span><span class="p">:</span> <span class="dl">'</span><span class="s1">foo</span><span class="dl">'</span><span class="p">,</span>
+      <span class="p">},</span>
+      <span class="nx">MOCK_CONTEXT</span>
+    <span class="p">);</span>
+
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">someFieldOnReturnResult</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="dl">"</span><span class="s2">some test assertion</span><span class="dl">"</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+</code></pre></div></div>
+</div>
+
+</article>
+
+	<div class="share">
+  <!--AddThis Button BEGIN -->
+  <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+    <a class="addthis_button_preferred_1"></a>
+    <a class="addthis_button_preferred_2"></a>
+    <a class="addthis_button_preferred_3"></a>
+    <a class="addthis_button_preferred_4"></a>
+    <a class="addthis_button_compact"></a>
+    <a class="addthis_counter addthis_bubble_style"></a>
+  </div>
+  <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51e5a5762f46bbe9"></script>
+  <!-- AddThis Button END -->
+</div>
+
+
+
+<script async
+  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Github bottom leaderboard -->
+<ins class="adsbygoogle"
+       style="display:block"
+            data-ad-client="ca-pub-5225926150102880"
+                 data-ad-slot="1968553857"
+                      data-ad-format="auto"
+                           data-full-width-responsive="true"></ins>
+  <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2020 - Louis Li
+</p>
+
+Theme originally by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+</footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'llgithub';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript/';
+        var disqus_url = 'http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32823730-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>
