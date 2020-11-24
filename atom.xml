@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2020-10-09T20:20:45+01:00</updated>
+  <updated>2020-11-24T20:48:00+03:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -14,9 +14,333 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Advice for Coding Bootcamp Students]]></title>
+    <link href="http://louisrli.github.io/blog/2020/11/22/advice-for-students/"/>
+    <updated>2020-11-22T00:00:00+03:00</updated>
+    <id>http://louisrli.github.io/blog/2020/11/22/advice-for-students</id>
+    <content type="html"><![CDATA[<p>As an instructor, I find myself giving the same advice frequently to many
+students. In this article, I’ve distilled my most common recommendations into
+one place, especially since I worry that students might be missing out on advice
+if I don’t say it in front of the class.</p>
+
+<p>This article contains advice for students in different stages of their
+programming career, from entering the bootcamp to landing their first
+development job. It describes some keys to success:</p>
+
+<ul>
+  <li>As a bootcamp student</li>
+  <li>As a programmer</li>
+  <li>As a job applicant</li>
+  <li>As an employee</li>
+</ul>
+
+<p>My hope is that this will be a resource for all students of the Re:Coded
+bootcamps (and possibly other bootcamps, but it’s catered to my
+experience).</p>
+
+<p>For the students: as with all improvement, simply hearing or reading it once
+isn’t enough to build good habits.</p>
+
+<!-- more -->
+
+<h1 id="table-of-contents">Table of Contents</h1>
+
+<ul>
+  <li><a href="#as-a-bootcamp-student">As a bootcamp student</a>
+    <ul>
+      <li><a href="#learn-to-read-technical-writing">Learn to read technical writing</a></li>
+      <li><a href="#stop-watching-so-many-videos">Stop watching so many videos</a></li>
+      <li><a href="#be-emotionally-aware">Be emotionally aware</a></li>
+      <li><a href="#dont-compare-yourself-to-others">Don’t compare yourself to others</a></li>
+    </ul>
+  </li>
+  <li><a href="#as-a-programmer">As a programmer</a>
+    <ul>
+      <li><a href="#be-able-to-explain-every-variable">Be able to explain every variable</a></li>
+      <li><a href="#stop-assuming">Stop assuming</a></li>
+      <li><a href="#learn-to-spot-the-difference">Learn to spot the difference</a></li>
+      <li><a href="#focus-on-debugging-skills">Focus on debugging skills</a></li>
+    </ul>
+  </li>
+  <li><a href="#as-a-capstone-project-member">As a capstone project member</a></li>
+  <li><a href="#as-an-employee">As an employee</a>
+    <ul>
+      <li><a href="#do-a-good-job">Do a good job</a></li>
+      <li><a href="#seek-new-things">Seek new things</a></li>
+      <li><a href="#dont-be-overly-eager-for-the-first-opportunity">Don’t be overly eager for the first opportunity</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="as-a-bootcamp-student">As a bootcamp student</h1>
+
+<h2 id="learn-to-read-technical-writing">Learn to read technical writing</h2>
+<p>From the first day, students should focus on their technical reading skills.</p>
+
+<p>In programming, videos will bring learners 30% of the way there on basic
+concepts. But after a certain point in the journey, videos won’t even be present for topics.
+the topics one has to research. <strong>Software development is a heavily reading
+focused process:</strong> when leveraging a new library, working in a 
+framework, understanding an application with private code, and so on.</p>
+
+<p>I’m not saying that videos shouldn’t be used at all; they are excellent at
+teaching the foundational concepts (see the next section for caveats).
+However, many students skimp on improving reading skills, thinking that the dream of
+learning from videos will carry on forever. Reading skills must be developed
+in parallel.</p>
+
+<p>There’s a reason that programmers want people to
+<a href="https://en.wikipedia.org/wiki/RTFM">RTFM</a>, not WTFV.</p>
+
+<h2 id="stop-watching-so-many-videos">Stop watching so many videos</h2>
+
+<p>To learn football or piano, can this be achieved
+by mostly watching videos?  Coding is no different.</p>
+
+<p>Videos are good for introducing basic concepts. They are also good for building
+familiarity when typing alongside the video. But after a certain point,
+improving isn’t about watching more videos: it’s about doing the activity
+(coding) and identifying mistakes (see the debugging skills section). This is
+the general loop in all skills, not just coding.</p>
+
+<p>It’s no coincidence that the students that plateau the most are the ones that
+are adamant about watching videos, repeatedly reaffirming that they learn better by
+watching videos (a statement true for most of the
+population). In the finite time available in the bootcamp,
+it takes away from the time to practice application.</p>
+
+<p>Students frequently tell me this: <em>“I understand the concepts but I’m having
+trouble when I actually write code.”</em> At this stage, the solution is not to
+watch another video to reinforce the concepts; it’s to practice writing the code
+(though arguably the first step could be done by following step-by-step from a
+video). There is no substitute for writing code.</p>
+
+<p>Even though most students seem to understand that piano and football can’t be
+learned by watching videos, I believe that, because coding happens on a
+computer, some get stuck in the video mindset,
+making it feel different from other “tangible”
+skills such as instruments. Hey, we do <em>real</em> things with our keyboards.</p>
+
+<h2 id="be-emotionally-aware">Be emotionally aware</h2>
+<p>I often distinguish students based on my perception of their emotional
+awareness, and I encourage all students to think carefully about the best ways they can support
+their peers’ experiences.</p>
+
+<p>The bootcamp can be a stressful experience for a lot of students. Students
+grapple with their own self-image and ability to learn, and each student plays a
+role in impacting the experiences of others through their actions.</p>
+
+<p>Let’s take, for example, the phrase: “this was easy.” In my opinion, even if the
+activity was <em>actually</em> easy for the student, an emotionally aware but advanced
+student would focus on the hard parts nonetheless – showing even the struggling
+students that each person has difficulty with something.</p>
+
+<p>This is simply one example, and it doesn’t imply that students
+shouldn’t present advanced work or express their opinion, but often there is a
+clear separation between students who are aware of how their behavior affects
+the mentalities of the rest of the class and those who are not aware. The goal
+is to create a better learning experience for all students.</p>
+
+<h2 id="dont-compare-yourself-to-others">Don’t compare yourself to others</h2>
+
+<p>Comparing yourself to others is usually unproductive. While it’s a natural
+reaction, try not to do it.</p>
+
+<p>Everybody can compare themselves to another person. When you start
+programming, there’s already somebody who will learn faster. When you get your
+first job, there’s another entry level developer out there with a higher salary.
+Simply focus on improving yourself.</p>
+
+<p>As a caveat, comparisons can be productive, but this depends on your personality and mindset.
+In my experience, the comparisons that my students make are mostly not
+productive.</p>
+
+<p><strong>Productive</strong>: “This person is doing well. I’m inspired. I’m also going to strive to reach that
+level of skill.”</p>
+
+<p><strong>Not so productive</strong>: “This person is doing well. I feel really behind and unsure,
+I’m not sure if I’ll be able to do this. Everybody else does it better.”</p>
+
+<p>As the CS50 course says on one of their very first slides: it’s not about where
+you end up relative to your peers, it’s about where you end up relative to where
+you started.</p>
+
+<h1 id="as-a-programmer">As a programmer</h1>
+
+<h2 id="be-able-to-explain-every-variable">Be able to explain every variable</h2>
+
+<p>When code isn’t working, I advise students to strive for this state: if I point to some
+part of the code, <strong>the student should be able to correctly explain the type and
+the approximate contents of every variable</strong>.</p>
+
+<p>One of my most common questions to students is this: “What does this variable
+contain? Is it a string, a number, an array, an object?” Especially in the early
+parts of the bootcamp, I usually receive the wrong answer.</p>
+
+<p>Take it slowly: students should build an understanding of each variable’s
+contents, double-checking that understanding with console.logs.
+For students that feel they are plateauing, I advise them to achieve a more
+intimate understanding of their own code: make sure that every variable’s value
+is understood. See the next section about assumptions.</p>
+
+<h2 id="stop-assuming">Stop assuming</h2>
+
+<p>Don’t assume that the code or variables do what they should be
+doing, and use the console liberally.</p>
+
+<p>All programmers are familiar with this sequence of events: after a long period
+of debugging everything else, even though you were so, so, so sure that this
+variable contained some value….well, it didn’t. It had something else.</p>
+
+<p>When I help students with activities, one of my most common actions is to simply
+tell them to <code class="language-plaintext highlighter-rouge">console.log</code> a certain variable, and that generally sets them on
+the right path. But there’s nothing magic about this; it’s simply that I don’t
+assume the variable is working as intended. Often, the student chose not to
+console.log it because they <strong>assumed</strong> that a variable contained something
+without checking it themselves. The instructor simply went “to double check.”</p>
+
+<p>I often say that programming is a humbling art: when we debug, we have to assume
+that we are wrong, revisiting our own mental image of the code.. One of the most
+poisonous thoughts can be being overly sure in yourself: “I’m sure this variable
+contains X, nah…no need to check it,”</p>
+
+<h2 id="learn-to-spot-the-difference">Learn to spot the difference</h2>
+
+<p>In coding, where we often work with example code or existing code,
+“understanding the difference” between two pieces of code is a crucial skill.</p>
+
+<p>I explicitly draw
+attention to this skill because developers leverage this frequently. For
+example, when reading the documentation for a library, looking at code on
+StackOverflow, using teammates’ code as a guideline, etc. All of these will
+ultimately involve “spotting differences” in code, whether to fix or adapt.</p>
+
+<h3 id="examples">Examples</h3>
+<ul>
+  <li>My function is giving a syntax error, but the function in the demo works.
+  What’s the difference?</li>
+  <li>One of my pages is working, but the other is not. But they have the same
+  structure. What’s the difference?</li>
+  <li>This example code works, but my code doesn’t. What’s the difference?</li>
+</ul>
+
+<p>Sometimes spotting the difference can be as small as a single character.
+Sometimes we can’t be sure if the difference is the cause of an issue. But the
+mentality here is to be suspicious of everything; any perceived difference
+<em>could</em> be the cause. I often hear this: “I saw this
+this difference but I didn’t bother to investigate it, it couldn’t have been
+that!” From the last section, we know how this turns out. Don’t assume.</p>
+
+<h2 id="focus-on-debugging-skills">Focus on debugging skills</h2>
+
+<p>Debugging skills – finding mistakes in code – are extremely
+important in programming. Many students begin with the misconception that the majority of
+programming is about writing code and later fixing a few small mistakes here and
+there. The truth is usually the opposite: most of the time is spent fixing
+mistakes in the code!</p>
+
+<p>Debugging is a methodical, iterative process in which we learn from our
+mistakes. <strong>I encourage all students to put in an active focus in improving
+their debugging.</strong> I write this because it’s often something that students
+passively develop, but I want to highlight an explicit focus on debugging skills
+here. Take every bug fix, and try not to repeat the same mistake.</p>
+
+<p>This is related to why videos are limited in their helpfulness. Videos usually
+teach how to write code for a certain concept, but they don’t focus on the
+correction of mistakes.</p>
+
+<p><a href="https://softwareengineering.stackexchange.com/questions/10735/how-to-most-effectively-debug-code">StackExchange on effectively debugging
+code</a></p>
+
+<h1 id="as-a-capstone-project-member">As a capstone project member</h1>
+
+<p>After the first three months, students
+participate in a “capstone project” with sprints and code reviews, managed by a
+lead engineer from Re:Coded. This is meant to mirror the real development
+process.</p>
+
+<p>I will simply share the mental checklist I go
+through when I evaluate a student on the capstone projects, <strong>in order of most
+important to least important</strong> (though all of them are important).</p>
+
+<ol>
+  <li>Did they learn from their mistakes in code review and pull request
+preparation, infrequently making the same mistakes?</li>
+  <li>Did they review their peers’ code thoroughly and in detail, applying
+principles from their own code reviews?
+    <ul>
+      <li>Or are most reviews simply one small comment followed by LGTM?</li>
+    </ul>
+  </li>
+  <li>Did they respond in a timely manner as both a reviewer and reviewee?</li>
+  <li>Do they habitually proofread their code reviews after asking for a review?
+    <ul>
+      <li>Or are log statements, wrong nelines, failing tests, typos, etc.
+frequently present?</li>
+    </ul>
+  </li>
+</ol>
+
+<p>Answering no to any of the main four questions above indicates an area of
+improvement. In my eyes, how well a student did in this project
+essentially maps to “how much yes” or “how much no” for the answers above
+(nobody is perfect).</p>
+
+<p>All of these are <strong>less about technical knowledge and more about the care one
+takes in their work.</strong> This type of quality and attention is noted in the
+workplace.</p>
+
+<h1 id="as-an-employee">As an employee</h1>
+
+<h2 id="do-a-good-job">Do a good job</h2>
+
+<p>There is no substitute for doing good work and achieving results at a workplace.
+Focus on excelling in work – writing clean code, being a good
+communicator, being a good teammate – and it will open up more opportunities.</p>
+
+<p>Somebody who does good work is valued. And somebody who is valued generally has
+more agency in their life – agency to pick a team, a company, a project, and to
+some extent a salary.</p>
+
+<h2 id="seek-new-things">Seek new things</h2>
+<p>Say yes to new projects, new technologies, new
+teams. This will pave the way for being a well-rounded developer.</p>
+
+<p>After “learning to learn”, one should embrace the challenge of learning a new
+technology or framework. <strong>Over-comfort should be 
+discomfort</strong>; it’s a sign that it’s time to go seek new knowledge. Nobody wants
+to be doing the exact same thing for 25 years.</p>
+
+<p>Of course, there are a few caveats, such as a draconian boss that wants to milk
+18 hours a day from you, career risks from moving to new teams, etc. But one
+should keep the general principle in mind to have a fulfilling career.</p>
+
+<h2 id="dont-be-overly-eager-for-the-first-opportunity">Don’t be overly eager for the first opportunity</h2>
+
+<p>Know your value. A lot of my students, even the ones that excel highly in the course, have the
+mindset that they’d love if someone offered them a job. When I hear this, I
+worry that they might simply snap up the first job that they’re offered: giving
+up on comparisons with other opportunities on culture fit, learning
+opportunities, or salaries.</p>
+
+<p>Keeping this mind, I encourage students to know their value and to make their
+best effort to explore options, rather than immediately settling for the first.
+While we should all be grateful for the opportunity for employment, my graduated
+students are often surprised by the level of demand for developers. In short:
+<strong>you’re probably more valuable than you think you are</strong>
+(economically speaking).</p>
+
+<p>As a disclaimer, this is completely dependent on the person’s financial and life
+situation. In this particular case, most of my students spent four months in a
+coding bootcamp and generally aren’t in financially urgent situations, therefore
+having the luxury of spending some time for a job search.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Typesafe Unit Testing of GraphQL Resolvers in TypeScript]]></title>
     <link href="http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript/"/>
-    <updated>2020-10-09T00:00:00+01:00</updated>
+    <updated>2020-10-09T00:00:00+03:00</updated>
     <id>http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript</id>
     <content type="html"><![CDATA[<p>This post gives a code example on how to unit test a GraphQL resolver with Jest
 in TypeScript. In order to make the testing typesafe, we use <a href="https://graphql-code-generator.com/">GraphQL Code
@@ -152,7 +476,7 @@ off what was written in <a href="https://github.com/dotansimha/graphql-code-gene
   <entry>
     <title type="html"><![CDATA[Unit Testing of GraphQL Middleware in TypeScript]]></title>
     <link href="http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-middleware-typescript/"/>
-    <updated>2020-10-09T00:00:00+01:00</updated>
+    <updated>2020-10-09T00:00:00+03:00</updated>
     <id>http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-middleware-typescript</id>
     <content type="html"><![CDATA[<p>This post gives a code example on how to unit test a GraphQL middleware in
 TypeScript with Jest, using the Express GraphQL middleware resolver
@@ -264,7 +588,7 @@ use in the permissions as well (independent of GraphQL).</p>
   <entry>
     <title type="html"><![CDATA[Istanbul Frontend Bootcamp Retrospective]]></title>
     <link href="http://louisrli.github.io/blog/2020/07/02/teaching-thoughts/"/>
-    <updated>2020-07-02T00:00:00+01:00</updated>
+    <updated>2020-07-02T00:00:00+03:00</updated>
     <id>http://louisrli.github.io/blog/2020/07/02/teaching-thoughts</id>
     <content type="html"><![CDATA[<p>This post is a compendium of my thoughts as an instructor for a
 non-profit coding bootcamp teaching frontend web development (JavaScript and
@@ -751,7 +1075,7 @@ landing a job on a weak currency or a strong one.</p>
   <entry>
     <title type="html"><![CDATA[Traveling from Istanbul to Şile by Bus]]></title>
     <link href="http://louisrli.github.io/blog/2020/07/01/istanbul-to-sile/"/>
-    <updated>2020-07-01T00:00:00+01:00</updated>
+    <updated>2020-07-01T00:00:00+03:00</updated>
     <id>http://louisrli.github.io/blog/2020/07/01/istanbul-to-sile</id>
     <content type="html"><![CDATA[<p>The intention of this post is to document how to travel from Istanbul to Şile by
 bus. At the time of writing, there do not appear to be any English resources for
@@ -801,7 +1125,7 @@ how.</p>
   <entry>
     <title type="html"><![CDATA[Using MathJax with React]]></title>
     <link href="http://louisrli.github.io/blog/2020/06/04/react-mathjax/"/>
-    <updated>2020-06-04T00:00:00+01:00</updated>
+    <updated>2020-06-04T00:00:00+03:00</updated>
     <id>http://louisrli.github.io/blog/2020/06/04/react-mathjax</id>
     <content type="html"><![CDATA[<p>This post describes how to use React (Typescript) and MathJax.</p>
 
@@ -874,7 +1198,7 @@ dynamically load scripts in React</a>.</p>
   <entry>
     <title type="html"><![CDATA[Dynamic Script Loading in React with Hooks]]></title>
     <link href="http://louisrli.github.io/blog/2020/06/04/react-dynamic-script-hook/"/>
-    <updated>2020-06-04T00:00:00+01:00</updated>
+    <updated>2020-06-04T00:00:00+03:00</updated>
     <id>http://louisrli.github.io/blog/2020/06/04/react-dynamic-script-hook</id>
     <content type="html"><![CDATA[<p>This post describes how to dynamically load a script by adding a script tag to
 your document using React Hooks.</p>
@@ -939,7 +1263,7 @@ provided, then it removes the script from the page when the component unmounts
   <entry>
     <title type="html"><![CDATA[Fiilimsi: Turkish Verbal Nouns, Adjectives, and Adverbs]]></title>
     <link href="http://louisrli.github.io/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives/"/>
-    <updated>2020-04-20T00:00:00+01:00</updated>
+    <updated>2020-04-20T00:00:00+03:00</updated>
     <id>http://louisrli.github.io/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives</id>
     <content type="html"><![CDATA[<style>
 blockquote {
@@ -1487,7 +1811,7 @@ language resource for these verbal adverbs.</p>
   <entry>
     <title type="html"><![CDATA[Sim Card Price in Turkey in February 2020]]></title>
     <link href="http://louisrli.github.io/blog/2020/02/21/sim-card/"/>
-    <updated>2020-02-21T00:00:00+00:00</updated>
+    <updated>2020-02-21T00:00:00+03:00</updated>
     <id>http://louisrli.github.io/blog/2020/02/21/sim-card</id>
     <content type="html"><![CDATA[<p>Getting a SIM card in Turkey for short to medium term stays in Turkey is
 straightforward. In this article, I describe my experience with prices in
@@ -1529,7 +1853,7 @@ registering everything.</p>
   <entry>
     <title type="html"><![CDATA[Sahibinden: The Craigslist of Turkey]]></title>
     <link href="http://louisrli.github.io/blog/2020/02/21/sahibinden/"/>
-    <updated>2020-02-21T00:00:00+00:00</updated>
+    <updated>2020-02-21T00:00:00+03:00</updated>
     <id>http://louisrli.github.io/blog/2020/02/21/sahibinden</id>
     <content type="html"><![CDATA[<p><strong>Sahibinden</strong> (literally, “owners”) is the Craigslist equivalent of Turkey.</p>
 
@@ -1589,7 +1913,7 @@ actually looks a lot worse in person.</li>
   <entry>
     <title type="html"><![CDATA[The Best ATM (No-Fee) in Istanbul, Turkey]]></title>
     <link href="http://louisrli.github.io/blog/2020/02/21/best-atm-in-istanbul-turkey/"/>
-    <updated>2020-02-21T00:00:00+00:00</updated>
+    <updated>2020-02-21T00:00:00+03:00</updated>
     <id>http://louisrli.github.io/blog/2020/02/21/best-atm-in-istanbul-turkey</id>
     <content type="html"><![CDATA[<p>The best ATM in Istanbul, Turkey is a coveted title. There’s a lot of banks that
 accept international cards, but some of them will try to extract more money from
@@ -1703,7 +2027,7 @@ link</a>.</p>
   <entry>
     <title type="html"><![CDATA[Staging and production cookies in Next.js]]></title>
     <link href="http://louisrli.github.io/blog/2019/11/20/staging-and-production-cookies-in-next-js/"/>
-    <updated>2019-11-20T00:00:00+00:00</updated>
+    <updated>2019-11-20T00:00:00+03:00</updated>
     <id>http://louisrli.github.io/blog/2019/11/20/staging-and-production-cookies-in-next-js</id>
     <content type="html"><![CDATA[<p>This article describes how add authentication to your
 <a href="https://nextjs.org">Next.js</a> app using cookies and JWT. In this example, we
@@ -1759,7 +2083,7 @@ pass in the stage in a similar way.</p>
   <entry>
     <title type="html"><![CDATA[Next.js Typescript Integration with Ant Design (antd)]]></title>
     <link href="http://louisrli.github.io/blog/2019/11/17/next-js-with-antd/"/>
-    <updated>2019-11-17T00:00:00+00:00</updated>
+    <updated>2019-11-17T00:00:00+03:00</updated>
     <id>http://louisrli.github.io/blog/2019/11/17/next-js-with-antd</id>
     <content type="html"><![CDATA[<p>This article describes how to add the <a href="antd.design">Antd</a> library to
 <a href="https://nextjs.org">Next.js</a>.</p>
@@ -1857,7 +2181,7 @@ following:</p>
   <entry>
     <title type="html"><![CDATA[HOC Authentication Redirects with Next.js, GraphQL, and Typescript]]></title>
     <link href="http://louisrli.github.io/blog/2019/11/17/auth-redirect-next-js/"/>
-    <updated>2019-11-17T00:00:00+00:00</updated>
+    <updated>2019-11-17T00:00:00+03:00</updated>
     <id>http://louisrli.github.io/blog/2019/11/17/auth-redirect-next-js</id>
     <content type="html"><![CDATA[<p>This article describes how to redirect the user in
 <a href="https://nextjs.org">Next.js</a> based on whether the user is authenticated
@@ -2019,7 +2343,7 @@ example online.</p>
   <entry>
     <title type="html"><![CDATA[Unit testing React Google Analytics (react-ga) with Jest]]></title>
     <link href="http://louisrli.github.io/blog/2019/11/16/jest-with-react-ga/"/>
-    <updated>2019-11-16T00:00:00+00:00</updated>
+    <updated>2019-11-16T00:00:00+03:00</updated>
     <id>http://louisrli.github.io/blog/2019/11/16/jest-with-react-ga</id>
     <content type="html"><![CDATA[<p>This article describes how to unit test a React component using
 <a href="https://github.com/react-ga/react-ga/">react-ga</a>, including globally setting up
@@ -2107,7 +2431,7 @@ level of hackery).</p>
   <entry>
     <title type="html"><![CDATA[Unit testing Apollo React hooks with MockedProvider]]></title>
     <link href="http://louisrli.github.io/blog/2019/11/16/apollo-mockedprovider-unit-test/"/>
-    <updated>2019-11-16T00:00:00+00:00</updated>
+    <updated>2019-11-16T00:00:00+03:00</updated>
     <id>http://louisrli.github.io/blog/2019/11/16/apollo-mockedprovider-unit-test</id>
     <content type="html"><![CDATA[<p>This article describes how to unit test a React component with Apollo queries
 using React Hooks, Jest, the Apollo-provided 
@@ -2263,7 +2587,7 @@ I’ve currently not solved this issue (though there are some solutions <a href=
   <entry>
     <title type="html"><![CDATA[Is Couchsurfing Safe? (and other common questions)]]></title>
     <link href="http://louisrli.github.io/blog/2018/06/24/is-couchsurfing-safe-and-other-common-questions/"/>
-    <updated>2018-06-24T00:00:00+01:00</updated>
+    <updated>2018-06-24T00:00:00+03:00</updated>
     <id>http://louisrli.github.io/blog/2018/06/24/is-couchsurfing-safe-and-other-common-questions</id>
     <content type="html"><![CDATA[<p><a href="http://couchsurfing.com">Couchsurfing</a> is a site that connects travelers to local hosts in a city.
 As long as both the traveler and host agree, the traveler stays with the host free of charge. 
@@ -2433,7 +2757,7 @@ more experienced individuals, such as the power hosts who have hosted over one h
   <entry>
     <title type="html"><![CDATA[Transportation from Dharamshala Airport to McLeod Ganj]]></title>
     <link href="http://louisrli.github.io/blog/2018/06/22/transportation-from-dharamshala-airport-to-mcleod-ganj/"/>
-    <updated>2018-06-22T00:00:00+01:00</updated>
+    <updated>2018-06-22T00:00:00+03:00</updated>
     <id>http://louisrli.github.io/blog/2018/06/22/transportation-from-dharamshala-airport-to-mcleod-ganj</id>
     <content type="html"><![CDATA[<p><em>Last updated: June 2018</em></p>
 
@@ -2452,7 +2776,7 @@ our case, we ended up getting a lower price confirmed by the booth.</p>
   <entry>
     <title type="html"><![CDATA[Transportation from Agra to Delhi Airport]]></title>
     <link href="http://louisrli.github.io/blog/2018/06/21/transportation-from-agra-to-delhi-airport/"/>
-    <updated>2018-06-21T00:00:00+01:00</updated>
+    <updated>2018-06-21T00:00:00+03:00</updated>
     <id>http://louisrli.github.io/blog/2018/06/21/transportation-from-agra-to-delhi-airport</id>
     <content type="html"><![CDATA[<p><em>Last updated: June 2018</em></p>
 
@@ -2531,7 +2855,7 @@ price per person.</p>
   <entry>
     <title type="html"><![CDATA[Dubrovnik Bus Departure Schedule (Croatia)]]></title>
     <link href="http://louisrli.github.io/blog/2015/09/02/dubrovnik-bus-departure-schedule/"/>
-    <updated>2015-09-02T20:15:33+01:00</updated>
+    <updated>2015-09-02T22:15:33+03:00</updated>
     <id>http://louisrli.github.io/blog/2015/09/02/dubrovnik-bus-departure-schedule</id>
     <content type="html"><![CDATA[<p>This article contains the bus schedule for departures from Dubrovonik, Croatia. Dubrovonik is a
 popular coastal destination (and the filming site of King’s Landing for the <em>Game of Thrones</em> TV
@@ -2598,49 +2922,6 @@ other travelers.</p>
   <li>Vrgorac</li>
   <li>Otric-Seoci</li>
 </ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Dubrovnik's Best Currency Exchange (Croatia)]]></title>
-    <link href="http://louisrli.github.io/blog/2015/09/02/dubrovnik-best-currency-exchange/"/>
-    <updated>2015-09-02T20:15:33+01:00</updated>
-    <id>http://louisrli.github.io/blog/2015/09/02/dubrovnik-best-currency-exchange</id>
-    <content type="html"><![CDATA[<p>This article contains information about the best place to exchange currency in Dubrovnik, Croatia:
-<strong>OK Travel Agency</strong>.</p>
-
-<p>Dubrovnik is a popular coastal destination (and the filming site of King’s Landing for the <em>Game of Thrones</em> TV
-show!).</p>
-
-<!-- more -->
-
-<h2 id="directions">Directions</h2>
-
-<p>The travel agency is located at <strong>Obala Stjepana Radića 32, Dubrovnik, Croatia</strong>.</p>
-
-<p>It is very
-convenient to reach when arriving in Dubrovonik by bus or boat, because it is located next to the main
-port and central bus station.</p>
-
-<p>It is further from Old Town, and you will take one of the buses to the central bus station or
-port (most of them stop here), then walk to the agency.</p>
-
-<p class="minipic"><img src="/images/travel/dubrovonikcurrency/oktravel.jpg" alt="Outside of OK Travel Agency" /></p>
-
-<div style="text-align: center;">
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5868.382096555248!2d18.08878992153864!3d42.65730670065322!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x134c7525b02fd643%3A0x9fe451262d4d1f78!2sObala+Stjepana+Radi%C4%87a+32%2C+20000%2C+Dubrovnik%2C+Croatia!5e0!3m2!1sen!2sus!4v1441228112407" width="400" height="300" frameborder="0" style="border:0" allowfullscreen=""></iframe>
-</div>
-
-<h2 id="rates">Rates</h2>
-
-<p>I received exchange rates from OK Travel Agency that were <strong>0.8% from
-the midmarket rate</strong> (the rate from internet searches). There was <strong>no commission</strong>.</p>
-
-<p>Rates change over time, but in September 2015, the midmarket rate was 7.55 kuna to the euro. I
-received 7.49 kuna to the euro. \((1 - 7.49 / 7.55 = 0.079)\)</p>
-
-<p><em>Last updated: 2 September 2015</em></p>
 
 ]]></content>
   </entry>
