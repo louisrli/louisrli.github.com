@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2020-11-25T16:04:14+03:00</updated>
+  <updated>2020-11-25T16:08:26+03:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -178,7 +178,7 @@ contain? Is it a string, a number, an array, an object?” Especially in the ear
 parts of the bootcamp, I usually receive the wrong answer.</p>
 
 <p>Take it slowly: students should build an understanding of each variable’s
-contents, double-checking that understanding with console.logs.
+contents, double-checking that understanding with logging.
 For students that feel they are plateauing, I advise them to achieve a more
 intimate understanding of their own code: make sure that every variable’s value
 is understood. See the next section about assumptions.</p>
@@ -193,10 +193,10 @@ of debugging everything else, even though you were so, so, so sure that this
 variable contained some value….well, it didn’t. It had something else.</p>
 
 <p>When I help students with activities, one of my most common actions is to simply
-tell them to <code class="language-plaintext highlighter-rouge">console.log</code> a certain variable, and that generally sets them on
+tell them to log a certain variable, and that generally sets them on
 the right path. But there’s nothing magic about this; it’s simply that I don’t
 assume the variable is working as intended. Often, the student chose not to
-console.log it because they <strong>assumed</strong> that a variable contained something
+log it because they <strong>assumed</strong> that a variable contained something
 without checking it themselves. The instructor simply went “to double check.”</p>
 
 <p>I often say that programming is a humbling art: when we debug, we have to assume
@@ -247,10 +247,8 @@ here. Take every bug fix, and try not to repeat the same mistake.</p>
 
 <p>This is related to why videos are limited in their helpfulness. Videos usually
 teach how to write code for a certain concept, but they don’t focus on the
-correction of mistakes.</p>
-
-<p><a href="https://softwareengineering.stackexchange.com/questions/10735/how-to-most-effectively-debug-code">StackExchange on effectively debugging
-code</a></p>
+correction of mistakes. See this <a href="https://softwareengineering.stackexchange.com/questions/10735/how-to-most-effectively-debug-code">StackExchange question on effectively debugging
+code</a>.</p>
 
 <h1 id="as-a-capstone-project-member">As a capstone project member</h1>
 
@@ -275,7 +273,7 @@ principles from their own code reviews?
   <li>Did they respond in a timely manner as both a reviewer and reviewee?</li>
   <li>Do they habitually proofread their code reviews after asking for a review?
     <ul>
-      <li>Or are log statements, wrong nelines, failing tests, typos, etc.
+      <li>Or are log statements, wrong newlines, failing tests, typos, etc.
 frequently present?</li>
     </ul>
   </li>
@@ -323,7 +321,7 @@ worry that they might simply snap up the first job that they’re offered: givin
 up on comparisons with other opportunities on culture fit, learning
 opportunities, or salaries.</p>
 
-<p>Keeping this mind, I encourage students to know their value and to make their
+<p>Keeping this mind, I encourage students to know their value and make their
 best effort to explore options, rather than immediately settling for the first.
 While we should all be grateful for the opportunity for employment, my graduated
 students are often surprised by the level of demand for developers. In short:
