@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2020-12-14T11:34:30+03:00</updated>
+  <updated>2020-12-21T02:22:48+03:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,6 +12,163 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Next.js Rewrites, Amazon S3, and Trailing Slashes]]></title>
+    <link href="http://louisrli.github.io/blog/2020/12/21/next-dot-js-rewrites/"/>
+    <updated>2020-12-21T00:00:00+03:00</updated>
+    <id>http://louisrli.github.io/blog/2020/12/21/next-dot-js-rewrites</id>
+    <content type="html"><![CDATA[<p>This post talks about how to set up Next.js rewrites to point to a static site
+hosted on Amazon S3, in particular how to deal with trailing slashes.</p>
+
+<!-- more -->
+
+<h2 id="goal">Goal</h2>
+<p>The problem that I’m describing occurred in the process of creating
+<a href="https://memm.io">Memm</a>, a tool for studying for the MCAT.</p>
+
+<p>The goal: <strong>move blog.memm.io =&gt; memm.io/blog</strong> (apparently better for SEO
+purposes).</p>
+
+<ul>
+  <li><strong>memm.io</strong>: runs on <a href="https://nextjs.org/">Next.js</a></li>
+  <li><strong>blog.memm.io</strong>: hosted on Amazon S3, using <a href="https://www.gatsbyjs.com/">Gatsby</a></li>
+</ul>
+
+<p>I want <code class="language-plaintext highlighter-rouge">memm.io</code> to continue hosting the main site, while only paths under
+<code class="language-plaintext highlighter-rouge">memm.io/blog</code> will actually point to a different underlying endpoint, e.g., 
+<code class="language-plaintext highlighter-rouge">http://MY-S3-BUCKET.s3-website-us-west-2.amazonaws.com/</code>.</p>
+
+<h2 id="problem">Problem</h2>
+
+<p>When navigating to <code class="language-plaintext highlighter-rouge">memm.io/blog</code> and clicking on a link, everything worked
+fine. However, <strong>if the page was refreshed at <code class="language-plaintext highlighter-rouge">memm.io/blog/my-slug</code>, it would
+redirect to <code class="language-plaintext highlighter-rouge">memm.io/my-slug</code></strong>. This also meant that linking directly to a blog
+post would not work, changing the path strangely.</p>
+
+<p>Additionally, my Gatsby had its <code class="language-plaintext highlighter-rouge">pathPrefix</code>
+<a href="https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/path-prefix/">config</a>
+set to <code class="language-plaintext highlighter-rouge">/blog</code>, which meant there were a variety of static assets that were
+supposed to be loaded (e.g., <code class="language-plaintext highlighter-rouge">http://MY-S3-BUCKET.s3-website-us-west-2.amazonaws.com/foobar.css</code>) that were
+similarly 404ing due to Next.js’s strange rewriting behavior.</p>
+
+<p>This is a problematic next.config.js (see Next.js documentation for where this
+goes).</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="nx">rewrites</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="na">source</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/blog/:slug*</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">destination</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">BLOG_URL</span><span class="p">}</span><span class="s2">/:slug*`</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">];</span>
+<span class="p">},</span>
+
+
+</code></pre></div></div>
+
+<h2 id="solution">Solution</h2>
+<p>This leverages a new feature supported in Next 9.5 and above called
+<a href="https://nextjs.org/docs/api-reference/next.config.js/rewrites">rewrites</a>.</p>
+
+<p>We’ll explore more in depth why this is happening, but since most people reading
+articles just want the solution, I fixed it with something like this in my
+<code class="language-plaintext highlighter-rouge">next.config.js</code></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="k">async</span> <span class="nx">rewrites</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="na">source</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/blog/:slug*/</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">destination</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">BLOG_URL</span><span class="p">}</span><span class="s2">/:slug*/`</span><span class="p">,</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="na">source</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/blog/:slug*</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">destination</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">BLOG_URL</span><span class="p">}</span><span class="s2">/:slug*`</span><span class="p">,</span>
+      <span class="p">},</span>
+
+    <span class="p">];</span>
+  <span class="p">},</span>
+  <span class="c1">// Causes next.js to add trailing slashes to end of URLs.</span>
+  <span class="nx">trailingSlash</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+</code></pre></div></div>
+
+<h3 id="using-withcss-withsass-withless">Using withCss, withSass, withLess</h3>
+
+<p>It should also be noted that my <code class="language-plaintext highlighter-rouge">next.config.js</code> uses Ant Design, and therefore
+it has a bit of fiddling with the CSS/Sass/Less loading. In another possible bug with the
+<code class="language-plaintext highlighter-rouge">@zeit/next-css</code> package, <code class="language-plaintext highlighter-rouge">trailingSlash</code> does NOT work within the nested <code class="language-plaintext highlighter-rouge">withCss</code> call, although
+strangely rewrites works. This is probably also a bug given that <code class="language-plaintext highlighter-rouge">rewrites</code>
+works but <code class="language-plaintext highlighter-rouge">trailingSlash</code> doesn’t, although I didn’t file it –
+<code class="language-plaintext highlighter-rouge">withCss</code> is technically a deprecated package; they shouldn’t be
+expected to support newer features of Next.js to be compatible with it.</p>
+
+<p>Note how in the code below that rewrites is within the <code class="language-plaintext highlighter-rouge">withSass</code> but the
+<code class="language-plaintext highlighter-rouge">trailingSlash</code> <em>must</em> be outside of the <code class="language-plaintext highlighter-rouge">withCss</code> call in order to work.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">withCss</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">@zeit/next-css</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">withLess</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">@zeit/next-less</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">withSass</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">@zeit/next-sass</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">BLOG_URL</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">http://MY-S3-BUCKET.s3-website-us-west-2.amazonaws.com</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="p">...</span><span class="nx">withCss</span><span class="p">(</span>
+  <span class="nx">withSass</span><span class="p">({</span>
+    <span class="p">...</span><span class="nx">withLess</span><span class="p">({</span>
+      <span class="c1">// Other stuff...</span>
+    <span class="p">}),</span>
+    <span class="c1">// https://nextjs.org/docs/api-reference/next.config.js/rewrites#rewriting-to-an-external-url</span>
+    <span class="c1">// https://github.com/vercel/next.js/issues/14930</span>
+    <span class="c1">// In the end, we need this with trailing-slash to work properly. Otherwise</span>
+    <span class="c1">// it does a 302 and when you refresh blog pages it messes up.</span>
+    <span class="k">async</span> <span class="nx">rewrites</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="na">source</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/blog/:slug*/</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">destination</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">BLOG_URL</span><span class="p">}</span><span class="s2">/:slug*/`</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="na">source</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/blog/:slug*</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">destination</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">BLOG_URL</span><span class="p">}</span><span class="s2">/:slug*`</span><span class="p">,</span>
+        <span class="p">},</span>
+
+      <span class="p">];</span>
+    <span class="p">},</span>
+  <span class="p">})</span>
+  <span class="p">),</span>
+  <span class="na">trailingSlash</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+<span class="p">};</span>
+
+
+</code></pre></div></div>
+
+<h2 id="cause">Cause</h2>
+
+<p>I’m still not 100% confident in my explanation of the issue, but I
+think it goes something like this:</p>
+
+<ul>
+  <li>Next.js by default removes a trailing slash when it doesn’t
+  exist, <a href="https://nextjs.org/docs/api-reference/next.config.js/trailing-slash">according to the trailing slash
+  documentation</a>. That means <code class="language-plaintext highlighter-rouge">memm.io/blog/</code> becomes <code class="language-plaintext highlighter-rouge">memm.io/blog</code> under the default settings.</li>
+  <li>Amazon S3 in contrast, does a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/302">302
+  redirect</a> when
+  there is no trailing slash. I think that Next.js rewrites doesn’t play
+  nicely with 302. This is also mostly unconfigurable: <a href="https://stackoverflow.com/questions/30090254/aws-s3-forces-302-redirects-when-url-has-no-trailing-slash-need-301s">see this StackOverflow
+  question</a></li>
+</ul>
+
+<p>Somehow, with the problematic config, this causes two redirects that causes
+Next.js to remove the <code class="language-plaintext highlighter-rouge">/blog/</code> from <code class="language-plaintext highlighter-rouge">/blog/my-slug</code> and simply go to <code class="language-plaintext highlighter-rouge">/my-slug</code>. It’s
+possible this is a bug with Next.js rewrites, but it could also be an intended
+interaction given the quirks of the two opposing redirect rules.</p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Advice for Coding Bootcamp Students]]></title>
@@ -2846,80 +3003,6 @@ option, as you have more time flexibility without waking up at an ungodly hour. 
 this is the cheapest option by far, but if your group
 has two or more people and you have time flexibility, a Savaari cab becomes about the same
 price per person.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Dubrovnik Bus Departure Schedule (Croatia)]]></title>
-    <link href="http://louisrli.github.io/blog/2015/09/02/dubrovnik-bus-departure-schedule/"/>
-    <updated>2015-09-02T22:15:33+03:00</updated>
-    <id>http://louisrli.github.io/blog/2015/09/02/dubrovnik-bus-departure-schedule</id>
-    <content type="html"><![CDATA[<p>This article contains the bus schedule for departures from Dubrovonik, Croatia. Dubrovonik is a
-popular coastal destination (and the filming site of King’s Landing for the <em>Game of Thrones</em> TV
-show!).</p>
-
-<p><em>Last updated: 1 September 2015</em></p>
-
-<!-- more -->
-
-<p>Timetables may differ between on and off seasons. My trip was at the beginning of September, which is on
-the border of on and off seasons.</p>
-
-<h2 id="timetable">Timetable</h2>
-
-<p>If you find an updated timetable during your travels, please send it to me to update this page for
-other travelers.</p>
-
-<p class="minipic"><img src="/images/travel/dubrovonikbus/timetable.jpg" alt="Bus timetable" /></p>
-
-<h2 id="destinations">Destinations</h2>
-
-<p><strong>International:</strong></p>
-
-<ul>
-  <li>Sarajevo</li>
-  <li>Medugorje</li>
-  <li>Kotor</li>
-  <li>Budva</li>
-  <li>Trieste</li>
-  <li>Herceg Novi</li>
-  <li>Ulcinj</li>
-  <li>Podgorica</li>
-  <li>Zenica</li>
-  <li>Mos</li>
-  <li>Ivanica - Trebinje</li>
-  <li>Skopje</li>
-  <li>Ljubljana</li>
-  <li>Petrovac</li>
-  <li>Bar</li>
-  <li>Tivat</li>
-  <li>Frankfurt</li>
-  <li>Tuzla</li>
-  <li>Beograd (Belgrade)</li>
-</ul>
-
-<p><strong>Domestic:</strong></p>
-
-<ul>
-  <li>Metkovic</li>
-  <li>Ploce</li>
-  <li>Orebic</li>
-  <li>Korcula - Vela Luka</li>
-  <li>Makarska</li>
-  <li>Split</li>
-  <li>Trogir</li>
-  <li>Sibenik</li>
-  <li>Zadar</li>
-  <li>Rijeka</li>
-  <li>Pula</li>
-  <li>Karlovac</li>
-  <li>Zagreb</li>
-  <li>Osijek, Vinkovci, S. Brod</li>
-  <li>Varazdin</li>
-  <li>Vrgorac</li>
-  <li>Otric-Seoci</li>
-</ul>
-
 ]]></content>
   </entry>
   

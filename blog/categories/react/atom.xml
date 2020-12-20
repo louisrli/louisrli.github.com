@@ -4,7 +4,7 @@
   <title><![CDATA[Category: react | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/react/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2020-12-14T11:34:30+03:00</updated>
+  <updated>2020-12-21T02:22:48+03:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,6 +12,102 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Next.js Rewrites, Amazon S3, and Trailing Slashes]]></title>
+    <link href="http://louisrli.github.io/blog/2020/12/21/next-dot-js-rewrites/"/>
+    <updated>2020-12-21 00:00:00 +0300</updated>
+    <id>http://louisrli.github.io/blog/2020/12/21/next-dot-js-rewrites</id>
+    <content type="html"><![CDATA[<p>This post talks about how to set up Next.js rewrites to point to a static site
+hosted on Amazon S3, in particular how to deal with trailing slashes.</p>
+
+<!-- more -->
+
+<h2 id="goal">Goal</h2>
+<p>The problem that I’m describing occurred in the process of creating
+<a href="https://memm.io">Memm</a>, a tool for studying for the MCAT.</p>
+
+<p>The goal: <strong>move blog.memm.io =&gt; memm.io/blog</strong> (apparently better for SEO
+purposes).</p>
+
+<ul>
+  <li><strong>memm.io</strong>: runs on <a href="https://nextjs.org/">Next.js</a></li>
+  <li><strong>blog.memm.io</strong>: hosted on Amazon S3, using <a href="https://www.gatsbyjs.com/">Gatsby</a></li>
+</ul>
+
+<p>I want <code class="language-plaintext highlighter-rouge">memm.io</code> to continue hosting the main site, while only paths under
+<code class="language-plaintext highlighter-rouge">memm.io/blog</code> will actually point to a different underlying endpoint, e.g., 
+<code class="language-plaintext highlighter-rouge">http://MY-S3-BUCKET.s3-website-us-west-2.amazonaws.com/</code>.</p>
+
+<h2 id="problem">Problem</h2>
+
+<p>When navigating to <code class="language-plaintext highlighter-rouge">memm.io/blog</code> and clicking on a link, everything worked
+fine. However, <strong>if the page was refreshed at <code class="language-plaintext highlighter-rouge">memm.io/blog/my-slug</code>, it would
+redirect to <code class="language-plaintext highlighter-rouge">memm.io/my-slug</code></strong>. This also meant that linking directly to a blog
+post would not work, changing the path strangely.</p>
+
+<p>Additionally, my Gatsby had its <code class="language-plaintext highlighter-rouge">pathPrefix</code>
+<a href="https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/path-prefix/">config</a>
+set to <code class="language-plaintext highlighter-rouge">/blog</code>, which meant there were a variety of static assets that were
+supposed to be loaded (e.g., <code class="language-plaintext highlighter-rouge">http://MY-S3-BUCKET.s3-website-us-west-2.amazonaws.com/foobar.css</code>) that were
+similarly 404ing due to Next.js’s strange rewriting behavior.</p>
+
+<p>This is a problematic next.config.js (see Next.js documentation for where this
+goes).</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="o">%</span><span class="nx">include</span> <span class="nx">code</span><span class="o">/</span><span class="nx">next</span><span class="o">-</span><span class="nx">writes</span><span class="o">-</span><span class="nx">wrong</span><span class="o">-</span><span class="nx">config</span><span class="p">.</span><span class="nx">js</span> <span class="o">%</span><span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="solution">Solution</h2>
+<p>This leverages a new feature supported in Next 9.5 and above called
+<a href="https://nextjs.org/docs/api-reference/next.config.js/rewrites">rewrites</a>.</p>
+
+<p>We’ll explore more in depth why this is happening, but since most people reading
+articles just want the solution, I fixed it with something like this in my
+<code class="language-plaintext highlighter-rouge">next.config.js</code></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="o">%</span><span class="nx">include</span> <span class="nx">code</span><span class="o">/</span><span class="nx">next</span><span class="o">-</span><span class="nx">writes</span><span class="o">-</span><span class="nx">right</span><span class="o">-</span><span class="nx">config</span><span class="o">-</span><span class="nx">slim</span><span class="p">.</span><span class="nx">js</span> <span class="o">%</span><span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="using-withcss-withsass-withless">Using withCss, withSass, withLess</h3>
+
+<p>It should also be noted that my <code class="language-plaintext highlighter-rouge">next.config.js</code> uses Ant Design, and therefore
+it has a bit of fiddling with the CSS/Sass/Less loading. In another possible bug with the
+<code class="language-plaintext highlighter-rouge">@zeit/next-css</code> package, <code class="language-plaintext highlighter-rouge">trailingSlash</code> does NOT work within the nested <code class="language-plaintext highlighter-rouge">withCss</code> call, although
+strangely rewrites works. This is probably also a bug given that <code class="language-plaintext highlighter-rouge">rewrites</code>
+works but <code class="language-plaintext highlighter-rouge">trailingSlash</code> doesn’t, although I didn’t file it –
+<code class="language-plaintext highlighter-rouge">withCss</code> is technically a deprecated package; they shouldn’t be
+expected to support newer features of Next.js to be compatible with it.</p>
+
+<p>Note how in the code below that rewrites is within the <code class="language-plaintext highlighter-rouge">withSass</code> but the
+<code class="language-plaintext highlighter-rouge">trailingSlash</code> <em>must</em> be outside of the <code class="language-plaintext highlighter-rouge">withCss</code> call in order to work.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="o">%</span><span class="nx">include</span> <span class="nx">code</span><span class="o">/</span><span class="nx">next</span><span class="o">-</span><span class="nx">writes</span><span class="o">-</span><span class="nx">right</span><span class="o">-</span><span class="nx">config</span><span class="o">-</span><span class="nx">withcss</span><span class="p">.</span><span class="nx">js</span> <span class="o">%</span><span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="cause">Cause</h2>
+
+<p>I’m still not 100% confident in my explanation of the issue, but I
+think it goes something like this:</p>
+
+<ul>
+  <li>Next.js by default removes a trailing slash when it doesn’t
+  exist, <a href="https://nextjs.org/docs/api-reference/next.config.js/trailing-slash">according to the trailing slash
+  documentation</a>. That means <code class="language-plaintext highlighter-rouge">memm.io/blog/</code> becomes <code class="language-plaintext highlighter-rouge">memm.io/blog</code> under the default settings.</li>
+  <li>Amazon S3 in contrast, does a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/302">302
+  redirect</a> when
+  there is no trailing slash. I think that Next.js rewrites doesn’t play
+  nicely with 302. This is also mostly unconfigurable: <a href="https://stackoverflow.com/questions/30090254/aws-s3-forces-302-redirects-when-url-has-no-trailing-slash-need-301s">see this StackOverflow
+  question</a></li>
+</ul>
+
+<p>Somehow, with the problematic config, this causes two redirects that causes
+Next.js to remove the <code class="language-plaintext highlighter-rouge">/blog/</code> from <code class="language-plaintext highlighter-rouge">/blog/my-slug</code> and simply go to <code class="language-plaintext highlighter-rouge">/my-slug</code>. It’s
+possible this is a bug with Next.js rewrites, but it could also be an intended
+interaction given the quirks of the two opposing redirect rules.</p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Typesafe Unit Testing of GraphQL Resolvers in TypeScript]]></title>
@@ -225,62 +321,6 @@ provided, then it removes the script from the page when the component unmounts
 
 <span class="k">export</span> <span class="k">default</span> <span class="nx">useScript</span><span class="p">;</span>
 
-</code></pre></div></div>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Staging and production cookies in Next.js]]></title>
-    <link href="http://louisrli.github.io/blog/2019/11/20/staging-and-production-cookies-in-next-js/"/>
-    <updated>2019-11-20 00:00:00 +0300</updated>
-    <id>http://louisrli.github.io/blog/2019/11/20/staging-and-production-cookies-in-next-js</id>
-    <content type="html"><![CDATA[<p>This article describes how add authentication to your
-<a href="https://nextjs.org">Next.js</a> app using cookies and JWT. In this example, we
-use cookies to authenticate against a GraphQL Yoga backend. Additionally, we
-pass parameters based on the deployment stage (local, staging ,or production) of
-our app.</p>
-
-<!--more-->
-
-<h2 id="deploy-stage-environmental-variable">Deploy stage environmental variable</h2>
-<p>In this example, we are using <a href="TODO">Apex Up</a>, which automatically generates an
-environmental variable <code class="language-plaintext highlighter-rouge">UP_STAGE</code>. Depending on your deployment process, you can
-pass in the stage in a similar way.</p>
-
-<p>We also pass in the following environmental variables:</p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">BACKEND_URI_STAGING</code>: The expected domain of the GraphQL backend in staging</li>
-  <li><code class="language-plaintext highlighter-rouge">BACKEND_URI_PROD</code>: The expected domain of the GraphQL backend in prod</li>
-</ul>
-
-<p>In <code class="language-plaintext highlighter-rouge">next.config.js</code> in the root directory of your Next application:</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Set up environmental variables for deployment. </span>
-<span class="c1">// UP_STAGE comes with UP (https://github.com/apex/up-examples/tree/master/pro/env-static)</span>
-<span class="kd">let</span> <span class="nx">backendUri</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">http://localhost:4000</span><span class="dl">'</span><span class="p">;</span>
-<span class="kd">let</span> <span class="nx">cookieDomain</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">localhost</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">staging</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">backendUri</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">BACKEND_URI_STAGING</span><span class="p">;</span>
-  <span class="c1">// Using a domain like foo.com includes all subdomains of foo.com.</span>
-  <span class="nx">cookieDomain</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">stage.foo.com</span><span class="dl">'</span><span class="p">;</span>
-<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">production</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">backendUri</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">BACKEND_URI_PROD</span><span class="p">;</span>
-  <span class="nx">cookieDomain</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">stage.foo.com</span><span class="dl">'</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">backendUri</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">'</span><span class="s1">No backend URI found for : </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Using backend URI: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">backendUri</span><span class="p">);</span>
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">withCss</span><span class="p">({</span>
-  <span class="c1">// target: 'serverless',</span>
-  <span class="na">env</span><span class="p">:</span> <span class="p">{</span>
-    <span class="na">upStage</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span><span class="p">,</span>
-    <span class="nx">backendUri</span><span class="p">,</span>
-    <span class="nx">cookieDomain</span><span class="p">,</span>
-  <span class="p">},</span>
-<span class="p">})</span>
 </code></pre></div></div>
 ]]></content>
   </entry>
