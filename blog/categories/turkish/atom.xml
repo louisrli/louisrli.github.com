@@ -4,7 +4,7 @@
   <title><![CDATA[Category: turkish | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/turkish/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2020-12-21T02:24:03+03:00</updated>
+  <updated>2021-01-14T06:26:44+00:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -14,9 +14,374 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Understanding the Turkish Accusative]]></title>
+    <link href="http://louisrli.github.io/blog/2021/01/14/understanding-the-turkish-accusative/"/>
+    <updated>2021-01-14 00:00:00 +0000</updated>
+    <id>http://louisrli.github.io/blog/2021/01/14/understanding-the-turkish-accusative</id>
+    <content type="html"><![CDATA[<style>
+blockquote {
+  font-style: unset;
+}
+
+blockquote hr {
+  margin: 0.3em 0;
+}
+
+blockquote p:first-child {
+  font-size: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* In case we want to bold the example headers later. */
+blockquote p:first-child strong {
+  font-weight: unset;
+}
+
+blockquote p {
+  margin-top: 0.3em !important;
+  margin-bottom: 0.3em !important;
+}
+
+</style>
+
+<p>The purpose of this post is to answer: “when do I use or not use the Turkish
+accusative?” Most resources on the accusative describe it as a case ending
+applied to a definite direct object. Some say it’s the equivalent of when you
+use “the” in English. I found these definitions to be vague and often actively
+misleading.</p>
+
+<p>Much of this knowledge is thanks to the <a href="https://discord.me/turkceogrenelim">Türkçe Öğrenelim
+Discord</a>. Feel free to join the community
+and support them on <a href="https://www.patreon.com/letslearnturkish">Patreon</a>.</p>
+
+<!-- more -->
+
+<h1 id="prerequisites">Prerequisites</h1>
+
+<p>This post is not intended for complete beginners of Turkish grammar. It will not
+explain any constructions or cover the basics of the accusative; there are ample
+other resources.</p>
+
+<h1 id="why-this-post">Why this post?</h1>
+
+<p>Finding a comprehensive resource for the accusative tops the list of
+my frustrations in learning Turkish (thankfully the Discord exists). I haven’t found a single public resource on the internet that goes in-depth into accusative usage. All of them try to summarize it in a single sentence by
+providing some type of rule or guideline – this guideline is usually ambiguous
+or incomplete. That is to say, <strong>if your goal is to use the accusative in all
+scenarios without making mistakes</strong>, no existing online resource achieves this.</p>
+
+<p>My hope is that this article will get you close to there, though I can’t promise
+that I know Turkish well enough to cover all cases. The most thorough resource that I know would be the discussions in <em>Turkish: A
+  Comprehensive Grammar</em>. I’d say, however, that one gets
+  <em>too</em> detailed at some point. It’s worth a read if you care about this though.</p>
+
+<h2 id="examples-of-incomplete-accusative-definitions">Examples of incomplete accusative definitions</h2>
+
+<p>Below are some examples from different sources in defining the accusative.
+I’ve included these to contrast how trusting these definitions can lead learners
+astray. Thinking of the accusative as the case for
+definite direct objects is not incorrect, but it certainly isn’t comprehensive. <strong>The
+purpose of this article is to cover cases where the “direct object” definition
+does not suffice.</strong></p>
+
+<ul>
+  <li><em>“Nouns that are affected by the action of a verb use the accusative case.”</em>
+(<a href="https://www.turkishaholic.com/lessons/free/turkish-case-markers/">Turkishaholic</a>)</li>
+  <li><em>“In Turkish, the direct object gets a suffix when it is definite. The direct
+object is definite when it refers to a specific object or a specific
+collection of objects that is known to the addressee.”</em>
+(<a href="https://elon.io/learn-turkish/lesson/the-accusative-case-suffix#:~:text=In%20Turkish%2C%20the%20definite%20direct,to%20prevent%20two%20consecutive%20vowels.">elon.io</a>).</li>
+  <li><em>“This is used for direct objects - the object that is receiving an action (the
+apple begin eaten, the wine being drunk, etc.). Note that cases only apply
+for things that have “the” in front of them in English (as the nominative
+covers ones that don’t).”</em> (<a href="https://duolingo.fandom.com/wiki/Turkish_Skill:Accusative">Duolingo Wiki – ew</a>)</li>
+</ul>
+
+<h1 id="with-plurals">With plurals</h1>
+
+<p>The definitions above all seem to apply that the accusative provides
+specificity, but with plurals, its role is reversed. For most cases, adding the
+accusative makes a plural general; the lack of accusative makes it specific.</p>
+
+<p>To put it another way, to express a general group, there are two options: plural
+with the accusative or singular nominative.</p>
+
+<blockquote>
+  <p><strong>Plural accusative vs singular nominative</strong></p>
+
+  <p><strong>Insanları</strong> tanımayı seviyorum.<br />
+<strong>Insan</strong> tanımayı seviyorum.<br />
+I like to get to know people (people, as a general group).</p>
+  <hr />
+
+  <p><strong>Gömlekleri</strong> sever misin?<br />
+<strong>Gömlek</strong> sever misin?<br />
+Would you / do you like shirts (generally speaking of shirts)?</p>
+</blockquote>
+
+<p>A plural without the accusative is specific:</p>
+
+<blockquote>
+  <p><strong>Plural without accusative, specific</strong></p>
+
+  <p>Dün ona yeni <strong>gömlekler</strong> aldık.<br />
+Yesterday, we bought some new (specific) shirts for him.</p>
+</blockquote>
+
+<p>However, there are some cases where plural accusative is specific rather than
+general. I’m actually not sure what the rule is that distinguishes the example
+above or below. If you know, then please let me know, and I’ll update this section.</p>
+
+<blockquote>
+  <p><strong>Plural accusative, specific</strong></p>
+
+  <p><strong>Gömlekleri</strong> sevdin mi?<br />
+Did you like the (specific) shirts?</p>
+</blockquote>
+
+<p>Overall, this counters the oversimplified definition that the accusative is used
+to mark a definite object. The definition of the accusative as parallel to
+English “the” is especially egregious to me.</p>
+
+<p>To close it off, as expected by the simple definitions of accusative, using it
+with the singular makes the object specific, not general (note that
+there are again exceptions that are so detailed it’s not worth mentioning here, see <em>Turkish: A Comprehensive Grammar</em> 22.4.3):</p>
+
+<blockquote>
+  <p><strong>Singular accusative vs singular nominative</strong></p>
+
+  <p><strong>Gömleği</strong> sever misin?<br />
+Would you / do you like the (specific) shirt?</p>
+  <hr />
+
+  <p><strong>Gömlek</strong> sever misin?<br />
+Would you / do you like shirts (generally speaking of shirts)?</p>
+</blockquote>
+
+<p><a href="https://discordapp.com/channels/337748083855327232/337749314036039692/710448813524910291">This
+discussion</a>
+on the Turkish Discord is useful (and this section is borrowed from there).</p>
+
+<h1 id="with-numbers">With numbers</h1>
+
+<p>Most beginners of Turkish learn the rule, “no accusatives with bir or numbers.”
+However, this turns out, again, to be an oversimplification.</p>
+
+<blockquote>
+  <p><strong>Indefinite numbered items</strong></p>
+
+  <p><strong>Bir çocuk</strong> gördüm.<br />
+I saw <strong>a child</strong>.</p>
+  <hr />
+
+  <p><strong>Iki kitap</strong> aldım.<br />
+I bought <strong>two books</strong>.</p>
+</blockquote>
+
+<h2 id="referring-to-specific-objects-in-context">Referring to specific objects in context</h2>
+
+<p>The accusative can be used with numbers when referencing a specific object that
+is previously referred to in context.</p>
+
+<p>For example, when you delete a message on Facebook, it says: “Bir mesajı
+sildin.” You had previously clicked this message; you know exactly which message
+is being deleted.</p>
+
+<p>As explained on the Turkish Discord:</p>
+
+<blockquote>
+  <p><strong>Accusative with bir</strong></p>
+
+  <p>Bir <strong>mesaj</strong> sildin<br />
+You deleted a message (just any message)</p>
+  <hr />
+
+  <p>Bir <strong>mesajı</strong> sildin<br />
+You deleted a message (that specific one)</p>
+</blockquote>
+
+<p>Another example adapted from <em>Turkish: A Comprehensive Grammar</em>, 14.3.3.2, uses
+the accusative when the books were referenced and known to the
+listener as part of the first sentence, which can be thought of as a form of
+definiteness.</p>
+
+<blockquote>
+  <p><strong>Referencing items in context</strong></p>
+
+  <p>Kitaplarımı bana verdi, ama <strong>iki kitabı</strong> unuttu.<br />
+He gave me my books, but he forgot <strong>two of them</strong>.</p>
+</blockquote>
+
+<h2 id="with-the-possessive-but-not-compound-nouns">With the possessive (but not compound nouns)</h2>
+
+<p>When using the possessive with a number, it will still take the accusative.</p>
+
+<blockquote>
+  <p><strong>Possessive, number, and accusative</strong></p>
+
+  <p>Bir <strong>kıtabımı</strong> ona verdi.<br />
+I gave him a book of mine.</p>
+</blockquote>
+
+<p>Note that without the possessive, there is no accusative:</p>
+
+<blockquote>
+  <p><strong>Non-possessive with number</strong></p>
+
+  <p>Bir <strong>kitap</strong> ona verdi.<br />
+I gave him a book.</p>
+</blockquote>
+
+<h1 id="with-question-words">With question words</h1>
+
+<p>The accusative form of question words such as ne (“what”) and kim (“who”) will
+occasionally be seen. This can be used more specifically in place of a word that
+would normally take that spot in the sentence with the accusative. It often
+makes sense in response to somebody.</p>
+
+<blockquote>
+  <p><strong>Examples</strong></p>
+
+  <p>Ne yaptın?<br />
+What did you do?</p>
+  <hr />
+
+  <p><strong>Neyi</strong> yaptın?<br />
+You did <strong>what</strong>?</p>
+  <hr />
+
+  <p>Kimi aradın?<br />
+Who did you call?</p>
+  <hr />
+
+  <p><strong>A</strong>: Zaten biliyorum.<br />
+I already know.<br />
+<strong>B</strong>: <strong>Neyi</strong> biliyorsun?<br />
+<strong>What (exactly)</strong> do you know?<br />
+<strong>A</strong>: Bu bilgiyi biliyorum.<br />
+I already know this information.</p>
+</blockquote>
+
+<p>In the last example, I don’t think that saying “ne biliyorsun” would necessarily be
+incorrect, but neyi offers a certain amount of precision, in response to the
+verb (biliyorum) that speaker A used.</p>
+
+<h1 id="with-verbal-nouns">With verbal nouns</h1>
+
+<p>For example, when using any verbal nouns, such as <strong>yüzme</strong> or <strong>yaptığın</strong>,
+these will take the accusative if the verb requires it. As far as I know, these
+will not appear without the accusative (again, under the “direct object
+definition”, this was confusing to me. What does it mean for a verbal noun to be
+definite?)</p>
+
+<blockquote>
+  <p><strong>Examples</strong></p>
+
+  <p><strong>Yüzmeyi</strong> biliyorum.<br />
+I know how to swim / I know <strong>swimming</strong>.</p>
+</blockquote>
+
+<p>Almost all Turkish learners will learn how to express wanting to do a verb. This
+could be considered to an exception to the verbal noun accusatives above (since
+the infinite is considered a noun). However, there’s an exception to the
+exception!</p>
+
+<p>When another word appears between the infinite and istemek, then it takes on the
+accusative -mA form rather than the infinite.</p>
+
+<blockquote>
+  <p><strong>istemek can take the accusative</strong></p>
+
+  <p>Seni dövmek istiyorum.<br />
+I want to beat you up.</p>
+  <hr />
+
+  <p>Seni dövme<strong>yi</strong> <strong>çok</strong> istiyorum.<br />
+I really want to beat you up.</p>
+</blockquote>
+
+<h1 id="accusative-and-distance-from-the-verb">Accusative and distance from the verb</h1>
+
+<p>This is actually a more general rule for the above. A word cannot be in the
+nominative and far from the verb. For example, observe the insertion of the word
+<em>çok</em> below and in the previous example.</p>
+
+<blockquote>
+  <p><strong>Wrong</strong></p>
+
+  <p>Kedi çok seven bir köpek<br />
+A dog that loves cats</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Correct</strong></p>
+
+  <p><strong>Kedi</strong> seven bir köpek<br />
+A dog that loves <strong>cats</strong></p>
+  <hr />
+
+  <p><strong>Kediyi</strong> çok seven bir köpek<br />
+A dog that really loves cats</p>
+</blockquote>
+
+<h1 id="you-just-have-to-know">“You just have to know”</h1>
+
+<p>There are some cases where you just have to know that the accusative is
+required or not. For example, as a foreigner, one of your most common phrases:</p>
+
+<blockquote>
+  <p><strong>A common phrase</strong></p>
+
+  <p>Türkçe biliyor musun?<br />
+Do you know Turkish?</p>
+  <hr />
+
+  <p>Türkçe biliyorum.<br />
+I know Turkish.</p>
+</blockquote>
+
+<p>It does <em>not</em> use the accusative. Why? I’m not sure if there’s a sensible
+explanation. To me, it makes more sense that Turkish is definite here; it refers
+to a specific language, Turkish. But this is simply the way it is: there is no
+accusative.</p>
+
+<p>In another example put forth in the Turkish Discord, the opposite is true with
+the verb <em>sevmek</em>. The accusative would be
+used here this time to refer to the Turkish language specifically. It would be
+incorrect to drop the accusative here.</p>
+
+<blockquote>
+  <p><strong>Accusative with sevmek</strong></p>
+
+  <p>Türkçeyi seviyorum.
+I love the Turkish language.</p>
+</blockquote>
+
+<p>But it can also be used without the accusative:</p>
+
+<blockquote>
+  <p><strong>An explanation in the Discord</strong></p>
+
+  <p>“Türkçe seviyorum” could be used in a context where you like doing something IN Turkish. Like “in which language do you like watching series?” You could say “Türkçe seviyorum.”</p>
+</blockquote>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>This is by no means meant to completely cover the cases of using or not using
+the accusative, but hopefully it clarifies specific situations where the
+“definite direct object” definition is insufficient.</p>
+
+<p>Finally, even if you don’t get these correct in speech or writing, don’t sweat
+it: what you want to express will probably be understood. Language is
+approximate.  People definitely aren’t writing in perfect grammar on the
+internet – go check out some Turkish YouTube comments.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Fiilimsi: Turkish Verbal Nouns, Adjectives, and Adverbs]]></title>
     <link href="http://louisrli.github.io/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives/"/>
-    <updated>2020-04-20 00:00:00 +0300</updated>
+    <updated>2020-04-20 00:00:00 +0100</updated>
     <id>http://louisrli.github.io/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives</id>
     <content type="html"><![CDATA[<style>
 blockquote {

@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2020-12-21T02:24:03+03:00</updated>
+  <updated>2021-01-14T06:26:44+00:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -14,9 +14,374 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Understanding the Turkish Accusative]]></title>
+    <link href="http://louisrli.github.io/blog/2021/01/14/understanding-the-turkish-accusative/"/>
+    <updated>2021-01-14T00:00:00+00:00</updated>
+    <id>http://louisrli.github.io/blog/2021/01/14/understanding-the-turkish-accusative</id>
+    <content type="html"><![CDATA[<style>
+blockquote {
+  font-style: unset;
+}
+
+blockquote hr {
+  margin: 0.3em 0;
+}
+
+blockquote p:first-child {
+  font-size: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* In case we want to bold the example headers later. */
+blockquote p:first-child strong {
+  font-weight: unset;
+}
+
+blockquote p {
+  margin-top: 0.3em !important;
+  margin-bottom: 0.3em !important;
+}
+
+</style>
+
+<p>The purpose of this post is to answer: “when do I use or not use the Turkish
+accusative?” Most resources on the accusative describe it as a case ending
+applied to a definite direct object. Some say it’s the equivalent of when you
+use “the” in English. I found these definitions to be vague and often actively
+misleading.</p>
+
+<p>Much of this knowledge is thanks to the <a href="https://discord.me/turkceogrenelim">Türkçe Öğrenelim
+Discord</a>. Feel free to join the community
+and support them on <a href="https://www.patreon.com/letslearnturkish">Patreon</a>.</p>
+
+<!-- more -->
+
+<h1 id="prerequisites">Prerequisites</h1>
+
+<p>This post is not intended for complete beginners of Turkish grammar. It will not
+explain any constructions or cover the basics of the accusative; there are ample
+other resources.</p>
+
+<h1 id="why-this-post">Why this post?</h1>
+
+<p>Finding a comprehensive resource for the accusative tops the list of
+my frustrations in learning Turkish (thankfully the Discord exists). I haven’t found a single public resource on the internet that goes in-depth into accusative usage. All of them try to summarize it in a single sentence by
+providing some type of rule or guideline – this guideline is usually ambiguous
+or incomplete. That is to say, <strong>if your goal is to use the accusative in all
+scenarios without making mistakes</strong>, no existing online resource achieves this.</p>
+
+<p>My hope is that this article will get you close to there, though I can’t promise
+that I know Turkish well enough to cover all cases. The most thorough resource that I know would be the discussions in <em>Turkish: A
+  Comprehensive Grammar</em>. I’d say, however, that one gets
+  <em>too</em> detailed at some point. It’s worth a read if you care about this though.</p>
+
+<h2 id="examples-of-incomplete-accusative-definitions">Examples of incomplete accusative definitions</h2>
+
+<p>Below are some examples from different sources in defining the accusative.
+I’ve included these to contrast how trusting these definitions can lead learners
+astray. Thinking of the accusative as the case for
+definite direct objects is not incorrect, but it certainly isn’t comprehensive. <strong>The
+purpose of this article is to cover cases where the “direct object” definition
+does not suffice.</strong></p>
+
+<ul>
+  <li><em>“Nouns that are affected by the action of a verb use the accusative case.”</em>
+(<a href="https://www.turkishaholic.com/lessons/free/turkish-case-markers/">Turkishaholic</a>)</li>
+  <li><em>“In Turkish, the direct object gets a suffix when it is definite. The direct
+object is definite when it refers to a specific object or a specific
+collection of objects that is known to the addressee.”</em>
+(<a href="https://elon.io/learn-turkish/lesson/the-accusative-case-suffix#:~:text=In%20Turkish%2C%20the%20definite%20direct,to%20prevent%20two%20consecutive%20vowels.">elon.io</a>).</li>
+  <li><em>“This is used for direct objects - the object that is receiving an action (the
+apple begin eaten, the wine being drunk, etc.). Note that cases only apply
+for things that have “the” in front of them in English (as the nominative
+covers ones that don’t).”</em> (<a href="https://duolingo.fandom.com/wiki/Turkish_Skill:Accusative">Duolingo Wiki – ew</a>)</li>
+</ul>
+
+<h1 id="with-plurals">With plurals</h1>
+
+<p>The definitions above all seem to apply that the accusative provides
+specificity, but with plurals, its role is reversed. For most cases, adding the
+accusative makes a plural general; the lack of accusative makes it specific.</p>
+
+<p>To put it another way, to express a general group, there are two options: plural
+with the accusative or singular nominative.</p>
+
+<blockquote>
+  <p><strong>Plural accusative vs singular nominative</strong></p>
+
+  <p><strong>Insanları</strong> tanımayı seviyorum.<br />
+<strong>Insan</strong> tanımayı seviyorum.<br />
+I like to get to know people (people, as a general group).</p>
+  <hr />
+
+  <p><strong>Gömlekleri</strong> sever misin?<br />
+<strong>Gömlek</strong> sever misin?<br />
+Would you / do you like shirts (generally speaking of shirts)?</p>
+</blockquote>
+
+<p>A plural without the accusative is specific:</p>
+
+<blockquote>
+  <p><strong>Plural without accusative, specific</strong></p>
+
+  <p>Dün ona yeni <strong>gömlekler</strong> aldık.<br />
+Yesterday, we bought some new (specific) shirts for him.</p>
+</blockquote>
+
+<p>However, there are some cases where plural accusative is specific rather than
+general. I’m actually not sure what the rule is that distinguishes the example
+above or below. If you know, then please let me know, and I’ll update this section.</p>
+
+<blockquote>
+  <p><strong>Plural accusative, specific</strong></p>
+
+  <p><strong>Gömlekleri</strong> sevdin mi?<br />
+Did you like the (specific) shirts?</p>
+</blockquote>
+
+<p>Overall, this counters the oversimplified definition that the accusative is used
+to mark a definite object. The definition of the accusative as parallel to
+English “the” is especially egregious to me.</p>
+
+<p>To close it off, as expected by the simple definitions of accusative, using it
+with the singular makes the object specific, not general (note that
+there are again exceptions that are so detailed it’s not worth mentioning here, see <em>Turkish: A Comprehensive Grammar</em> 22.4.3):</p>
+
+<blockquote>
+  <p><strong>Singular accusative vs singular nominative</strong></p>
+
+  <p><strong>Gömleği</strong> sever misin?<br />
+Would you / do you like the (specific) shirt?</p>
+  <hr />
+
+  <p><strong>Gömlek</strong> sever misin?<br />
+Would you / do you like shirts (generally speaking of shirts)?</p>
+</blockquote>
+
+<p><a href="https://discordapp.com/channels/337748083855327232/337749314036039692/710448813524910291">This
+discussion</a>
+on the Turkish Discord is useful (and this section is borrowed from there).</p>
+
+<h1 id="with-numbers">With numbers</h1>
+
+<p>Most beginners of Turkish learn the rule, “no accusatives with bir or numbers.”
+However, this turns out, again, to be an oversimplification.</p>
+
+<blockquote>
+  <p><strong>Indefinite numbered items</strong></p>
+
+  <p><strong>Bir çocuk</strong> gördüm.<br />
+I saw <strong>a child</strong>.</p>
+  <hr />
+
+  <p><strong>Iki kitap</strong> aldım.<br />
+I bought <strong>two books</strong>.</p>
+</blockquote>
+
+<h2 id="referring-to-specific-objects-in-context">Referring to specific objects in context</h2>
+
+<p>The accusative can be used with numbers when referencing a specific object that
+is previously referred to in context.</p>
+
+<p>For example, when you delete a message on Facebook, it says: “Bir mesajı
+sildin.” You had previously clicked this message; you know exactly which message
+is being deleted.</p>
+
+<p>As explained on the Turkish Discord:</p>
+
+<blockquote>
+  <p><strong>Accusative with bir</strong></p>
+
+  <p>Bir <strong>mesaj</strong> sildin<br />
+You deleted a message (just any message)</p>
+  <hr />
+
+  <p>Bir <strong>mesajı</strong> sildin<br />
+You deleted a message (that specific one)</p>
+</blockquote>
+
+<p>Another example adapted from <em>Turkish: A Comprehensive Grammar</em>, 14.3.3.2, uses
+the accusative when the books were referenced and known to the
+listener as part of the first sentence, which can be thought of as a form of
+definiteness.</p>
+
+<blockquote>
+  <p><strong>Referencing items in context</strong></p>
+
+  <p>Kitaplarımı bana verdi, ama <strong>iki kitabı</strong> unuttu.<br />
+He gave me my books, but he forgot <strong>two of them</strong>.</p>
+</blockquote>
+
+<h2 id="with-the-possessive-but-not-compound-nouns">With the possessive (but not compound nouns)</h2>
+
+<p>When using the possessive with a number, it will still take the accusative.</p>
+
+<blockquote>
+  <p><strong>Possessive, number, and accusative</strong></p>
+
+  <p>Bir <strong>kıtabımı</strong> ona verdi.<br />
+I gave him a book of mine.</p>
+</blockquote>
+
+<p>Note that without the possessive, there is no accusative:</p>
+
+<blockquote>
+  <p><strong>Non-possessive with number</strong></p>
+
+  <p>Bir <strong>kitap</strong> ona verdi.<br />
+I gave him a book.</p>
+</blockquote>
+
+<h1 id="with-question-words">With question words</h1>
+
+<p>The accusative form of question words such as ne (“what”) and kim (“who”) will
+occasionally be seen. This can be used more specifically in place of a word that
+would normally take that spot in the sentence with the accusative. It often
+makes sense in response to somebody.</p>
+
+<blockquote>
+  <p><strong>Examples</strong></p>
+
+  <p>Ne yaptın?<br />
+What did you do?</p>
+  <hr />
+
+  <p><strong>Neyi</strong> yaptın?<br />
+You did <strong>what</strong>?</p>
+  <hr />
+
+  <p>Kimi aradın?<br />
+Who did you call?</p>
+  <hr />
+
+  <p><strong>A</strong>: Zaten biliyorum.<br />
+I already know.<br />
+<strong>B</strong>: <strong>Neyi</strong> biliyorsun?<br />
+<strong>What (exactly)</strong> do you know?<br />
+<strong>A</strong>: Bu bilgiyi biliyorum.<br />
+I already know this information.</p>
+</blockquote>
+
+<p>In the last example, I don’t think that saying “ne biliyorsun” would necessarily be
+incorrect, but neyi offers a certain amount of precision, in response to the
+verb (biliyorum) that speaker A used.</p>
+
+<h1 id="with-verbal-nouns">With verbal nouns</h1>
+
+<p>For example, when using any verbal nouns, such as <strong>yüzme</strong> or <strong>yaptığın</strong>,
+these will take the accusative if the verb requires it. As far as I know, these
+will not appear without the accusative (again, under the “direct object
+definition”, this was confusing to me. What does it mean for a verbal noun to be
+definite?)</p>
+
+<blockquote>
+  <p><strong>Examples</strong></p>
+
+  <p><strong>Yüzmeyi</strong> biliyorum.<br />
+I know how to swim / I know <strong>swimming</strong>.</p>
+</blockquote>
+
+<p>Almost all Turkish learners will learn how to express wanting to do a verb. This
+could be considered to an exception to the verbal noun accusatives above (since
+the infinite is considered a noun). However, there’s an exception to the
+exception!</p>
+
+<p>When another word appears between the infinite and istemek, then it takes on the
+accusative -mA form rather than the infinite.</p>
+
+<blockquote>
+  <p><strong>istemek can take the accusative</strong></p>
+
+  <p>Seni dövmek istiyorum.<br />
+I want to beat you up.</p>
+  <hr />
+
+  <p>Seni dövme<strong>yi</strong> <strong>çok</strong> istiyorum.<br />
+I really want to beat you up.</p>
+</blockquote>
+
+<h1 id="accusative-and-distance-from-the-verb">Accusative and distance from the verb</h1>
+
+<p>This is actually a more general rule for the above. A word cannot be in the
+nominative and far from the verb. For example, observe the insertion of the word
+<em>çok</em> below and in the previous example.</p>
+
+<blockquote>
+  <p><strong>Wrong</strong></p>
+
+  <p>Kedi çok seven bir köpek<br />
+A dog that loves cats</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Correct</strong></p>
+
+  <p><strong>Kedi</strong> seven bir köpek<br />
+A dog that loves <strong>cats</strong></p>
+  <hr />
+
+  <p><strong>Kediyi</strong> çok seven bir köpek<br />
+A dog that really loves cats</p>
+</blockquote>
+
+<h1 id="you-just-have-to-know">“You just have to know”</h1>
+
+<p>There are some cases where you just have to know that the accusative is
+required or not. For example, as a foreigner, one of your most common phrases:</p>
+
+<blockquote>
+  <p><strong>A common phrase</strong></p>
+
+  <p>Türkçe biliyor musun?<br />
+Do you know Turkish?</p>
+  <hr />
+
+  <p>Türkçe biliyorum.<br />
+I know Turkish.</p>
+</blockquote>
+
+<p>It does <em>not</em> use the accusative. Why? I’m not sure if there’s a sensible
+explanation. To me, it makes more sense that Turkish is definite here; it refers
+to a specific language, Turkish. But this is simply the way it is: there is no
+accusative.</p>
+
+<p>In another example put forth in the Turkish Discord, the opposite is true with
+the verb <em>sevmek</em>. The accusative would be
+used here this time to refer to the Turkish language specifically. It would be
+incorrect to drop the accusative here.</p>
+
+<blockquote>
+  <p><strong>Accusative with sevmek</strong></p>
+
+  <p>Türkçeyi seviyorum.
+I love the Turkish language.</p>
+</blockquote>
+
+<p>But it can also be used without the accusative:</p>
+
+<blockquote>
+  <p><strong>An explanation in the Discord</strong></p>
+
+  <p>“Türkçe seviyorum” could be used in a context where you like doing something IN Turkish. Like “in which language do you like watching series?” You could say “Türkçe seviyorum.”</p>
+</blockquote>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>This is by no means meant to completely cover the cases of using or not using
+the accusative, but hopefully it clarifies specific situations where the
+“definite direct object” definition is insufficient.</p>
+
+<p>Finally, even if you don’t get these correct in speech or writing, don’t sweat
+it: what you want to express will probably be understood. Language is
+approximate.  People definitely aren’t writing in perfect grammar on the
+internet – go check out some Turkish YouTube comments.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Next.js Rewrites, Amazon S3, and Trailing Slashes]]></title>
     <link href="http://louisrli.github.io/blog/2020/12/21/next-dot-js-rewrites/"/>
-    <updated>2020-12-21T00:00:00+03:00</updated>
+    <updated>2020-12-21T00:00:00+00:00</updated>
     <id>http://louisrli.github.io/blog/2020/12/21/next-dot-js-rewrites</id>
     <content type="html"><![CDATA[<p>This post talks about how to set up Next.js rewrites to point to a static site
 hosted on Amazon S3, in particular how to deal with trailing slashes.</p>
@@ -173,7 +538,7 @@ interaction given the quirks of the two opposing redirect rules.</p>
   <entry>
     <title type="html"><![CDATA[Advice for Coding Bootcamp Students]]></title>
     <link href="http://louisrli.github.io/blog/2020/11/22/advice-for-students/"/>
-    <updated>2020-11-22T00:00:00+03:00</updated>
+    <updated>2020-11-22T00:00:00+00:00</updated>
     <id>http://louisrli.github.io/blog/2020/11/22/advice-for-students</id>
     <content type="html"><![CDATA[<p>As an instructor, I find myself giving the same advice frequently to many
 students. In this article, I’ve distilled my most common recommendations into
@@ -494,7 +859,7 @@ consequently having the luxury of spending time for a job search.</p>
   <entry>
     <title type="html"><![CDATA[Typesafe Unit Testing of GraphQL Resolvers in TypeScript]]></title>
     <link href="http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript/"/>
-    <updated>2020-10-09T00:00:00+03:00</updated>
+    <updated>2020-10-09T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript</id>
     <content type="html"><![CDATA[<p>This post gives a code example on how to unit test a GraphQL resolver with Jest
 in TypeScript. In order to make the testing typesafe, we use <a href="https://graphql-code-generator.com/">GraphQL Code
@@ -630,7 +995,7 @@ off what was written in <a href="https://github.com/dotansimha/graphql-code-gene
   <entry>
     <title type="html"><![CDATA[Unit Testing of GraphQL Middleware in TypeScript]]></title>
     <link href="http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-middleware-typescript/"/>
-    <updated>2020-10-09T00:00:00+03:00</updated>
+    <updated>2020-10-09T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-middleware-typescript</id>
     <content type="html"><![CDATA[<p>This post gives a code example on how to unit test a GraphQL middleware in
 TypeScript with Jest, using the Express GraphQL middleware resolver
@@ -742,7 +1107,7 @@ use in the permissions as well (independent of GraphQL).</p>
   <entry>
     <title type="html"><![CDATA[Istanbul Frontend Bootcamp Retrospective]]></title>
     <link href="http://louisrli.github.io/blog/2020/07/02/teaching-thoughts/"/>
-    <updated>2020-07-02T00:00:00+03:00</updated>
+    <updated>2020-07-02T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2020/07/02/teaching-thoughts</id>
     <content type="html"><![CDATA[<p>This post is a compendium of my thoughts as an instructor for a
 non-profit coding bootcamp teaching frontend web development (JavaScript and
@@ -1229,7 +1594,7 @@ landing a job on a weak currency or a strong one.</p>
   <entry>
     <title type="html"><![CDATA[Traveling from Istanbul to Şile by Bus]]></title>
     <link href="http://louisrli.github.io/blog/2020/07/01/istanbul-to-sile/"/>
-    <updated>2020-07-01T00:00:00+03:00</updated>
+    <updated>2020-07-01T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2020/07/01/istanbul-to-sile</id>
     <content type="html"><![CDATA[<p>The intention of this post is to document how to travel from Istanbul to Şile by
 bus. At the time of writing, there do not appear to be any English resources for
@@ -1279,7 +1644,7 @@ how.</p>
   <entry>
     <title type="html"><![CDATA[Using MathJax with React]]></title>
     <link href="http://louisrli.github.io/blog/2020/06/04/react-mathjax/"/>
-    <updated>2020-06-04T00:00:00+03:00</updated>
+    <updated>2020-06-04T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2020/06/04/react-mathjax</id>
     <content type="html"><![CDATA[<p>This post describes how to use React (Typescript) and MathJax.</p>
 
@@ -1352,7 +1717,7 @@ dynamically load scripts in React</a>.</p>
   <entry>
     <title type="html"><![CDATA[Dynamic Script Loading in React with Hooks]]></title>
     <link href="http://louisrli.github.io/blog/2020/06/04/react-dynamic-script-hook/"/>
-    <updated>2020-06-04T00:00:00+03:00</updated>
+    <updated>2020-06-04T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2020/06/04/react-dynamic-script-hook</id>
     <content type="html"><![CDATA[<p>This post describes how to dynamically load a script by adding a script tag to
 your document using React Hooks.</p>
@@ -1417,7 +1782,7 @@ provided, then it removes the script from the page when the component unmounts
   <entry>
     <title type="html"><![CDATA[Fiilimsi: Turkish Verbal Nouns, Adjectives, and Adverbs]]></title>
     <link href="http://louisrli.github.io/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives/"/>
-    <updated>2020-04-20T00:00:00+03:00</updated>
+    <updated>2020-04-20T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives</id>
     <content type="html"><![CDATA[<style>
 blockquote {
@@ -1965,7 +2330,7 @@ language resource for these verbal adverbs.</p>
   <entry>
     <title type="html"><![CDATA[Sim Card Price in Turkey in February 2020]]></title>
     <link href="http://louisrli.github.io/blog/2020/02/21/sim-card/"/>
-    <updated>2020-02-21T00:00:00+03:00</updated>
+    <updated>2020-02-21T00:00:00+00:00</updated>
     <id>http://louisrli.github.io/blog/2020/02/21/sim-card</id>
     <content type="html"><![CDATA[<p>Getting a SIM card in Turkey for short to medium term stays in Turkey is
 straightforward. In this article, I describe my experience with prices in
@@ -2007,7 +2372,7 @@ registering everything.</p>
   <entry>
     <title type="html"><![CDATA[Sahibinden: The Craigslist of Turkey]]></title>
     <link href="http://louisrli.github.io/blog/2020/02/21/sahibinden/"/>
-    <updated>2020-02-21T00:00:00+03:00</updated>
+    <updated>2020-02-21T00:00:00+00:00</updated>
     <id>http://louisrli.github.io/blog/2020/02/21/sahibinden</id>
     <content type="html"><![CDATA[<p><strong>Sahibinden</strong> (literally, “owners”) is the Craigslist equivalent of Turkey.</p>
 
@@ -2067,7 +2432,7 @@ actually looks a lot worse in person.</li>
   <entry>
     <title type="html"><![CDATA[The Best ATM (No-Fee) in Istanbul, Turkey]]></title>
     <link href="http://louisrli.github.io/blog/2020/02/21/best-atm-in-istanbul-turkey/"/>
-    <updated>2020-02-21T00:00:00+03:00</updated>
+    <updated>2020-02-21T00:00:00+00:00</updated>
     <id>http://louisrli.github.io/blog/2020/02/21/best-atm-in-istanbul-turkey</id>
     <content type="html"><![CDATA[<p>The best ATM in Istanbul, Turkey is a coveted title. There’s a lot of banks that
 accept international cards, but some of them will try to extract more money from
@@ -2181,7 +2546,7 @@ link</a>.</p>
   <entry>
     <title type="html"><![CDATA[Staging and production cookies in Next.js]]></title>
     <link href="http://louisrli.github.io/blog/2019/11/20/staging-and-production-cookies-in-next-js/"/>
-    <updated>2019-11-20T00:00:00+03:00</updated>
+    <updated>2019-11-20T00:00:00+00:00</updated>
     <id>http://louisrli.github.io/blog/2019/11/20/staging-and-production-cookies-in-next-js</id>
     <content type="html"><![CDATA[<p>This article describes how add authentication to your
 <a href="https://nextjs.org">Next.js</a> app using cookies and JWT. In this example, we
@@ -2237,7 +2602,7 @@ pass in the stage in a similar way.</p>
   <entry>
     <title type="html"><![CDATA[Next.js Typescript Integration with Ant Design (antd)]]></title>
     <link href="http://louisrli.github.io/blog/2019/11/17/next-js-with-antd/"/>
-    <updated>2019-11-17T00:00:00+03:00</updated>
+    <updated>2019-11-17T00:00:00+00:00</updated>
     <id>http://louisrli.github.io/blog/2019/11/17/next-js-with-antd</id>
     <content type="html"><![CDATA[<p>This article describes how to add the <a href="antd.design">Antd</a> library to
 <a href="https://nextjs.org">Next.js</a>.</p>
@@ -2335,7 +2700,7 @@ following:</p>
   <entry>
     <title type="html"><![CDATA[HOC Authentication Redirects with Next.js, GraphQL, and Typescript]]></title>
     <link href="http://louisrli.github.io/blog/2019/11/17/auth-redirect-next-js/"/>
-    <updated>2019-11-17T00:00:00+03:00</updated>
+    <updated>2019-11-17T00:00:00+00:00</updated>
     <id>http://louisrli.github.io/blog/2019/11/17/auth-redirect-next-js</id>
     <content type="html"><![CDATA[<p>This article describes how to redirect the user in
 <a href="https://nextjs.org">Next.js</a> based on whether the user is authenticated
@@ -2497,7 +2862,7 @@ example online.</p>
   <entry>
     <title type="html"><![CDATA[Unit testing React Google Analytics (react-ga) with Jest]]></title>
     <link href="http://louisrli.github.io/blog/2019/11/16/jest-with-react-ga/"/>
-    <updated>2019-11-16T00:00:00+03:00</updated>
+    <updated>2019-11-16T00:00:00+00:00</updated>
     <id>http://louisrli.github.io/blog/2019/11/16/jest-with-react-ga</id>
     <content type="html"><![CDATA[<p>This article describes how to unit test a React component using
 <a href="https://github.com/react-ga/react-ga/">react-ga</a>, including globally setting up
@@ -2585,7 +2950,7 @@ level of hackery).</p>
   <entry>
     <title type="html"><![CDATA[Unit testing Apollo React hooks with MockedProvider]]></title>
     <link href="http://louisrli.github.io/blog/2019/11/16/apollo-mockedprovider-unit-test/"/>
-    <updated>2019-11-16T00:00:00+03:00</updated>
+    <updated>2019-11-16T00:00:00+00:00</updated>
     <id>http://louisrli.github.io/blog/2019/11/16/apollo-mockedprovider-unit-test</id>
     <content type="html"><![CDATA[<p>This article describes how to unit test a React component with Apollo queries
 using React Hooks, Jest, the Apollo-provided 
@@ -2741,7 +3106,7 @@ I’ve currently not solved this issue (though there are some solutions <a href=
   <entry>
     <title type="html"><![CDATA[Is Couchsurfing Safe? (and other common questions)]]></title>
     <link href="http://louisrli.github.io/blog/2018/06/24/is-couchsurfing-safe-and-other-common-questions/"/>
-    <updated>2018-06-24T00:00:00+03:00</updated>
+    <updated>2018-06-24T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2018/06/24/is-couchsurfing-safe-and-other-common-questions</id>
     <content type="html"><![CDATA[<p><a href="http://couchsurfing.com">Couchsurfing</a> is a site that connects travelers to local hosts in a city.
 As long as both the traveler and host agree, the traveler stays with the host free of charge. 
@@ -2911,7 +3276,7 @@ more experienced individuals, such as the power hosts who have hosted over one h
   <entry>
     <title type="html"><![CDATA[Transportation from Dharamshala Airport to McLeod Ganj]]></title>
     <link href="http://louisrli.github.io/blog/2018/06/22/transportation-from-dharamshala-airport-to-mcleod-ganj/"/>
-    <updated>2018-06-22T00:00:00+03:00</updated>
+    <updated>2018-06-22T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2018/06/22/transportation-from-dharamshala-airport-to-mcleod-ganj</id>
     <content type="html"><![CDATA[<p><em>Last updated: June 2018</em></p>
 
@@ -2924,85 +3289,6 @@ Dharamshala, India – the central tourist area of Dharamshala.</p>
 location of your residence. Go to the prepaid taxi booth and talk to the booth. There will be a number of drivers and a clerk outside of the stand. The drivers may try to
 circumvent you from speaking to the booth, ignore them temporarily and get the slip signed off. In
 our case, we ended up getting a lower price confirmed by the booth.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Transportation from Agra to Delhi Airport]]></title>
-    <link href="http://louisrli.github.io/blog/2018/06/21/transportation-from-agra-to-delhi-airport/"/>
-    <updated>2018-06-21T00:00:00+03:00</updated>
-    <id>http://louisrli.github.io/blog/2018/06/21/transportation-from-agra-to-delhi-airport</id>
-    <content type="html"><![CDATA[<p><em>Last updated: June 2018</em></p>
-
-<p>This post describes how to get from <a href="https://wikitravel.org/en/Agra">Agra, India</a>, to New Delhi,
-India. It focuses on how to get to the airport in the same day, though all of the advice applies
-more generally to getting from one city to the other.</p>
-
-<p>While attending a wedding in Agra, I had to get from Agra to Delhi in the same day in order to catch
-a 14:00 flight.  The distance from Agra to Delhi is quite large (3-5 hour drive depending on
-traffic), so I did some research on the most economical methods of reaching the Delhi airport. This
-is a summary of my research that will hopefully help other travelers evaluate their options.</p>
-
-<!-- more -->
-
-<h2 id="traditional-taxi-service">Traditional taxi service</h2>
-
-<p><strong>Cost: ~4000 rupees</strong></p>
-
-<p>It’s easy to get a bunch of conflicting prices here. Definitely don’t book through a hotel (hostel
-will probably give you better price) as they will way overcharge you – hotels’ quoted prices 
-were around 200 USD.</p>
-
-<p>We used <a href="https://www.tripadvisor.in/Attraction_Review-g297683-d13188303-Reviews-D_K_Car_and_Driver_India-Agra_Agra_District_Uttar_Pradesh.html">D.K. Car and Driver India</a>, which was the first result on TripAdvisor at the time of our trip. I called him using the hotel phone, but he also responded to my Facebook messages in about an hour, which was advantageous since I was trying to book at 4 PM the day before. Everything went seamlessly, so I’m willing to stick in my endorsement for D.K. here.</p>
-
-<p>We paid around 4000 rupees, which at the time of writing, was about 60 USD. The trip was four hours.</p>
-
-<h2 id="savaari--clearcar--other-taxi-aggregator">Savaari / ClearCar / other taxi aggregator</h2>
-
-<p><strong>Cost: ~2500 rupees</strong>. The sites don’t give an exact amount, but this is an estimation based on
-their formulas for trips over 80km.</p>
-
-<p>There are a number of taxi aggregators in India (Savaari, ClearCar, etc.) that do “outstation” (out of town) trips. These are essentially like Uber, except that you book the car in advance, and it shows up at the specified time. Savaari was suggested by a native Indian
-acquaintance of mine, as he was using it to leave Agra after the wedding.</p>
-
-<p>After doing some research of reviews, it
-seems that these services aren’t fully reliable; many reviews contained instances of drivers being late,
-cancelling the hour beforehand, intentionally taking longer routes, etc. While online reviews are
-likely biased toward the bad instances, it does suggest that these services could be hit-or-miss
-(although it must be “hit” enough that a native Indian suggested it to us).</p>
-
-<p>Despite being the best balance of convenience and price, I ended up not going with this option due
-to the potential time unreliability, especially for a 7AM flight. However, <strong>if you simply want to get from
-Agra to Delhi as a group with looser time constraints, Savaari is both cheaper and more convenient
-than public transportation.</strong></p>
-
-<h2 id="public-transportation">Public transportation</h2>
-
-<p><strong>Cost: ~1000 rupees / person.</strong> Air-conditioned class train tickets ranged from 700 to 1200 rupees.</p>
-
-<p>Public transportation here means train, metro, and bus/short-distance cab.  For the trains, view
-up-to-date timetables and book tickets at <a href="https://www.irctc.co.in/">IRCTC</a>. I’m not sure if they
-take international cards; I’ve seen varying reports online.</p>
-
-<p>In general, public transportation (train/metro) is a good option for Agra to Delhi.</p>
-
-<p>For getting to the airport specifically, it becomes more complicated. We ran into a myriad of issues trying to plan a public transit route. The fastest 2.25 hour express trains from Agra to Delhi ran only in the evening, which didn’t work for our 14:00 flight, so the train would be least 3 hours. Additionally, the trains for our timetable only went to Hazrat Nizmuddin station, which would require either a bus/cab to the airport or airport metro line.</p>
-
-<p>To summarize, the trip would involve:</p>
-
-<ul>
-  <li>Residence in Agra to Agra Cantt station (<strong>10-20 min</strong>)</li>
-  <li>Agra Cantt to New Delhi Station or Hazrat Nizmuddin station (<strong>2.25 to 3.5 hours</strong>, depending on what
-train you catch)</li>
-  <li>If at New Delhi Station, metro to airport. If at Hazrat Nizmuddin station, figure out a way to get
-to the airport metro, then head to airport (either way, <strong>30 min to 1 hour</strong>, and traffic is bad).</li>
-</ul>
-
-<p>If you have an evening flight, then public transportation to the airport is a viable
-option, as you have more time flexibility without waking up at an ungodly hour. If traveling solo,
-this is the cheapest option by far, but if your group
-has two or more people and you have time flexibility, a Savaari cab becomes about the same
-price per person.</p>
 ]]></content>
   </entry>
   

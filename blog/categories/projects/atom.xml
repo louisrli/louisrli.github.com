@@ -4,7 +4,7 @@
   <title><![CDATA[Category: projects | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/projects/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2020-12-21T02:24:03+03:00</updated>
+  <updated>2021-01-14T06:26:44+00:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Senior Thesis: Security Analysis of Java Web Applications Using String Constraint Analysis]]></title>
     <link href="http://louisrli.github.io/blog/2015/05/03/senior-thesis/"/>
-    <updated>2015-05-03 00:00:00 +0300</updated>
+    <updated>2015-05-03 00:00:00 +0100</updated>
     <id>http://louisrli.github.io/blog/2015/05/03/senior-thesis</id>
     <content type="html"><![CDATA[<p>I submitted my undergraduate thesis at the beginning of April, titled “Security Analysis of Java Web
 Applications Using String Constraint Analysis.” I was advised by Professor Stephen Chong.</p>
@@ -48,7 +48,7 @@ injection and cross-site scripting.</p>
   <entry>
     <title type="html"><![CDATA[Erasable Code Contracts]]></title>
     <link href="http://louisrli.github.io/blog/2014/01/09/erasable-contracts/"/>
-    <updated>2014-01-09 00:00:00 +0200</updated>
+    <updated>2014-01-09 00:00:00 +0000</updated>
     <id>http://louisrli.github.io/blog/2014/01/09/erasable-contracts</id>
     <content type="html"><![CDATA[<p>This semester, I took a course on the science of cybersecurity, targeted toward an audience with some programming languages background.</p>
 
@@ -79,7 +79,7 @@ injection and cross-site scripting.</p>
   <entry>
     <title type="html"><![CDATA[Hungrier: Harvard Dining Menu, Re-released]]></title>
     <link href="http://louisrli.github.io/blog/2013/08/22/hungry-revamped/"/>
-    <updated>2013-08-22 00:00:00 +0300</updated>
+    <updated>2013-08-22 00:00:00 +0100</updated>
     <id>http://louisrli.github.io/blog/2013/08/22/hungry-revamped</id>
     <content type="html"><![CDATA[<p>I’ve rewritten and redesigned <a href="http://louisrli.github.io/hungry/">Hungry</a>, a site that filters the noisy Harvard dining menu for relevant entries. If you’re reading this during the school year, there probably won’t be anything, since student dining isn’t open.</p>
 
@@ -92,7 +92,7 @@ injection and cross-site scripting.</p>
   <entry>
     <title type="html"><![CDATA[2012 in Sideprojects]]></title>
     <link href="http://louisrli.github.io/blog/2013/01/12/sideprojects-2012/"/>
-    <updated>2013-01-12 00:00:00 +0200</updated>
+    <updated>2013-01-12 00:00:00 +0000</updated>
     <id>http://louisrli.github.io/blog/2013/01/12/sideprojects-2012</id>
     <content type="html"><![CDATA[<p>It always surprises me how long a year is. It’s hard for me to believe that some of these projects were a year ago, but I’m happy to see my progress. Here’s a walk down memory lane for my projects in 2012, not including course projects and research.</p>
 
@@ -207,7 +207,7 @@ injection and cross-site scripting.</p>
   <entry>
     <title type="html"><![CDATA[Protostar Format String Exploits (Solutions 0-4)]]></title>
     <link href="http://louisrli.github.io/blog/2012/08/29/protostar-format0/"/>
-    <updated>2012-08-29 00:00:00 +0300</updated>
+    <updated>2012-08-29 00:00:00 +0100</updated>
     <id>http://louisrli.github.io/blog/2012/08/29/protostar-format0</id>
     <content type="html"><![CDATA[<h1 id="overview">Overview</h1>
 <p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
