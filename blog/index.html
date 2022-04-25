@@ -30,18 +30,16 @@
 		
 
 
-	turkish
+	devops
 
 
 
 		
 	
-	Understanding the Turkish Accusative
+	Connecting an Elastic Beanstalk Backend to Cloudfront
 	
 
-          
-
-The purpose of this post is...">
+          Given an exis...">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -126,6 +124,107 @@ The purpose of this post is...">
 			<div class="mid-col-container">
 				<div id="content" class="inner"><div class="blog-index">
   
+  
+
+      
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+
+<time datetime="2021-04-15T00:00:00+01:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/devops/'>devops</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2021/04/15/elastic-beanstalk-cloudfront-cache/" itemprop="url">Connecting an Elastic Beanstalk Backend to Cloudfront</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+
+          <p>Given an existing server on Elastic Beanstalk, this tutorial describes how to
+connect it to Cloudfront, including using Route53 and managing CORS.</p>
+
+<p>This post assumes that you already have an environment in Elastic Beanstalk.</p>
+
+<!--more-->
+
+<h2 id="step-1-application-load-balancer">Step 1: Application Load Balancer</h2>
+<p>Follow the [Application Load Balancer] documentation to check if a load balancer
+exists; if not, then add one. If this is a server receiving requests from a web
+frontend, then you should have listeners at 443 HTTPS and 80 HTTP, wit han SSL
+certificate connected to the HTTPS port.</p>
+
+<h2 id="step-2-create-a-cloudfront-distribution">Step 2: Create a CloudFront distribution</h2>
+
+<p>Create a new CloudFront distribution. The most important step here is to select
+the appropriate origin under <strong>– Elastic Load Balancers –</strong> for <strong>Origin Domain
+Name</strong>.</p>
+
+<ul>
+  <li>If you have multiple environments, such as staging and production, I’m
+  actually not sure how to distinguish the two (I used the creation date of
+  the load balancer by searching for “load balancers” and going to EC2 in the
+  search box above). Find some means to select the appropriate one as the
+  <strong>Origin Domain Name</strong>.</li>
+  <li>Give a meaningful <strong>Origin ID</strong>. You should be able to use any string here,
+  pick one that you can remember.</li>
+  <li>Select <strong>Redirect HTTP to HTTPS</strong>.</li>
+  <li>Pick <strong>Allowed HTTP Methods</strong> based on what your app is doing; if you want to
+  be safe or aren’t sure, select the longest list here. This option is simply
+  what’s allowed, what’s actually cached ony includes GET, HEAD, and
+  optionally OPTIONS (see <strong>Cached HTTP Methods</strong> section).</li>
+  <li>For <strong>Cache Policy</strong>, this is totally application dependent; you can pick a
+  default for now and change it later, but this is application-specific. If
+  you simply want to test things first, I suggest making a custom cache policy
+  with all cache durations set to 0.</li>
+  <li>For <strong>Origin Request Policy</strong>, to get CORS to work (at least in the case of my
+  application), create a new policy with <strong>Whitelist</strong>: <code class="language-plaintext highlighter-rouge">Origin</code>,
+  <code class="language-plaintext highlighter-rouge">Access-Control-Request-Method</code>, <code class="language-plaintext highlighter-rouge">Access-Control-Request-Headers</code>. Without
+  this, you may see CORS errors from a web frontend. These will allow
+  preflight CORS requests to properly propagate to your server through
+  Cloudfront.</li>
+</ul>
+
+<p>Anything can be changed later; you can save here or read the next step for
+setting up a custom domain.</p>
+
+<h3 id="step-3-optional-repoint-your-domain-to-cloudfront">Step 3 (optional): Repoint your domain to CloudFront</h3>
+<p>If you have a custom domain name like <code class="language-plaintext highlighter-rouge">api.foo.com</code>, then you’ll want to set it
+in <strong>Alternate Domain Names</strong> as well as setting up the SSL certificate. If this
+is already in Route 53, clicking <strong>Request or Import a Certificate with ACM</strong>
+should be enough.</p>
+
+<p>If you <strong>already aliased <code class="language-plaintext highlighter-rouge">api.foo.com</code> to your Elastic Beanstalk endpoint</strong>,
+then, after the distribution is created, you’ll need to <a href="https://aws.amazon.com/premiumsupport/knowledge-center/route-53-create-alias-records/">create a new alias
+record</a>
+pointing to the CloudFront endpoint and removing the old <code class="language-plaintext highlighter-rouge">api.foo.com</code> record in
+Route53 (presumably this is a CNAME or A record).</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>At this point, you should have a CloudFront distribution pointing to the load
+balancer on top of your Elastic Beanstalk environment. If you followed step 3,
+<code class="language-plaintext highlighter-rouge">api.foo.com</code> will point to your CloudFront distribution, otherwise you can use
+the <code class="language-plaintext highlighter-rouge">*.cloudfront.net</code> domain shown under “CloudFront” (also connectable via
+Route53). Happy caching!</p>
+
+		<a href="/blog/2021/04/15/elastic-beanstalk-cloudfront-cache/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
   
 
       
@@ -540,89 +639,6 @@ your document using React Hooks.</p>
 
 
 		<a href="/blog/2020/06/04/react-dynamic-script-hook/" class="more-link">Read more</a>
-	</div>
-
-
-    </article>
-  
-
-      
-  
-    <article>
-      
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-
-<time datetime="2020-04-20T00:00:00+01:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/turkish/'>turkish</a>
-
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives/" itemprop="url">Fiilimsi: Turkish Verbal Nouns, Adjectives, and Adverbs</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-
-          <style>
-blockquote {
-  font-style: unset;
-}
-
-blockquote hr {
-  margin: 0.3em 0;
-}
-
-blockquote p:first-child {
-  font-size: 12px;
-  border-bottom: 1px solid #ddd;
-}
-
-/* In case we want to bold the example headers later. */
-blockquote p:first-child strong {
-  font-weight: unset;
-}
-
-blockquote p {
-  margin-top: 0.3em !important;
-  margin-bottom: 0.3em !important;
-}
-
-</style>
-
-<p>This post talks about the concept of “fiilimsi”, which are nouns, adjectives, or
-adverbs derived from verbs. In English, for example, these include gerunds
-(“<em>Running</em> is fun”) or participle adjectives (“The dog <em>that I saw</em>”).</p>
-
-<p>This post is not intended to be a comprehensive resource of all fiilimsi.
-There are three categories of fiilimsi:</p>
-
-<ol>
-  <li><strong>isim-fiil</strong>: verbal noun</li>
-  <li><strong>sıfat-fiil</strong>: verbal adjective</li>
-  <li><strong>zarf-fiil</strong>: verbal adverb</li>
-</ol>
-
-<p>There’s a noticeable lack of English language resources on the internet about
-certain Turkish language topics. There’s a few articles about verbal derivations
-but only with minimal details. I hope this post fills that niche.</p>
-
-<p>Almost all of this material was derived from a lesson on the <a href="https://discord.me/turkceogrenelim">Türkçe Öğrenelim
-Discord</a>. Feel free to join the community
-and support them on <a href="https://www.patreon.com/letslearnturkish">Patreon</a>.</p>
-
-
-		<a href="/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives/" class="more-link">Read more</a>
 	</div>
 
 

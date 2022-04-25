@@ -1,0 +1,275 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Connecting an Elastic Beanstalk Backend to Cloudfront - Louis Li</title>
+	<meta name="author" content="Louis Li">
+
+	
+	<meta name="description" content="
+
+
+
+
+
+	Connecting an Elastic Beanstalk Backend to Cloudfront
+        
+	Given an existing server on Elastic Beanstalk, this tutorial describes how t...">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="fb:admins" content="100001696373537" />
+
+	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://louisrli.github.io/blog/2021/04/15/elastic-beanstalk-cloudfront-cache/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+          </script>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-5225926150102880",
+          enable_page_level_ads: true
+     });
+</script>
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	<script type="text/javascript">
+		$(function(){
+                    $('.profilepic').append("<img src='https://www.gravatar.com/avatar/" + "9f050cf96c6cc933141f0242e5b723fd" + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<hgroup>
+  <h1><a href="/">Louis Li</a></h1>
+  
+</hgroup>
+
+<p class="subtitle"></p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/categories/projects">Sideprojects</a></li>
+  <li><a href="/publications">Publications</a></li>
+  <li><a href="http://github.com/louisrli">Github</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="mailto:pong@outlook.com">Contact</a></li>
+</ul>
+
+
+<section class="aboutme">
+  <p>
+    Harvard student and developer.
+  </p>
+</section>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		<a class="github" href="https://github.com/louisrli" title="GitHub">GitHub</a>
+		
+		
+		<a class="rss" href="http://feeds.feedburner.com/louisligithub" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container">
+				<div id="content" class="inner"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Github top leaderboard -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5225926150102880"
+     data-ad-slot="1340213627"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Connecting an Elastic Beanstalk Backend to Cloudfront</h1>
+        <h3 class="subtitle" itemprop="subtitle"></h3>
+	<div class="entry-content" itemprop="articleBody"><p>Given an existing server on Elastic Beanstalk, this tutorial describes how to
+connect it to Cloudfront, including using Route53 and managing CORS.</p>
+
+<p>This post assumes that you already have an environment in Elastic Beanstalk.</p>
+
+<!--more-->
+
+<h2 id="step-1-application-load-balancer">Step 1: Application Load Balancer</h2>
+<p>Follow the [Application Load Balancer] documentation to check if a load balancer
+exists; if not, then add one. If this is a server receiving requests from a web
+frontend, then you should have listeners at 443 HTTPS and 80 HTTP, wit han SSL
+certificate connected to the HTTPS port.</p>
+
+<h2 id="step-2-create-a-cloudfront-distribution">Step 2: Create a CloudFront distribution</h2>
+
+<p>Create a new CloudFront distribution. The most important step here is to select
+the appropriate origin under <strong>– Elastic Load Balancers –</strong> for <strong>Origin Domain
+Name</strong>.</p>
+
+<ul>
+  <li>If you have multiple environments, such as staging and production, I’m
+  actually not sure how to distinguish the two (I used the creation date of
+  the load balancer by searching for “load balancers” and going to EC2 in the
+  search box above). Find some means to select the appropriate one as the
+  <strong>Origin Domain Name</strong>.</li>
+  <li>Give a meaningful <strong>Origin ID</strong>. You should be able to use any string here,
+  pick one that you can remember.</li>
+  <li>Select <strong>Redirect HTTP to HTTPS</strong>.</li>
+  <li>Pick <strong>Allowed HTTP Methods</strong> based on what your app is doing; if you want to
+  be safe or aren’t sure, select the longest list here. This option is simply
+  what’s allowed, what’s actually cached ony includes GET, HEAD, and
+  optionally OPTIONS (see <strong>Cached HTTP Methods</strong> section).</li>
+  <li>For <strong>Cache Policy</strong>, this is totally application dependent; you can pick a
+  default for now and change it later, but this is application-specific. If
+  you simply want to test things first, I suggest making a custom cache policy
+  with all cache durations set to 0.</li>
+  <li>For <strong>Origin Request Policy</strong>, to get CORS to work (at least in the case of my
+  application), create a new policy with <strong>Whitelist</strong>: <code class="language-plaintext highlighter-rouge">Origin</code>,
+  <code class="language-plaintext highlighter-rouge">Access-Control-Request-Method</code>, <code class="language-plaintext highlighter-rouge">Access-Control-Request-Headers</code>. Without
+  this, you may see CORS errors from a web frontend. These will allow
+  preflight CORS requests to properly propagate to your server through
+  Cloudfront.</li>
+</ul>
+
+<p>Anything can be changed later; you can save here or read the next step for
+setting up a custom domain.</p>
+
+<h3 id="step-3-optional-repoint-your-domain-to-cloudfront">Step 3 (optional): Repoint your domain to CloudFront</h3>
+<p>If you have a custom domain name like <code class="language-plaintext highlighter-rouge">api.foo.com</code>, then you’ll want to set it
+in <strong>Alternate Domain Names</strong> as well as setting up the SSL certificate. If this
+is already in Route 53, clicking <strong>Request or Import a Certificate with ACM</strong>
+should be enough.</p>
+
+<p>If you <strong>already aliased <code class="language-plaintext highlighter-rouge">api.foo.com</code> to your Elastic Beanstalk endpoint</strong>,
+then, after the distribution is created, you’ll need to <a href="https://aws.amazon.com/premiumsupport/knowledge-center/route-53-create-alias-records/">create a new alias
+record</a>
+pointing to the CloudFront endpoint and removing the old <code class="language-plaintext highlighter-rouge">api.foo.com</code> record in
+Route53 (presumably this is a CNAME or A record).</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>At this point, you should have a CloudFront distribution pointing to the load
+balancer on top of your Elastic Beanstalk environment. If you followed step 3,
+<code class="language-plaintext highlighter-rouge">api.foo.com</code> will point to your CloudFront distribution, otherwise you can use
+the <code class="language-plaintext highlighter-rouge">*.cloudfront.net</code> domain shown under “CloudFront” (also connectable via
+Route53). Happy caching!</p>
+</div>
+
+</article>
+
+	<div class="share">
+  <!--AddThis Button BEGIN -->
+  <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+    <a class="addthis_button_preferred_1"></a>
+    <a class="addthis_button_preferred_2"></a>
+    <a class="addthis_button_preferred_3"></a>
+    <a class="addthis_button_preferred_4"></a>
+    <a class="addthis_button_compact"></a>
+    <a class="addthis_counter addthis_bubble_style"></a>
+  </div>
+  <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51e5a5762f46bbe9"></script>
+  <!-- AddThis Button END -->
+</div>
+
+
+
+<script async
+  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Github bottom leaderboard -->
+<ins class="adsbygoogle"
+       style="display:block"
+            data-ad-client="ca-pub-5225926150102880"
+                 data-ad-slot="1968553857"
+                      data-ad-format="auto"
+                           data-full-width-responsive="true"></ins>
+  <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2022 - Louis Li
+</p>
+
+Theme originally by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+</footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'llgithub';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://louisrli.github.io/blog/2021/04/15/elastic-beanstalk-cloudfront-cache/';
+        var disqus_url = 'http://louisrli.github.io/blog/2021/04/15/elastic-beanstalk-cloudfront-cache/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32823730-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>
