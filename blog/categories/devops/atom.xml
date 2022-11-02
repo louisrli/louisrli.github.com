@@ -4,7 +4,7 @@
   <title><![CDATA[Category: devops | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/devops/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2022-04-25T13:44:30+01:00</updated>
+  <updated>2022-11-02T20:51:16+03:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Connecting an Elastic Beanstalk Backend to Cloudfront]]></title>
     <link href="http://louisrli.github.io/blog/2021/04/15/elastic-beanstalk-cloudfront-cache/"/>
-    <updated>2021-04-15 00:00:00 +0100</updated>
+    <updated>2021-04-15 00:00:00 +0300</updated>
     <id>http://louisrli.github.io/blog/2021/04/15/elastic-beanstalk-cloudfront-cache</id>
     <content type="html"><![CDATA[<p>Given an existing server on Elastic Beanstalk, this tutorial describes how to
 connect it to Cloudfront, including using Route53 and managing CORS.</p>

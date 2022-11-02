@@ -4,7 +4,7 @@
   <title><![CDATA[Category: meteor | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/meteor/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2022-04-25T13:44:30+01:00</updated>
+  <updated>2022-11-02T20:51:16+03:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[How To Use Meteor.js Routing with Disqus]]></title>
     <link href="http://louisrli.github.io/blog/2013/07/29/using-meteor-js-with-disqus/"/>
-    <updated>2013-07-29 00:00:00 +0100</updated>
+    <updated>2013-07-29 00:00:00 +0300</updated>
     <id>http://louisrli.github.io/blog/2013/07/29/using-meteor-js-with-disqus</id>
     <content type="html"><![CDATA[<p>On most sites, using Disqus as the commenting system is as simple as copying the <a href="http://disqus.com/admin/universalcode/">Universal Code</a> (also known as <code class="language-plaintext highlighter-rouge">embed.js</code>) into a web page. In single-page JavaScript applications, however, much of the rendering is on the client-side. This means that <code class="language-plaintext highlighter-rouge">embed.js</code> might lead to stale Disqus threads or function incorrectly as pages are re-rendered.</p>
 

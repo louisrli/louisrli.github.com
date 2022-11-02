@@ -4,7 +4,7 @@
   <title><![CDATA[Category: istanbul | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/istanbul/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2022-04-25T13:44:30+01:00</updated>
+  <updated>2022-11-02T20:51:16+03:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Istanbul Frontend Bootcamp Retrospective]]></title>
     <link href="http://louisrli.github.io/blog/2020/07/02/teaching-thoughts/"/>
-    <updated>2020-07-02 00:00:00 +0100</updated>
+    <updated>2020-07-02 00:00:00 +0300</updated>
     <id>http://louisrli.github.io/blog/2020/07/02/teaching-thoughts</id>
     <content type="html"><![CDATA[<p>This post is a compendium of my thoughts as an instructor for a
 non-profit coding bootcamp teaching frontend web development (JavaScript and
@@ -503,7 +503,7 @@ landing a job on a weak currency or a strong one.</p>
   <entry>
     <title type="html"><![CDATA[Traveling from Istanbul to Şile by Bus]]></title>
     <link href="http://louisrli.github.io/blog/2020/07/01/istanbul-to-sile/"/>
-    <updated>2020-07-01 00:00:00 +0100</updated>
+    <updated>2020-07-01 00:00:00 +0300</updated>
     <id>http://louisrli.github.io/blog/2020/07/01/istanbul-to-sile</id>
     <content type="html"><![CDATA[<p>The intention of this post is to document how to travel from Istanbul to Şile by
 bus. At the time of writing, there do not appear to be any English resources for
@@ -553,7 +553,7 @@ how.</p>
   <entry>
     <title type="html"><![CDATA[Sim Card Price in Turkey in February 2020]]></title>
     <link href="http://louisrli.github.io/blog/2020/02/21/sim-card/"/>
-    <updated>2020-02-21 00:00:00 +0000</updated>
+    <updated>2020-02-21 00:00:00 +0300</updated>
     <id>http://louisrli.github.io/blog/2020/02/21/sim-card</id>
     <content type="html"><![CDATA[<p>Getting a SIM card in Turkey for short to medium term stays in Turkey is
 straightforward. In this article, I describe my experience with prices in
@@ -595,7 +595,7 @@ registering everything.</p>
   <entry>
     <title type="html"><![CDATA[Sahibinden: The Craigslist of Turkey]]></title>
     <link href="http://louisrli.github.io/blog/2020/02/21/sahibinden/"/>
-    <updated>2020-02-21 00:00:00 +0000</updated>
+    <updated>2020-02-21 00:00:00 +0300</updated>
     <id>http://louisrli.github.io/blog/2020/02/21/sahibinden</id>
     <content type="html"><![CDATA[<p><strong>Sahibinden</strong> (literally, “owners”) is the Craigslist equivalent of Turkey.</p>
 
@@ -655,7 +655,7 @@ actually looks a lot worse in person.</li>
   <entry>
     <title type="html"><![CDATA[The Best ATM (No-Fee) in Istanbul, Turkey]]></title>
     <link href="http://louisrli.github.io/blog/2020/02/21/best-atm-in-istanbul-turkey/"/>
-    <updated>2020-02-21 00:00:00 +0000</updated>
+    <updated>2020-02-21 00:00:00 +0300</updated>
     <id>http://louisrli.github.io/blog/2020/02/21/best-atm-in-istanbul-turkey</id>
     <content type="html"><![CDATA[<p>The best ATM in Istanbul, Turkey is a coveted title. There’s a lot of banks that
 accept international cards, but some of them will try to extract more money from
@@ -679,13 +679,12 @@ up, make sure to click <strong>Istemiyorum</strong> (it was on the left side), w
 <p>See the table below for a relative comparison.</p>
 
 <h2 id="atm-comparisons">ATM Comparisons</h2>
-<p>Credit for this table goes to <a href="https://www.reddit.com/r/Turkey/comments/cute4k/a_guide_to_turkish_atms_if_you_are_using_a_card/">some anonymous user on
-Reddit</a>, who I’m actually,
-very truly grateful for taking the time to write and do this exploration. As of
-February 2020, I can verify that at least some of these were true, as I tried
-about five ATMs in central Sisli.</p>
+<p>Credit for this table, updated in November 2022, goes to a reader that emailed
+me a TripAdvisor article. The ones with exact rates are ones that I checked
+myself. The others, according to the TripAdvisor article, are around 6%.</p>
 
-<p>If you have any updates or additions to this table, please add them below.</p>
+<p>If you have any updates or additions to this table, please add them below in the
+comments.</p>
 
 <table>
   <thead>
@@ -699,51 +698,76 @@ about five ATMs in central Sisli.</p>
     <tr>
       <td>HSBC</td>
       <td>None</td>
-      <td>Mixed bills</td>
-    </tr>
-    <tr>
-      <td>AKBANK</td>
-      <td>None</td>
-      <td>Only 20 TL bills</td>
+      <td>Most or all HSBC seem closed</td>
     </tr>
     <tr>
       <td>HalkBank</td>
       <td>None</td>
-      <td>Only 5 TL/10 TL bills</td>
+      <td>50/100 TL bills</td>
+    </tr>
+    <tr>
+      <td>Ptt Bank</td>
+      <td>None</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Fibabanka</td>
+      <td>None</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Sekerbank</td>
+      <td>None</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>ING Bank</td>
+      <td>None</td>
+      <td> </td>
     </tr>
     <tr>
       <td>ZiraatBanksi</td>
       <td>None</td>
-      <td>Only 10 TL bills</td>
+      <td> </td>
     </tr>
     <tr>
       <td>VakifBank</td>
-      <td>Flat 10 lira fee</td>
-      <td>I went to one and it was 4%.</td>
-    </tr>
-    <tr>
-      <td>QNB Finansbank</td>
       <td>Yes</td>
       <td> </td>
     </tr>
     <tr>
+      <td>AKBANK</td>
+      <td>Yes</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>QNB Finansbank</td>
+      <td>5%</td>
+      <td> </td>
+    </tr>
+    <tr>
       <td>Garanti</td>
-      <td>3.5%</td>
+      <td>Yes</td>
       <td> </td>
     </tr>
     <tr>
       <td>Bankamatik</td>
-      <td>2.5%</td>
+      <td>Yes</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>TEB</td>
+      <td>5%</td>
       <td> </td>
     </tr>
     <tr>
       <td>YapiKredi</td>
-      <td>3%</td>
+      <td>Yes</td>
       <td> </td>
     </tr>
     <tr>
       <td>Denizbank</td>
-      <td>3.5%</td>
+      <td>4%</td>
       <td> </td>
     </tr>
   </tbody>
