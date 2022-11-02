@@ -4,7 +4,7 @@
   <title><![CDATA[Category: travel | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/travel/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2022-11-02T20:57:14+03:00</updated>
+  <updated>2022-11-02T21:09:11+03:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,6 +12,30 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Supetar Bus Departure Schedule (Croatia)]]></title>
+    <link href="http://louisrli.github.io/blog/2022/10/15/supetar-bus-departure-schedule/"/>
+    <updated>2022-10-15 22:15:33 +0300</updated>
+    <id>http://louisrli.github.io/blog/2022/10/15/supetar-bus-departure-schedule</id>
+    <content type="html"><![CDATA[<p>This article contains the bus schedule for departures Supetar, Croatia on the island of Brač.</p>
+
+<!-- more -->
+
+<p>Timetables may differ between on and off seasons. My trip was at the middle of
+October, which is on the border of on and off seasons.</p>
+
+<h2 id="timetable">Timetable</h2>
+
+<p>If you find an updated timetable during your travels, please send it to me to update this page for
+other travelers.</p>
+
+<p class="minipic"><img src="/images/travel/supetarbus/from-supetar.jpg" alt="Bus from Supetar" /></p>
+
+<p class="minipic"><img src="/images/travel/supetarbus/to-supetar.jpg" alt="Bus to Supetar" /></p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Liden and Denz Moscow Review, aka Language Group Courses vs italki]]></title>
@@ -478,144 +502,6 @@ they usually charge the full broker fee of one month’s rent).</li>
   <li>Posters will often post really nice looking pictures but the apartment
 actually looks a lot worse in person.</li>
 </ul>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[The Best ATM (No-Fee) in Istanbul, Turkey]]></title>
-    <link href="http://louisrli.github.io/blog/2020/02/21/best-atm-in-istanbul-turkey/"/>
-    <updated>2020-02-21 00:00:00 +0300</updated>
-    <id>http://louisrli.github.io/blog/2020/02/21/best-atm-in-istanbul-turkey</id>
-    <content type="html"><![CDATA[<p>The best ATM in Istanbul, Turkey is a coveted title. There’s a lot of banks that
-accept international cards, but some of them will try to extract more money from
-you via service fee or dynamic currency conversion (DCC).</p>
-
-<p>The best ATM is <strong>HSBC</strong> (only 1000 lira at a time, mixed denominations).</p>
-
-<!-- more -->
-
-<h2 id="the-best-atm-hsbc">The Best ATM: HSBC</h2>
-<p>At the moment, HSBC has no extra fees and serves mostly 100 TL bills with some
-50 and 20 TL.</p>
-
-<p>In February 2020, QNB used to allow large transactions, no fees, and serving
-only 100 TL bills, but this is no longer the case as of June 2020.</p>
-
-<p>Depending on the ATM, they may try to apply DCC, so when the DCC menu comes
-up, make sure to click <strong>Istemiyorum</strong> (it was on the left side), which means:
-“I do not want.” Make sure you say no to DCC. DCC is very bad (Google it).</p>
-
-<p>See the table below for a relative comparison.</p>
-
-<h2 id="atm-comparisons">ATM Comparisons</h2>
-<p>Credit for this table, updated in November 2022, goes to a reader that emailed
-me a TripAdvisor article. The ones with exact rates are ones that I checked
-myself. The others, according to the TripAdvisor article, are around 6%.</p>
-
-<p>If you have any updates or additions to this table, please add them below in the
-comments.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Bank</th>
-      <th>Non-DCC Fee</th>
-      <th>Notes</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>HSBC</td>
-      <td>None</td>
-      <td>Most or all HSBC seem closed</td>
-    </tr>
-    <tr>
-      <td>HalkBank</td>
-      <td>None</td>
-      <td>50/100 TL bills</td>
-    </tr>
-    <tr>
-      <td>Ptt Bank</td>
-      <td>None</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>Fibabanka</td>
-      <td>None</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>Sekerbank</td>
-      <td>None</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>ING Bank</td>
-      <td>None</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>ZiraatBanksi</td>
-      <td>None</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>VakifBank</td>
-      <td>Yes</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>AKBANK</td>
-      <td>Yes</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>QNB Finansbank</td>
-      <td>5%</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>Garanti</td>
-      <td>Yes</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>Bankamatik</td>
-      <td>Yes</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>TEB</td>
-      <td>5%</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>YapiKredi</td>
-      <td>Yes</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>Denizbank</td>
-      <td>4%</td>
-      <td> </td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="fees-on-the-card-side">Fees on the card side</h2>
-<p>This is not really an advertisement, since I don’t really make money
-from this blog.</p>
-
-<p>In addition to the fees charged by the owning bank of the ATM, the owning bank
-of the card might also have foreign transaction fees. I use Charles Schwab (for
-my god-bless USA of bank account), which has no fees. It also waives ATM fees,
-but I’ve actually never been sure if that works for international bank fees such as
-the ones above.</p>
-
-<p>If for whatever reason this inspires you to sign up for Schwab, I have <a href="http://www.schwab.com/public/schwab/nn/refer-prospect.html?refrid=REFERY23JXD3D">this
-referral
-link</a>.</p>
-
 ]]></content>
   </entry>
   

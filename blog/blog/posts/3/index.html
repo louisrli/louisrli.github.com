@@ -28,21 +28,21 @@
 
 
 
-    24 June 2018
+    16 November 2019
 
 		
 
 
-	travel
+	react
 
 
 
 		
 	
-	Is Couchsurfing Safe? (and other common questions)
+	Unit testing Apollo React hooks with MockedProvider
 	
 
-       ...">
+   ...">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -127,6 +127,193 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner"><div class="blog-index">
   
+  
+
+      
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+
+
+<time datetime="2019-11-16T00:00:00+03:00" data-updated="true" itemprop="datePublished">
+    16 November 2019
+</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/react/'>react</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2019/11/16/apollo-mockedprovider-unit-test/" itemprop="url">Unit testing Apollo React hooks with MockedProvider</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+
+          <p>This article describes how to unit test a React component with Apollo queries
+using React Hooks, Jest, the Apollo-provided 
+<a href="https://www.apollographql.com/docs/react/development-testing/testing/#mockedprovider">MockedProvider</a>, and <a href="https://testing-library.com/docs/react-testing-library/api">React Testing Library</a>.</p>
+
+<!--more-->
+
+<p>When set up, <code class="language-plaintext highlighter-rouge">MockedProvider</code> asserts that any requests that are passed in its
+setup are called. That is, if you pass in that certain queries are going to be
+called with certain variables, the test will fail if it’s not called in exactly
+the same way.</p>
+
+<h2 id="wrapper-library-without-redux">Wrapper library (without Redux)</h2>
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">MockedProvider</span><span class="p">,</span> <span class="nx">MockedResponse</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@apollo/react-testing</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kr">interface</span> <span class="nx">TestConfig</span> <span class="p">{</span>
+  <span class="nl">apolloMocks</span><span class="p">?:</span> <span class="nx">MockedResponse</span><span class="p">[];</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">ApolloWrapper</span> <span class="o">=</span> <span class="p">({</span>
+  <span class="nx">apolloMocks</span> <span class="o">=</span> <span class="p">[],</span>
+<span class="p">}:</span> <span class="nx">TestConfig</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="nx">children</span> <span class="p">}:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">MockedProvider</span> <span class="na">mocks</span><span class="p">=</span><span class="si">{</span><span class="nx">apolloMocks</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">children</span><span class="si">}</span><span class="p">&lt;/</span><span class="nc">MockedProvider</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+</code></pre></div></div>
+
+<h2 id="wrapper-library-with-redux">Wrapper library (with Redux)</h2>
+<p><a href="redux.js.org">Redux</a> is commonly used with react, and one can also set up a
+provider with a store. Note that we use
+<a href="https://github.com/piotrwitek/typesafe-actions">typesafe-actions</a> in this
+example.</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+ * These Redux functions should probably be in a different, production library,
+ * but they're included here for illustration.
+ */</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">combineReducers</span><span class="p">,</span> <span class="nx">createStore</span><span class="p">,</span> <span class="nx">Store</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">redux</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">StateType</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">typesafe-actions</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">myReducer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">path/to/my/reducer</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">rootReducer</span> <span class="o">=</span> <span class="nx">combineReducers</span><span class="p">({</span>
+  <span class="na">reducer</span><span class="p">:</span> <span class="nx">myReducer</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="k">export</span> <span class="kd">type</span> <span class="nx">RootState</span> <span class="o">=</span> <span class="nx">StateType</span><span class="o">&lt;</span><span class="k">typeof</span> <span class="nx">rootReducer</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">makeStore</span> <span class="o">=</span> <span class="p">(</span><span class="nx">initialState</span> <span class="o">=</span> <span class="p">{}):</span> <span class="nx">Store</span><span class="o">&lt;</span><span class="nx">RootState</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">createStore</span><span class="p">(</span><span class="nx">rootReducer</span><span class="p">,</span> <span class="nx">initialState</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// Test wrapper code.</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">MockedProvider</span><span class="p">,</span> <span class="nx">MockedResponse</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@apollo/react-testing</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Provider</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-redux</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Store</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">redux</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">makeStore</span><span class="p">,</span> <span class="p">{</span> <span class="nx">RootState</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./store</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kr">interface</span> <span class="nx">TestConfig</span> <span class="p">{</span>
+  <span class="nl">initialState</span><span class="p">?:</span> <span class="nb">Partial</span><span class="o">&lt;</span><span class="nx">RootState</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nl">store</span><span class="p">?:</span> <span class="nx">Store</span><span class="o">&lt;</span><span class="nx">RootState</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nl">apolloMocks</span><span class="p">?:</span> <span class="nx">MockedResponse</span><span class="p">[];</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">ReduxApolloWrapper</span> <span class="o">=</span> <span class="p">({</span>
+  <span class="nx">initialState</span> <span class="o">=</span> <span class="p">{},</span>
+  <span class="nx">store</span> <span class="o">=</span> <span class="nx">makeStore</span><span class="p">(</span><span class="nx">initialState</span><span class="p">),</span>
+  <span class="nx">apolloMocks</span> <span class="o">=</span> <span class="p">[],</span>
+<span class="p">}:</span> <span class="nx">TestConfig</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="nx">children</span> <span class="p">}:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">Provider</span> <span class="na">store</span><span class="p">=</span><span class="si">{</span><span class="nx">store</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nc">MockedProvider</span> <span class="na">mocks</span><span class="p">=</span><span class="si">{</span><span class="nx">apolloMocks</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">children</span><span class="si">}</span><span class="p">&lt;/</span><span class="nc">MockedProvider</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">Provider</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+</code></pre></div></div>
+
+<h2 id="test-example">Test example</h2>
+<p>This is an example of a test written using <a href="jestjs.io">Jest</a>.</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">gql</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">graphql-tag</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="nx">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">does what it should</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">mocks</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="na">request</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">query</span><span class="p">:</span> <span class="nx">gql</span><span class="s2">`&lt;your expected query here&gt;`</span><span class="p">,</span>
+        <span class="na">variables</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">myVariable</span><span class="p">:</span> <span class="dl">'</span><span class="s1">foo</span><span class="dl">'</span><span class="p">,</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="na">result</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+          <span class="c1">// Mock out the return response here. You can also have `result`</span>
+          <span class="c1">// return a function if you want to do more complicated things.</span>
+        <span class="p">},</span>
+      <span class="p">},</span>
+    <span class="p">},</span>
+  <span class="p">];</span>
+
+
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">getByText</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">render</span><span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">MyComponentWithApolloQuery</span>  <span class="p">/&gt;,</span>
+    <span class="p">{</span>
+      <span class="na">wrapper</span><span class="p">:</span> <span class="nx">ReduxApolloWrapper</span><span class="p">({</span> <span class="na">apolloMocks</span><span class="p">:</span> <span class="nx">MOCKS</span> <span class="p">}),</span>
+    <span class="p">}</span>
+  <span class="p">);</span>
+
+  <span class="nx">expect</span><span class="p">(</span><span class="nx">getByText</span><span class="p">(</span><span class="sr">/someSubstringRegex/</span><span class="p">)).</span><span class="nx">not</span><span class="p">.</span><span class="nx">toBeVisible</span><span class="p">();</span>
+
+  <span class="c1">// This test will implicitly fail here if Apollo is called, for example, with</span>
+  <span class="c1">// a variable value for `myVariable` other than `foo`.</span>
+<span class="p">});</span>
+
+
+
+</code></pre></div></div>
+
+<h2 id="errors-and-warnings">Errors and warnings</h2>
+
+<h3 id="client-not-in-context">Client not in context</h3>
+<p>For some reason, <code class="language-plaintext highlighter-rouge">MockedProvider</code> would not work properly for me in React
+Testing Library the way that was suggested by the documentation. I kept getting
+this error:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Invariant Violation: Could not find "client" in the context or passed in as an
+option. Wrap the root component in an &lt;ApolloProvider&gt;, or pass an ApolloClient
+instance in via options.
+</code></pre></div></div>
+
+<p>In the end, <a href="https://spectrum.chat/apollo/apollo-client/mockedprovider-doesnt-inject-client-in-context~a17546fa-d73c-4b4b-8237-c81680799ebb">this Spectrum
+thread</a>
+helped me to resolve the issue.</p>
+
+<h3 id="add-typename-warnings">Add typename warnings</h3>
+<p>I never really figured out how to solve these when I was using <a href="https://graphql-code-generator.com/">GraphQL
+codegen</a>, as the fragments that are
+generated don’t contain typenames. You’ll likely see warning below, for which
+I’ve currently not solved this issue (though there are some solutions <a href="https://github.com/apollographql/react-apollo/issues/1747">proposed here</a>).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>You're using fragments in your queries, but either don't have the addTypename:
+        true option set in Apollo Client, or you are trying to write a fragment to the store without the __typename.
+         Please turn on the addTypename option and include __typename when writing fragments so that Apollo Client
+         can accurately match fragments.
+</code></pre></div></div>
+
+		<a href="/blog/2019/11/16/apollo-mockedprovider-unit-test/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
   
 
       
@@ -539,50 +726,6 @@ tasty for meat and rice (and egg and vegetable) lovers.</p>
 
 
 		<a href="/blog/2015/08/17/meat-and-rice-zhaopaikaoroufan/" class="more-link">Read more</a>
-	</div>
-
-
-    </article>
-  
-
-      
-  
-    <article>
-      
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-
-
-<time datetime="2015-08-11T00:00:00+03:00" data-updated="true" itemprop="datePublished">
-    11 August 2015
-</time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/taiwan/'>taiwan</a>, <a class='category' href='/blog/categories/travel/'>travel</a>
-
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/08/11/yangmingshan/" itemprop="url">Yangmingshan Transportation 阳明山 (Taipei, Taiwan)</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-
-          <p>This is an English guide for transportation to <a href="http://en.wikipedia.org/wiki/Yangmingshan">Yangmingshan
-(阳明山)</a>, a national park north of Taipei, Taiwan. 
-Yangmingshan is a popular destination for locals and tourists, containing numerous hiking trails and
-hot springs.</p>
-
-
-		<a href="/blog/2015/08/11/yangmingshan/" class="more-link">Read more</a>
 	</div>
 
 
