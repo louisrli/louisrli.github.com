@@ -39,10 +39,8 @@
 
 		
 	
-	Unit testing Apollo React hooks with MockedProvider
-	
-
-   ...">
+	Unit testing React Google Analytics (react-ga) with Jest
+	...">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -145,7 +143,126 @@
 
 
 
-<time datetime="2019-11-16T00:00:00+03:00" data-updated="true" itemprop="datePublished">
+<time datetime="2019-11-16T00:00:00+08:00" data-updated="true" itemprop="datePublished">
+    16 November 2019
+</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/react/'>react</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2019/11/16/jest-with-react-ga/" itemprop="url">Unit testing React Google Analytics (react-ga) with Jest</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+
+          <p>This article describes how to unit test a React component using
+<a href="https://github.com/react-ga/react-ga/">react-ga</a>, including globally setting up
+the Jest config to initialize test mode each time.</p>
+
+<!--more-->
+
+<h2 id="initializing-reactga">Initializing ReactGA</h2>
+<p>In your production code, you will initialize react-ga once: most likely whenever
+your page layout is mounted.</p>
+
+<p>In unit tests, you will receive a warning if ReactGA is not initialized:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ReactGA.initialize must be called first or GoogleAnalytics should be loaded
+manually
+</code></pre></div></div>
+
+<p>Instead of initializing manually in each test, we can initialize for all Jest
+tests globally for our frontend by</p>
+
+<p>In <code class="language-plaintext highlighter-rouge">jest.config.js</code> in the root level (note that <code class="language-plaintext highlighter-rouge">&lt;rootDir&gt;</code> is intentional;
+it’s a keyword in the Jest config):</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">setupFiles</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">&lt;rootDir&gt;/lib/testutil/setup-jest.js</span><span class="dl">'</span><span class="p">],</span>
+<span class="p">};</span>
+
+</code></pre></div></div>
+
+<p>Next, we have <code class="language-plaintext highlighter-rouge">lib/setup-jest.js</code> (or whatever path you prefer). Per the
+<a href="https://jestjs.io/docs/en/configuration.html#setupfiles-array">setupFiles
+documentation</a>,
+this should run exactly once before each test file:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Run once before every jest test file.
+ *
+ * Suppresses warnings related to ReactGA.
+ */</span>
+<span class="k">import</span> <span class="nx">ReactGA</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-ga</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="nx">ReactGA</span><span class="p">.</span><span class="nx">initialize</span><span class="p">(</span><span class="dl">'</span><span class="s1">dummy</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span> <span class="na">testMode</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
+
+
+</code></pre></div></div>
+
+<h2 id="test-example">Test example</h2>
+<p>Note that we reset the apiCalls before each test still (perhaps there is a clean
+way to get a global <code class="language-plaintext highlighter-rouge">beforeEach</code>, but I didn’t see one that didn’t require some
+level of hackery).</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * An example of a Jest test in Typescript.
+ */</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">fireEvent</span><span class="p">,</span> <span class="nx">render</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@testing-library/react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactGA</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-ga</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">analytics</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">ReactGA</span><span class="p">.</span><span class="nx">testModeAPI</span><span class="p">.</span><span class="nx">resetCalls</span><span class="p">();</span>
+  <span class="p">});</span>
+
+  <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">correctly sends timing analytics</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">getByText</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">render</span><span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">MyView</span> <span class="o">/&gt;</span>
+    <span class="p">);</span>
+
+    <span class="nx">fireEvent</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="nx">getByText</span><span class="p">(</span><span class="sr">/somebutton/</span><span class="p">));</span>
+
+    <span class="c1">// An example of testing the timing call.</span>
+    <span class="kd">const</span> <span class="na">timings</span><span class="p">:</span> <span class="nx">number</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">const</span> <span class="nx">call</span> <span class="k">of</span> <span class="nx">ReactGA</span><span class="p">.</span><span class="nx">testModeAPI</span><span class="p">.</span><span class="nx">calls</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">call</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">send</span><span class="dl">'</span> <span class="o">&amp;&amp;</span> <span class="nx">call</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">hitType</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">timing</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">timings</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">call</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">timingValue</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">timings</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">]);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+
+</code></pre></div></div>
+
+		<a href="/blog/2019/11/16/jest-with-react-ga/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+
+      
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+
+
+<time datetime="2019-11-16T00:00:00+08:00" data-updated="true" itemprop="datePublished">
     16 November 2019
 </time></div>
 		<div class="tags">
@@ -332,7 +449,7 @@ I’ve currently not solved this issue (though there are some solutions <a href=
 
 
 
-<time datetime="2018-06-24T00:00:00+03:00" data-updated="true" itemprop="datePublished">
+<time datetime="2018-06-24T00:00:00+08:00" data-updated="true" itemprop="datePublished">
     24 June 2018
 </time></div>
 		<div class="tags">
@@ -381,7 +498,7 @@ what to expect from the experience.</p>
 
 
 
-<time datetime="2018-06-22T00:00:00+03:00" data-updated="true" itemprop="datePublished">
+<time datetime="2018-06-22T00:00:00+08:00" data-updated="true" itemprop="datePublished">
     22 June 2018
 </time></div>
 		<div class="tags">
@@ -425,7 +542,7 @@ Dharamshala, India – the central tourist area of Dharamshala.</p>
 
 
 
-<time datetime="2018-06-21T00:00:00+03:00" data-updated="true" itemprop="datePublished">
+<time datetime="2018-06-21T00:00:00+08:00" data-updated="true" itemprop="datePublished">
     21 June 2018
 </time></div>
 		<div class="tags">
@@ -475,8 +592,8 @@ is a summary of my research that will hopefully help other travelers evaluate th
 
 
 
-<time datetime="2015-09-02T22:15:33+03:00" data-updated="true" itemprop="datePublished">
-    2 September 2015
+<time datetime="2015-09-03T03:15:33+08:00" data-updated="true" itemprop="datePublished">
+    3 September 2015
 </time></div>
 		<div class="tags">
 
@@ -487,7 +604,7 @@ is a summary of my research that will hopefully help other travelers evaluate th
 </div>
 		
 	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/09/02/dubrovnik-bus-departure-schedule/" itemprop="url">Dubrovnik Bus Departure Schedule (Croatia)</a></h1>
+	<h1 class="title" itemprop="name"><a href="/blog/2015/09/03/dubrovnik-bus-departure-schedule/" itemprop="url">Dubrovnik Bus Departure Schedule (Croatia)</a></h1>
 	<div class="entry-content" itemprop="articleBody">
 
           <p>This article contains the bus schedule for departures from Dubrovonik, Croatia. Dubrovonik is a
@@ -497,7 +614,7 @@ show!).</p>
 <p><em>Last updated: 1 September 2015</em></p>
 
 
-		<a href="/blog/2015/09/02/dubrovnik-bus-departure-schedule/" class="more-link">Read more</a>
+		<a href="/blog/2015/09/03/dubrovnik-bus-departure-schedule/" class="more-link">Read more</a>
 	</div>
 
 
@@ -520,8 +637,8 @@ show!).</p>
 
 
 
-<time datetime="2015-09-02T22:15:33+03:00" data-updated="true" itemprop="datePublished">
-    2 September 2015
+<time datetime="2015-09-03T03:15:33+08:00" data-updated="true" itemprop="datePublished">
+    3 September 2015
 </time></div>
 		<div class="tags">
 
@@ -532,7 +649,7 @@ show!).</p>
 </div>
 		
 	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/09/02/dubrovnik-best-currency-exchange/" itemprop="url">Dubrovnik's Best Currency Exchange (Croatia)</a></h1>
+	<h1 class="title" itemprop="name"><a href="/blog/2015/09/03/dubrovnik-best-currency-exchange/" itemprop="url">Dubrovnik's Best Currency Exchange (Croatia)</a></h1>
 	<div class="entry-content" itemprop="articleBody">
 
           <p>This article contains information about the best place to exchange currency in Dubrovnik, Croatia:
@@ -542,7 +659,7 @@ show!).</p>
 show!).</p>
 
 
-		<a href="/blog/2015/09/02/dubrovnik-best-currency-exchange/" class="more-link">Read more</a>
+		<a href="/blog/2015/09/03/dubrovnik-best-currency-exchange/" class="more-link">Read more</a>
 	</div>
 
 
@@ -565,7 +682,7 @@ show!).</p>
 
 
 
-<time datetime="2015-09-01T00:00:00+03:00" data-updated="true" itemprop="datePublished">
+<time datetime="2015-09-01T00:00:00+08:00" data-updated="true" itemprop="datePublished">
     1 September 2015
 </time></div>
 		<div class="tags">
@@ -612,7 +729,7 @@ first bus at 7:00 and arrived in Kotor around 14:00.</p>
 
 
 
-<time datetime="2015-08-31T00:00:00+03:00" data-updated="true" itemprop="datePublished">
+<time datetime="2015-08-31T00:00:00+08:00" data-updated="true" itemprop="datePublished">
     31 August 2015
 </time></div>
 		<div class="tags">
@@ -658,7 +775,7 @@ depending on traffic. It is a northern border city with bus transfers to Ulcinj,
 
 
 
-<time datetime="2015-08-30T00:00:00+03:00" data-updated="true" itemprop="datePublished">
+<time datetime="2015-08-30T00:00:00+08:00" data-updated="true" itemprop="datePublished">
     30 August 2015
 </time></div>
 		<div class="tags">
@@ -680,52 +797,6 @@ city center to Mount Dajti.</p>
 
 
 		<a href="/blog/2015/08/30/mt-dajt-tirana-albania/" class="more-link">Read more</a>
-	</div>
-
-
-    </article>
-  
-
-      
-  
-    <article>
-      
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-
-
-<time datetime="2015-08-17T00:00:00+03:00" data-updated="true" itemprop="datePublished">
-    17 August 2015
-</time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/taiwan/'>taiwan</a>, <a class='category' href='/blog/categories/travel/'>travel</a>
-
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/08/17/meat-and-rice-zhaopaikaoroufan/" itemprop="url">Best Meat and Rice in Taipei: Barbecue Pork Rice 御狀元烤肉飯 (Taipei, Taiwan)</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-
-          <p>御狀元烤肉飯 (<em>yu zhuang yuan kao rou fan</em>) (“Emperor’s Best Barbecue Pork and Rice” – not sure if
-that’s the correct translation) is a meat and rice joint in Taipei near Taipei Main Station.</p>
-
-<p>This was my favorite place to eat in Taiwan. I worked near Taipei Main Station and would eat here
-three to four days a week – for lunch <em>and</em> dinner on some days. It’s extremely cheap and very
-tasty for meat and rice (and egg and vegetable) lovers.</p>
-
-
-		<a href="/blog/2015/08/17/meat-and-rice-zhaopaikaoroufan/" class="more-link">Read more</a>
 	</div>
 
 

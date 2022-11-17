@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2022-11-02T21:09:11+03:00</updated>
+  <updated>2022-11-17T08:07:51+08:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -14,10 +14,45 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Automatically Generating Anki Cloze Cards from Reverso]]></title>
+    <link href="http://louisrli.github.io/blog/2022/11/17/automatically-generating-anki-cloze-cards-from-reverso/"/>
+    <updated>2022-11-17T00:00:00+08:00</updated>
+    <id>http://louisrli.github.io/blog/2022/11/17/automatically-generating-anki-cloze-cards-from-reverso</id>
+    <content type="html"><![CDATA[<p>I’ve recently released a tool that I’ve personally been using (hoarding) for ten
+months to generate <a href="https://apps.ankiweb.net/">Anki</a> language cards given only a
+list of terms. The <a href="https://github.com/louisrli/anki-reverso-cloze">Anki Reverso Cloze
+Generator</a> uses
+<a href="https://www.reverso.net/text-translation">Reverso</a> in order to pull example
+sentences and create cloze cards.</p>
+
+<!-- more -->
+
+<p>Here are some examples of cards that can be generated using this script.</p>
+
+<h2 id="example-card-front">Example card front</h2>
+<p><img src="https://github.com/louisrli/anki-reverso-cloze/blob/master/assets/front.png?raw=true" alt="Front of card" /></p>
+
+<h2 id="example-card-back">Example card back</h2>
+<p><img src="https://github.com/louisrli/anki-reverso-cloze/blob/master/assets/back.png?raw=true" alt="Back of card" /></p>
+
+<p>At the time of writing, I’ve generated about 7000 cards in Russian and 3000
+cards in Italian. Using addons like
+<a href="https://github.com/AwesomeTTS/awesometts-anki-addon">AwesomeTTS</a> and
+<a href="https://github.com/louisrli/anki-faws-image-search">FawsImageSearch</a>, it’s easy
+to get some really nice cards with audio and images on them.</p>
+
+<p>More detailed instructions can be found at the <a href="https://github.com/louisrli/anki-reverso-cloze">Github
+repository</a>. It requires basic
+knowledge of how to run a command in the command line. Feel free to make any
+suggestions using a GitHub issue or the comment section below.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Supetar Bus Departure Schedule (Croatia)]]></title>
-    <link href="http://louisrli.github.io/blog/2022/10/15/supetar-bus-departure-schedule/"/>
-    <updated>2022-10-15T22:15:33+03:00</updated>
-    <id>http://louisrli.github.io/blog/2022/10/15/supetar-bus-departure-schedule</id>
+    <link href="http://louisrli.github.io/blog/2022/10/16/supetar-bus-departure-schedule/"/>
+    <updated>2022-10-16T03:15:33+08:00</updated>
+    <id>http://louisrli.github.io/blog/2022/10/16/supetar-bus-departure-schedule</id>
     <content type="html"><![CDATA[<p>This article contains the bus schedule for departures Supetar, Croatia on the island of Brač.</p>
 
 <!-- more -->
@@ -40,7 +75,7 @@ other travelers.</p>
   <entry>
     <title type="html"><![CDATA[Liden and Denz Moscow Review, aka Language Group Courses vs italki]]></title>
     <link href="http://louisrli.github.io/blog/2022/07/15/liden-and-denz-review/"/>
-    <updated>2022-07-15T00:00:00+03:00</updated>
+    <updated>2022-07-15T00:00:00+08:00</updated>
     <id>http://louisrli.github.io/blog/2022/07/15/liden-and-denz-review</id>
     <content type="html"><![CDATA[<p>This article will answer the following questions in order:</p>
 <ul>
@@ -356,7 +391,7 @@ efficient use of one’s time, but it still has the potential to be good.</p>
   <entry>
     <title type="html"><![CDATA[Connecting an Elastic Beanstalk Backend to Cloudfront]]></title>
     <link href="http://louisrli.github.io/blog/2021/04/15/elastic-beanstalk-cloudfront-cache/"/>
-    <updated>2021-04-15T00:00:00+03:00</updated>
+    <updated>2021-04-15T00:00:00+08:00</updated>
     <id>http://louisrli.github.io/blog/2021/04/15/elastic-beanstalk-cloudfront-cache</id>
     <content type="html"><![CDATA[<p>Given an existing server on Elastic Beanstalk, this tutorial describes how to
 connect it to Cloudfront, including using Route53 and managing CORS.</p>
@@ -429,7 +464,7 @@ Route53). Happy caching!</p>
   <entry>
     <title type="html"><![CDATA[Understanding the Turkish Accusative]]></title>
     <link href="http://louisrli.github.io/blog/2021/01/14/understanding-the-turkish-accusative/"/>
-    <updated>2021-01-14T00:00:00+03:00</updated>
+    <updated>2021-01-14T00:00:00+08:00</updated>
     <id>http://louisrli.github.io/blog/2021/01/14/understanding-the-turkish-accusative</id>
     <content type="html"><![CDATA[<style>
 blockquote {
@@ -794,7 +829,7 @@ internet – go check out some Turkish YouTube comments.</p>
   <entry>
     <title type="html"><![CDATA[Next.js Rewrites, Amazon S3, and Trailing Slashes]]></title>
     <link href="http://louisrli.github.io/blog/2020/12/21/next-dot-js-rewrites/"/>
-    <updated>2020-12-21T00:00:00+03:00</updated>
+    <updated>2020-12-21T00:00:00+08:00</updated>
     <id>http://louisrli.github.io/blog/2020/12/21/next-dot-js-rewrites</id>
     <content type="html"><![CDATA[<p>This post talks about how to set up Next.js rewrites to point to a static site
 hosted on Amazon S3, in particular how to deal with trailing slashes.</p>
@@ -951,7 +986,7 @@ interaction given the quirks of the two opposing redirect rules.</p>
   <entry>
     <title type="html"><![CDATA[Advice for Coding Bootcamp Students]]></title>
     <link href="http://louisrli.github.io/blog/2020/11/22/advice-for-students/"/>
-    <updated>2020-11-22T00:00:00+03:00</updated>
+    <updated>2020-11-22T00:00:00+08:00</updated>
     <id>http://louisrli.github.io/blog/2020/11/22/advice-for-students</id>
     <content type="html"><![CDATA[<p>As an instructor, I find myself giving the same advice frequently to many
 students. In this article, I’ve distilled my most common recommendations into
@@ -1272,7 +1307,7 @@ consequently having the luxury of spending time for a job search.</p>
   <entry>
     <title type="html"><![CDATA[Typesafe Unit Testing of GraphQL Resolvers in TypeScript]]></title>
     <link href="http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript/"/>
-    <updated>2020-10-09T00:00:00+03:00</updated>
+    <updated>2020-10-09T00:00:00+08:00</updated>
     <id>http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript</id>
     <content type="html"><![CDATA[<p>This post gives a code example on how to unit test a GraphQL resolver with Jest
 in TypeScript. In order to make the testing typesafe, we use <a href="https://graphql-code-generator.com/">GraphQL Code
@@ -1408,7 +1443,7 @@ off what was written in <a href="https://github.com/dotansimha/graphql-code-gene
   <entry>
     <title type="html"><![CDATA[Unit Testing of GraphQL Middleware in TypeScript]]></title>
     <link href="http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-middleware-typescript/"/>
-    <updated>2020-10-09T00:00:00+03:00</updated>
+    <updated>2020-10-09T00:00:00+08:00</updated>
     <id>http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-middleware-typescript</id>
     <content type="html"><![CDATA[<p>This post gives a code example on how to unit test a GraphQL middleware in
 TypeScript with Jest, using the Express GraphQL middleware resolver
@@ -1520,7 +1555,7 @@ use in the permissions as well (independent of GraphQL).</p>
   <entry>
     <title type="html"><![CDATA[Istanbul Frontend Bootcamp Retrospective]]></title>
     <link href="http://louisrli.github.io/blog/2020/07/02/teaching-thoughts/"/>
-    <updated>2020-07-02T00:00:00+03:00</updated>
+    <updated>2020-07-02T00:00:00+08:00</updated>
     <id>http://louisrli.github.io/blog/2020/07/02/teaching-thoughts</id>
     <content type="html"><![CDATA[<p>This post is a compendium of my thoughts as an instructor for a
 non-profit coding bootcamp teaching frontend web development (JavaScript and
@@ -2007,7 +2042,7 @@ landing a job on a weak currency or a strong one.</p>
   <entry>
     <title type="html"><![CDATA[Traveling from Istanbul to Şile by Bus]]></title>
     <link href="http://louisrli.github.io/blog/2020/07/01/istanbul-to-sile/"/>
-    <updated>2020-07-01T00:00:00+03:00</updated>
+    <updated>2020-07-01T00:00:00+08:00</updated>
     <id>http://louisrli.github.io/blog/2020/07/01/istanbul-to-sile</id>
     <content type="html"><![CDATA[<p>The intention of this post is to document how to travel from Istanbul to Şile by
 bus. At the time of writing, there do not appear to be any English resources for
@@ -2057,7 +2092,7 @@ how.</p>
   <entry>
     <title type="html"><![CDATA[Using MathJax with React]]></title>
     <link href="http://louisrli.github.io/blog/2020/06/04/react-mathjax/"/>
-    <updated>2020-06-04T00:00:00+03:00</updated>
+    <updated>2020-06-04T00:00:00+08:00</updated>
     <id>http://louisrli.github.io/blog/2020/06/04/react-mathjax</id>
     <content type="html"><![CDATA[<p>This post describes how to use React (Typescript) and MathJax.</p>
 
@@ -2130,7 +2165,7 @@ dynamically load scripts in React</a>.</p>
   <entry>
     <title type="html"><![CDATA[Dynamic Script Loading in React with Hooks]]></title>
     <link href="http://louisrli.github.io/blog/2020/06/04/react-dynamic-script-hook/"/>
-    <updated>2020-06-04T00:00:00+03:00</updated>
+    <updated>2020-06-04T00:00:00+08:00</updated>
     <id>http://louisrli.github.io/blog/2020/06/04/react-dynamic-script-hook</id>
     <content type="html"><![CDATA[<p>This post describes how to dynamically load a script by adding a script tag to
 your document using React Hooks.</p>
@@ -2195,7 +2230,7 @@ provided, then it removes the script from the page when the component unmounts
   <entry>
     <title type="html"><![CDATA[Fiilimsi: Turkish Verbal Nouns, Adjectives, and Adverbs]]></title>
     <link href="http://louisrli.github.io/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives/"/>
-    <updated>2020-04-20T00:00:00+03:00</updated>
+    <updated>2020-04-20T00:00:00+08:00</updated>
     <id>http://louisrli.github.io/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives</id>
     <content type="html"><![CDATA[<style>
 blockquote {
@@ -2743,7 +2778,7 @@ language resource for these verbal adverbs.</p>
   <entry>
     <title type="html"><![CDATA[Sim Card Price in Turkey in February 2020]]></title>
     <link href="http://louisrli.github.io/blog/2020/02/21/sim-card/"/>
-    <updated>2020-02-21T00:00:00+03:00</updated>
+    <updated>2020-02-21T00:00:00+08:00</updated>
     <id>http://louisrli.github.io/blog/2020/02/21/sim-card</id>
     <content type="html"><![CDATA[<p>Getting a SIM card in Turkey for short to medium term stays in Turkey is
 straightforward. In this article, I describe my experience with prices in
@@ -2785,7 +2820,7 @@ registering everything.</p>
   <entry>
     <title type="html"><![CDATA[Sahibinden: The Craigslist of Turkey]]></title>
     <link href="http://louisrli.github.io/blog/2020/02/21/sahibinden/"/>
-    <updated>2020-02-21T00:00:00+03:00</updated>
+    <updated>2020-02-21T00:00:00+08:00</updated>
     <id>http://louisrli.github.io/blog/2020/02/21/sahibinden</id>
     <content type="html"><![CDATA[<p><strong>Sahibinden</strong> (literally, “owners”) is the Craigslist equivalent of Turkey.</p>
 
@@ -2845,7 +2880,7 @@ actually looks a lot worse in person.</li>
   <entry>
     <title type="html"><![CDATA[The Best ATM (No-Fee) in Istanbul, Turkey]]></title>
     <link href="http://louisrli.github.io/blog/2020/02/21/best-atm-in-istanbul-turkey/"/>
-    <updated>2020-02-21T00:00:00+03:00</updated>
+    <updated>2020-02-21T00:00:00+08:00</updated>
     <id>http://louisrli.github.io/blog/2020/02/21/best-atm-in-istanbul-turkey</id>
     <content type="html"><![CDATA[<p>The best ATM in Istanbul, Turkey is a coveted title. There’s a lot of banks that
 accept international cards, but some of them will try to extract more money from
@@ -2983,7 +3018,7 @@ link</a>.</p>
   <entry>
     <title type="html"><![CDATA[Staging and production cookies in Next.js]]></title>
     <link href="http://louisrli.github.io/blog/2019/11/20/staging-and-production-cookies-in-next-js/"/>
-    <updated>2019-11-20T00:00:00+03:00</updated>
+    <updated>2019-11-20T00:00:00+08:00</updated>
     <id>http://louisrli.github.io/blog/2019/11/20/staging-and-production-cookies-in-next-js</id>
     <content type="html"><![CDATA[<p>This article describes how add authentication to your
 <a href="https://nextjs.org">Next.js</a> app using cookies and JWT. In this example, we
@@ -3039,7 +3074,7 @@ pass in the stage in a similar way.</p>
   <entry>
     <title type="html"><![CDATA[Next.js Typescript Integration with Ant Design (antd)]]></title>
     <link href="http://louisrli.github.io/blog/2019/11/17/next-js-with-antd/"/>
-    <updated>2019-11-17T00:00:00+03:00</updated>
+    <updated>2019-11-17T00:00:00+08:00</updated>
     <id>http://louisrli.github.io/blog/2019/11/17/next-js-with-antd</id>
     <content type="html"><![CDATA[<p>This article describes how to add the <a href="antd.design">Antd</a> library to
 <a href="https://nextjs.org">Next.js</a>.</p>
@@ -3137,7 +3172,7 @@ following:</p>
   <entry>
     <title type="html"><![CDATA[HOC Authentication Redirects with Next.js, GraphQL, and Typescript]]></title>
     <link href="http://louisrli.github.io/blog/2019/11/17/auth-redirect-next-js/"/>
-    <updated>2019-11-17T00:00:00+03:00</updated>
+    <updated>2019-11-17T00:00:00+08:00</updated>
     <id>http://louisrli.github.io/blog/2019/11/17/auth-redirect-next-js</id>
     <content type="html"><![CDATA[<p>This article describes how to redirect the user in
 <a href="https://nextjs.org">Next.js</a> based on whether the user is authenticated
@@ -3293,94 +3328,6 @@ example online.</p>
 
 <h2 id="versions">Versions</h2>
 <p>At the time of writing, this was using Next 9.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Unit testing React Google Analytics (react-ga) with Jest]]></title>
-    <link href="http://louisrli.github.io/blog/2019/11/16/jest-with-react-ga/"/>
-    <updated>2019-11-16T00:00:00+03:00</updated>
-    <id>http://louisrli.github.io/blog/2019/11/16/jest-with-react-ga</id>
-    <content type="html"><![CDATA[<p>This article describes how to unit test a React component using
-<a href="https://github.com/react-ga/react-ga/">react-ga</a>, including globally setting up
-the Jest config to initialize test mode each time.</p>
-
-<!--more-->
-
-<h2 id="initializing-reactga">Initializing ReactGA</h2>
-<p>In your production code, you will initialize react-ga once: most likely whenever
-your page layout is mounted.</p>
-
-<p>In unit tests, you will receive a warning if ReactGA is not initialized:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ReactGA.initialize must be called first or GoogleAnalytics should be loaded
-manually
-</code></pre></div></div>
-
-<p>Instead of initializing manually in each test, we can initialize for all Jest
-tests globally for our frontend by</p>
-
-<p>In <code class="language-plaintext highlighter-rouge">jest.config.js</code> in the root level (note that <code class="language-plaintext highlighter-rouge">&lt;rootDir&gt;</code> is intentional;
-it’s a keyword in the Jest config):</p>
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">setupFiles</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">&lt;rootDir&gt;/lib/testutil/setup-jest.js</span><span class="dl">'</span><span class="p">],</span>
-<span class="p">};</span>
-
-</code></pre></div></div>
-
-<p>Next, we have <code class="language-plaintext highlighter-rouge">lib/setup-jest.js</code> (or whatever path you prefer). Per the
-<a href="https://jestjs.io/docs/en/configuration.html#setupfiles-array">setupFiles
-documentation</a>,
-this should run exactly once before each test file:</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
- * Run once before every jest test file.
- *
- * Suppresses warnings related to ReactGA.
- */</span>
-<span class="k">import</span> <span class="nx">ReactGA</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-ga</span><span class="dl">'</span><span class="p">;</span>
-
-<span class="nx">ReactGA</span><span class="p">.</span><span class="nx">initialize</span><span class="p">(</span><span class="dl">'</span><span class="s1">dummy</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span> <span class="na">testMode</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
-
-
-</code></pre></div></div>
-
-<h2 id="test-example">Test example</h2>
-<p>Note that we reset the apiCalls before each test still (perhaps there is a clean
-way to get a global <code class="language-plaintext highlighter-rouge">beforeEach</code>, but I didn’t see one that didn’t require some
-level of hackery).</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
- * An example of a Jest test in Typescript.
- */</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">fireEvent</span><span class="p">,</span> <span class="nx">render</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@testing-library/react</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">ReactGA</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-ga</span><span class="dl">'</span><span class="p">;</span>
-
-<span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">analytics</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="nx">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">ReactGA</span><span class="p">.</span><span class="nx">testModeAPI</span><span class="p">.</span><span class="nx">resetCalls</span><span class="p">();</span>
-  <span class="p">});</span>
-
-  <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">correctly sends timing analytics</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="kd">const</span> <span class="p">{</span> <span class="nx">getByText</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">render</span><span class="p">(</span>
-      <span class="o">&lt;</span><span class="nx">MyView</span> <span class="o">/&gt;</span>
-    <span class="p">);</span>
-
-    <span class="nx">fireEvent</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="nx">getByText</span><span class="p">(</span><span class="sr">/somebutton/</span><span class="p">));</span>
-
-    <span class="c1">// An example of testing the timing call.</span>
-    <span class="kd">const</span> <span class="na">timings</span><span class="p">:</span> <span class="nx">number</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">const</span> <span class="nx">call</span> <span class="k">of</span> <span class="nx">ReactGA</span><span class="p">.</span><span class="nx">testModeAPI</span><span class="p">.</span><span class="nx">calls</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">call</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">send</span><span class="dl">'</span> <span class="o">&amp;&amp;</span> <span class="nx">call</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">hitType</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">timing</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">timings</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">call</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">timingValue</span><span class="p">);</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="nx">expect</span><span class="p">(</span><span class="nx">timings</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">]);</span>
-  <span class="p">});</span>
-<span class="p">});</span>
-
-
-</code></pre></div></div>
 ]]></content>
   </entry>
   

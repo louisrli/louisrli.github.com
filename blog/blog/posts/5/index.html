@@ -28,18 +28,21 @@
 
 
 
-    28 June 2013
+    29 July 2013
 
 		
 
 
-	research
+	meteor, tutorial
 
 
 
 		
 	
-	Five Research Tips for First-Time Undergraduate Researchers...">
+	How To Use Meteor.js Routing with Disqus
+	
+
+       ...">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -142,7 +145,57 @@
 
 
 
-<time datetime="2013-06-28T00:00:00+03:00" data-updated="true" itemprop="datePublished">
+<time datetime="2013-07-29T00:00:00+08:00" data-updated="true" itemprop="datePublished">
+    29 July 2013
+</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/meteor/'>meteor</a>, <a class='category' href='/blog/categories/tutorial/'>tutorial</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2013/07/29/using-meteor-js-with-disqus/" itemprop="url">How To Use Meteor.js Routing with Disqus</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+
+          <p>On most sites, using Disqus as the commenting system is as simple as copying the <a href="http://disqus.com/admin/universalcode/">Universal Code</a> (also known as <code class="language-plaintext highlighter-rouge">embed.js</code>) into a web page. In single-page JavaScript applications, however, much of the rendering is on the client-side. This means that <code class="language-plaintext highlighter-rouge">embed.js</code> might lead to stale Disqus threads or function incorrectly as pages are re-rendered.</p>
+
+<p>This article explains how to integrate Disqus with <a href="http://meteor.com">Meteor.js</a> (version 0.6.4.1 at the time of writing). If you want one Disqus thread for each route, copying the Universal Code won’t ensure that Disqus loads the correct thread for each page. Instead, the comments will either fail to load or retrieve a stale thread.</p>
+
+<p>When <code class="language-plaintext highlighter-rouge">embed.js</code> is loaded multiple times (when pages rerender and run the script multiple times), the following error will appear in the console:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DISQUS assertion failed: Unsafe attempt to redefine existing module &lt;name&gt;
+</code></pre></div></div>
+
+<p><em>Note</em>: I’m using <a href="https://github.com/tmeasday/meteor-router">Meteor Router</a> to create URL paths in my application, although this method should work with any routing system.</p>
+
+
+		<a href="/blog/2013/07/29/using-meteor-js-with-disqus/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+
+      
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+
+
+<time datetime="2013-06-28T00:00:00+08:00" data-updated="true" itemprop="datePublished">
     28 June 2013
 </time></div>
 		<div class="tags">
@@ -183,7 +236,7 @@
 
 
 
-<time datetime="2013-05-13T00:00:00+03:00" data-updated="true" itemprop="datePublished">
+<time datetime="2013-05-13T00:00:00+08:00" data-updated="true" itemprop="datePublished">
     13 May 2013
 </time></div>
 		<div class="tags">
@@ -232,7 +285,7 @@
 
 
 
-<time datetime="2013-05-11T00:00:00+03:00" data-updated="true" itemprop="datePublished">
+<time datetime="2013-05-11T00:00:00+08:00" data-updated="true" itemprop="datePublished">
     11 May 2013
 </time></div>
 		<div class="tags">
@@ -273,7 +326,7 @@
 
 
 
-<time datetime="2013-01-31T00:00:00+02:00" data-updated="true" itemprop="datePublished">
+<time datetime="2013-01-31T00:00:00+08:00" data-updated="true" itemprop="datePublished">
     31 January 2013
 </time></div>
 		<div class="tags">
@@ -320,7 +373,7 @@
 
 
 
-<time datetime="2013-01-16T00:00:00+02:00" data-updated="true" itemprop="datePublished">
+<time datetime="2013-01-16T00:00:00+08:00" data-updated="true" itemprop="datePublished">
     16 January 2013
 </time></div>
 		<div class="tags">
@@ -366,7 +419,7 @@
 
 
 
-<time datetime="2013-01-15T00:00:00+02:00" data-updated="true" itemprop="datePublished">
+<time datetime="2013-01-15T00:00:00+08:00" data-updated="true" itemprop="datePublished">
     15 January 2013
 </time></div>
 		<div class="tags">
@@ -409,7 +462,7 @@
 
 
 
-<time datetime="2013-01-12T00:00:00+02:00" data-updated="true" itemprop="datePublished">
+<time datetime="2013-01-12T00:00:00+08:00" data-updated="true" itemprop="datePublished">
     12 January 2013
 </time></div>
 		<div class="tags">
@@ -465,7 +518,7 @@
 
 
 
-<time datetime="2012-08-30T00:00:00+03:00" data-updated="true" itemprop="datePublished">
+<time datetime="2012-08-30T00:00:00+08:00" data-updated="true" itemprop="datePublished">
     30 August 2012
 </time></div>
 		<div class="tags">
@@ -506,7 +559,7 @@
 
 
 
-<time datetime="2012-08-29T00:00:00+03:00" data-updated="true" itemprop="datePublished">
+<time datetime="2012-08-29T00:00:00+08:00" data-updated="true" itemprop="datePublished">
     29 August 2012
 </time></div>
 		<div class="tags">
@@ -538,72 +591,6 @@ you have hit the target correctly :)</span></code></pre></figure>
 
 
 		<a href="/blog/2012/08/29/protostar-format0/" class="more-link">Read more</a>
-	</div>
-
-
-    </article>
-  
-
-      
-  
-    <article>
-      
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-
-
-<time datetime="2012-08-28T00:00:00+03:00" data-updated="true" itemprop="datePublished">
-    28 August 2012
-</time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
-
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2012/08/28/protostar-stack2/" itemprop="url">Protostar Stack Exploits (Solutions 6-7)</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-
-          <h1 id="overview">Overview</h1>
-<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
-
-<p>This series of posts contains solutions and walkthroughs for the stack overflow levels (“Stack”). It assumes basic knowledge of systems programming and is meant to serve as a reference for those stuck on certain levels. This is the final post for Stack.</p>
-
-<h1 id="solutions">Solutions</h1>
-<h2 id="stack-6">Stack 6</h2>
-<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/stack6">full</a>): Execute shellcode with a restriction on the return address. This mimics a nonexecutable stack by barring any return addresses of the form <code class="language-plaintext highlighter-rouge">0xbfxxxxxx</code>.</p>
-
-<h3 id="utilities">Utilities</h3>
-<p>We’ll add one more script to our utility belt. This will help us quickly make guesses for buffer overflows.</p>
-
-<p><code class="language-plaintext highlighter-rouge">~/try-address.sh</code>:</p>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
-<span class="c"># Takes an offset and unlimited 4-byte addresses and prints it in little-endian order</span>
-<span class="k">if</span> <span class="o">[[</span> <span class="nv">$# </span><span class="nt">-lt</span> 2 <span class="o">]]</span><span class="p">;</span> <span class="k">then
-    </span><span class="nb">echo</span> <span class="s2">"usage: </span><span class="nv">$0</span><span class="s2"> OFFSET ADDRESS. Example: </span><span class="nv">$0</span><span class="s2"> 80 0xdeadbeef 0xf00f00f0"</span>
-    <span class="nb">exit </span>1
-<span class="k">fi
-
-</span>perl <span class="nt">-e</span> <span class="s2">"print 'A'x</span><span class="nv">$1</span><span class="s2">"</span>
-<span class="nb">shift
-</span><span class="k">for </span>addr <span class="k">in</span> <span class="nv">$@</span><span class="p">;</span> <span class="k">do
-    for </span>i <span class="k">in</span> <span class="si">$(</span><span class="nb">seq </span>8 <span class="nt">-2</span> 2<span class="si">)</span><span class="p">;</span> <span class="k">do </span><span class="nb">echo</span> <span class="nt">-ne</span> <span class="s2">"</span><span class="se">\x</span><span class="k">${</span><span class="nv">addr</span>:<span class="nv">$i</span>:2<span class="k">}</span><span class="s2">"</span><span class="p">;</span> <span class="k">done
-done</span></code></pre></figure>
-
-
-		<a href="/blog/2012/08/28/protostar-stack2/" class="more-link">Read more</a>
 	</div>
 
 

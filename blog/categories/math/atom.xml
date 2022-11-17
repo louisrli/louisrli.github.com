@@ -4,7 +4,7 @@
   <title><![CDATA[Category: math | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/math/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2022-11-02T21:09:11+03:00</updated>
+  <updated>2022-11-17T08:07:51+08:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Topological Proof of Bolzano-Weierstrass Without Constructing Sequences]]></title>
     <link href="http://louisrli.github.io/blog/2014/11/07/bolzano-weierstrass-without-sequences/"/>
-    <updated>2014-11-07 00:00:00 +0200</updated>
+    <updated>2014-11-07 00:00:00 +0800</updated>
     <id>http://louisrli.github.io/blog/2014/11/07/bolzano-weierstrass-without-sequences</id>
     <content type="html"><![CDATA[<p>The <a href="http://en.wikipedia.org/wiki/Bolzano%E2%80%93Weierstrass_theorem">Bolzano-Weierstrass theorem</a>
 is a common theorem taught in introductory real analysis and topology courses.</p>
@@ -89,7 +89,7 @@ follows that \(\{ x_i \}\) must have a convergent subsequence.</p>
   <entry>
     <title type="html"><![CDATA[det(-A) = -det(A) for Odd Square Matrix]]></title>
     <link href="http://louisrli.github.io/blog/2014/11/06/negative-determinant-odd-even-matrix/"/>
-    <updated>2014-11-06 00:00:00 +0200</updated>
+    <updated>2014-11-06 00:00:00 +0800</updated>
     <id>http://louisrli.github.io/blog/2014/11/06/negative-determinant-odd-even-matrix</id>
     <content type="html"><![CDATA[<p>The proof for this is straightforward, but I didn’t find it explicitly stated elsewhere on the web
 – it may just be one of those propositions that’s hard to phrase as a search query. In words:
@@ -126,7 +126,7 @@ is odd, then \(A\) has at least one eigenvector with eigenvalue \(1\).</p>
   <entry>
     <title type="html"><![CDATA[A Rational Approximation of Pi Using the Pigeonhole Principle]]></title>
     <link href="http://louisrli.github.io/blog/2013/01/31/approximating-pi-pigeonhole-principle/"/>
-    <updated>2013-01-31 00:00:00 +0200</updated>
+    <updated>2013-01-31 00:00:00 +0800</updated>
     <id>http://louisrli.github.io/blog/2013/01/31/approximating-pi-pigeonhole-principle</id>
     <content type="html"><![CDATA[<p>Below is a short Python script that finds a fractional approximation of \(\pi\) using the first 1001 multiples of \(\pi\) (the case with 11 multiples of \(\pi\) can easily be done by hand). It makes use of the <em>pigeonhole principle</em>. The 11-multiple version of the problem has been used in the module teaching the pigeonhole principle in various classes that I have taken or taught.</p>
 
