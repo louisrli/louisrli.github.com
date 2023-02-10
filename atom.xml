@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2022-11-17T08:07:51+08:00</updated>
+  <updated>2023-02-10T23:10:41+01:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -14,9 +14,340 @@
 
   
   <entry>
+    <title type="html"><![CDATA[The TypeScript Web Protobuf Environment in 2023]]></title>
+    <link href="http://louisrli.github.io/blog/2023/02/10/navigating-the-open-source-protobuf-environment-in-2023/"/>
+    <updated>2023-02-10T00:00:00+01:00</updated>
+    <id>http://louisrli.github.io/blog/2023/02/10/navigating-the-open-source-protobuf-environment-in-2023</id>
+    <content type="html"><![CDATA[<p>Another title of this post would be: for protocol buffers in web clients, which
+TypeScript protocol buffer libraries are well-documented, and which ones are
+badly documented?</p>
+
+<p>In this post, I’ll talk about the mess that’s the open source TypeScript
+protocol buffer ecosystem. For historical reasons, based on various libraries
+that were released when others didn’t exist, there are some libraries that work
+with each other, some that are outdated, etc. In general, this happens quite
+commonly in the open source ecosystem, and I hope this post helps others.</p>
+
+<p>The TLDR, if you want to use protocol buffers with the browser:</p>
+
+<ul>
+  <li>Use <a href="https://github.com/timostamm/protobuf-ts"><code class="language-plaintext highlighter-rouge">protobuf-ts</code></a> and
+ <a href="https://github.com/grpc/grpc-web"><code class="language-plaintext highlighter-rouge">grpc/grpc-web</code></a></li>
+  <li>Do <strong>NOT</strong> use <a href="https://github.com/stephenh/ts-proto"><code class="language-plaintext highlighter-rouge">ts-proto</code></a> or <a href="https://github.com/improbable-eng/grpc-web"><code class="language-plaintext highlighter-rouge">improbable-eng/grpc-web</code></a></li>
+</ul>
+
+<!-- more -->
+
+<p>My recommendations don’t even have to do with the functionality necessarily;
+<strong>they’re about the documentation</strong>. Note that documentation doesn’t
+just mean READMEs but also code examples, which are notably missing from the
+ones that I suggest not to use.</p>
+
+<p>One disclaimer: perhaps for other side use cases those 
+libraries are well-documented. For the particular use case of web RPCs,
+they are lacking.</p>
+
+<p>The rest of the post is mostly an explanation of my findings of the current
+state of TypeScript protobuf tools. If you just want to know which tools to
+use, trust me on the TLDR, and skip the rest of the post.</p>
+
+<h2 id="context">Context</h2>
+
+<p>I wanted to make a simple demo of a TypeScript React client connecting to a
+TypeScript Node backend.</p>
+
+<p>I used to work at Google for four years, and like
+everyone who’s worked at Google (there’s even a derisive term “proto pusher” to
+sometimes the mindless work of protos), I’ve used protocol buffers extensively. I’m not
+claiming to be the world’s foremost expert on protocol buffers or that I should
+be able to understand anything about protos instantly, but I just want to make
+the point: I’ve used them to set up web flows, data pipelines, clients and
+servers from scratch, etc. With a foundational knowledge of
+protobufs and how they’re transmitted, I should, in theory, be able to find some
+documentation and set up a basic “Hello World” RPC quickly.</p>
+
+<p>Of course, documentation is different inside and outside of Google, but that’s
+the point of this post. Given the wild environment of various solutions created
+at various times, I hope to provide an explanation of what works (until this
+post becomes outdated, of course).</p>
+
+<p>In short: after spending five hours desperately searching for documentation to
+use the combination I said not to use (which have higher number of stars on
+GitHub), I set up a working end-to-end connection in 20 minutes using the
+combination that I said to use (<code class="language-plaintext highlighter-rouge">grpc/grpc-web</code> and <code class="language-plaintext highlighter-rouge">protobuf-ts</code>) because of <strong>good
+documentation</strong>.</p>
+
+<h2 id="points-of-confusion">Points of confusion</h2>
+
+<h3 id="type-generation">Type generation</h3>
+
+<p>You have protocol buffers, which define a contract for entities that you want to
+work with. Now you want to generate Typescript types from those protos.</p>
+
+<p>As far as I can tell, there exist two main open source options for type
+generation:</p>
+
+<ul>
+  <li><a href="https://github.com/stephenh/ts-proto"><code class="language-plaintext highlighter-rouge">ts-proto</code></a> (has more stars)</li>
+  <li><a href="https://github.com/timostamm/protobuf-ts"><code class="language-plaintext highlighter-rouge">protobuf-ts</code></a></li>
+</ul>
+
+<p>I think there’s also now TypeScript generation built into the official <code class="language-plaintext highlighter-rouge">protoc</code>,
+but again, the documentation in this world is so obfuscated that I only figured
+that out from reading <code class="language-plaintext highlighter-rouge">grpc/grpc-web</code> example code five directories deep in the
+repository.</p>
+
+<p><code class="language-plaintext highlighter-rouge">protobuf-ts</code> is the clear winner here, simply because of
+<a href="[https://github.com/timostamm/protobuf-ts/blob/master/MANUAL.md](https://github.com/timostamm/protobuf-ts/blob/master/MANUAL.md)"><code class="language-plaintext highlighter-rouge">MANUAL.md</code></a>.
+The <code class="language-plaintext highlighter-rouge">MANUAL.md</code> , while quite long, has stellar examples for use cases on both
+the client- and server- sides. On top of that, there is a <strong>whole folder</strong> of
+<a href="https://github.com/timostamm/protobuf-ts/tree/master/packages">actual code examples</a>,
+while <code class="language-plaintext highlighter-rouge">ts-proto</code>, from what I’ve seen in some responses to the issues, asks you
+read their <a href="https://github.com/stephenh/ts-proto/tree/main/integration">integration
+tests</a> (possible,
+but more difficult than parsing real code examples).</p>
+
+<p>The author of <code class="language-plaintext highlighter-rouge">protobuf-ts</code> has written a <a href="https://github.com/timostamm/protobuf-ts/issues/89">summary of the differences between
+these two libraries</a>,
+although to be
+honest, my currently visualized use case is basic enough that none of these will
+likely matter to me. As someone newly figuring out the integrations in the
+TypeScript protobuf world, I can recommend <code class="language-plaintext highlighter-rouge">protobuf-ts</code> solely due to its
+documentation.</p>
+
+<h3 id="client-side-grpc-client">Client-side GRPC Client</h3>
+
+<p>There are two identically named repositories: <a href="https://github.com/grpc/grpc-web"><code class="language-plaintext highlighter-rouge">grpc/grpc-web</code></a> and
+<a href="https://github.com/improbable-eng/grpc-web"><code class="language-plaintext highlighter-rouge">improbable-eng/grpc-web</code></a>.
+The former is created by Google, and the second by another company. However, the
+second one is in maintenance mode with the recommendation to use the official
+one, which <a href="[https://github.com/improbable-eng/grpc-web](https://github.com/improbable-eng/grpc-web)">wasn’t even posted on the repo until I made a
+PR</a>
+(the maintainer had been warning people on the repo’s issues).</p>
+
+<p>For technical reasons (Google it if you’re curious), using GRPC in the browser requires
+a proxy. The <code class="language-plaintext highlighter-rouge">improbable-eng/grpc-web</code> library requires their own Go binary as a
+proxy, which, upon realizing this, I immediately surmised that it would be
+a nightmare to figure out how to deploy some random Go proxy if I
+wanted to combine it with other things like AWS Lambda, etc. As expected, the 
+<a href="https://github.com/improbable-eng/grpc-web/blob/master/go/grpcwebproxy/README.md">documentation for the proxy</a>
+is scant. I didn’t think that the documentation for deploying
+would be promising either, and as expected, there’s little guidance there,
+except for a few GitHub issues.</p>
+
+<p>In contrast, <code class="language-plaintext highlighter-rouge">grpc/grpc-web</code> suggests using <a href="https://www.envoyproxy.io/">Envoy</a>
+as a proxy, which is quite well-known, well-maintained, and well-documented.
+It has Docker support, and is, in general, more well-vetted.</p>
+
+<p>I initially tried the following combination: <code class="language-plaintext highlighter-rouge">ts-proto</code> with <code class="language-plaintext highlighter-rouge">improbable-eng/grpc-web</code>. Both seemed popular. After getting a semi-working example using these two libraries, I then wanted to try the <code class="language-plaintext highlighter-rouge">ts-proto</code> and official <code class="language-plaintext highlighter-rouge">grpc/grpc-web</code> combinations (moving off the
+<code class="language-plaintext highlighter-rouge">improbable-eng</code> due to the aforementioned proxy). From the <a href="https://github.com/stephenh/ts-proto#supported-options">supported options</a>
+of <code class="language-plaintext highlighter-rouge">ts-proto</code>, it supports
+<code class="language-plaintext highlighter-rouge">improbable-eng/grpc-web</code>, but not the official Google <code class="language-plaintext highlighter-rouge">grpc/grpc-web</code>.</p>
+
+<p>It seems strange that <code class="language-plaintext highlighter-rouge">ts-proto</code> wouldn’t integrate with the official
+Google library. Or maybe it does? But that’s the point — perhaps it does support it, but
+<strong>the documentation isn’t there</strong>. I couldn’t find any code examples, any flag
+documentation, any references, and I couldn’t figure out how to get the types to
+work on my own by digging into the generated types (admittedly due to my own
+lack of knowledge but hey, that’s the point of Hello World examples).</p>
+
+<p>And if it is really true that <code class="language-plaintext highlighter-rouge">ts-proto</code> doesn’t work with the official,
+Google-released version of <code class="language-plaintext highlighter-rouge">grpc/grpc-web</code>, then it suggests that the tool may
+be outdated. Perhaps that version <code class="language-plaintext highlighter-rouge">grpc/grpc-web</code> didn’t exist then, but in any
+case, the documentation should clarify this. The only reference I found to this
+was <a href="https://github.com/stephenh/ts-proto/discussions/422">this answer from the maintainer</a>
+about how the library predates gRPC, if I understood the post correctly.</p>
+
+<h3 id="server-side">Server-side</h3>
+
+<p>For writing a TypeScript Node server, there does exist decent documentation for
+vanilla JavaScript. I just Googled some tutorials and tried to write a TypeScript
+version of the <a href="https://grpc.io/docs/languages/node/basics/">official tutorial</a>.
+Using both <code class="language-plaintext highlighter-rouge">ts-proto</code> and <code class="language-plaintext highlighter-rouge">protobuf-ts</code> here worked fine. Ultimately, I only ran into
+problems with client-side web RPC typing. Nonetheless, you would want to use
+the same generator for both the server and client side.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>In conclusion, documentation. But also, if you are in a similar boat to me and
+want to get started with a basic hello world, TypeScript gRPC web client and
+server, I suggest using the two libraries I talked about.</p>
+
+<p>Finally, I want to say that this post does not mean to detract from the work of
+these open source contributors. Each of these libraries, at some point in time,
+had their crucial role in the ecosystem.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Effectively Using Anki Flashcards for Language Learning]]></title>
+    <link href="http://louisrli.github.io/blog/2023/01/04/effectively-using-anki-flashcards-for-language-learning/"/>
+    <updated>2023-01-04T00:00:00+01:00</updated>
+    <id>http://louisrli.github.io/blog/2023/01/04/effectively-using-anki-flashcards-for-language-learning</id>
+    <content type="html"><![CDATA[<p>I’ve been using Anki to study foreign languages for three years now, and I
+consistently spend about an hour a day using Anki to learn something. In this
+time, I’ve studied three languages to varying degrees with the help of Anki:
+Turkish, Russian, and Italian.</p>
+
+<p>But truthfully, I can’t say that all that time spent doing Anki has always been
+effective. In fact, when I look back, I feel that I wasted a lot of time using
+Anki.</p>
+
+<p>The goal of this article is to provide tips to use Anki more effectively for
+those who have already tried or are currently using it for language learning but
+may be using it ineffectively. It assumes background knowledge about how Anki
+works without explaining every detail or term for those who may not be familiar
+with Anki.</p>
+
+<!-- more -->
+
+<h2 id="tips-for-effectively-using-anki">Tips for Effectively Using Anki</h2>
+
+<h3 id="study-target-language-to-native-language">Study target language to native language</h3>
+<p>Suppose my native language is English, and I’m studying Russian. This means that
+I recommend learning all your cards with the English side on the front, and the
+Russian side on the back.</p>
+
+<p>Some people like to learn the “recognition side” (Russian front, English back)
+first. I did this for over three thousand words in Russian, and in retrospect, I
+regretted it. I would often run into those same words in other contexts and
+simply not recognize them. In theory, learning this way should allow you to
+recognize many words. In practice, this doesn’t happen.</p>
+
+<p>There are two problems with this approach. The first is that our brain has all
+types of ways to cheat remembering the definitions of those cards: “Oh yeah, there’s a card in
+this deck that means ‘to believe’, and it sounds/looks vaguely like this word.”
+The second is that being able to recognize a word in a foreign language is very,
+very far from being able to produce the syllables required to say it.</p>
+
+<p>Having English in the front and Russian on the back forces you to produce the
+word so that you might eventually be able to use it in a conversation. You
+should also mark the word wrong even if you get one syllable or letter off,
+which will happen very frequently. We often remember that a word has certain
+letters or starts in a cetrain way, but we can’t always remember the full word.</p>
+
+<p>It may seem strict to punish what seems like such a small mistake in recalling
+a word, but I’ve found that even a one letter mistake quite unforgiving. For
+example, if I said the word “onforgiving” instead of “unforgiving” to you, it
+could definitely be a source of confusion. Or “confasion” instead of
+“confusion.” Or “instod” instead of “instead.” You get the point. I can promise
+you that I’ve done this in real life with real words, and people did <em>not</em>
+understand what I meant to say.</p>
+
+<h3 id="dont-spend-too-much-time-making-your-own-cards">Don’t spend too much time making your own cards.</h3>
+<p>Conventional advice states that, supposedly, the most “effective”
+learning comes from crafting your own cards. You’ll see comments like this
+everywhere about language learning cards. I disagree.</p>
+
+<p>I want to emphasize that in this article, <strong>effectively</strong> means not
+only effectively in terms of <em>learning</em> but also in terms of <em>time</em>. It depends
+on one’s goals when learning a language, but in my opinion, to start comfortably
+having conversations about various topics, one really needs to know <em>thousands</em>
+of words.</p>
+
+<p>First, part of being an effective learner is acknowledging the limits of your
+discipline. Creating your own cards is a painstaking process, and I don’t think
+that most people have the willpower to do this for <em>thousands</em> of words. If you
+do, more power to you. I’m talking here not about making cards for fifty
+something words, but for, let’s say, the 800 new words or phrases that are
+highlighted in the Kindle (this is about how many highlighted words I unload
+from my Kindle every time).</p>
+
+<p>But in my perspective, making your own cards is simply not the most
+effective use of the limited time we have to learn a language.  Ultimately,
+that’s why I wrote <a href="LINK">a script</a> to quickly create high quality cards on
+scale.</p>
+
+<h3 id="make-cards-for-phrases-and-include-prepositions">Make cards for phrases and include prepositions</h3>
+<p>Even though we’ve been brainwashed to think of things in terms of words, the
+truth is that learning words in isolation can cause all types of problems for
+language learners.</p>
+
+<p>When I was learning Turkish and partway through learning Russian, this was one
+of the biggest mistakes that I made. I would learn a word, but often I would use
+it incorrectly because words are not used in isolation, but instead, they’re
+often used with mandatory auxiliary parts.</p>
+
+<p>For example, take the English word “believe.” You can say “I believe him”, or “I
+believe <strong>in</strong> him”, both of which have completely different meanings. In this
+case, if you were learning English, you might want one card for “believe X” and
+another card for “believe in X”.</p>
+
+<p>It doesn’t always have to be about prepositions though. In general, I tend now
+to make cards for phrases instead of individual words. When I highlight words
+in my Kindle while reading, often I highlight phrases where I know all of the
+words contained inside of the phrase, but I never would have produced or thought
+of that combination myself.</p>
+
+<p>Don’t be scared to edit cards to include prepositions. If I see a card with an
+isolated word but I see that the example sentences frequently or always occur with a certain
+preposition, I’ll often edit the card so that it tests the usage of the
+preposition too.</p>
+
+<p>The above section is slightly abstract, since it’s hard to generalize to every
+language. But the point is – think about what you would need to learn to
+<strong>utilize</strong> in a sentence, and learn that unit, instead of the single unit of a
+word.</p>
+
+<h3 id="make-cards-for-things-you-understand-but-wouldnt-say">Make cards for things you understand but wouldn’t say</h3>
+<p>This is related to making cards for phrases. As I mentioned, when I read, I
+often highlight phrases (to make Anki cards later) that I <em>completely</em>
+understand. I know every word in the phrase. If I read it in a book, I would
+understand it instantly. If I heard it, I would understand it.</p>
+
+<p>But after some time, I realized that this doesn’t mean that I could say it in a
+conversation.</p>
+
+<p>The essence of this tip is the following: when you hear or read something in any
+context, think not only about whether you understood it, but whether you could
+or want to say it yourself.</p>
+
+<p>I’ve made cards for very, very simple phrases – phrases that seem like they
+would be learned in the first two months of studying a language, but ones that I
+realized I had a gap in my knowledge. For every person, these will be different.
+In my case, I often find that I have a big gap in saying concrete, real life
+things, even though I understand them. When I read, I’m often marking simple
+phrases, like “he picked up the X” or “he went around the corner.”</p>
+
+<p>At some point, this habit has extended even to my native language. When I hear
+or read something in English, I frequently consider whether or not I would ever
+say something in that way as well.</p>
+
+<h3 id="add-audio-when-possible">Add audio when possible</h3>
+<p>I’m (now) a huge advocate of adding audio to every card. It was quite common
+before for me to be able to read a word but mispronounce it if I spoke it or not recognize it if I heard it. This should rarely happen if a word is properly learned, and having audio on your card prevents that.</p>
+
+<p>For audio, it should be possible on every card using an add-on like AwesomeTTS.
+I refrained from using AwesomeTTS from an embarrasingly long time, maybe until
+six months ago, because I was too lazy to figure out how to use it. It turns out
+it’s not that difficult.</p>
+
+<p>Warning: AwesomeTTS might not always get the pronunciation of a word right
+either in some languages, so double check when possible. For example, on more
+obscure Russian words, it’ll often place the stress in the wrong place.</p>
+
+<h3 id="require-multiple-intervals-to-recover-failed-cards">Require multiple intervals to recover failed cards</h3>
+<p>By default, when you “Again” a graduated card in Anki, you see it again, and
+simply have to get it correct once. For a card that has long intervals already
+(i.e., you’ve gotten it correct many times in the past), 
+oTODO</p>
+
+<p>I recently discovered that you could require more than one interval to bring the
+card back into the graduated pool. That is: if I “Again” a card, I have to hit
+“Good” twice in a row (once after 15 minutes, once again after 6 hours) before
+it goes back in the pool.</p>
+
+<h3 id="catch-and-reset-leeches-fast">Catch and reset leeches fast</h3>
+<p>Let’s consider the following scenario. Every card</p>
+
+<h2 id="what-do-my-cards-look-like-now">What do my cards look like now?</h2>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Automatically Generating Anki Cloze Cards from Reverso]]></title>
     <link href="http://louisrli.github.io/blog/2022/11/17/automatically-generating-anki-cloze-cards-from-reverso/"/>
-    <updated>2022-11-17T00:00:00+08:00</updated>
+    <updated>2022-11-17T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2022/11/17/automatically-generating-anki-cloze-cards-from-reverso</id>
     <content type="html"><![CDATA[<p>I’ve recently released a tool that I’ve personally been using (hoarding) for ten
 months to generate <a href="https://apps.ankiweb.net/">Anki</a> language cards given only a
@@ -50,9 +381,9 @@ suggestions using a GitHub issue or the comment section below.</p>
   
   <entry>
     <title type="html"><![CDATA[Supetar Bus Departure Schedule (Croatia)]]></title>
-    <link href="http://louisrli.github.io/blog/2022/10/16/supetar-bus-departure-schedule/"/>
-    <updated>2022-10-16T03:15:33+08:00</updated>
-    <id>http://louisrli.github.io/blog/2022/10/16/supetar-bus-departure-schedule</id>
+    <link href="http://louisrli.github.io/blog/2022/10/15/supetar-bus-departure-schedule/"/>
+    <updated>2022-10-15T21:15:33+02:00</updated>
+    <id>http://louisrli.github.io/blog/2022/10/15/supetar-bus-departure-schedule</id>
     <content type="html"><![CDATA[<p>This article contains the bus schedule for departures Supetar, Croatia on the island of Brač.</p>
 
 <!-- more -->
@@ -75,7 +406,7 @@ other travelers.</p>
   <entry>
     <title type="html"><![CDATA[Liden and Denz Moscow Review, aka Language Group Courses vs italki]]></title>
     <link href="http://louisrli.github.io/blog/2022/07/15/liden-and-denz-review/"/>
-    <updated>2022-07-15T00:00:00+08:00</updated>
+    <updated>2022-07-15T00:00:00+02:00</updated>
     <id>http://louisrli.github.io/blog/2022/07/15/liden-and-denz-review</id>
     <content type="html"><![CDATA[<p>This article will answer the following questions in order:</p>
 <ul>
@@ -391,7 +722,7 @@ efficient use of one’s time, but it still has the potential to be good.</p>
   <entry>
     <title type="html"><![CDATA[Connecting an Elastic Beanstalk Backend to Cloudfront]]></title>
     <link href="http://louisrli.github.io/blog/2021/04/15/elastic-beanstalk-cloudfront-cache/"/>
-    <updated>2021-04-15T00:00:00+08:00</updated>
+    <updated>2021-04-15T00:00:00+02:00</updated>
     <id>http://louisrli.github.io/blog/2021/04/15/elastic-beanstalk-cloudfront-cache</id>
     <content type="html"><![CDATA[<p>Given an existing server on Elastic Beanstalk, this tutorial describes how to
 connect it to Cloudfront, including using Route53 and managing CORS.</p>
@@ -464,7 +795,7 @@ Route53). Happy caching!</p>
   <entry>
     <title type="html"><![CDATA[Understanding the Turkish Accusative]]></title>
     <link href="http://louisrli.github.io/blog/2021/01/14/understanding-the-turkish-accusative/"/>
-    <updated>2021-01-14T00:00:00+08:00</updated>
+    <updated>2021-01-14T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2021/01/14/understanding-the-turkish-accusative</id>
     <content type="html"><![CDATA[<style>
 blockquote {
@@ -829,7 +1160,7 @@ internet – go check out some Turkish YouTube comments.</p>
   <entry>
     <title type="html"><![CDATA[Next.js Rewrites, Amazon S3, and Trailing Slashes]]></title>
     <link href="http://louisrli.github.io/blog/2020/12/21/next-dot-js-rewrites/"/>
-    <updated>2020-12-21T00:00:00+08:00</updated>
+    <updated>2020-12-21T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2020/12/21/next-dot-js-rewrites</id>
     <content type="html"><![CDATA[<p>This post talks about how to set up Next.js rewrites to point to a static site
 hosted on Amazon S3, in particular how to deal with trailing slashes.</p>
@@ -986,7 +1317,7 @@ interaction given the quirks of the two opposing redirect rules.</p>
   <entry>
     <title type="html"><![CDATA[Advice for Coding Bootcamp Students]]></title>
     <link href="http://louisrli.github.io/blog/2020/11/22/advice-for-students/"/>
-    <updated>2020-11-22T00:00:00+08:00</updated>
+    <updated>2020-11-22T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2020/11/22/advice-for-students</id>
     <content type="html"><![CDATA[<p>As an instructor, I find myself giving the same advice frequently to many
 students. In this article, I’ve distilled my most common recommendations into
@@ -1307,7 +1638,7 @@ consequently having the luxury of spending time for a job search.</p>
   <entry>
     <title type="html"><![CDATA[Typesafe Unit Testing of GraphQL Resolvers in TypeScript]]></title>
     <link href="http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript/"/>
-    <updated>2020-10-09T00:00:00+08:00</updated>
+    <updated>2020-10-09T00:00:00+02:00</updated>
     <id>http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript</id>
     <content type="html"><![CDATA[<p>This post gives a code example on how to unit test a GraphQL resolver with Jest
 in TypeScript. In order to make the testing typesafe, we use <a href="https://graphql-code-generator.com/">GraphQL Code
@@ -1443,7 +1774,7 @@ off what was written in <a href="https://github.com/dotansimha/graphql-code-gene
   <entry>
     <title type="html"><![CDATA[Unit Testing of GraphQL Middleware in TypeScript]]></title>
     <link href="http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-middleware-typescript/"/>
-    <updated>2020-10-09T00:00:00+08:00</updated>
+    <updated>2020-10-09T00:00:00+02:00</updated>
     <id>http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-middleware-typescript</id>
     <content type="html"><![CDATA[<p>This post gives a code example on how to unit test a GraphQL middleware in
 TypeScript with Jest, using the Express GraphQL middleware resolver
@@ -1555,7 +1886,7 @@ use in the permissions as well (independent of GraphQL).</p>
   <entry>
     <title type="html"><![CDATA[Istanbul Frontend Bootcamp Retrospective]]></title>
     <link href="http://louisrli.github.io/blog/2020/07/02/teaching-thoughts/"/>
-    <updated>2020-07-02T00:00:00+08:00</updated>
+    <updated>2020-07-02T00:00:00+02:00</updated>
     <id>http://louisrli.github.io/blog/2020/07/02/teaching-thoughts</id>
     <content type="html"><![CDATA[<p>This post is a compendium of my thoughts as an instructor for a
 non-profit coding bootcamp teaching frontend web development (JavaScript and
@@ -2042,7 +2373,7 @@ landing a job on a weak currency or a strong one.</p>
   <entry>
     <title type="html"><![CDATA[Traveling from Istanbul to Şile by Bus]]></title>
     <link href="http://louisrli.github.io/blog/2020/07/01/istanbul-to-sile/"/>
-    <updated>2020-07-01T00:00:00+08:00</updated>
+    <updated>2020-07-01T00:00:00+02:00</updated>
     <id>http://louisrli.github.io/blog/2020/07/01/istanbul-to-sile</id>
     <content type="html"><![CDATA[<p>The intention of this post is to document how to travel from Istanbul to Şile by
 bus. At the time of writing, there do not appear to be any English resources for
@@ -2092,7 +2423,7 @@ how.</p>
   <entry>
     <title type="html"><![CDATA[Using MathJax with React]]></title>
     <link href="http://louisrli.github.io/blog/2020/06/04/react-mathjax/"/>
-    <updated>2020-06-04T00:00:00+08:00</updated>
+    <updated>2020-06-04T00:00:00+02:00</updated>
     <id>http://louisrli.github.io/blog/2020/06/04/react-mathjax</id>
     <content type="html"><![CDATA[<p>This post describes how to use React (Typescript) and MathJax.</p>
 
@@ -2165,7 +2496,7 @@ dynamically load scripts in React</a>.</p>
   <entry>
     <title type="html"><![CDATA[Dynamic Script Loading in React with Hooks]]></title>
     <link href="http://louisrli.github.io/blog/2020/06/04/react-dynamic-script-hook/"/>
-    <updated>2020-06-04T00:00:00+08:00</updated>
+    <updated>2020-06-04T00:00:00+02:00</updated>
     <id>http://louisrli.github.io/blog/2020/06/04/react-dynamic-script-hook</id>
     <content type="html"><![CDATA[<p>This post describes how to dynamically load a script by adding a script tag to
 your document using React Hooks.</p>
@@ -2230,7 +2561,7 @@ provided, then it removes the script from the page when the component unmounts
   <entry>
     <title type="html"><![CDATA[Fiilimsi: Turkish Verbal Nouns, Adjectives, and Adverbs]]></title>
     <link href="http://louisrli.github.io/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives/"/>
-    <updated>2020-04-20T00:00:00+08:00</updated>
+    <updated>2020-04-20T00:00:00+02:00</updated>
     <id>http://louisrli.github.io/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives</id>
     <content type="html"><![CDATA[<style>
 blockquote {
@@ -2778,7 +3109,7 @@ language resource for these verbal adverbs.</p>
   <entry>
     <title type="html"><![CDATA[Sim Card Price in Turkey in February 2020]]></title>
     <link href="http://louisrli.github.io/blog/2020/02/21/sim-card/"/>
-    <updated>2020-02-21T00:00:00+08:00</updated>
+    <updated>2020-02-21T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2020/02/21/sim-card</id>
     <content type="html"><![CDATA[<p>Getting a SIM card in Turkey for short to medium term stays in Turkey is
 straightforward. In this article, I describe my experience with prices in
@@ -2820,7 +3151,7 @@ registering everything.</p>
   <entry>
     <title type="html"><![CDATA[Sahibinden: The Craigslist of Turkey]]></title>
     <link href="http://louisrli.github.io/blog/2020/02/21/sahibinden/"/>
-    <updated>2020-02-21T00:00:00+08:00</updated>
+    <updated>2020-02-21T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2020/02/21/sahibinden</id>
     <content type="html"><![CDATA[<p><strong>Sahibinden</strong> (literally, “owners”) is the Craigslist equivalent of Turkey.</p>
 
@@ -2880,7 +3211,7 @@ actually looks a lot worse in person.</li>
   <entry>
     <title type="html"><![CDATA[The Best ATM (No-Fee) in Istanbul, Turkey]]></title>
     <link href="http://louisrli.github.io/blog/2020/02/21/best-atm-in-istanbul-turkey/"/>
-    <updated>2020-02-21T00:00:00+08:00</updated>
+    <updated>2020-02-21T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2020/02/21/best-atm-in-istanbul-turkey</id>
     <content type="html"><![CDATA[<p>The best ATM in Istanbul, Turkey is a coveted title. There’s a lot of banks that
 accept international cards, but some of them will try to extract more money from
@@ -3018,7 +3349,7 @@ link</a>.</p>
   <entry>
     <title type="html"><![CDATA[Staging and production cookies in Next.js]]></title>
     <link href="http://louisrli.github.io/blog/2019/11/20/staging-and-production-cookies-in-next-js/"/>
-    <updated>2019-11-20T00:00:00+08:00</updated>
+    <updated>2019-11-20T00:00:00+01:00</updated>
     <id>http://louisrli.github.io/blog/2019/11/20/staging-and-production-cookies-in-next-js</id>
     <content type="html"><![CDATA[<p>This article describes how add authentication to your
 <a href="https://nextjs.org">Next.js</a> app using cookies and JWT. In this example, we
@@ -3068,266 +3399,6 @@ pass in the stage in a similar way.</p>
   <span class="p">},</span>
 <span class="p">})</span>
 </code></pre></div></div>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Next.js Typescript Integration with Ant Design (antd)]]></title>
-    <link href="http://louisrli.github.io/blog/2019/11/17/next-js-with-antd/"/>
-    <updated>2019-11-17T00:00:00+08:00</updated>
-    <id>http://louisrli.github.io/blog/2019/11/17/next-js-with-antd</id>
-    <content type="html"><![CDATA[<p>This article describes how to add the <a href="antd.design">Antd</a> library to
-<a href="https://nextjs.org">Next.js</a>.</p>
-
-<p>This is based off the
-<a href="https://github.com/zeit/next.js/tree/canary/examples/with-ant-design">with-ant-design</a>
-example in Next.js.</p>
-
-<!--more-->
-
-<h2 id="next-configuration">Next configuration</h2>
-<p>In <code class="language-plaintext highlighter-rouge">next.config.js</code> in the root directory of your Next application, add the
-following:</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/** See https://github.com/zeit/next.js/tree/canary/examples/with-ant-design */</span>
-<span class="kd">const</span> <span class="nx">withCss</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">@zeit/next-css</span><span class="dl">'</span><span class="p">)</span>
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">withCss</span><span class="p">({</span>
-    <span class="na">webpack</span><span class="p">:</span> <span class="p">(</span><span class="nx">config</span><span class="p">,</span> <span class="p">{</span> <span class="nx">isServer</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">isServer</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">const</span> <span class="nx">antStyles</span> <span class="o">=</span> <span class="sr">/antd</span><span class="se">\/</span><span class="sr">.*</span><span class="se">?\/</span><span class="sr">style</span><span class="se">\/</span><span class="sr">css.*</span><span class="se">?</span><span class="sr">/</span>
-      <span class="kd">const</span> <span class="nx">origExternals</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">config</span><span class="p">.</span><span class="nx">externals</span><span class="p">]</span>
-      <span class="nx">config</span><span class="p">.</span><span class="nx">externals</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">request</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-          <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">antStyles</span><span class="p">))</span> <span class="k">return</span> <span class="nx">callback</span><span class="p">()</span>
-          <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">origExternals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">function</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">origExternals</span><span class="p">[</span><span class="mi">0</span><span class="p">](</span><span class="nx">context</span><span class="p">,</span> <span class="nx">request</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span>
-          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="nx">callback</span><span class="p">()</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">...(</span><span class="k">typeof</span> <span class="nx">origExternals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">function</span><span class="dl">'</span> <span class="p">?</span> <span class="p">[]</span> <span class="p">:</span> <span class="nx">origExternals</span><span class="p">),</span>
-      <span class="p">]</span>
-
-      <span class="nx">config</span><span class="p">.</span><span class="nx">module</span><span class="p">.</span><span class="nx">rules</span><span class="p">.</span><span class="nx">unshift</span><span class="p">({</span>
-        <span class="na">test</span><span class="p">:</span> <span class="nx">antStyles</span><span class="p">,</span>
-        <span class="na">use</span><span class="p">:</span> <span class="dl">'</span><span class="s1">null-loader</span><span class="dl">'</span><span class="p">,</span>
-      <span class="p">})</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">config</span>
-  <span class="p">},</span>
-<span class="p">});</span>
-
-</code></pre></div></div>
-
-<p>In <code class="language-plaintext highlighter-rouge">babel.config.js</code>:</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">api</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">{</span>
-    <span class="na">presets</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">next/babel</span><span class="dl">'</span><span class="p">],</span>
-    <span class="na">plugins</span><span class="p">:</span> <span class="p">[</span>
-      <span class="p">[</span>
-        <span class="dl">"</span><span class="s2">import</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
-          <span class="na">libraryName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">antd</span><span class="dl">'</span><span class="p">,</span>
-          <span class="na">style</span><span class="p">:</span> <span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span>
-        <span class="p">}</span>
-      <span class="p">]],</span>
-  <span class="p">};</span>
-<span class="p">};</span>
-
-</code></pre></div></div>
-
-<h2 id="example-usage">Example usage</h2>
-
-<p>We are able to import from both <code class="language-plaintext highlighter-rouge">antd</code> and <code class="language-plaintext highlighter-rouge">antd/lib/&lt;component&gt;</code>.</p>
-
-<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
- * An example that imports top-level components from 'antd' and also imports
- * from files under 'antd/lib'.
- */</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">TreeSelect</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">antd</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">TreeNode</span><span class="p">,</span> <span class="nx">TreeSelectProps</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">antd/lib/tree-select</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
-
-<span class="kd">const</span> <span class="nx">TreeSelectView</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">FC</span><span class="o">&lt;</span><span class="nx">TreeSelectProps</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">[]</span><span class="o">&gt;&gt;</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="nx">ref</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
-    <span class="p">&lt;</span><span class="nc">TreeSelect</span>
-      <span class="si">{</span><span class="p">...</span><span class="nx">props</span><span class="si">}</span>
-      <span class="na">treeCheckable</span>
-      <span class="na">treeData</span><span class="p">=</span><span class="si">{</span><span class="p">{}</span><span class="si">}</span>
-      <span class="na">treeDefaultExpandAll</span>
-      <span class="na">style</span><span class="p">=</span><span class="si">{</span><span class="p">{</span> <span class="na">width</span><span class="p">:</span> <span class="mi">300</span> <span class="p">}</span><span class="si">}</span>
-      <span class="na">showCheckedStrategy</span><span class="p">=</span><span class="s">"SHOW_PARENT"</span>
-      <span class="na">ref</span><span class="p">=</span><span class="si">{</span><span class="nx">ref</span><span class="si">}</span>
-    <span class="p">/&gt;</span>
-  <span class="p">);</span>
-<span class="p">};</span>
-
-<span class="k">export</span> <span class="k">default</span> <span class="nx">React</span><span class="p">.</span><span class="nx">forwardRef</span><span class="p">(</span><span class="nx">TreeSelectView</span><span class="p">);</span>
-
-</code></pre></div></div>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[HOC Authentication Redirects with Next.js, GraphQL, and Typescript]]></title>
-    <link href="http://louisrli.github.io/blog/2019/11/17/auth-redirect-next-js/"/>
-    <updated>2019-11-17T00:00:00+08:00</updated>
-    <id>http://louisrli.github.io/blog/2019/11/17/auth-redirect-next-js</id>
-    <content type="html"><![CDATA[<p>This article describes how to redirect the user in
-<a href="https://nextjs.org">Next.js</a> based on whether the user is authenticated
-(logged in) using a properly typed Typescript React <a href="https://reactjs.org/docs/higher-order-components.html">higher-order
-component</a> (HOC).</p>
-
-<p>This can extend to arbitrary conditions on the queried user, such as redirecting
-if the user does not have an active subscription.</p>
-
-<!--more-->
-
-<p>The following Typescript module implements a general HOC that redirects based on
-authentication state by querying the user from the GraphQL backend. It then
-includes two examples:</p>
-<ul>
-  <li>If the user is not logged in, redirect to <code class="language-plaintext highlighter-rouge">/login</code></li>
-  <li>If the user is logged in, redirect to <code class="language-plaintext highlighter-rouge">/dashboard</code></li>
-</ul>
-
-<h2 id="example-hoc-usage">Example HOC Usage</h2>
-<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">NextPage</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">next</span><span class="dl">'</span><span class="p">;</span>
-<span class="c1">// CHANGE THIS: Export to the appropriate path.</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">withLoginRedirect</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../lib/auth</span><span class="dl">'</span><span class="p">;</span>
-
-<span class="kd">const</span> <span class="nx">RequiresLoginPage</span><span class="p">:</span> <span class="nx">NextPage</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>You're logged in<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;;</span>
-<span class="p">};</span>
-
-<span class="c1">// If the user isn't logged in, this will redirect to `/login`.</span>
-<span class="k">export</span> <span class="k">default</span> <span class="nx">withLoginRedirect</span><span class="p">(</span><span class="nx">RequiresLoginPage</span><span class="p">);</span>
-
-</code></pre></div></div>
-
-<h2 id="implementation">Implementation</h2>
-<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">NextComponentType</span><span class="p">,</span> <span class="nx">NextPageContext</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">next</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">Router</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">next/router</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">gql</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">graphql-tag</span><span class="dl">'</span><span class="p">;</span>
-
-<span class="cm">/**
- * YOU DEFINE THESE.
- *
- * These variables should be set by you to query for the user and the types
- * appropriately. I recommend using GraphQL codegen
- * (https://graphql-code-generator.com/) to generate types from your schema and
- * queries from other files so that they can be used like so:
- *
- * import { User } from '../generated/apollo-client-types';
- * import {
- *   LoggedInUserDocument,
- * } from '../generated/apollo-client-types';
- *
- */</span>
-<span class="kr">interface</span> <span class="nx">User</span> <span class="p">{}</span>
-<span class="kd">const</span> <span class="nx">LoggedInUserDocument</span> <span class="o">=</span> <span class="nx">gql</span><span class="s2">`&lt;YOUR QUERY FOR USER OBJECT&gt;`</span><span class="p">;</span>
-
-<span class="cm">/**
- * A function that queries for the logged in user before rendering the page.
- * Should be called in getInitialProps. It redirects as desired.
- *
- * It allows for redirecting both if the user is not logged in (e.g., redirect
- * to login page) or redirecting if the user is logged in.
- *
- * If not logged in, redirects to the desired route.
- *
- * The return value indicates whether logic should continue or not after the
- * call.
- */</span>
-<span class="kd">const</span> <span class="nx">redirectBasedOnLogin</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span>
-  <span class="nx">ctx</span><span class="p">:</span> <span class="nx">NextPageContext</span><span class="p">,</span>
-  <span class="nx">route</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span>
-  <span class="nx">redirectIfAuthed</span><span class="p">:</span> <span class="nx">boolean</span>
-<span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">boolean</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="kd">const</span> <span class="nx">isLoggedIn</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">apolloClient</span>
-    <span class="p">.</span><span class="nx">query</span><span class="p">({</span>
-      <span class="na">query</span><span class="p">:</span> <span class="nx">LoggedInUserDocument</span><span class="p">,</span>
-      <span class="c1">// Prevent caching issues when logging in/out without refresh.</span>
-      <span class="na">fetchPolicy</span><span class="p">:</span> <span class="dl">'</span><span class="s1">network-only</span><span class="dl">'</span><span class="p">,</span>
-    <span class="p">})</span>
-    <span class="p">.</span><span class="nx">then</span><span class="p">(({</span> <span class="nx">data</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">data</span> <span class="o">||</span> <span class="o">!</span><span class="nx">data</span><span class="p">.</span><span class="nx">loggedInUser</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-      <span class="p">}</span>
-      <span class="k">return</span> <span class="nb">Boolean</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">loggedInUser</span><span class="p">);</span>
-    <span class="p">})</span>
-    <span class="p">.</span><span class="k">catch</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-    <span class="p">});</span>
-
-  <span class="kd">const</span> <span class="nx">shouldRedirect</span> <span class="o">=</span> <span class="nx">redirectIfAuthed</span> <span class="p">?</span> <span class="nx">isLoggedIn</span> <span class="p">:</span> <span class="o">!</span><span class="nx">isLoggedIn</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">shouldRedirect</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// https://github.com/zeit/next.js/wiki/Redirecting-in-%60getInitialProps%60</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">ctx</span><span class="p">.</span><span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">302</span><span class="p">,</span> <span class="p">{</span>
-        <span class="na">Location</span><span class="p">:</span> <span class="nx">route</span><span class="p">,</span>
-      <span class="p">});</span>
-      <span class="nx">ctx</span><span class="p">.</span><span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-      <span class="nx">Router</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">route</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
-<span class="p">};</span>
-
-<span class="cm">/**
- * General HOC that allows redirection based on authentication. We should not
- * expose this: instead export specific routes and redirect combinations.
- */</span>
-<span class="kd">const</span> <span class="nx">withAuthRedirect</span> <span class="o">=</span> <span class="p">(</span><span class="nx">route</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">redirectIfAuthed</span><span class="p">:</span> <span class="nx">boolean</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">&lt;</span><span class="nx">P</span><span class="p">,</span><span class="o">&gt;</span><span class="p">(</span>
-  <span class="nx">Page</span><span class="p">:</span> <span class="nx">NextComponentType</span><span class="o">&lt;</span><span class="nx">NextPageContext</span><span class="p">,</span> <span class="p">{},</span> <span class="nx">P</span><span class="o">&gt;</span>
-<span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="kd">class</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="o">&lt;</span><span class="nx">P</span><span class="o">&gt;</span> <span class="p">{</span>
-    <span class="k">static</span> <span class="k">async</span> <span class="nx">getInitialProps</span><span class="p">(</span><span class="na">ctx</span><span class="p">:</span> <span class="nx">NextPageContext</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">const</span> <span class="nx">shouldContinue</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">redirectBasedOnLogin</span><span class="p">(</span>
-        <span class="nx">ctx</span><span class="p">,</span>
-        <span class="nx">route</span><span class="p">,</span>
-        <span class="nx">redirectIfAuthed</span>
-      <span class="p">);</span>
-      <span class="c1">// Only continue if we're logged in. Otherwise, it might cause an</span>
-      <span class="c1">// unnecessary call to a downstream getInitialProps that requires</span>
-      <span class="c1">// authentication.</span>
-      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">shouldContinue</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="p">{};</span>
-      <span class="p">}</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">Page</span><span class="p">.</span><span class="nx">getInitialProps</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">Page</span><span class="p">.</span><span class="nx">getInitialProps</span><span class="p">(</span><span class="nx">ctx</span><span class="p">);</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="p">&lt;</span><span class="nc">Page</span> <span class="si">{</span><span class="p">...</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="si">}</span> <span class="p">/&gt;;</span>
-    <span class="p">}</span>
-  <span class="p">};</span>
-<span class="p">};</span>
-
-<span class="cm">/**
- * HOC that redirects to login page if the user is not logged in.
- */</span>
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">withLoginRedirect</span> <span class="o">=</span> <span class="nx">withAuthRedirect</span><span class="p">(</span><span class="dl">'</span><span class="s1">/login</span><span class="dl">'</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
-
-<span class="cm">/**
- * HOC that redirects to the dashboard if the user is logged in.
- */</span>
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">withDashboardRedirect</span> <span class="o">=</span> <span class="nx">withAuthRedirect</span><span class="p">(</span><span class="dl">'</span><span class="s1">/dashboard</span><span class="dl">'</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-
-</code></pre></div></div>
-
-<p>Found this helpful or have suggestions? Leave them in the comments below.</p>
-
-<p>Typing Next.js <code class="language-plaintext highlighter-rouge">getInitialProps</code> HOCs is tricky, and I had trouble finding an
-example online.</p>
-
-<h2 id="versions">Versions</h2>
-<p>At the time of writing, this was using Next 9.</p>
 ]]></content>
   </entry>
   
