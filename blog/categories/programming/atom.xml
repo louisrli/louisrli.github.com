@@ -4,7 +4,7 @@
   <title><![CDATA[Category: programming | Louis Li]]></title>
   <link href="http://louisrli.github.io/blog/categories/programming/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2023-03-01T11:20:22+01:00</updated>
+  <updated>2023-03-01T11:24:32+01:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -14,12 +14,12 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Running Cheap GRPC Web with Docker Containers on ECS and EC2]]></title>
+    <title type="html"><![CDATA[Running Cheap gRPC Web with Docker Containers on ECS and EC2]]></title>
     <link href="http://louisrli.github.io/blog/2023/03/01/running-cheap-grpc-web-with-docker-containers-on-ecs-and-ec2/"/>
     <updated>2023-03-01 00:00:00 +0100</updated>
     <id>http://louisrli.github.io/blog/2023/03/01/running-cheap-grpc-web-with-docker-containers-on-ecs-and-ec2</id>
-    <content type="html"><![CDATA[<p>This article summarizes my quest to stubbornly run a cheap Dockerized GRPC
-server capable of interacting with GRPC Web. I was trying to set up a staging
+    <content type="html"><![CDATA[<p>This article summarizes my quest to stubbornly run a cheap Dockerized gRPC
+server capable of interacting with gRPC Web. I was trying to set up a staging
 instance (not a production instance) for my startup.</p>
 
 <p>In this article, you can learn one of two things:</p>
@@ -40,7 +40,7 @@ deploy there.</p>
 
 <h2 id="background">Background</h2>
 <p>I won’t be explaining from scratch, but I’ll assume some basic
-knowledge of what GRPC, ECS, EC2, VPCs, and subnets are.</p>
+knowledge of what gRPC, ECS, EC2, VPCs, and subnets are.</p>
 
 <p>ECS allows you to deploy containers. The service itself is free. However, you
 can either use AWS Fargate, which is really, really expensive but really
