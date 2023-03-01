@@ -1,24 +1,121 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: programming | Louis Li]]></title>
-  <link href="http://louisrli.github.io/blog/categories/programming/atom.xml" rel="self"/>
-  <link href="http://louisrli.github.io/"/>
-  <updated>2023-03-01T11:20:22+01:00</updated>
-  <id>http://louisrli.github.io/</id>
-  <author>
-    <name><![CDATA[Louis Li]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Running Cheap GRPC Web with Docker Containers on ECS and EC2 - Louis Li</title>
+	<meta name="author" content="Louis Li">
 
+	
+	<meta name="description" content="
+
+
+
+
+
+	Running Cheap GRPC Web with Docker Containers on ECS and EC2
+        
+        Published on 1 March 2023
+	This article summarizes my quest to...">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="fb:admins" content="100001696373537" />
+
+	<link href="http://feeds.feedburner.com/louisligithub" rel="alternate" title="Louis Li" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://louisrli.github.io/blog/2023/03/01/running-cheap-grpc-web-with-docker-containers-on-ecs-and-ec2/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+          </script>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-5225926150102880",
+          enable_page_level_ads: true
+     });
+</script>
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	<script type="text/javascript">
+		$(function(){
+                    $('.profilepic').append("<img src='https://www.gravatar.com/avatar/" + "9f050cf96c6cc933141f0242e5b723fd" + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<hgroup>
+  <h1><a href="/">Louis Li</a></h1>
   
-  <entry>
-    <title type="html"><![CDATA[Running Cheap GRPC Web with Docker Containers on ECS and EC2]]></title>
-    <link href="http://louisrli.github.io/blog/2023/03/01/running-cheap-grpc-web-with-docker-containers-on-ecs-and-ec2/"/>
-    <updated>2023-03-01 00:00:00 +0100</updated>
-    <id>http://louisrli.github.io/blog/2023/03/01/running-cheap-grpc-web-with-docker-containers-on-ecs-and-ec2</id>
-    <content type="html"><![CDATA[<p>This article summarizes my quest to stubbornly run a cheap Dockerized GRPC
+</hgroup>
+
+<p class="subtitle"></p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/categories/projects">Sideprojects</a></li>
+  <li><a href="/publications">Publications</a></li>
+  <li><a href="http://github.com/louisrli">Github</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="mailto:pong@outlook.com">Contact</a></li>
+</ul>
+
+
+<section class="aboutme">
+  <p>
+    Harvard student and developer.
+  </p>
+</section>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		<a class="github" href="https://github.com/louisrli" title="GitHub">GitHub</a>
+		
+		
+		<a class="rss" href="http://feeds.feedburner.com/louisligithub" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			<div class="mid-col-container">
+				<div id="content" class="inner"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Github top leaderboard -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5225926150102880"
+     data-ad-slot="1340213627"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Running Cheap GRPC Web with Docker Containers on ECS and EC2</h1>
+        <h3 class="subtitle" itemprop="subtitle"></h3>
+        <i>Published on 1 March 2023</i>
+	<div class="entry-content" itemprop="articleBody"><p>This article summarizes my quest to stubbornly run a cheap Dockerized GRPC
 server capable of interacting with GRPC Web. I was trying to set up a staging
 instance (not a production instance) for my startup.</p>
 
@@ -353,173 +450,98 @@ to use HTTP to contact an endpoint.</p>
 
 <h2 id="conclusion">Conclusion</h2>
 <p>Documentation in the open source world is not great.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[The TypeScript Web Protobuf Environment in 2023]]></title>
-    <link href="http://louisrli.github.io/blog/2023/02/10/navigating-the-open-source-protobuf-environment-in-2023/"/>
-    <updated>2023-02-10 00:00:00 +0100</updated>
-    <id>http://louisrli.github.io/blog/2023/02/10/navigating-the-open-source-protobuf-environment-in-2023</id>
-    <content type="html"><![CDATA[<p>Another title of this post would be: for protocol buffers in web clients, which
-TypeScript protocol buffer libraries are well-documented, and which ones are
-badly documented?</p>
+</div>
 
-<p>In this post, I’ll talk about the mess that’s the open source TypeScript
-protocol buffer ecosystem. For historical reasons, based on various libraries
-that were released when others didn’t exist, there are some libraries that work
-with each other, some that are outdated, etc. In general, this happens quite
-commonly in the open source ecosystem, and I hope this post helps others.</p>
+</article>
 
-<p>The TLDR, if you want to use protocol buffers with the browser:</p>
+	<div class="share">
+  <!--AddThis Button BEGIN -->
+  <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+    <a class="addthis_button_preferred_1"></a>
+    <a class="addthis_button_preferred_2"></a>
+    <a class="addthis_button_preferred_3"></a>
+    <a class="addthis_button_preferred_4"></a>
+    <a class="addthis_button_compact"></a>
+    <a class="addthis_counter addthis_bubble_style"></a>
+  </div>
+  <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51e5a5762f46bbe9"></script>
+  <!-- AddThis Button END -->
+</div>
 
-<ul>
-  <li>Use <a href="https://github.com/timostamm/protobuf-ts"><code class="language-plaintext highlighter-rouge">protobuf-ts</code></a> and
- <a href="https://github.com/grpc/grpc-web"><code class="language-plaintext highlighter-rouge">grpc/grpc-web</code></a></li>
-  <li>Do <strong>NOT</strong> use <a href="https://github.com/stephenh/ts-proto"><code class="language-plaintext highlighter-rouge">ts-proto</code></a> or <a href="https://github.com/improbable-eng/grpc-web"><code class="language-plaintext highlighter-rouge">improbable-eng/grpc-web</code></a></li>
-</ul>
 
-<!-- more -->
 
-<p>My recommendations don’t even have to do with the functionality necessarily;
-<strong>they’re about the documentation</strong>. Note that documentation doesn’t
-just mean READMEs but also code examples, which are notably missing from the
-ones that I suggest not to use.</p>
+<script async
+  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Github bottom leaderboard -->
+<ins class="adsbygoogle"
+       style="display:block"
+            data-ad-client="ca-pub-5225926150102880"
+                 data-ad-slot="1968553857"
+                      data-ad-format="auto"
+                           data-full-width-responsive="true"></ins>
+  <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
 
-<p>One disclaimer: perhaps for other side use cases those 
-libraries are well-documented. For the particular use case of web RPCs,
-they are lacking.</p>
 
-<p>The rest of the post is mostly an explanation of my findings of the current
-state of TypeScript protobuf tools. If you just want to know which tools to
-use, trust me on the TLDR, and skip the rest of the post.</p>
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
 
-<h2 id="context">Context</h2>
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2023 - Louis Li
+</p>
 
-<p>I wanted to make a simple demo of a TypeScript React client connecting to a
-TypeScript Node backend.</p>
+Theme originally by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+</footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
 
-<p>I used to work at Google for four years, and like
-everyone who’s worked at Google (there’s even a derisive term “proto pusher” to
-sometimes the mindless work of protos), I’ve used protocol buffers extensively. I’m not
-claiming to be the world’s foremost expert on protocol buffers or that I should
-be able to understand anything about protos instantly, but I just want to make
-the point: I’ve used them to set up web flows, data pipelines, clients and
-servers from scratch, etc. With a foundational knowledge of
-protobufs and how they’re transmitted, I should, in theory, be able to find some
-documentation and set up a basic “Hello World” RPC quickly.</p>
 
-<p>Of course, documentation is different inside and outside of Google, but that’s
-the point of this post. Given the wild environment of various solutions created
-at various times, I hope to provide an explanation of what works (until this
-post becomes outdated, of course).</p>
+<script type="text/javascript">
+      var disqus_shortname = 'llgithub';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://louisrli.github.io/blog/2023/03/01/running-cheap-grpc-web-with-docker-containers-on-ecs-and-ec2/';
+        var disqus_url = 'http://louisrli.github.io/blog/2023/03/01/running-cheap-grpc-web-with-docker-containers-on-ecs-and-ec2/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
-<p>In short: after spending five hours desperately searching for documentation to
-use the combination I said not to use (which have higher number of stars on
-GitHub), I set up a working end-to-end connection in 20 minutes using the
-combination that I said to use (<code class="language-plaintext highlighter-rouge">grpc/grpc-web</code> and <code class="language-plaintext highlighter-rouge">protobuf-ts</code>) because of <strong>good
-documentation</strong>.</p>
 
-<h2 id="points-of-confusion">Points of confusion</h2>
 
-<h3 id="type-generation">Type generation</h3>
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32823730-1']);
+		_gaq.push(['_trackPageview']);
 
-<p>You have protocol buffers, which define a contract for entities that you want to
-work with. Now you want to generate Typescript types from those protos.</p>
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
 
-<p>As far as I can tell, there exist two main open source options for type
-generation:</p>
 
-<ul>
-  <li><a href="https://github.com/stephenh/ts-proto"><code class="language-plaintext highlighter-rouge">ts-proto</code></a> (has more stars)</li>
-  <li><a href="https://github.com/timostamm/protobuf-ts"><code class="language-plaintext highlighter-rouge">protobuf-ts</code></a></li>
-</ul>
 
-<p>I think there’s also now TypeScript generation built into the official <code class="language-plaintext highlighter-rouge">protoc</code>,
-but again, the documentation in this world is so obfuscated that I only figured
-that out from reading <code class="language-plaintext highlighter-rouge">grpc/grpc-web</code> example code five directories deep in the
-repository.</p>
 
-<p><code class="language-plaintext highlighter-rouge">protobuf-ts</code> is the clear winner here, simply because of
-<a href="[https://github.com/timostamm/protobuf-ts/blob/master/MANUAL.md](https://github.com/timostamm/protobuf-ts/blob/master/MANUAL.md)"><code class="language-plaintext highlighter-rouge">MANUAL.md</code></a>.
-The <code class="language-plaintext highlighter-rouge">MANUAL.md</code> , while quite long, has stellar examples for use cases on both
-the client- and server- sides. On top of that, there is a <strong>whole folder</strong> of
-<a href="https://github.com/timostamm/protobuf-ts/tree/master/packages">actual code examples</a>,
-while <code class="language-plaintext highlighter-rouge">ts-proto</code>, from what I’ve seen in some responses to the issues, asks you
-read their <a href="https://github.com/stephenh/ts-proto/tree/main/integration">integration
-tests</a> (possible,
-but more difficult than parsing real code examples).</p>
-
-<p>The author of <code class="language-plaintext highlighter-rouge">protobuf-ts</code> has written a <a href="https://github.com/timostamm/protobuf-ts/issues/89">summary of the differences between
-these two libraries</a>,
-although to be
-honest, my currently visualized use case is basic enough that none of these will
-likely matter to me. As someone newly figuring out the integrations in the
-TypeScript protobuf world, I can recommend <code class="language-plaintext highlighter-rouge">protobuf-ts</code> solely due to its
-documentation.</p>
-
-<h3 id="client-side-grpc-client">Client-side GRPC Client</h3>
-
-<p>There are two identically named repositories: <a href="https://github.com/grpc/grpc-web"><code class="language-plaintext highlighter-rouge">grpc/grpc-web</code></a> and
-<a href="https://github.com/improbable-eng/grpc-web"><code class="language-plaintext highlighter-rouge">improbable-eng/grpc-web</code></a>.
-The former is created by Google, and the second by another company. However, the
-second one is in maintenance mode with the recommendation to use the official
-one, which <a href="[https://github.com/improbable-eng/grpc-web](https://github.com/improbable-eng/grpc-web)">wasn’t even posted on the repo until I made a
-PR</a>
-(the maintainer had been warning people on the repo’s issues).</p>
-
-<p>For technical reasons (Google it if you’re curious), using GRPC in the browser requires
-a proxy. The <code class="language-plaintext highlighter-rouge">improbable-eng/grpc-web</code> library requires their own Go binary as a
-proxy, which, upon realizing this, I immediately surmised that it would be
-a nightmare to figure out how to deploy some random Go proxy if I
-wanted to combine it with other things like AWS Lambda, etc. As expected, the 
-<a href="https://github.com/improbable-eng/grpc-web/blob/master/go/grpcwebproxy/README.md">documentation for the proxy</a>
-is scant. I didn’t think that the documentation for deploying
-would be promising either, and as expected, there’s little guidance there,
-except for a few GitHub issues.</p>
-
-<p>In contrast, <code class="language-plaintext highlighter-rouge">grpc/grpc-web</code> suggests using <a href="https://www.envoyproxy.io/">Envoy</a>
-as a proxy, which is quite well-known, well-maintained, and well-documented.
-It has Docker support, and is, in general, more well-vetted.</p>
-
-<p>I initially tried the following combination: <code class="language-plaintext highlighter-rouge">ts-proto</code> with <code class="language-plaintext highlighter-rouge">improbable-eng/grpc-web</code>. Both seemed popular. After getting a semi-working example using these two libraries, I then wanted to try the <code class="language-plaintext highlighter-rouge">ts-proto</code> and official <code class="language-plaintext highlighter-rouge">grpc/grpc-web</code> combinations (moving off the
-<code class="language-plaintext highlighter-rouge">improbable-eng</code> due to the aforementioned proxy). From the <a href="https://github.com/stephenh/ts-proto#supported-options">supported options</a>
-of <code class="language-plaintext highlighter-rouge">ts-proto</code>, it supports
-<code class="language-plaintext highlighter-rouge">improbable-eng/grpc-web</code>, but not the official Google <code class="language-plaintext highlighter-rouge">grpc/grpc-web</code>.</p>
-
-<p>It seems strange that <code class="language-plaintext highlighter-rouge">ts-proto</code> wouldn’t integrate with the official
-Google library. Or maybe it does? But that’s the point — perhaps it does support it, but
-<strong>the documentation isn’t there</strong>. I couldn’t find any code examples, any flag
-documentation, any references, and I couldn’t figure out how to get the types to
-work on my own by digging into the generated types (admittedly due to my own
-lack of knowledge but hey, that’s the point of Hello World examples).</p>
-
-<p>And if it is really true that <code class="language-plaintext highlighter-rouge">ts-proto</code> doesn’t work with the official,
-Google-released version of <code class="language-plaintext highlighter-rouge">grpc/grpc-web</code>, then it suggests that the tool may
-be outdated. Perhaps that version <code class="language-plaintext highlighter-rouge">grpc/grpc-web</code> didn’t exist then, but in any
-case, the documentation should clarify this. The only reference I found to this
-was <a href="https://github.com/stephenh/ts-proto/discussions/422">this answer from the maintainer</a>
-about how the library predates gRPC, if I understood the post correctly.</p>
-
-<h3 id="server-side">Server-side</h3>
-
-<p>For writing a TypeScript Node server, there does exist decent documentation for
-vanilla JavaScript. I just Googled some tutorials and tried to write a TypeScript
-version of the <a href="https://grpc.io/docs/languages/node/basics/">official tutorial</a>.
-Using both <code class="language-plaintext highlighter-rouge">ts-proto</code> and <code class="language-plaintext highlighter-rouge">protobuf-ts</code> here worked fine. Ultimately, I only ran into
-problems with client-side web RPC typing. Nonetheless, you would want to use
-the same generator for both the server and client side.</p>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>In conclusion, documentation. But also, if you are in a similar boat to me and
-want to get started with a basic hello world, TypeScript gRPC web client and
-server, I suggest using the two libraries I talked about.</p>
-
-<p>Finally, I want to say that this post does not mean to detract from the work of
-these open source contributors. Each of these libraries, at some point in time,
-had their crucial role in the ecosystem.</p>
-]]></content>
-  </entry>
-  
-</feed>
+		</div>
+	</div>
+</body>
+</html>

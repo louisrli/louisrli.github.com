@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="http://louisrli.github.io/atom.xml" rel="self"/>
   <link href="http://louisrli.github.io/"/>
-  <updated>2023-02-10T23:28:31+01:00</updated>
+  <updated>2023-03-01T11:20:22+01:00</updated>
   <id>http://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,6 +12,349 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Running Cheap GRPC Web with Docker Containers on ECS and EC2]]></title>
+    <link href="http://louisrli.github.io/blog/2023/03/01/running-cheap-grpc-web-with-docker-containers-on-ecs-and-ec2/"/>
+    <updated>2023-03-01T00:00:00+01:00</updated>
+    <id>http://louisrli.github.io/blog/2023/03/01/running-cheap-grpc-web-with-docker-containers-on-ecs-and-ec2</id>
+    <content type="html"><![CDATA[<p>This article summarizes my quest to stubbornly run a cheap Dockerized GRPC
+server capable of interacting with GRPC Web. I was trying to set up a staging
+instance (not a production instance) for my startup.</p>
+
+<p>In this article, you can learn one of two things:</p>
+<ol>
+  <li>How to deploy Docker containers exposed to the internet for cheap on AWS (price of a
+micro instance)</li>
+  <li>How to deploy a gRPC web server with Envoy on AWS ECS</li>
+</ol>
+
+<p>In this example, we use a TypeScript Node server, but you can generalize it to
+any gRPC server.</p>
+
+<p>I’m aware there’s others, but I have AWS credits, and for production, I do, for
+better or worse, have brand loyalty to AWS. Eventually, I’d need to figure out how to
+deploy there.</p>
+
+<!-- more -->
+
+<h2 id="background">Background</h2>
+<p>I won’t be explaining from scratch, but I’ll assume some basic
+knowledge of what GRPC, ECS, EC2, VPCs, and subnets are.</p>
+
+<p>ECS allows you to deploy containers. The service itself is free. However, you
+can either use AWS Fargate, which is really, really expensive but really
+convenient, or use an EC2 instance to back the containers. Being cheap and also refusing to back down
+due to my ego, I decided to forgo the convenience of Fargate and try to see if I
+could spin up the containers on a micro instance.</p>
+
+<p>To contact a gRPC server from a web browser, it’s <a href="https://yuku.takahashi.coffee/blog/2019/01/grpc-proxy-for-grpc-web">required to use Envoy
+proxy</a>, so
+it’s not as simple as spinning up a server.</p>
+
+<p>In this article, we’ll be spinning up two containers in one task: the Envoy
+proxy and the Node gRPC.</p>
+
+<h2 id="bridge-networking-vs-awsvpc">Bridge networking vs <code class="language-plaintext highlighter-rouge">awsvpc</code></h2>
+<p>You can find on the internet more details about these modes of networking. I
+spent a long time trying to get <code class="language-plaintext highlighter-rouge">awsvpc</code> to work, but it turns out that <a href="https://stackoverflow.com/questions/60878958/how-to-assign-a-public-ip-to-container-running-in-aws-ecs-cluster-in-ec2-mode">you
+can’t assign a public IP to ECS
+tasks</a>.
+This answer gives two ways to do it, but otherwise, there’s no way to easily
+expose the container to the internet.</p>
+
+<p>This is possible with a load balancer. You can have the load balancer be exposed
+to public inbound traffic and then direct it into your VPC. But again – I’m trying to spend, at
+maximum, $10 a month here. A load balancer is another $10, just for my staging
+instance!</p>
+
+<p>In bridge networking, you can map host ports to ports that the container listens
+to. We map the same container port to the same host port in this case for
+convenience, but this also means that, if your EC2 instance is exposed to the
+internet at a certain port, then the ECS container is also exposed to the internet.</p>
+
+<p>In our case, our EC2 instance exposes port <code class="language-plaintext highlighter-rouge">443</code> (through the security rules).
+Our Envoy proxy listens on container port 443 (which is the EC2 instance’s port
+443). It forwards to the host port 9090 (NOT the Envoy container port, as
+explained in the config below), which is listened to by the Node server.</p>
+
+<h2 id="envoy-dockerfile">Envoy Dockerfile</h2>
+<p>The <code class="language-plaintext highlighter-rouge">--platform=linux/amd64</code> is <a href="https://stackoverflow.com/questions/73398714/docker-fails-when-building-on-m1-macs-exec-usr-local-bin-docker-entrypoint-sh">required for M1 Macs</a>.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FROM --platform=linux/amd64 envoyproxy/envoy-dev:e515b02318e55f7f8bcef8db1fde21c1d46990b0
+COPY envoy-staging.yaml /etc/envoy/envoy.yaml
+RUN chmod go+r /etc/envoy/envoy.yaml
+CMD /usr/local/bin/envoy -c /etc/envoy/envoy.yaml
+</code></pre></div></div>
+
+<h2 id="envoy-config">Envoy Config</h2>
+<p>The key trick in the Envoy file here is the one with the commented line: using
+<code class="language-plaintext highlighter-rouge">172.17.0.1</code> in bridge networking allows us to <a href="https://stackoverflow.com/a/68021591/892168">access the
+host</a>. The file
+<code class="language-plaintext highlighter-rouge">envoy-staging.yaml</code>, referenced by the <code class="language-plaintext highlighter-rouge">Dockerfile</code> above:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Taken mostly from grpc-web envoy config in hello world demo
+# https://github.com/grpc/grpc-web/tree/master/net/grpc/gateway/examples/helloworld
+static_resources:
+  listeners:
+    - name: listener_0
+      address:
+        socket_address: { address: 0.0.0.0, port_value: 443 }
+      filter_chains:
+        - filters:
+          - name: envoy.filters.network.http_connection_manager
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+              codec_type: auto
+              stat_prefix: ingress_http
+              route_config:
+                name: local_route
+                virtual_hosts:
+                  - name: local_service
+                    domains: ["*"]
+                    routes:
+                      - match: { prefix: "/" }
+                        route:
+                          cluster: web_backend
+                          max_stream_duration:
+                            grpc_timeout_header_max: 0s
+                    cors:
+                      allow_origin_string_match:
+                        - prefix: "*"
+                      allow_methods: GET, PUT, DELETE, POST, OPTIONS
+                      allow_headers: keep-alive,user-agent,cache-control,content-type,content-transfer-encoding,custom-header-1,x-accept-content-transfer-encoding,x-accept-response-streaming,x-user-agent,x-grpc-web,grpc-timeout
+                      max_age: "1728000"
+                      expose_headers: custom-header-1,grpc-status,grpc-message
+              http_filters:
+                - name: envoy.filters.http.grpc_web
+                  typed_config:
+                    "@type": type.googleapis.com/envoy.extensions.filters.http.grpc_web.v3.GrpcWeb
+                - name: envoy.filters.http.cors
+                  typed_config:
+                    "@type": type.googleapis.com/envoy.extensions.filters.http.cors.v3.Cors
+                - name: envoy.filters.http.router
+                  typed_config:
+                    "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+  clusters:
+    - name: web_backend
+      connect_timeout: 0.25s
+      type: logical_dns
+      http2_protocol_options: {}
+      lb_policy: round_robin
+      load_assignment:
+        cluster_name: cluster_0
+        endpoints:
+          - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    # This assumes bridge networking mode, now we want to
+                    # forward to the host port
+                    # https://stackoverflow.com/a/68021591/892168
+                    address: 172.17.0.1
+                    port_value: 9090
+
+</code></pre></div></div>
+
+<h2 id="typescript-grpc-server-dockerfile">TypeScript gRPC Server Dockerfile</h2>
+
+<p>Make sure to replace <code class="language-plaintext highlighter-rouge">yarn dockerbuild</code> with your own build. In <code class="language-plaintext highlighter-rouge">dockerbuild</code>, I
+skip the step of regenerating the protobufs due to some particular details with
+my directory structure, but you could just run <code class="language-plaintext highlighter-rouge">yarn build</code> here. Also note that
+my build directory is <code class="language-plaintext highlighter-rouge">build/</code>, though I think this might be <code class="language-plaintext highlighter-rouge">dist/</code> by default.</p>
+
+<p>Either way, you can find on Google how to build an image for your server.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># https://www.andreadiotallevi.com/blog/how-to-create-a-production-image-for-a-node-typescript-app-using-docker-multi-stage-builds
+# TODO: This uses yarn dockerbuild right now, which doesn't update the protos.
+# Have to be careful.
+FROM --platform=linux/amd64 node:16-alpine AS builder
+WORKDIR /app
+COPY . .
+RUN yarn install
+RUN yarn dockerbuild
+
+FROM --platform=linux/amd64 node:16-alpine AS final
+WORKDIR /app
+COPY --from=builder ./app/build ./build
+COPY package.json .
+COPY yarn.lock .
+RUN yarn install --production
+CMD [ "yarn", "start" ]
+</code></pre></div></div>
+
+<h2 id="ec2-instance">EC2 Instance</h2>
+<p>You want to use an ECS compatible AMI. The exact AMI that I’m using is
+<code class="language-plaintext highlighter-rouge">ami-06502972b2860f143</code> (<code class="language-plaintext highlighter-rouge">amzn2-ami-ecs-hvm-2.0.20230109-x86_64-ebs</code>), which is
+the standard Linux one provided by Amazon Web Services.</p>
+
+<p>It’s important to set the user data here, as this custom setup is essentially
+the trickiest part of not using Fargate. When you set up the instance, there
+will be a space for user data, for which you should provide:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+echo ECS_CLUSTER=sheets-staging-cluster &gt;&gt; /etc/ecs/ecs.config
+echo ECS_LOGLEVEL=debug &gt;&gt; /etc/ecs/ecs.config
+echo "ECS_AVAILABLE_LOGGING_DRIVERS=[\"awslogs\",\"json-file\"]" &gt;&gt; /etc/ecs/ecs.config
+echo ECS_ENABLE_AWSLOGS_EXECUTIONROLE_OVERRIDE=true &gt;&gt; /etc/ecs/ecs.config
+</code></pre></div></div>
+
+<h2 id="double-checking-the-ecs-config">Double checking the ECS config</h2>
+<p>In this section, I’ll give some debugging tips, in case things don’t go in the
+ideal way.</p>
+
+<p>Be careful with the quoting here. If you’re running into issues related to
+missing attributes, you should SSH to the instance to check the ECS config:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat /etc/ecs/ecs.config
+ECS_CLUSTER=sheets-staging-cluster
+ECS_LOGLEVEL=debug
+ECS_AVAILABLE_LOGGING_DRIVERS=["awslogs","json-file","syslog"]
+ECS_ENABLE_AWSLOGS_EXECUTIONROLE_OVERRIDE=true
+</code></pre></div></div>
+
+<p>You can manually change the config of the instance, but you may need to restart
+the ECS agent:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo systemctl stop ecs &amp;&amp; sudo systemctl start ecs
+</code></pre></div></div>
+
+<p>Finally, you can actually check what environmental variables the <code class="language-plaintext highlighter-rouge">ecs-agent</code> has
+configured:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker inspect ecs-agent | grep Env -A 15
+</code></pre></div></div>
+
+<h2 id="ecs-task-definition">ECS Task Definition</h2>
+<p>Create an ECS cluster in your desired region. Upload your Docker images to
+Amazon (steps not included in this article). We’re going to create a task
+definition, and then instantiate a service using it.</p>
+
+<p>You can use the UI to set up something with the ports as you desire. I’ve also
+included the JSON version of my task definition below. The important things are:</p>
+
+<ul>
+  <li>Two containers: one for Envoy, one for Node</li>
+  <li><a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_awslogs.html">Automatic log
+  configuration</a> using <code class="language-plaintext highlighter-rouge">awslogs</code> as the log driver</li>
+  <li>Bridge networking mode</li>
+  <li>Required ports</li>
+</ul>
+
+<p>The logs are optional, but I highly recommend it, because I (like many people)
+ran into issues with my containers that might have been different than when
+running them locally. For example, <a href="https://stackoverflow.com/questions/73398714/docker-fails-when-building-on-m1-macs-exec-usr-local-bin-docker-entrypoint-sh">I was building them on an M1
+Mac</a>.
+Without logging, you won’t be able to see these errors, and your tasks will
+randomly fail.</p>
+
+<p>It should be noted that the log configuration, at the time of writing, can only
+be set via UI on the initial creation of the task definition, and if you choose
+to edit the task later, you need to type it in using the JSON.</p>
+
+<h3 id="error-when-setting-up-logging">Error when setting up logging</h3>
+
+<p>It ended up being a huge headache for me, because if you don’t configure the EC2
+instance properly, you’ll see an error that says something like:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>is missing an attribute required by your task
+</code></pre></div></div>
+
+<p>The internet suggests using the ECS CLI to check attributes, but for me, it said
+that all attributes were fine. The error
+message itself, unfortunately, is not very clear. What it really means is that you haven’t allowed the correct log drivers on the EC2 instance.</p>
+
+<p>If you are still seeing this message, then you should double check:</p>
+<ul>
+  <li>you’re not using <code class="language-plaintext highlighter-rouge">awsvpc</code> networking (in which case your security group might be wrong)</li>
+  <li>that you set up the user data in the EC2 instance correctly above</li>
+  <li>the user data declares the allowable log drivers correctly</li>
+  <li><code class="language-plaintext highlighter-rouge">ECS_ENABLE_AWSLOGS_EXECUTIONROLE_OVERRIDE</code> is <a href="https://github.com/aws/amazon-ecs-agent/issues/1395">set</a></li>
+</ul>
+
+<h3 id="json-task-definition">JSON Task Definition</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    "family": "envoy-node-bridge",
+    "containerDefinitions": [
+        {
+            "name": "sheets-envoy",
+            "image": "280706339600.dkr.ecr.us-east-2.amazonaws.com/sheets-envoy:dhost",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "name": "sheets-envoy-443-tcp",
+                    "containerPort": 443,
+                    "hostPort": 443,
+                    "protocol": "tcp",
+                    "appProtocol": "grpc"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/envoy-node-bridge",
+                    "awslogs-region": "us-east-2",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
+        },
+        {
+            "name": "sheets-node",
+            "image": "280706339600.dkr.ecr.us-east-2.amazonaws.com/sheets-node:latest",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "name": "sheets-node-9090-tcp",
+                    "containerPort": 9090,
+                    "hostPort": 9090,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/envoy-node-bridge",
+                    "awslogs-region": "us-east-2",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
+        }
+    ],
+    "executionRoleArn": "arn:aws:iam::280706339600:role/ecsTaskExecutionRole",
+    "networkMode": "bridge",
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "cpu": "512",
+    "memory": "1024",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    }
+}
+
+</code></pre></div></div>
+
+<h2 id="setting-up-https">Setting up HTTPS</h2>
+<p>Depending on what frontend you’re using, you may need to set up HTTPS on the EC2
+instance. Since I’m still not at the stage of a production deployment, I decided
+to skip this again by hosting a Next.js website on S3 (without
+HTTPS). For example, Vercel and Netlify weren’t working for me, because they are
+<em>too</em> secure, and all their websites have HTTPS, which means they’re not allowed
+to use HTTP to contact an endpoint.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>Documentation in the open source world is not great.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[The TypeScript Web Protobuf Environment in 2023]]></title>
@@ -3233,104 +3576,6 @@ pass in the stage in a similar way.</p>
     <span class="nx">cookieDomain</span><span class="p">,</span>
   <span class="p">},</span>
 <span class="p">})</span>
-</code></pre></div></div>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Next.js Typescript Integration with Ant Design (antd)]]></title>
-    <link href="http://louisrli.github.io/blog/2019/11/17/next-js-with-antd/"/>
-    <updated>2019-11-17T00:00:00+01:00</updated>
-    <id>http://louisrli.github.io/blog/2019/11/17/next-js-with-antd</id>
-    <content type="html"><![CDATA[<p>This article describes how to add the <a href="antd.design">Antd</a> library to
-<a href="https://nextjs.org">Next.js</a>.</p>
-
-<p>This is based off the
-<a href="https://github.com/zeit/next.js/tree/canary/examples/with-ant-design">with-ant-design</a>
-example in Next.js.</p>
-
-<!--more-->
-
-<h2 id="next-configuration">Next configuration</h2>
-<p>In <code class="language-plaintext highlighter-rouge">next.config.js</code> in the root directory of your Next application, add the
-following:</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/** See https://github.com/zeit/next.js/tree/canary/examples/with-ant-design */</span>
-<span class="kd">const</span> <span class="nx">withCss</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">@zeit/next-css</span><span class="dl">'</span><span class="p">)</span>
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">withCss</span><span class="p">({</span>
-    <span class="na">webpack</span><span class="p">:</span> <span class="p">(</span><span class="nx">config</span><span class="p">,</span> <span class="p">{</span> <span class="nx">isServer</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">isServer</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">const</span> <span class="nx">antStyles</span> <span class="o">=</span> <span class="sr">/antd</span><span class="se">\/</span><span class="sr">.*</span><span class="se">?\/</span><span class="sr">style</span><span class="se">\/</span><span class="sr">css.*</span><span class="se">?</span><span class="sr">/</span>
-      <span class="kd">const</span> <span class="nx">origExternals</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">config</span><span class="p">.</span><span class="nx">externals</span><span class="p">]</span>
-      <span class="nx">config</span><span class="p">.</span><span class="nx">externals</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">request</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-          <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">antStyles</span><span class="p">))</span> <span class="k">return</span> <span class="nx">callback</span><span class="p">()</span>
-          <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">origExternals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">function</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">origExternals</span><span class="p">[</span><span class="mi">0</span><span class="p">](</span><span class="nx">context</span><span class="p">,</span> <span class="nx">request</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span>
-          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="nx">callback</span><span class="p">()</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">...(</span><span class="k">typeof</span> <span class="nx">origExternals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">function</span><span class="dl">'</span> <span class="p">?</span> <span class="p">[]</span> <span class="p">:</span> <span class="nx">origExternals</span><span class="p">),</span>
-      <span class="p">]</span>
-
-      <span class="nx">config</span><span class="p">.</span><span class="nx">module</span><span class="p">.</span><span class="nx">rules</span><span class="p">.</span><span class="nx">unshift</span><span class="p">({</span>
-        <span class="na">test</span><span class="p">:</span> <span class="nx">antStyles</span><span class="p">,</span>
-        <span class="na">use</span><span class="p">:</span> <span class="dl">'</span><span class="s1">null-loader</span><span class="dl">'</span><span class="p">,</span>
-      <span class="p">})</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">config</span>
-  <span class="p">},</span>
-<span class="p">});</span>
-
-</code></pre></div></div>
-
-<p>In <code class="language-plaintext highlighter-rouge">babel.config.js</code>:</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">api</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">{</span>
-    <span class="na">presets</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">next/babel</span><span class="dl">'</span><span class="p">],</span>
-    <span class="na">plugins</span><span class="p">:</span> <span class="p">[</span>
-      <span class="p">[</span>
-        <span class="dl">"</span><span class="s2">import</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
-          <span class="na">libraryName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">antd</span><span class="dl">'</span><span class="p">,</span>
-          <span class="na">style</span><span class="p">:</span> <span class="dl">'</span><span class="s1">css</span><span class="dl">'</span><span class="p">,</span>
-        <span class="p">}</span>
-      <span class="p">]],</span>
-  <span class="p">};</span>
-<span class="p">};</span>
-
-</code></pre></div></div>
-
-<h2 id="example-usage">Example usage</h2>
-
-<p>We are able to import from both <code class="language-plaintext highlighter-rouge">antd</code> and <code class="language-plaintext highlighter-rouge">antd/lib/&lt;component&gt;</code>.</p>
-
-<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
- * An example that imports top-level components from 'antd' and also imports
- * from files under 'antd/lib'.
- */</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">TreeSelect</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">antd</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">TreeNode</span><span class="p">,</span> <span class="nx">TreeSelectProps</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">antd/lib/tree-select</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
-
-<span class="kd">const</span> <span class="nx">TreeSelectView</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">FC</span><span class="o">&lt;</span><span class="nx">TreeSelectProps</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">[]</span><span class="o">&gt;&gt;</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="nx">ref</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
-    <span class="p">&lt;</span><span class="nc">TreeSelect</span>
-      <span class="si">{</span><span class="p">...</span><span class="nx">props</span><span class="si">}</span>
-      <span class="na">treeCheckable</span>
-      <span class="na">treeData</span><span class="p">=</span><span class="si">{</span><span class="p">{}</span><span class="si">}</span>
-      <span class="na">treeDefaultExpandAll</span>
-      <span class="na">style</span><span class="p">=</span><span class="si">{</span><span class="p">{</span> <span class="na">width</span><span class="p">:</span> <span class="mi">300</span> <span class="p">}</span><span class="si">}</span>
-      <span class="na">showCheckedStrategy</span><span class="p">=</span><span class="s">"SHOW_PARENT"</span>
-      <span class="na">ref</span><span class="p">=</span><span class="si">{</span><span class="nx">ref</span><span class="si">}</span>
-    <span class="p">/&gt;</span>
-  <span class="p">);</span>
-<span class="p">};</span>
-
-<span class="k">export</span> <span class="k">default</span> <span class="nx">React</span><span class="p">.</span><span class="nx">forwardRef</span><span class="p">(</span><span class="nx">TreeSelectView</span><span class="p">);</span>
-
 </code></pre></div></div>
 ]]></content>
   </entry>
