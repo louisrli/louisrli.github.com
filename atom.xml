@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Louis Li]]></title>
-  <link href="http://louisrli.github.io/atom.xml" rel="self"/>
-  <link href="http://louisrli.github.io/"/>
-  <updated>2023-03-01T11:24:32+01:00</updated>
-  <id>http://louisrli.github.io/</id>
+  <link href="https://louisrli.github.io/atom.xml" rel="self"/>
+  <link href="https://louisrli.github.io/"/>
+  <updated>2023-03-29T12:22:41+02:00</updated>
+  <id>https://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Running Cheap gRPC Web with Docker Containers on ECS and EC2]]></title>
-    <link href="http://louisrli.github.io/blog/2023/03/01/running-cheap-grpc-web-with-docker-containers-on-ecs-and-ec2/"/>
+    <link href="https://louisrli.github.io/blog/2023/03/01/running-cheap-grpc-web-with-docker-containers-on-ecs-and-ec2/"/>
     <updated>2023-03-01T00:00:00+01:00</updated>
-    <id>http://louisrli.github.io/blog/2023/03/01/running-cheap-grpc-web-with-docker-containers-on-ecs-and-ec2</id>
+    <id>https://louisrli.github.io/blog/2023/03/01/running-cheap-grpc-web-with-docker-containers-on-ecs-and-ec2</id>
     <content type="html"><![CDATA[<p>This article summarizes my quest to stubbornly run a cheap Dockerized gRPC
 server capable of interacting with gRPC Web. I was trying to set up a staging
 instance (not a production instance) for my startup.</p>
@@ -358,9 +358,9 @@ to use HTTP to contact an endpoint.</p>
   
   <entry>
     <title type="html"><![CDATA[The TypeScript Web Protobuf Environment in 2023]]></title>
-    <link href="http://louisrli.github.io/blog/2023/02/10/navigating-the-open-source-protobuf-environment-in-2023/"/>
+    <link href="https://louisrli.github.io/blog/2023/02/10/navigating-the-open-source-protobuf-environment-in-2023/"/>
     <updated>2023-02-10T00:00:00+01:00</updated>
-    <id>http://louisrli.github.io/blog/2023/02/10/navigating-the-open-source-protobuf-environment-in-2023</id>
+    <id>https://louisrli.github.io/blog/2023/02/10/navigating-the-open-source-protobuf-environment-in-2023</id>
     <content type="html"><![CDATA[<p>Another title of this post would be: for protocol buffers in web clients, which
 TypeScript protocol buffer libraries are well-documented, and which ones are
 badly documented?</p>
@@ -524,9 +524,9 @@ had their crucial role in the ecosystem.</p>
   
   <entry>
     <title type="html"><![CDATA[Automatically Generating Anki Cloze Cards from Reverso]]></title>
-    <link href="http://louisrli.github.io/blog/2022/11/17/automatically-generating-anki-cloze-cards-from-reverso/"/>
+    <link href="https://louisrli.github.io/blog/2022/11/17/automatically-generating-anki-cloze-cards-from-reverso/"/>
     <updated>2022-11-17T00:00:00+01:00</updated>
-    <id>http://louisrli.github.io/blog/2022/11/17/automatically-generating-anki-cloze-cards-from-reverso</id>
+    <id>https://louisrli.github.io/blog/2022/11/17/automatically-generating-anki-cloze-cards-from-reverso</id>
     <content type="html"><![CDATA[<p>I’ve recently released a tool that I’ve personally been using (hoarding) for ten
 months to generate <a href="https://apps.ankiweb.net/">Anki</a> language cards given only a
 list of terms. The <a href="https://github.com/louisrli/anki-reverso-cloze">Anki Reverso Cloze
@@ -559,9 +559,9 @@ suggestions using a GitHub issue or the comment section below.</p>
   
   <entry>
     <title type="html"><![CDATA[Supetar Bus Departure Schedule (Croatia)]]></title>
-    <link href="http://louisrli.github.io/blog/2022/10/15/supetar-bus-departure-schedule/"/>
+    <link href="https://louisrli.github.io/blog/2022/10/15/supetar-bus-departure-schedule/"/>
     <updated>2022-10-15T21:15:33+02:00</updated>
-    <id>http://louisrli.github.io/blog/2022/10/15/supetar-bus-departure-schedule</id>
+    <id>https://louisrli.github.io/blog/2022/10/15/supetar-bus-departure-schedule</id>
     <content type="html"><![CDATA[<p>This article contains the bus schedule for departures Supetar, Croatia on the island of Brač.</p>
 
 <!-- more -->
@@ -583,9 +583,9 @@ other travelers.</p>
   
   <entry>
     <title type="html"><![CDATA[Liden and Denz Moscow Review, aka Language Group Courses vs italki]]></title>
-    <link href="http://louisrli.github.io/blog/2022/07/15/liden-and-denz-review/"/>
+    <link href="https://louisrli.github.io/blog/2022/07/15/liden-and-denz-review/"/>
     <updated>2022-07-15T00:00:00+02:00</updated>
-    <id>http://louisrli.github.io/blog/2022/07/15/liden-and-denz-review</id>
+    <id>https://louisrli.github.io/blog/2022/07/15/liden-and-denz-review</id>
     <content type="html"><![CDATA[<p>This article will answer the following questions in order:</p>
 <ul>
   <li>What exactly happens in the course at Liden and Denz?</li>
@@ -899,9 +899,9 @@ efficient use of one’s time, but it still has the potential to be good.</p>
   
   <entry>
     <title type="html"><![CDATA[Connecting an Elastic Beanstalk Backend to Cloudfront]]></title>
-    <link href="http://louisrli.github.io/blog/2021/04/15/elastic-beanstalk-cloudfront-cache/"/>
+    <link href="https://louisrli.github.io/blog/2021/04/15/elastic-beanstalk-cloudfront-cache/"/>
     <updated>2021-04-15T00:00:00+02:00</updated>
-    <id>http://louisrli.github.io/blog/2021/04/15/elastic-beanstalk-cloudfront-cache</id>
+    <id>https://louisrli.github.io/blog/2021/04/15/elastic-beanstalk-cloudfront-cache</id>
     <content type="html"><![CDATA[<p>Given an existing server on Elastic Beanstalk, this tutorial describes how to
 connect it to Cloudfront, including using Route53 and managing CORS.</p>
 
@@ -972,9 +972,9 @@ Route53). Happy caching!</p>
   
   <entry>
     <title type="html"><![CDATA[Understanding the Turkish Accusative]]></title>
-    <link href="http://louisrli.github.io/blog/2021/01/14/understanding-the-turkish-accusative/"/>
+    <link href="https://louisrli.github.io/blog/2021/01/14/understanding-the-turkish-accusative/"/>
     <updated>2021-01-14T00:00:00+01:00</updated>
-    <id>http://louisrli.github.io/blog/2021/01/14/understanding-the-turkish-accusative</id>
+    <id>https://louisrli.github.io/blog/2021/01/14/understanding-the-turkish-accusative</id>
     <content type="html"><![CDATA[<style>
 blockquote {
   font-style: unset;
@@ -1337,9 +1337,9 @@ internet – go check out some Turkish YouTube comments.</p>
   
   <entry>
     <title type="html"><![CDATA[Next.js Rewrites, Amazon S3, and Trailing Slashes]]></title>
-    <link href="http://louisrli.github.io/blog/2020/12/21/next-dot-js-rewrites/"/>
+    <link href="https://louisrli.github.io/blog/2020/12/21/next-dot-js-rewrites/"/>
     <updated>2020-12-21T00:00:00+01:00</updated>
-    <id>http://louisrli.github.io/blog/2020/12/21/next-dot-js-rewrites</id>
+    <id>https://louisrli.github.io/blog/2020/12/21/next-dot-js-rewrites</id>
     <content type="html"><![CDATA[<p>This post talks about how to set up Next.js rewrites to point to a static site
 hosted on Amazon S3, in particular how to deal with trailing slashes.</p>
 
@@ -1494,9 +1494,9 @@ interaction given the quirks of the two opposing redirect rules.</p>
   
   <entry>
     <title type="html"><![CDATA[Advice for Coding Bootcamp Students]]></title>
-    <link href="http://louisrli.github.io/blog/2020/11/22/advice-for-students/"/>
+    <link href="https://louisrli.github.io/blog/2020/11/22/advice-for-students/"/>
     <updated>2020-11-22T00:00:00+01:00</updated>
-    <id>http://louisrli.github.io/blog/2020/11/22/advice-for-students</id>
+    <id>https://louisrli.github.io/blog/2020/11/22/advice-for-students</id>
     <content type="html"><![CDATA[<p>As an instructor, I find myself giving the same advice frequently to many
 students. In this article, I’ve distilled my most common recommendations into
 one place, especially since I worry that students might be missing out on advice
@@ -1815,9 +1815,9 @@ consequently having the luxury of spending time for a job search.</p>
   
   <entry>
     <title type="html"><![CDATA[Typesafe Unit Testing of GraphQL Resolvers in TypeScript]]></title>
-    <link href="http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript/"/>
+    <link href="https://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript/"/>
     <updated>2020-10-09T00:00:00+02:00</updated>
-    <id>http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript</id>
+    <id>https://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-resolver-typescript</id>
     <content type="html"><![CDATA[<p>This post gives a code example on how to unit test a GraphQL resolver with Jest
 in TypeScript. In order to make the testing typesafe, we use <a href="https://graphql-code-generator.com/">GraphQL Code
 Generator</a>.</p>
@@ -1951,9 +1951,9 @@ off what was written in <a href="https://github.com/dotansimha/graphql-code-gene
   
   <entry>
     <title type="html"><![CDATA[Unit Testing of GraphQL Middleware in TypeScript]]></title>
-    <link href="http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-middleware-typescript/"/>
+    <link href="https://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-middleware-typescript/"/>
     <updated>2020-10-09T00:00:00+02:00</updated>
-    <id>http://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-middleware-typescript</id>
+    <id>https://louisrli.github.io/blog/2020/10/09/unit-testing-graphql-middleware-typescript</id>
     <content type="html"><![CDATA[<p>This post gives a code example on how to unit test a GraphQL middleware in
 TypeScript with Jest, using the Express GraphQL middleware resolver
 <a href="https://github.com/maticzav/graphql-shield">graphql-shield</a> as an example. It
@@ -2063,9 +2063,9 @@ use in the permissions as well (independent of GraphQL).</p>
   
   <entry>
     <title type="html"><![CDATA[Istanbul Frontend Bootcamp Retrospective]]></title>
-    <link href="http://louisrli.github.io/blog/2020/07/02/teaching-thoughts/"/>
+    <link href="https://louisrli.github.io/blog/2020/07/02/teaching-thoughts/"/>
     <updated>2020-07-02T00:00:00+02:00</updated>
-    <id>http://louisrli.github.io/blog/2020/07/02/teaching-thoughts</id>
+    <id>https://louisrli.github.io/blog/2020/07/02/teaching-thoughts</id>
     <content type="html"><![CDATA[<p>This post is a compendium of my thoughts as an instructor for a
 non-profit coding bootcamp teaching frontend web development (JavaScript and
 React). It first establishes the context, then explores the best ways to
@@ -2550,9 +2550,9 @@ landing a job on a weak currency or a strong one.</p>
   
   <entry>
     <title type="html"><![CDATA[Traveling from Istanbul to Şile by Bus]]></title>
-    <link href="http://louisrli.github.io/blog/2020/07/01/istanbul-to-sile/"/>
+    <link href="https://louisrli.github.io/blog/2020/07/01/istanbul-to-sile/"/>
     <updated>2020-07-01T00:00:00+02:00</updated>
-    <id>http://louisrli.github.io/blog/2020/07/01/istanbul-to-sile</id>
+    <id>https://louisrli.github.io/blog/2020/07/01/istanbul-to-sile</id>
     <content type="html"><![CDATA[<p>The intention of this post is to document how to travel from Istanbul to Şile by
 bus. At the time of writing, there do not appear to be any English resources for
 this route. The official IETT app and Google Maps both document this incorrectly.</p>
@@ -2600,9 +2600,9 @@ how.</p>
   
   <entry>
     <title type="html"><![CDATA[Using MathJax with React]]></title>
-    <link href="http://louisrli.github.io/blog/2020/06/04/react-mathjax/"/>
+    <link href="https://louisrli.github.io/blog/2020/06/04/react-mathjax/"/>
     <updated>2020-06-04T00:00:00+02:00</updated>
-    <id>http://louisrli.github.io/blog/2020/06/04/react-mathjax</id>
+    <id>https://louisrli.github.io/blog/2020/06/04/react-mathjax</id>
     <content type="html"><![CDATA[<p>This post describes how to use React (Typescript) and MathJax.</p>
 
 <!-- more -->
@@ -2673,9 +2673,9 @@ dynamically load scripts in React</a>.</p>
   
   <entry>
     <title type="html"><![CDATA[Dynamic Script Loading in React with Hooks]]></title>
-    <link href="http://louisrli.github.io/blog/2020/06/04/react-dynamic-script-hook/"/>
+    <link href="https://louisrli.github.io/blog/2020/06/04/react-dynamic-script-hook/"/>
     <updated>2020-06-04T00:00:00+02:00</updated>
-    <id>http://louisrli.github.io/blog/2020/06/04/react-dynamic-script-hook</id>
+    <id>https://louisrli.github.io/blog/2020/06/04/react-dynamic-script-hook</id>
     <content type="html"><![CDATA[<p>This post describes how to dynamically load a script by adding a script tag to
 your document using React Hooks.</p>
 
@@ -2738,9 +2738,9 @@ provided, then it removes the script from the page when the component unmounts
   
   <entry>
     <title type="html"><![CDATA[Fiilimsi: Turkish Verbal Nouns, Adjectives, and Adverbs]]></title>
-    <link href="http://louisrli.github.io/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives/"/>
+    <link href="https://louisrli.github.io/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives/"/>
     <updated>2020-04-20T00:00:00+02:00</updated>
-    <id>http://louisrli.github.io/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives</id>
+    <id>https://louisrli.github.io/blog/2020/04/20/turkish-fiilimsi-verbal-derivatives</id>
     <content type="html"><![CDATA[<style>
 blockquote {
   font-style: unset;
@@ -3286,9 +3286,9 @@ language resource for these verbal adverbs.</p>
   
   <entry>
     <title type="html"><![CDATA[Sim Card Price in Turkey in February 2020]]></title>
-    <link href="http://louisrli.github.io/blog/2020/02/21/sim-card/"/>
+    <link href="https://louisrli.github.io/blog/2020/02/21/sim-card/"/>
     <updated>2020-02-21T00:00:00+01:00</updated>
-    <id>http://louisrli.github.io/blog/2020/02/21/sim-card</id>
+    <id>https://louisrli.github.io/blog/2020/02/21/sim-card</id>
     <content type="html"><![CDATA[<p>Getting a SIM card in Turkey for short to medium term stays in Turkey is
 straightforward. In this article, I describe my experience with prices in
 <em>February 2020</em> using Turkcell.</p>
@@ -3328,9 +3328,9 @@ registering everything.</p>
   
   <entry>
     <title type="html"><![CDATA[Sahibinden: The Craigslist of Turkey]]></title>
-    <link href="http://louisrli.github.io/blog/2020/02/21/sahibinden/"/>
+    <link href="https://louisrli.github.io/blog/2020/02/21/sahibinden/"/>
     <updated>2020-02-21T00:00:00+01:00</updated>
-    <id>http://louisrli.github.io/blog/2020/02/21/sahibinden</id>
+    <id>https://louisrli.github.io/blog/2020/02/21/sahibinden</id>
     <content type="html"><![CDATA[<p><strong>Sahibinden</strong> (literally, “owners”) is the Craigslist equivalent of Turkey.</p>
 
 <!-- more -->
@@ -3388,9 +3388,9 @@ actually looks a lot worse in person.</li>
   
   <entry>
     <title type="html"><![CDATA[The Best ATM (No-Fee) in Istanbul, Turkey]]></title>
-    <link href="http://louisrli.github.io/blog/2020/02/21/best-atm-in-istanbul-turkey/"/>
+    <link href="https://louisrli.github.io/blog/2020/02/21/best-atm-in-istanbul-turkey/"/>
     <updated>2020-02-21T00:00:00+01:00</updated>
-    <id>http://louisrli.github.io/blog/2020/02/21/best-atm-in-istanbul-turkey</id>
+    <id>https://louisrli.github.io/blog/2020/02/21/best-atm-in-istanbul-turkey</id>
     <content type="html"><![CDATA[<p>The best ATM in Istanbul, Turkey is a coveted title. There’s a lot of banks that
 accept international cards, but some of them will try to extract more money from
 you via service fee or dynamic currency conversion (DCC).</p>
@@ -3526,9 +3526,9 @@ link</a>.</p>
   
   <entry>
     <title type="html"><![CDATA[Staging and production cookies in Next.js]]></title>
-    <link href="http://louisrli.github.io/blog/2019/11/20/staging-and-production-cookies-in-next-js/"/>
+    <link href="https://louisrli.github.io/blog/2019/11/20/staging-and-production-cookies-in-next-js/"/>
     <updated>2019-11-20T00:00:00+01:00</updated>
-    <id>http://louisrli.github.io/blog/2019/11/20/staging-and-production-cookies-in-next-js</id>
+    <id>https://louisrli.github.io/blog/2019/11/20/staging-and-production-cookies-in-next-js</id>
     <content type="html"><![CDATA[<p>This article describes how add authentication to your
 <a href="https://nextjs.org">Next.js</a> app using cookies and JWT. In this example, we
 use cookies to authenticate against a GraphQL Yoga backend. Additionally, we

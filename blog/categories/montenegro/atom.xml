@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: montenegro | Louis Li]]></title>
-  <link href="http://louisrli.github.io/blog/categories/montenegro/atom.xml" rel="self"/>
-  <link href="http://louisrli.github.io/"/>
-  <updated>2023-03-01T11:24:32+01:00</updated>
-  <id>http://louisrli.github.io/</id>
+  <link href="https://louisrli.github.io/blog/categories/montenegro/atom.xml" rel="self"/>
+  <link href="https://louisrli.github.io/"/>
+  <updated>2023-03-29T12:22:41+02:00</updated>
+  <id>https://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Transportation from Tirana to Ulcinj / Budva / Kotor]]></title>
-    <link href="http://louisrli.github.io/blog/2015/09/01/tirana-kotor/"/>
+    <link href="https://louisrli.github.io/blog/2015/09/01/tirana-kotor/"/>
     <updated>2015-09-01 00:00:00 +0200</updated>
-    <id>http://louisrli.github.io/blog/2015/09/01/tirana-kotor</id>
+    <id>https://louisrli.github.io/blog/2015/09/01/tirana-kotor</id>
     <content type="html"><![CDATA[<p>This article describes directions from Tirana, Albania to Ulcinj / Budva / Kotor, Montenegro by bus,
 based on my travels in August 2015. It is possible
 to start early and arrive in Kotor by the afternoon, but be prepared to wake up early to ride four

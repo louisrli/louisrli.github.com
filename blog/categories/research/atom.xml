@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: research | Louis Li]]></title>
-  <link href="http://louisrli.github.io/blog/categories/research/atom.xml" rel="self"/>
-  <link href="http://louisrli.github.io/"/>
-  <updated>2023-03-01T11:24:32+01:00</updated>
-  <id>http://louisrli.github.io/</id>
+  <link href="https://louisrli.github.io/blog/categories/research/atom.xml" rel="self"/>
+  <link href="https://louisrli.github.io/"/>
+  <updated>2023-03-29T12:22:41+02:00</updated>
+  <id>https://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Five Research Tips for First-Time Undergraduate Researchers]]></title>
-    <link href="http://louisrli.github.io/blog/2013/06/28/researchtips/"/>
+    <link href="https://louisrli.github.io/blog/2013/06/28/researchtips/"/>
     <updated>2013-06-28 00:00:00 +0200</updated>
-    <id>http://louisrli.github.io/blog/2013/06/28/researchtips</id>
+    <id>https://louisrli.github.io/blog/2013/06/28/researchtips</id>
     <content type="html"><![CDATA[<p>Today, I submitted my first extended abstract to the ASSETS 2013 Student Research Competition. This marks my first tangible output in undergraduate research. This isn’t quite the end of the story – I plan to continue gathering results and writing a paper for submission to CHI. It is, however, time for reflection.</p>
 
 <!-- more -->

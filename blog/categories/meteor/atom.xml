@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: meteor | Louis Li]]></title>
-  <link href="http://louisrli.github.io/blog/categories/meteor/atom.xml" rel="self"/>
-  <link href="http://louisrli.github.io/"/>
-  <updated>2023-03-01T11:24:32+01:00</updated>
-  <id>http://louisrli.github.io/</id>
+  <link href="https://louisrli.github.io/blog/categories/meteor/atom.xml" rel="self"/>
+  <link href="https://louisrli.github.io/"/>
+  <updated>2023-03-29T12:22:41+02:00</updated>
+  <id>https://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[How To Use Meteor.js Routing with Disqus]]></title>
-    <link href="http://louisrli.github.io/blog/2013/07/29/using-meteor-js-with-disqus/"/>
+    <link href="https://louisrli.github.io/blog/2013/07/29/using-meteor-js-with-disqus/"/>
     <updated>2013-07-29 00:00:00 +0200</updated>
-    <id>http://louisrli.github.io/blog/2013/07/29/using-meteor-js-with-disqus</id>
+    <id>https://louisrli.github.io/blog/2013/07/29/using-meteor-js-with-disqus</id>
     <content type="html"><![CDATA[<p>On most sites, using Disqus as the commenting system is as simple as copying the <a href="http://disqus.com/admin/universalcode/">Universal Code</a> (also known as <code class="language-plaintext highlighter-rouge">embed.js</code>) into a web page. In single-page JavaScript applications, however, much of the rendering is on the client-side. This means that <code class="language-plaintext highlighter-rouge">embed.js</code> might lead to stale Disqus threads or function incorrectly as pages are re-rendered.</p>
 
 <p>This article explains how to integrate Disqus with <a href="http://meteor.com">Meteor.js</a> (version 0.6.4.1 at the time of writing). If you want one Disqus thread for each route, copying the Universal Code won’t ensure that Disqus loads the correct thread for each page. Instead, the comments will either fail to load or retrieve a stale thread.</p>

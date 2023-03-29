@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://louisrli.github.io/sitemap.xml 
+Sitemap: https://louisrli.github.io/sitemap.xml 

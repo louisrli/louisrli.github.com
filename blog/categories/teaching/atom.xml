@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: teaching | Louis Li]]></title>
-  <link href="http://louisrli.github.io/blog/categories/teaching/atom.xml" rel="self"/>
-  <link href="http://louisrli.github.io/"/>
-  <updated>2023-03-01T11:24:32+01:00</updated>
-  <id>http://louisrli.github.io/</id>
+  <link href="https://louisrli.github.io/blog/categories/teaching/atom.xml" rel="self"/>
+  <link href="https://louisrli.github.io/"/>
+  <updated>2023-03-29T12:22:41+02:00</updated>
+  <id>https://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Advice for Coding Bootcamp Students]]></title>
-    <link href="http://louisrli.github.io/blog/2020/11/22/advice-for-students/"/>
+    <link href="https://louisrli.github.io/blog/2020/11/22/advice-for-students/"/>
     <updated>2020-11-22 00:00:00 +0100</updated>
-    <id>http://louisrli.github.io/blog/2020/11/22/advice-for-students</id>
+    <id>https://louisrli.github.io/blog/2020/11/22/advice-for-students</id>
     <content type="html"><![CDATA[<p>As an instructor, I find myself giving the same advice frequently to many
 students. In this article, I’ve distilled my most common recommendations into
 one place, especially since I worry that students might be missing out on advice
@@ -336,9 +336,9 @@ consequently having the luxury of spending time for a job search.</p>
   
   <entry>
     <title type="html"><![CDATA[Being a Better Teaching Assistant: Five Concrete Tips]]></title>
-    <link href="http://louisrli.github.io/blog/2015/01/28/five-tips-for-being-an-effective-teaching-fellow/"/>
+    <link href="https://louisrli.github.io/blog/2015/01/28/five-tips-for-being-an-effective-teaching-fellow/"/>
     <updated>2015-01-28 05:13:28 +0100</updated>
-    <id>http://louisrli.github.io/blog/2015/01/28/five-tips-for-being-an-effective-teaching-fellow</id>
+    <id>https://louisrli.github.io/blog/2015/01/28/five-tips-for-being-an-effective-teaching-fellow</id>
     <content type="html"><![CDATA[<p>The purpose of this post is to provide concrete pointers to becoming a better undergraduate teaching
 fellow (Harvard lingo for student instructor, course assistant, etc.).</p>
 

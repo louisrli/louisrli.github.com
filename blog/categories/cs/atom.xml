@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: cs | Louis Li]]></title>
-  <link href="http://louisrli.github.io/blog/categories/cs/atom.xml" rel="self"/>
-  <link href="http://louisrli.github.io/"/>
-  <updated>2023-03-01T11:24:32+01:00</updated>
-  <id>http://louisrli.github.io/</id>
+  <link href="https://louisrli.github.io/blog/categories/cs/atom.xml" rel="self"/>
+  <link href="https://louisrli.github.io/"/>
+  <updated>2023-03-29T12:22:41+02:00</updated>
+  <id>https://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Wrapping up the summer]]></title>
-    <link href="http://louisrli.github.io/blog/2012/07/12/scala-and-summer/"/>
+    <link href="https://louisrli.github.io/blog/2012/07/12/scala-and-summer/"/>
     <updated>2012-07-12 00:00:00 +0200</updated>
-    <id>http://louisrli.github.io/blog/2012/07/12/scala-and-summer</id>
+    <id>https://louisrli.github.io/blog/2012/07/12/scala-and-summer</id>
     <content type="html"><![CDATA[<p>It’s one of those posts that relates to everyone, but it had been on the edge of my mind recently. This post, titled the “<a href="http://tilomitra.com/the-crazy-world-of-code">Crazy World of Code</a>”, appeared on Hacker News a few days ago. It references a comment on a different HN article.</p>
 
 <!-- more -->
@@ -51,9 +51,9 @@
   
   <entry>
     <title type="html"><![CDATA[The Beginning of Systems]]></title>
-    <link href="http://louisrli.github.io/blog/2012/07/08/systems-prog/"/>
+    <link href="https://louisrli.github.io/blog/2012/07/08/systems-prog/"/>
     <updated>2012-07-08 00:00:00 +0200</updated>
-    <id>http://louisrli.github.io/blog/2012/07/08/systems-prog</id>
+    <id>https://louisrli.github.io/blog/2012/07/08/systems-prog</id>
     <content type="html"><![CDATA[<p>That went by fast.</p>
 
 <p>Today, I finished both of my introductions to systems programming: the book <a href="http://www.amazon.com/Hacking-The-Art-Exploitation-Edition/dp/1593271441/">Hacking - The Art of Exploitation 2e</a> (since June) and the <a href="http://cs61.seas.harvard.edu/wiki/Schedule">lecture slides</a> (since three weeks ago) for the Harvard systems programming course, CS61. I thought I’d commemorate.</p>

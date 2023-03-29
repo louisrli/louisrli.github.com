@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: language | Louis Li]]></title>
-  <link href="http://louisrli.github.io/blog/categories/language/atom.xml" rel="self"/>
-  <link href="http://louisrli.github.io/"/>
-  <updated>2023-03-01T11:24:32+01:00</updated>
-  <id>http://louisrli.github.io/</id>
+  <link href="https://louisrli.github.io/blog/categories/language/atom.xml" rel="self"/>
+  <link href="https://louisrli.github.io/"/>
+  <updated>2023-03-29T12:22:41+02:00</updated>
+  <id>https://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Automatically Generating Anki Cloze Cards from Reverso]]></title>
-    <link href="http://louisrli.github.io/blog/2022/11/17/automatically-generating-anki-cloze-cards-from-reverso/"/>
+    <link href="https://louisrli.github.io/blog/2022/11/17/automatically-generating-anki-cloze-cards-from-reverso/"/>
     <updated>2022-11-17 00:00:00 +0100</updated>
-    <id>http://louisrli.github.io/blog/2022/11/17/automatically-generating-anki-cloze-cards-from-reverso</id>
+    <id>https://louisrli.github.io/blog/2022/11/17/automatically-generating-anki-cloze-cards-from-reverso</id>
     <content type="html"><![CDATA[<p>I’ve recently released a tool that I’ve personally been using (hoarding) for ten
 months to generate <a href="https://apps.ankiweb.net/">Anki</a> language cards given only a
 list of terms. The <a href="https://github.com/louisrli/anki-reverso-cloze">Anki Reverso Cloze

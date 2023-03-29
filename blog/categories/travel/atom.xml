@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: travel | Louis Li]]></title>
-  <link href="http://louisrli.github.io/blog/categories/travel/atom.xml" rel="self"/>
-  <link href="http://louisrli.github.io/"/>
-  <updated>2023-03-01T11:24:32+01:00</updated>
-  <id>http://louisrli.github.io/</id>
+  <link href="https://louisrli.github.io/blog/categories/travel/atom.xml" rel="self"/>
+  <link href="https://louisrli.github.io/"/>
+  <updated>2023-03-29T12:22:41+02:00</updated>
+  <id>https://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Supetar Bus Departure Schedule (Croatia)]]></title>
-    <link href="http://louisrli.github.io/blog/2022/10/15/supetar-bus-departure-schedule/"/>
+    <link href="https://louisrli.github.io/blog/2022/10/15/supetar-bus-departure-schedule/"/>
     <updated>2022-10-15 21:15:33 +0200</updated>
-    <id>http://louisrli.github.io/blog/2022/10/15/supetar-bus-departure-schedule</id>
+    <id>https://louisrli.github.io/blog/2022/10/15/supetar-bus-departure-schedule</id>
     <content type="html"><![CDATA[<p>This article contains the bus schedule for departures Supetar, Croatia on the island of Brač.</p>
 
 <!-- more -->
@@ -39,9 +39,9 @@ other travelers.</p>
   
   <entry>
     <title type="html"><![CDATA[Liden and Denz Moscow Review, aka Language Group Courses vs italki]]></title>
-    <link href="http://louisrli.github.io/blog/2022/07/15/liden-and-denz-review/"/>
+    <link href="https://louisrli.github.io/blog/2022/07/15/liden-and-denz-review/"/>
     <updated>2022-07-15 00:00:00 +0200</updated>
-    <id>http://louisrli.github.io/blog/2022/07/15/liden-and-denz-review</id>
+    <id>https://louisrli.github.io/blog/2022/07/15/liden-and-denz-review</id>
     <content type="html"><![CDATA[<p>This article will answer the following questions in order:</p>
 <ul>
   <li>What exactly happens in the course at Liden and Denz?</li>
@@ -355,9 +355,9 @@ efficient use of one’s time, but it still has the potential to be good.</p>
   
   <entry>
     <title type="html"><![CDATA[Traveling from Istanbul to Şile by Bus]]></title>
-    <link href="http://louisrli.github.io/blog/2020/07/01/istanbul-to-sile/"/>
+    <link href="https://louisrli.github.io/blog/2020/07/01/istanbul-to-sile/"/>
     <updated>2020-07-01 00:00:00 +0200</updated>
-    <id>http://louisrli.github.io/blog/2020/07/01/istanbul-to-sile</id>
+    <id>https://louisrli.github.io/blog/2020/07/01/istanbul-to-sile</id>
     <content type="html"><![CDATA[<p>The intention of this post is to document how to travel from Istanbul to Şile by
 bus. At the time of writing, there do not appear to be any English resources for
 this route. The official IETT app and Google Maps both document this incorrectly.</p>
@@ -405,9 +405,9 @@ how.</p>
   
   <entry>
     <title type="html"><![CDATA[Sim Card Price in Turkey in February 2020]]></title>
-    <link href="http://louisrli.github.io/blog/2020/02/21/sim-card/"/>
+    <link href="https://louisrli.github.io/blog/2020/02/21/sim-card/"/>
     <updated>2020-02-21 00:00:00 +0100</updated>
-    <id>http://louisrli.github.io/blog/2020/02/21/sim-card</id>
+    <id>https://louisrli.github.io/blog/2020/02/21/sim-card</id>
     <content type="html"><![CDATA[<p>Getting a SIM card in Turkey for short to medium term stays in Turkey is
 straightforward. In this article, I describe my experience with prices in
 <em>February 2020</em> using Turkcell.</p>
@@ -447,9 +447,9 @@ registering everything.</p>
   
   <entry>
     <title type="html"><![CDATA[Sahibinden: The Craigslist of Turkey]]></title>
-    <link href="http://louisrli.github.io/blog/2020/02/21/sahibinden/"/>
+    <link href="https://louisrli.github.io/blog/2020/02/21/sahibinden/"/>
     <updated>2020-02-21 00:00:00 +0100</updated>
-    <id>http://louisrli.github.io/blog/2020/02/21/sahibinden</id>
+    <id>https://louisrli.github.io/blog/2020/02/21/sahibinden</id>
     <content type="html"><![CDATA[<p><strong>Sahibinden</strong> (literally, “owners”) is the Craigslist equivalent of Turkey.</p>
 
 <!-- more -->
