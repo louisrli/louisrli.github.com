@@ -4,7 +4,7 @@
   <title><![CDATA[Louis Li]]></title>
   <link href="https://louisrli.github.io/atom.xml" rel="self"/>
   <link href="https://louisrli.github.io/"/>
-  <updated>2023-03-29T12:22:58+02:00</updated>
+  <updated>2023-06-13T14:17:11+02:00</updated>
   <id>https://louisrli.github.io/</id>
   <author>
     <name><![CDATA[Louis Li]]></name>
@@ -12,6 +12,231 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Effectively Using Anki Flashcards for Language Learning]]></title>
+    <link href="https://louisrli.github.io/blog/2023/06/13/effectively-using-anki-flashcards-for-language-learning/"/>
+    <updated>2023-06-13T00:00:00+02:00</updated>
+    <id>https://louisrli.github.io/blog/2023/06/13/effectively-using-anki-flashcards-for-language-learning</id>
+    <content type="html"><![CDATA[<p>I’ve been using Anki to study foreign languages for three years now, and I
+consistently spend about an hour a day using it. So far, I’ve utilized Anki, to
+varying degrees, in my study of three languages: Turkish, Russian, and Italian.</p>
+
+<p>But truthfully, I can’t say that my time spent doing Anki has always been
+effective. In fact, when I look back, I feel that sometimes I actually <em>wasted</em> time by using Anki.
+However, Anki does have its role in effectively learning languages.</p>
+
+<p>The goal of this article is to provide tips to use Anki for
+those who have already tried or are currently using it but
+may be using it ineffectively. It assumes background knowledge about how Anki
+works; I won’t explain the Anki-related terminology.</p>
+
+<!-- more -->
+
+<h2 id="tips-for-effectively-using-anki">Tips for Effectively Using Anki</h2>
+
+<h3 id="study-target-language-to-native-language">Study target language to native language</h3>
+<p>Suppose my native language is English, and I’m studying Russian. This means that
+I recommend learning all your cards with the English side on the front, and the
+testing yourself with the Russian side on the back.</p>
+
+<p>Some people like to learn the “recognition side” first (Russian front, English
+back). I did this for over three thousand words in Russian, and in retrospect,
+I regretted it. It was not effective. I would often see the words later in other contexts but not recognize them, meaning that the time spent studying them was ineffective.</p>
+
+<p>In theory, learning this way should allow you to
+recognize many words. In practice, this doesn’t happen, because of two problems. 
+The first is that our brain has all types of ways to cheat remembering the
+definitions of those cards: “Oh yeah, there’s a card in this deck that means
+‘to believe’, and it sounds/looks vaguely like this word. Ok, this one probably means ‘to believe.’” The second is that
+recognizing a word in a foreign language is very, very far from
+being able to produce the syllables to say it. Even if you recognize a word in writing or speech, you will still be very from incorporating that word in your active vocabulary – the words that you can pull out in speech. Having English in the
+front and testing for the Russian word forces you to produce the word maximizes the possibility that you will eventually use it in conversation.</p>
+
+<h3 id="you-should-punish-small-mistakes-with-again">You should punish “small” mistakes with “Again”</h3>
+<p>You should also mark the word wrong if you get even one syllable or
+letter off, which will happen frequently: our brains often remember that a word consists of certain letters or starts in a certain way, but we can’t always remember the
+full word.</p>
+
+<p>This ties closely to using a word in conversation. It may seem strict to punish what seems like such a small mistake in recalling
+a word, but I’ve found that even a one letter mistake quite unforgiving. For
+example, if I said the word “onforgiving” instead of “unforgiving” to you, it
+could definitely be a source of confusion. Or “confasion” instead of
+“confusion.” Or “instod” instead of “instead.” Sure, people might be able to
+figure it out. I’ve done this countless times, as would any language learner.
+Sometimes, people still understood me; however, there were also many times
+where people did <em>not</em> understand what I meant to say.</p>
+
+<p>I remember one time in St. Petersburg, where I got one vowel wrong on a word, since I had trouble pronouncing a vowel that doesn’t exist in English. I’ll approximate the romanization: I kept saying “resheel” (to decide), but it’s pronounced closer to “resh-uh-l.” Seems close enough, right? My conversation partner didn’t understand, and he asked me to repeat five times, before I finally wrote it out on my phone. This story concretely illustrates the power of a one vowel difference.</p>
+
+<p>In the context of Anki, if you recall even a “small” part of the word wrong, don’t chalk it off as a small error. These things matter.</p>
+
+<h3 id="dont-spend-too-much-time-making-your-own-cards">Don’t spend too much time making your own cards</h3>
+<p>Conventional advice states that, supposedly, the most “effective”
+learning comes from crafting your own cards. Such comments are ubiquitous in
+language learning forums. I disagree.</p>
+
+<p>I want to emphasize that in this article, <strong>effectively</strong> means not
+only effectively in terms of <em>learning</em> but also in terms of <em>time</em>. It depends
+on one’s goals when learning a language, but in my opinion, to start comfortably
+having conversations about various topics, one really needs to know <em>thousands</em>
+of words.</p>
+
+<p>First, part of being an effective learner is acknowledging the limits of your
+discipline. Creating your own cards is a painstaking process, and I don’t think
+that most people have the willpower to do this for <em>thousands</em> of words. If you
+do, more power to you: the process works for you. I’m talking here not about making cards for fifty
+something words, but for, let’s say, the 800 new words or phrases that are
+highlighted in the Kindle (this is approximately how many words I unload
+from my Kindle each time).</p>
+
+<p>But in my perspective, making your own cards is simply not the most
+effective use of the limited time we have to learn a language.  For those familiar with programming,
+I’ve written <a href="LINK">a script</a> to quickly create high quality cards at
+scale, automatically pulling definitions and example sentences into Anki cards.</p>
+
+<h3 id="test-phrases-and-include-prepositions">Test phrases and include prepositions</h3>
+<p>Even though we’ve been brainwashed to think of languages the basic unit of the “word”, 
+learning words in isolation can be problematic for language learners.</p>
+
+<p>When I was learning Turkish and partway through learning Russian, this was one
+of the biggest mistakes that I made. I would learn a word, but often I would use
+it incorrectly, because <strong>words are very frequently not used in isolation</strong> but
+in conjunction with auxiliary parts (prepositions, set phrases, etc.).</p>
+
+<p>For example, take the English word “jump.” In real life, one does not frequently use the word “jump” in isolation. “I jumped,” as if you were surprised. More frequently, we use it with a preposition. Jumped over. Jumped up. Jumped on. It’s tempting for an English student to simply learn the word “to jump,” but learning this infinitive does not truly enable you to use it in a sentence. An Anki card should instead test for the phrase “jumped over” or “jumped on” with appropriate example sentences for each phrase.</p>
+
+<p>Another example: You can say “I believe him”, or “I
+believe <strong>in</strong> him”, both of which have completely different meanings. In this
+case, if you were learning English, you might want separate cards for “believe X” and “believe in X”.</p>
+
+<p>Prepositions are an example common to many languages (though not all languages
+have the concept of prepositions as a separate word), but they are only one
+example. In general, I tend now to make cards for phrases instead of individual
+words. When I highlight words while reading on the Kindle, I often highlight
+phrases where I already know all of the words contained in the phrase. But I
+ask myself: <strong>would I ever produce this combination of words myself?</strong> If the
+answer is no, then it gets highlighted and turned into a card.</p>
+
+<p>Don’t be scared to edit existing cards to include prepositions. If I see a card
+with a single word but notice that the example sentences seem to co-occur with
+a certain preposition, I’ll usually edit the card so that it tests the usage of
+the preposition too.</p>
+
+<p>The above section is slightly abstract, since it’s hard to generalize to every
+language. But the point is – focus on <strong>what you need to know to
+utilize a word or phrase in real life</strong>. Learn that unit, instead of the isolated unit of a
+word.</p>
+
+<h3 id="make-cards-for-things-you-understand-but-wouldnt-say">Make cards for things you understand but wouldn’t say</h3>
+<p>When you hear or read a phrase, develop a habit of considering whether it’s in
+your active vocabulary – the vocabulary that you could produce in conversation
+or writing. As I mentioned, when I read, I often highlight phrases (to make
+Anki cards later) that I <em>completely</em> understand. Maybe I know every word in
+the phrase. If I read it in a book, I would understand it instantly. If I heard
+it, I would understand it.</p>
+
+<p>I began to understand, however, that this doesn’t mean that I could say it in a
+conversation. We learn to incorporate such phrases into our “speaking corpus”
+if we hear them enough times: over and over. But it’s not always possible to
+learn to speak simply that way: maybe the phrase is rarer, we don’t read
+enough, or we don’t actively file those phrases away.  Anki can accelerate the
+process of internalizing such phrases.</p>
+
+<p>The essential point is: when you hear or read <strong>anything</strong>, think not only
+about whether you understood it, but whether you could say it yourself. And of
+course, consider whether you even <em>want</em> to be able to say it (there’s no need
+to speak like a 19th century Russian judge in a short story).</p>
+
+<p>I’ve made cards for very, very simple phrases – phrases that seem like they
+would be learned in the first two months of studying a language, but ones that I
+noticed were a gap in my knowledge. These gaps differ for every person.
+In my case, I find that I struggle with concrete, real life
+words, even though I understand them. This is most likely a result of most time
+being spent self-studying – a fairly common situation. When I read, I’m often
+marking simple phrases, like “he picked up the X” or “he went around the
+corner.”</p>
+
+<p>At some point, this habit of thinking “Would I say this?” even extended to
+my native language. When I hear something in English, I consider whether
+or not I would ever say the same thing.</p>
+
+<h3 id="add-audio-when-possible">Add audio when possible</h3>
+<p>I’m (now) a huge advocate of adding audio to every card. For some reason, I held out on this for a long time.</p>
+
+<p>The problem was this: it was common for me to be able to read a word, but I would either:</p>
+<ul>
+  <li>mispronounce it if I said it aloud</li>
+  <li>not recognize it if I heard it (only if I read it)</li>
+</ul>
+
+<p>Ideally, if a word is learned properly, this should rarely happen.</p>
+
+<p><a href="https://github.com/AwesomeTTS/awesometts-anki-addon">AwesomeTTS</a> makes it easy to add audio to every card.
+I refrained from using it for an embarrassingly long time – years – because I was too lazy to figure it out. I promise you that it’s extremely straightforward.</p>
+
+<p>Note, however, that AwesomeTTS can give the wrong pronunciation for more
+advanced words. Double check with Wiktionary or another resource when possible.
+For example, on more obscure Russian words, it’ll often place the stress in the
+wrong place.</p>
+
+<h3 id="require-multiple-intervals-to-recover-failed-cards">Require multiple intervals to recover failed cards</h3>
+<p>By default, when you “Again” a graduated card in Anki, it returns to the main review pool. 
+For a card that already has long intervals 
+(i.e., answered correctly many times in the past), I found that having to
+only hit “Again” once didn’t truly test retention.</p>
+
+<p>I recently discovered that it’s possible to require multiple intervals to bring the
+card back the review pool. That is: if I “Again” a card, I have to answer correctly twice in a row in order for Anki to consider that I once again “know” the card. I set those intervals to 15 minutes and six hours. You can play around with one longer interval or two intervals, but I’ve found
+that requiring two intervals for “Again” cards has greatly improved my
+retention.</p>
+
+<h3 id="catch-and-reset-leeches-fast">Catch and reset leeches fast</h3>
+<p>Be aware of cards that you (supposedly) learned recently but are getting wrong
+immediately afterwards.</p>
+
+<p>Anki learning intervals are personal. In my case, I have the following learning
+intervals: six hours, one day, three days. Afterwards, the card enters the
+review pool. Over the past few years, I’ve tried to be more cognizant of cards
+that recently finished the learning intervals, but the the first or second time
+I see it in the review pool, I mark it as wrong (Again). In theory, this means
+that my learning intervals are wrong, but this doesn’t happen often. When such
+a thing happens and I notice it, I reset the card immediately. I didn’t truly
+learn it, and I shouldn’t continue the charade that I have.</p>
+
+<p>If you find this happening, you can either try re-adjusting your learning
+intervals, or, as I’m advocating here, simply be very liberal with resetting
+cards that you thought you had learned but are getting wrong early in the
+review phase.</p>
+
+<h3 id="use-images-when-possible">Use images when possible</h3>
+
+<p>Images are extremely helpful in retaining concrete words. For most people, this will coincide more closely to the actual situation of using a word: we conjure an image in our head, then we think of the word. When possible, especially for concrete words (“glove”, “sidewalk”, etc.), you should add an image.</p>
+
+<p>However, a few things prevent us from the ideal world where every card has an image.</p>
+
+<ol>
+  <li>Some words just don’t have a good, unambiguous image associated with them</li>
+  <li>Image search (Google, Bing, Yandex) sometimes don’t always yield good results in other languages</li>
+</ol>
+
+<h2 id="what-do-my-cards-look-like-now">What do my cards look like now?</h2>
+
+<p>Using the script that I’ve mentioned earlier in the article, I supply a list of words, generating definitions and example sentences from Reverso.
+I also add additional links, making it possible to check pronunciation, consult an alternative definition, or add an image.</p>
+
+<p>Below is an example of the card after answering (both the front and the back of the card are shown in this image).</p>
+
+<p><img src="/images/anki-example.png" alt="Example Anki Card" /></p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>Frankly, I haven’t done a ton of reading on how other people use Anki for
+language learning. Had I done so, I probably would have learned many of these
+principles earlier. If you’ve noticed the same things in your studying, leave a
+comment below; I’d be interested to hear your experience with finding the most
+effective ways to use Anki.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Running Cheap gRPC Web with Docker Containers on ECS and EC2]]></title>
@@ -3521,62 +3746,6 @@ the ones above.</p>
 referral
 link</a>.</p>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Staging and production cookies in Next.js]]></title>
-    <link href="https://louisrli.github.io/blog/2019/11/20/staging-and-production-cookies-in-next-js/"/>
-    <updated>2019-11-20T00:00:00+01:00</updated>
-    <id>https://louisrli.github.io/blog/2019/11/20/staging-and-production-cookies-in-next-js</id>
-    <content type="html"><![CDATA[<p>This article describes how add authentication to your
-<a href="https://nextjs.org">Next.js</a> app using cookies and JWT. In this example, we
-use cookies to authenticate against a GraphQL Yoga backend. Additionally, we
-pass parameters based on the deployment stage (local, staging ,or production) of
-our app.</p>
-
-<!--more-->
-
-<h2 id="deploy-stage-environmental-variable">Deploy stage environmental variable</h2>
-<p>In this example, we are using <a href="TODO">Apex Up</a>, which automatically generates an
-environmental variable <code class="language-plaintext highlighter-rouge">UP_STAGE</code>. Depending on your deployment process, you can
-pass in the stage in a similar way.</p>
-
-<p>We also pass in the following environmental variables:</p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">BACKEND_URI_STAGING</code>: The expected domain of the GraphQL backend in staging</li>
-  <li><code class="language-plaintext highlighter-rouge">BACKEND_URI_PROD</code>: The expected domain of the GraphQL backend in prod</li>
-</ul>
-
-<p>In <code class="language-plaintext highlighter-rouge">next.config.js</code> in the root directory of your Next application:</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Set up environmental variables for deployment. </span>
-<span class="c1">// UP_STAGE comes with UP (https://github.com/apex/up-examples/tree/master/pro/env-static)</span>
-<span class="kd">let</span> <span class="nx">backendUri</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">http://localhost:4000</span><span class="dl">'</span><span class="p">;</span>
-<span class="kd">let</span> <span class="nx">cookieDomain</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">localhost</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">staging</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">backendUri</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">BACKEND_URI_STAGING</span><span class="p">;</span>
-  <span class="c1">// Using a domain like foo.com includes all subdomains of foo.com.</span>
-  <span class="nx">cookieDomain</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">stage.foo.com</span><span class="dl">'</span><span class="p">;</span>
-<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">production</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">backendUri</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">BACKEND_URI_PROD</span><span class="p">;</span>
-  <span class="nx">cookieDomain</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">stage.foo.com</span><span class="dl">'</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">backendUri</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">'</span><span class="s1">No backend URI found for : </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Using backend URI: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">backendUri</span><span class="p">);</span>
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">withCss</span><span class="p">({</span>
-  <span class="c1">// target: 'serverless',</span>
-  <span class="na">env</span><span class="p">:</span> <span class="p">{</span>
-    <span class="na">upStage</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span><span class="p">,</span>
-    <span class="nx">backendUri</span><span class="p">,</span>
-    <span class="nx">cookieDomain</span><span class="p">,</span>
-  <span class="p">},</span>
-<span class="p">})</span>
-</code></pre></div></div>
 ]]></content>
   </entry>
   

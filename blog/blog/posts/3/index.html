@@ -28,7 +28,7 @@
 
 
 
-    17 November 2019
+    20 November 2019
 
 		
 
@@ -39,10 +39,10 @@
 
 		
 	
-	Next.js Typescript Integration with Ant Design (antd)
+	Staging and production cookies in Next.js
 	
 
- ...">
+          Thi...">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -127,6 +127,93 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner"><div class="blog-index">
   
+  
+
+      
+  
+    <article>
+      
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+
+
+<time datetime="2019-11-20T00:00:00+01:00" data-updated="true" itemprop="datePublished">
+    20 November 2019
+</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/react/'>react</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2019/11/20/staging-and-production-cookies-in-next-js/" itemprop="url">Staging and production cookies in Next.js</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+
+          <p>This article describes how add authentication to your
+<a href="https://nextjs.org">Next.js</a> app using cookies and JWT. In this example, we
+use cookies to authenticate against a GraphQL Yoga backend. Additionally, we
+pass parameters based on the deployment stage (local, staging ,or production) of
+our app.</p>
+
+<!--more-->
+
+<h2 id="deploy-stage-environmental-variable">Deploy stage environmental variable</h2>
+<p>In this example, we are using <a href="TODO">Apex Up</a>, which automatically generates an
+environmental variable <code class="language-plaintext highlighter-rouge">UP_STAGE</code>. Depending on your deployment process, you can
+pass in the stage in a similar way.</p>
+
+<p>We also pass in the following environmental variables:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">BACKEND_URI_STAGING</code>: The expected domain of the GraphQL backend in staging</li>
+  <li><code class="language-plaintext highlighter-rouge">BACKEND_URI_PROD</code>: The expected domain of the GraphQL backend in prod</li>
+</ul>
+
+<p>In <code class="language-plaintext highlighter-rouge">next.config.js</code> in the root directory of your Next application:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Set up environmental variables for deployment. </span>
+<span class="c1">// UP_STAGE comes with UP (https://github.com/apex/up-examples/tree/master/pro/env-static)</span>
+<span class="kd">let</span> <span class="nx">backendUri</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">http://localhost:4000</span><span class="dl">'</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">cookieDomain</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">localhost</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">staging</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">backendUri</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">BACKEND_URI_STAGING</span><span class="p">;</span>
+  <span class="c1">// Using a domain like foo.com includes all subdomains of foo.com.</span>
+  <span class="nx">cookieDomain</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">stage.foo.com</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">production</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">backendUri</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">BACKEND_URI_PROD</span><span class="p">;</span>
+  <span class="nx">cookieDomain</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">stage.foo.com</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">backendUri</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">'</span><span class="s1">No backend URI found for : </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Using backend URI: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">backendUri</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">withCss</span><span class="p">({</span>
+  <span class="c1">// target: 'serverless',</span>
+  <span class="na">env</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">upStage</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UP_STAGE</span><span class="p">,</span>
+    <span class="nx">backendUri</span><span class="p">,</span>
+    <span class="nx">cookieDomain</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+		<a href="/blog/2019/11/20/staging-and-production-cookies-in-next-js/" class="more-link">Read more</a>
+	</div>
+
+
+    </article>
   
 
       
@@ -984,53 +1071,6 @@ show!).</p>
 
 
 		<a href="/blog/2015/09/02/dubrovnik-best-currency-exchange/" class="more-link">Read more</a>
-	</div>
-
-
-    </article>
-  
-
-      
-  
-    <article>
-      
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-
-
-<time datetime="2015-09-01T00:00:00+02:00" data-updated="true" itemprop="datePublished">
-    1 September 2015
-</time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/albania/'>albania</a>, <a class='category' href='/blog/categories/montenegro/'>montenegro</a>, <a class='category' href='/blog/categories/travel/'>travel</a>
-
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/09/01/tirana-kotor/" itemprop="url">Transportation from Tirana to Ulcinj / Budva / Kotor</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-
-          <p>This article describes directions from Tirana, Albania to Ulcinj / Budva / Kotor, Montenegro by bus,
-based on my travels in August 2015. It is possible
-to start early and arrive in Kotor by the afternoon, but be prepared to wake up early to ride four
-buses.</p>
-
-<p>I caught the
-first bus at 7:00 and arrived in Kotor around 14:00.</p>
-
-
-		<a href="/blog/2015/09/01/tirana-kotor/" class="more-link">Read more</a>
 	</div>
 
 
